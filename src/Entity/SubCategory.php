@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SubCategoryRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -43,6 +45,22 @@ class SubCategory
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'yes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CmsUser $createdUser = null;
+
+    #[ORM\ManyToOne(inversedBy: 'yes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?MainCategory $mainCategoryId = null;
+
+    #[ORM\OneToMany(mappedBy: 'subCategory', targetEntity: CategoryClick::class, orphanRemoval: true)]
+    private Collection $categoryClicks;
+
+    public function __construct()
+    {
+        $this->categoryClicks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -165,6 +183,60 @@ class SubCategory
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCreatedUser(): ?CmsUser
+    {
+        return $this->createdUser;
+    }
+
+    public function setCreatedUser(?CmsUser $createdUser): static
+    {
+        $this->createdUser = $createdUser;
+
+        return $this;
+    }
+
+    public function getMainCategoryId(): ?MainCategory
+    {
+        return $this->mainCategoryId;
+    }
+
+    public function setMainCategoryId(?MainCategory $mainCategoryId): static
+    {
+        $this->mainCategoryId = $mainCategoryId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CategoryClick>
+     */
+    public function getCategoryClicks(): Collection
+    {
+        return $this->categoryClicks;
+    }
+
+    public function addCategoryClick(CategoryClick $categoryClick): static
+    {
+        if (!$this->categoryClicks->contains($categoryClick)) {
+            $this->categoryClicks->add($categoryClick);
+            $categoryClick->setSubCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoryClick(CategoryClick $categoryClick): static
+    {
+        if ($this->categoryClicks->removeElement($categoryClick)) {
+            // set the owning side to null (unless already changed)
+            if ($categoryClick->getSubCategory() === $this) {
+                $categoryClick->setSubCategory(null);
+            }
+        }
 
         return $this;
     }

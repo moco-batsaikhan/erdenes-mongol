@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\ContentType;
+use App\Entity\CategoryClick;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<ContentType>
+ * @extends ServiceEntityRepository<CategoryClick>
  *
- * @method ContentType|null find($id, $lockMode = null, $lockVersion = null)
- * @method ContentType|null findOneBy(array $criteria, array $orderBy = null)
- * @method ContentType[]    findAll()
- * @method ContentType[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CategoryClick|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CategoryClick|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CategoryClick[]    findAll()
+ * @method CategoryClick[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ContentTypeRepository extends ServiceEntityRepository
+class CategoryClickRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, ContentType::class);
+        parent::__construct($registry, CategoryClick::class);
     }
 
 //    /**
-//     * @return ContentType[] Returns an array of ContentType objects
+//     * @return CategoryClick[] Returns an array of CategoryClick objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class ContentTypeRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?ContentType
+//    public function findOneBySomeField($value): ?CategoryClick
 //    {
 //        return $this->createQueryBuilder('c')
 //            ->andWhere('c.exampleField = :val')

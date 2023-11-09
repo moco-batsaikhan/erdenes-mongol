@@ -26,6 +26,10 @@ class Currency
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'currency')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?CmsUser $createdUser = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +79,18 @@ class Currency
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getCreatedUser(): ?CmsUser
+    {
+        return $this->createdUser;
+    }
+
+    public function setCreatedUser(?CmsUser $createdUser): static
+    {
+        $this->createdUser = $createdUser;
 
         return $this;
     }

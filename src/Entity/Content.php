@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ContentRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -15,141 +17,104 @@ class Content
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $enTitle = null;
+    private ?string $name = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mnTitle = null;
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cnTitle = null;
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $body = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $mnContent = null;
+    #[ORM\Column]
+    private ?int $priority = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $enContent = null;
+    #[ORM\OneToMany(mappedBy: 'content', targetEntity: ContentConnection::class, orphanRemoval: true)]
+    private Collection $contentConnections;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $cnContent = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?bool $isSpecial = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $createdAt = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $updatedAt = null;
+    public function __construct()
+    {
+        $this->contentConnections = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getEnTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->enTitle;
+        return $this->name;
     }
 
-    public function setEnTitle(?string $enTitle): static
+    public function setName(?string $name): static
     {
-        $this->enTitle = $enTitle;
+        $this->name = $name;
 
         return $this;
     }
 
-    public function getMnTitle(): ?string
+    public function getType(): ?string
     {
-        return $this->mnTitle;
+        return $this->type;
     }
 
-    public function setMnTitle(?string $mnTitle): static
+    public function setType(string $type): static
     {
-        $this->mnTitle = $mnTitle;
+        $this->type = $type;
 
         return $this;
     }
 
-    public function getCnTitle(): ?string
+    public function getBody(): ?string
     {
-        return $this->cnTitle;
+        return $this->body;
     }
 
-    public function setCnTitle(?string $cnTitle): static
+    public function setBody(string $body): static
     {
-        $this->cnTitle = $cnTitle;
+        $this->body = $body;
 
         return $this;
     }
 
-    public function getMnContent(): ?string
+    public function getPriority(): ?int
     {
-        return $this->mnContent;
+        return $this->priority;
     }
 
-    public function setMnContent(?string $mnContent): static
+    public function setPriority(int $priority): static
     {
-        $this->mnContent = $mnContent;
+        $this->priority = $priority;
 
         return $this;
     }
 
-    public function getEnContent(): ?string
+    /**
+     * @return Collection<int, ContentConnection>
+     */
+    public function getContentConnections(): Collection
     {
-        return $this->enContent;
+        return $this->contentConnections;
     }
 
-    public function setEnContent(?string $enContent): static
+    public function addContentConnection(ContentConnection $contentConnection): static
     {
-        $this->enContent = $enContent;
+        if (!$this->contentConnections->contains($contentConnection)) {
+            $this->contentConnections->add($contentConnection);
+            $contentConnection->setContent($this);
+        }
 
         return $this;
     }
 
-    public function getCnContent(): ?string
+    public function removeContentConnection(ContentConnection $contentConnection): static
     {
-        return $this->cnContent;
-    }
-
-    public function setCnContent(?string $cnContent): static
-    {
-        $this->cnContent = $cnContent;
-
-        return $this;
-    }
-
-    public function isIsSpecial(): ?bool
-    {
-        return $this->isSpecial;
-    }
-
-    public function setIsSpecial(?bool $isSpecial): static
-    {
-        $this->isSpecial = $isSpecial;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(?\DateTimeInterface $createdAt): static
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
-    {
-        $this->updatedAt = $updatedAt;
+        if ($this->contentConnections->removeElement($contentConnection)) {
+            // set the owning side to null (unless already changed)
+            if ($contentConnection->getContent() === $this) {
+                $contentConnection->setContent(null);
+            }
+        }
 
         return $this;
     }
