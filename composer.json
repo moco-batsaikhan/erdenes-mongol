@@ -7,6 +7,7 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "doctrine/annotations": "*",
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
@@ -15,6 +16,7 @@
         "symfony/flex": "^1.17|^2",
         "symfony/framework-bundle": "5.4.*",
         "symfony/runtime": "5.4.*",
+        "symfony/security-bundle": "5.4.*",
         "symfony/yaml": "5.4.*"
     },
     "config": {
@@ -67,6 +69,11 @@
         }
     },
     "require-dev": {
-        "symfony/maker-bundle": "^1.50"
+        "symfony/form": "5.4.*",
+        "symfony/maker-bundle": "^1.50",
+        "symfony/twig-bundle": "5.4.*",
+        "symfony/validator": "5.4.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     }
 }
