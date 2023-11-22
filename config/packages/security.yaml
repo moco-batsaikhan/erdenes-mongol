@@ -3,6 +3,8 @@ security:
   # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
   password_hashers:
     Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: "auto"
+    App\Entity\CmsUser:
+      algorithm: auto
   # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
   providers:
     # used to reload user from session & other features (e.g. switch_user)
@@ -13,28 +15,18 @@ security:
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
-      security: false
+      security: true
     main:
       lazy: true
       provider: app_user_provider
-      # custom_authenticator: App\Security\LoginFormAuthenticator
-      form_login:
-        login_path: app_login
-        check_path: app_login
-        enable_csrf: true
-        default_target_path: app_admin
-        always_use_default_target_path: true
-        use_referer: true
+#      custom_authenticator: App\Security\LoginFormAuthenticator
+      guard:
+        authenticators:
+          - App\Security\LoginFormAuthenticator
       logout:
         path: app_logout
         # where to redirect after logout
         # target: app_any_route
-
-      remember_me:
-        secret: "%kernel.secret%"
-        lifetime: 604800
-        path: /
-        always_remember_me: true
 
       # activate different ways to authenticate
       # https://symfony.com/doc/current/security.html#the-firewall
@@ -45,15 +37,5 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/$, roles: ROLE_ADMIN }
     # - { path: ^/profile, roles: ROLE_USER }
-
-when@test:
-  security:
-    password_hashers:
-      App\Entity\CmsUser: "auto"
-      Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
-        algorithm: auto
-        cost: 4 # Lowest possible value for bcrypt
-        time_cost: 3 # Lowest possible value for argon
-        memory_cost: 10 # Lowest possible value for argon

@@ -56,6 +56,13 @@ Encore
     // enables Sass/SCSS support
     .enableSassLoader()
 
+
+    .addEntry('app', './assets/app.js')
+    // .addEntry('js/app', './assets/js/app.js')
+    // .addStyleEntry('css/app')
+    // .addStyleEntry('css/app', './assets/css/app.scss')
+    .enableSingleRuntimeChunk()
+
     // uncomment if you use TypeScript
     //.enableTypeScriptLoader()
 
@@ -67,7 +74,14 @@ Encore
     //.enableIntegrityHashes(Encore.isProduction())
 
     // uncomment if you're having problems with a jQuery plugin
-    //.autoProvidejQuery()
+    .autoProvidejQuery()
+
+    .autoProvideVariables({
+        $: 'jquery',
+        jQuery: 'jquery',
+        'window.jQuery': 'jquery',
+    })
+
 ;
 
 module.exports = Encore.getWebpackConfig();
