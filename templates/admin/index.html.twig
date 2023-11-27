@@ -1,11 +1,55 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Admin
+{% block title %}
+	{{ page_title }}
 {% endblock %}
 
 {% block body %}
 
 
-	<div class="example-wrapper"></div>
+	<div class="card shadow mb-4">
+		<div class="card-header py-3">
+
+			<div>
+				<a href="{{ path('app_admin_create') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
+			<hr>
+
+			<h6 class="m-0 font-weight-bold text-primary">{{ section_title }}</h6>
+		</div>
+		<div class="card-body">
+			<div class="table-responsive">
+				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>id</th>
+							<th>Хэрэглэгчийн нэр</th>
+							<th>Хэрэглэгчийн эрх</th>
+							<th>Үйлдэл</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for admin in admins %}
+							<tr>
+								<td>{{ admin.id }}</td>
+								<td>{{ admin.username }}</td>
+								<td>{{ admin.username }}</td>
+								<td>
+									<button type="button" class="btn btn-success">
+										<i class="fas fa-edit"></i>
+									</button>
+									<button type="button" class="btn btn-danger">
+										<i class="far fa-trash-alt"></i>
+									</button>
+								</td>
+							{% endfor %}
+						</tbody>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
 
 {% endblock %}
