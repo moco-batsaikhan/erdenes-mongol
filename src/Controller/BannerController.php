@@ -18,7 +18,6 @@ use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Omines\DataTablesBundle\Column\TextColumn;
 use App\Form\BannerCreateFormType;
-//use App\Form\BannerEditFormType;
 use Psr\Log\LoggerInterface;
 
 #[Route('/banner', name: 'app_banner')]
@@ -37,7 +36,6 @@ class BannerController extends AbstractController
     {
         $bannerRepo = $em->getRepository(Banner::class);
         $banner = $bannerRepo->findAll();
-
 
         return $this->render('banner/index.html.twig', [
             'current' => $this->current,

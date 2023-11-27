@@ -27,20 +27,11 @@ class Banner
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $en_text = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $type = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $priority = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $url = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $endDate = null;
@@ -98,18 +89,6 @@ class Banner
         return $this;
     }
 
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(?string $url): static
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
     public function getEndDate(): ?\DateTimeInterface
     {
         return $this->endDate;
@@ -134,12 +113,12 @@ class Banner
         return $this;
     }
 
-    public function getMnText(): ?array
+    public function getMnText(): ?string
     {
         return $this->mn_text;
     }
 
-    public function setMnText(?array $mn_text): static
+    public function setMnText(?string $mn_text): static
     {
         $this->mn_text = $mn_text;
 
@@ -154,30 +133,6 @@ class Banner
     public function setEnText(?string $en_text): static
     {
         $this->en_text = $en_text;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(?string $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
-    public function getPriority(): ?int
-    {
-        return $this->priority;
-    }
-
-    public function setPriority(?int $priority): static
-    {
-        $this->priority = $priority;
 
         return $this;
     }

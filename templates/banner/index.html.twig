@@ -32,9 +32,12 @@
 							<th>icon</th>
 							<th>Эхлэх хугацаа</th>
 							<th>Дуусах хугацаа</th>
-							<th>Үүсгэсэн хэрэглэгч</th>
-							<th>Үүсгэсэн хугацаа</th>
-							<th>Үүсгэсэн хугацаа</th>
+							<th>Үйлдэл</th>
+
+							{# 
+																												<th>Үүсгэсэн хэрэглэгч</th>
+																												<th>Үүсгэсэн хугацаа</th>
+																												<th>Үүсгэсэн хугацаа</th> #}
 						</tr>
 					</thead>
 					<tbody>
@@ -47,12 +50,12 @@
 								<td>{{ banner.active }}</td>
 								<td>{{ banner.imageUrl }}</td>
 								<td>{{ banner.icon }}</td>
-								<td>{{ banner.startedDate }}</td>
-								<td>{{ banner.endDate }}</td>
-								<td>{{ banner.endDate }}</td>
-								<td>{{ banner.type }}</td>
-
-								<td>{{ banner.endDate }}</td>
+								<td>{{ banner.startedDate|date('Y-m-d') }}</td>
+								<td>{{ banner.endDate|date('Y-m-d') }}</td>
+								{#
+																																								<td>{{ banner.endDate }}</td>
+																																								<td>{{ banner.endDate }}</td>
+																																								<td>{{ banner.endDate }}</td> #}
 
 
 								<td>
