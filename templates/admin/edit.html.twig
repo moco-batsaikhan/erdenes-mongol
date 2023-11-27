@@ -19,7 +19,7 @@
 
                         <li class="breadcrumb-item active"
                             aria-current="page">
-                            Нэмэх
+                            Засах
                         </li>
                     </ol>
                 </nav>
@@ -30,18 +30,12 @@
             {{ form_start(adminForm) }}
 
             <div class="form-group">
-                {{ form_row(adminForm.username) }}
-            </div>
-
-            <div class="form-group">
                 {{ form_row(adminForm.password) }}
             </div>
-
 
             <div class="form-group">
                 {{ form_row(adminForm.isVerified) }}
             </div>
-
 
             <div class="form-group">
                 {{ form_row(adminForm.roles) }}

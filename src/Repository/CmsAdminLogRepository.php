@@ -7,8 +7,6 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<CmsAdminLog>
- *
  * @method CmsAdminLog|null find($id, $lockMode = null, $lockVersion = null)
  * @method CmsAdminLog|null findOneBy(array $criteria, array $orderBy = null)
  * @method CmsAdminLog[]    findAll()
@@ -21,28 +19,25 @@ class CmsAdminLogRepository extends ServiceEntityRepository
         parent::__construct($registry, CmsAdminLog::class);
     }
 
-//    /**
-//     * @return CmsAdminLog[] Returns an array of CmsAdminLog objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function getAllData($page, $pageSize)
+    {
+        $query = $this->createQueryBuilder('u')
+            ->orderBy('u.id', 'DESC')
+            ->getQuery();
 
-//    public function findOneBySomeField($value): ?CmsAdminLog
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        $paginator = new \Doctrine\ORM\Tools\Pagination\Paginator($query);
+        $totalItems = count($paginator);
+        $pagesCount = ceil($totalItems / $pageSize);
+        $data = $paginator
+            ->getQuery()
+            ->setFirstResult($pageSize * ($page - 1))
+            ->setMaxResults($pageSize)
+            ->getArrayResult();
+
+        return [
+            'data' => $data,
+            'totalItems' => $totalItems,
+            'pageCount' => $pagesCount
+        ];
+    }
 }

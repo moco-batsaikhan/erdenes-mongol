@@ -45,7 +45,7 @@
 										</div>
 										<form class="user" method="post">
 
-											<p>{{ error }}</p>
+											<p style="color: red">{% if error %}Нэвтрэх нэр нууц үг буруу байна {% endif %}</p>
 											<div class="form-group">
 												<input type="text" class="form-control form-control-user" id="exampleInputUsername" aria-describedby="emailHelp" value="{{ last_username }}" name="username" placeholder="хэрэглэгчийн нэр">
 											</div>

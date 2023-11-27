@@ -1,0 +1,21 @@
+<ul class="pagination">
+
+    <li class="page-item {% if currentPage == 1 %} disabled {% endif %}">
+        <a class="page-link" href="{{ path(pageRoute , { page : currentPage - 1}) }}" {% if currentPage == 1 %}tabindex="-1" aria-disabled="true" {% endif %}>
+           Өмнөх
+        </a>
+    </li>
+    {% for page in 1..pageCount %}
+        <li class="page-item {% if page == currentPage %}active {% endif %}">
+            <a class="page-link"
+               href="{{ path(pageRoute , { page : page}) }}">{{ page }} {% if page == currentPage %}
+                    <span class="sr-only">(current)</span>{% endif %}</a>
+        </li>
+    {% endfor %}
+
+    <li class="page-item {% if currentPage == pageCount %} disabled {% endif %}">
+        <a class="page-link" href="{{ path(pageRoute , { page : currentPage + 1}) }}" {% if currentPage == pageCount %}tabindex="-1" aria-disabled="true" {% endif %}>
+           Дараах
+        </a>
+    </li>
+</ul>
