@@ -1,0 +1,13 @@
+parameters:
+  app.path.image: "%env(IMAGE_PATH)%"
+  app.path.prefix: "%env(IMAGE_PREFIX)%"
+
+vich_uploader:
+  db_driver: orm
+  mappings:
+    app_image:
+      uri_prefix: "%app.path.image%"
+      upload_destination: "%kernel.project_dir%/public/app.path.image"
+      namer: vich_uploader.namer_uniqid
+      delete_on_update: true
+      delete_on_remove: false

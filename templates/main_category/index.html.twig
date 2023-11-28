@@ -16,14 +16,14 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							Нүүр зураг
+							Үндсэн цэс
 						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_banner_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_main_category_create') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -36,41 +36,39 @@
 					<thead>
 						<tr>
 							<th>№</th>
-							<th>Тайлбар(Монгол)</th>
-							<th>Тайлбар(Англи)</th>
-							<th>Тайлбар(Хятад)</th>
+							<th>Цэс(Монгол)</th>
+							<th>Цэс(Англи)</th>
+							<th>Цэс(Хятад)</th>
 							<th>Төлөв</th>
-							<th>Зураг</th>
-							<th>icon</th>
-							<th>Эхлэх хугацаа</th>
-							<th>Дуусах хугацаа</th>
+							<th>Төрөл</th>
+							<th>Дараалал</th>
+							<th>Үсрэх url</th>
 							<th>Үүсгэсэн хэрэглэгч</th>
 							<th>Үүсгэсэн хугацаа</th>
 							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for banner in banners %}
+						{% for category in categories %}
 							<tr>
-								<td>{{ banner.id }}</td>
-								<td>{{ banner.mnText }}</td>
-								<td>{{ banner.enText }}</td>
-								<td>{{ banner.cnText }}</td>
+								<td>{{ category.id }}</td>
+								<td>{{ category.mnName }}</td>
+								<td>{{ category.enName }}</td>
+								<td>{{ category.cnName }}</td>
 								<td>
-									{% if banner.active == true %}
+									{% if category.active == true %}
 										<b style="color: darkgreen">Идэвхитэй</b>
 									{% else %}
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td><img src="{{ asset('uploads/image' ~ banner.imageUrl) }}"></td>
-								<td><img src="{{ asset('uploads/image' ~ banner.icon) }}"></td>
-								<td>{{ banner.startedDate|date('Y-m-d') }}</td>
-								<td>{{ banner.endDate|date('Y-m-d') }}</td>
-								<td>{{ banner.createdUser }}</td>
-								<td>{{ banner.createdAt|date('Y-m-d') }}</td>
+								<td>{{ category.type}}</td>
+								<td>{{ category.priority}}</td>
+								<td>{{ category.url}}</td>
+								<td>{{ category.createdUser }}</td>
+								<td>{{ category.createdAt|date('Y-m-d') }}</td>
 								<td>
-									<a href="{{ path('app_banner_edit', {'id' : banner.id}) }}" class="btn btn-primary btn-sm">
+									<a href="{{ path('app_main_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
 								</td>
