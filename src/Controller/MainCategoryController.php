@@ -39,7 +39,7 @@ class MainCategoryController extends AbstractController
 
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function create(EntityManagerInterface $em, Request $request): Response
     {
 
         $mainCategory = new MainCategory;
@@ -49,10 +49,9 @@ class MainCategoryController extends AbstractController
 
         if ($mainCategoryForm->isSubmitted() && $mainCategoryForm->isValid()) {
             try {
-
+                dd($mainCategory);
                 $em->persist($mainCategory);
                 $em->flush();
-
 
                 $log = new CmsAdminLog();
                 $log->setAdminname($this->getUser()->getUserIdentifier());

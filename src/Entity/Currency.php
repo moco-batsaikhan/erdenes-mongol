@@ -30,6 +30,9 @@ class Currency
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $CurrencyDate = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -91,6 +94,18 @@ class Currency
     public function setCreatedUser(?CmsUser $createdUser): static
     {
         $this->createdUser = $createdUser;
+
+        return $this;
+    }
+
+    public function getCurrencyDate(): ?\DateTimeInterface
+    {
+        return $this->CurrencyDate;
+    }
+
+    public function setCurrencyDate(\DateTimeInterface $CurrencyDate): static
+    {
+        $this->CurrencyDate = $CurrencyDate;
 
         return $this;
     }
