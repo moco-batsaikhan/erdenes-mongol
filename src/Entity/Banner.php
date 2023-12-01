@@ -57,6 +57,12 @@ class Banner
     #[ORM\ManyToOne(inversedBy: 'banners')]
     private ?CmsUser $createdUser = null;
 
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

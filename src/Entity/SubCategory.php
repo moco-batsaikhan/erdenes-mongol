@@ -60,6 +60,8 @@ class SubCategory
     public function __construct()
     {
         $this->categoryClicks = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int

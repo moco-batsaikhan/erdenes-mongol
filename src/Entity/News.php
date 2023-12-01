@@ -56,10 +56,14 @@ class News
     #[ORM\OneToMany(mappedBy: 'news', targetEntity: CategoryClick::class, orphanRemoval: true)]
     private Collection $categoryClicks;
 
+
+
     public function __construct()
     {
         $this->contentConnections = new ArrayCollection();
         $this->categoryClicks = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int

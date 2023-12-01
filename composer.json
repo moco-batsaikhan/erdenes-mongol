@@ -11,7 +11,7 @@
         "doctrine/doctrine-bundle": "^2.10",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.16",
-        "friendsofsymfony/ckeditor-bundle": "*",
+        "friendsofsymfony/ckeditor-bundle": "^2.4",
         "helios-ag/fm-elfinder-bundle": "^12.3",
         "omines/datatables-bundle": "^0.7.2",
         "symfony/asset": "5.4.*",

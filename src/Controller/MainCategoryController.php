@@ -32,7 +32,7 @@ class MainCategoryController extends AbstractController
         return $this->render('main_category/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
-            'section_title' => 'Баннер',
+            'section_title' => 'Үндсэн цэс',
             'categories' => $mainCategory,
         ]);
     }
@@ -65,7 +65,7 @@ class MainCategoryController extends AbstractController
             } catch (\Exception $e) {
                 if ($e->getCode() == '1062') {
                     $this->addFlash('danger', 'Email хаяг давхардаж байна.');
-                    return $this->redirectToRoute('app_banner_create');
+                    return $this->redirectToRoute('app_main_category_create');
                 }
             }
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');

@@ -1,0 +1,7 @@
+# friendsofsymfony/ckeditor-bundle:
+#   configs:
+#     my_config:
+#       filebrowserBrowseRoute: "elfinder"
+#       filebrowserBrowseRouteParameters:
+#         instance: "default"
+#         homeFolder: "~"

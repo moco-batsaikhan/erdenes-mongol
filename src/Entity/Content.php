@@ -7,7 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+
+
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ContentRepository::class)]
 class Content
 {
@@ -22,6 +27,9 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pdfFileName")]
+    private $pdfFile;
+
     #[ORM\Column(type: Types::TEXT)]
     private ?string $body = null;
 
@@ -30,6 +38,9 @@ class Content
 
     #[ORM\OneToMany(mappedBy: 'content', targetEntity: ContentConnection::class, orphanRemoval: true)]
     private Collection $contentConnections;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pdfFileName = null;
 
     public function __construct()
     {
@@ -64,6 +75,17 @@ class Content
 
         return $this;
     }
+
+    public function getPdfFile(): ?File
+    {
+        return $this->pdfFile;
+    }
+
+    public function setPdfFile(?File $pdfFile): void
+    {
+        $this->pdfFile = $pdfFile;
+    }
+
 
     public function getBody(): ?string
     {
@@ -115,6 +137,18 @@ class Content
                 $contentConnection->setContent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPdfFileName(): ?string
+    {
+        return $this->pdfFileName;
+    }
+
+    public function setPdfFileName(?string $pdfFileName): static
+    {
+        $this->pdfFileName = $pdfFileName;
 
         return $this;
     }

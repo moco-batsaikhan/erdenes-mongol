@@ -97,7 +97,7 @@ class VideoNewsController extends AbstractController
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($videoNews->getUsername());
+            $log->setValue($videoNews->getId());
             $log->setAction('Нүүр мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
