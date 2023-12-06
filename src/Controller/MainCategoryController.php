@@ -48,26 +48,21 @@ class MainCategoryController extends AbstractController
         $mainCategoryForm->handleRequest($request);
 
         if ($mainCategoryForm->isSubmitted() && $mainCategoryForm->isValid()) {
-            try {
-                dd($mainCategory);
-                $em->persist($mainCategory);
-                $em->flush();
+            $mainCategory->setCreatedUser($this->getUser());
 
-                $log = new CmsAdminLog();
-                $log->setAdminname($this->getUser()->getUserIdentifier());
-                $log->setIpaddress($request->getClientIp());
-                $log->setValue($mainCategory->getMnName());
-                $log->setAction('Шинэ цэс үүсгэв.');
-                $log->setCreatedAt(new \DateTime('now'));
+            $em->persist($mainCategory);
+            $em->flush();
 
-                $em->persist($log);
-                $em->flush();
-            } catch (\Exception $e) {
-                if ($e->getCode() == '1062') {
-                    $this->addFlash('danger', 'Email хаяг давхардаж байна.');
-                    return $this->redirectToRoute('app_main_category_create');
-                }
-            }
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($mainCategory->getMnName());
+            $log->setAction('Шинэ үндсэн цэс үүсгэв.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
             return $this->redirectToRoute('app_main_category_index');
@@ -113,7 +108,7 @@ class MainCategoryController extends AbstractController
 
 
         return $this->render('main_category/edit.html.twig', [
-            'categoryForm' => $editMainCategoryForm->createView(),
+            'mainCategoryForm' => $editMainCategoryForm->createView(),
             'page_title' => 'Цэс засах',
         ]);
     }

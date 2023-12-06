@@ -41,29 +41,29 @@
 							<div class="col-sm-8">
 
 								<div class="container-fluid d-flex justify-content-center">
-									<div class="list list-row card" id="sortable" data-sortable-id="0" aria-dropeffect="move">
-										{% for section in sections %}
+									{% for section in sections %}
+										<div class="list list-row card" id="sortable" data-sortable-id="{{ section.id}}" aria-dropeffect="move">
 											<div class="list-item" data-id="{{ section.id}}" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
 												<div>
 													<a
 														href="#" data-abc="true">
 														{# {% if section.code == 'ABOUT_US' %}
-																																																																																																				<span class="w-40 avatar gd-primary">Б</span>
-																																																																																																			{% else if section.code == 'GRAPIC' %}
-																																																																																																				<span class="w-40 avatar gd-primary">Г</span>
-																																																																																																			{% else if section.code == 'NEWS' %}
-																																																																																																				<span class="w-40 avatar gd-primary">М</span>
-																																																																																																			{% else if section.code == 'WORD' %}
-																																																																																																				<span class="w-40 avatar gd-primary">У</span>
-																																																																																																			{% else if section.code == 'VIDEO_NEWS' %}
-																																																																																																				<span class="w-40 avatar gd-primary">В</span>
-																																																																																																			{% else if section.code == 'JOB_ADS' %}
-																																																																																																				<span class="w-40 avatar gd-primary">А</span>
-																																																																																																			{% else if section.code == 'SUBSIDIARY_COMPANY' %}
-																																																																																																				<span class="w-40 avatar gd-primary">О</span>
-																																																																																																			{% else if section.code == 'PROJECT' %}
-																																																																																																				<span class="w-40 avatar gd-primary">Т</span>
-																																																																																																			{% endif %} #}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">Б</span>
+																																																																																																																																																											{% else if section.code == 'GRAPIC' %}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">Г</span>
+																																																																																																																																																											{% else if section.code == 'NEWS' %}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">М</span>
+																																																																																																																																																											{% else if section.code == 'WORD' %}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">У</span>
+																																																																																																																																																											{% else if section.code == 'VIDEO_NEWS' %}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">В</span>
+																																																																																																																																																											{% else if section.code == 'JOB_ADS' %}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">А</span>
+																																																																																																																																																											{% else if section.code == 'SUBSIDIARY_COMPANY' %}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">О</span>
+																																																																																																																																																											{% else if section.code == 'PROJECT' %}
+																																																																																																																																																												<span class="w-40 avatar gd-primary">Т</span>
+																																																																																																																																																											{% endif %} #}
 														<span class="w-40 avatar gd-primary">S</span>
 													</a>
 												</div>
@@ -71,10 +71,9 @@
 													<a href="#" class="item-author text-color" data-abc="true">
 														{{ section.sectionName}}</a>
 												</div>
-
 											</div>
-										{% endfor %}
-									</div>
+										</div>
+									{% endfor %}
 								</div>
 							</div>
 						</div>

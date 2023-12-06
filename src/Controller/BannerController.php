@@ -50,6 +50,7 @@ class BannerController extends AbstractController
         if ($bannerForm->isSubmitted() && $bannerForm->isValid()) {
             try {
 
+                $banner->setCreatedUser($this->getUser());
                 $em->persist($banner);
                 $em->flush();
 

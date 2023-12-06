@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="display-grid">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_sub_category_index') }}">Цэс</a>
+				</li>
+
+				<li class="breadcrumb-item active" aria-current="page">
+					Нэмэх
+				</li>
+			</ol>
+		</nav>
+	</div>
+
+	{% include 'layout/flash.html.twig' %}
+
+	{{ form_start(subCategoryForm) }}
+
+	<div class="form-group">
+		{{ form_row(subCategoryForm.mnName) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(subCategoryForm.enName) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(subCategoryForm.cnName) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(subCategoryForm.priority) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(subCategoryForm.active) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(subCategoryForm.url) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(subCategoryForm.mainCategoryId) }}
+	</div>
+
+	{{ form_end(subCategoryForm) }}
+{% endblock %}

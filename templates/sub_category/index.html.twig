@@ -16,14 +16,14 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							Үндсэн цэс
+							Туслах цэс
 						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_main_category_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_sub_category_create') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -40,10 +40,9 @@
 							<th>Цэс(Англи)</th>
 							<th>Цэс(Хятад)</th>
 							<th>Төлөв</th>
-							<th>Төрөл</th>
 							<th>Дараалал</th>
 							<th>Үсрэх url</th>
-							{# <th>Үүсгэсэн хэрэглэгч</th> #}
+							{# <th>Үндсэн цэс</th> #}
 							<th>Үүсгэсэн хугацаа</th>
 							<th>#</th>
 						</tr>
@@ -62,13 +61,12 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td>{{ category.type}}</td>
 								<td>{{ category.priority}}</td>
 								<td>{{ category.url}}</td>
-								{# <td>{{ category.createdUser }}</td> #}
+								{# <td>{{ category.mainCategoryId}}</td> #}
 								<td>{{ category.createdAt|date('Y-m-d') }}</td>
 								<td>
-									<a href="{{ path('app_main_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
+									<a href="{{ path('app_sub_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
 								</td>
