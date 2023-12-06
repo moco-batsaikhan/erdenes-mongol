@@ -15,24 +15,24 @@ class NewsEditFormType extends AbstractType
     {
         $builder
             ->add('mnTitle', TextType::class, array(
-                'label' => 'Монгол тайлбар',
+                'label' => 'Монгол гарчиг',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "гарчиг оруулна уу ...",
                 )
             ))
             ->add('enTitle', TextType::class, array(
-                'label' => 'Англи тайлбар',
+                'label' => 'Англи гарчиг',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "гарчиг оруулна уу ...",
                 )
             ))
             ->add('cnTitle', TextType::class, array(
-                'label' => 'Хятад тайлбар',
+                'label' => 'Хятад гарчиг',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "гарчиг оруулна уу ...",
                 )
             ))
             ->add('mnHeadline', TextType::class, array(

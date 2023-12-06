@@ -25,9 +25,6 @@ class SubCategory
     #[ORM\Column(length: 32)]
     private ?string $enName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $icon = null;
-
     #[ORM\Column(nullable: true)]
     private ?int $priority = null;
 
@@ -101,18 +98,6 @@ class SubCategory
     public function setEnName(string $enName): static
     {
         $this->enName = $enName;
-
-        return $this;
-    }
-
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function setIcon(?string $icon): static
-    {
-        $this->icon = $icon;
 
         return $this;
     }

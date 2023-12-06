@@ -25,9 +25,6 @@ class MainCategory
     #[ORM\Column(length: 36, nullable: true)]
     private ?string $enName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $icon = null;
-
     #[ORM\Column(length: 36, nullable: true)]
     private ?string $type = null;
 
@@ -101,18 +98,6 @@ class MainCategory
     public function setEnName(?string $enName): static
     {
         $this->enName = $enName;
-
-        return $this;
-    }
-
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function setIcon(?string $icon): static
-    {
-        $this->icon = $icon;
 
         return $this;
     }

@@ -53,6 +53,8 @@ class MainCategoryController extends AbstractController
             $em->persist($mainCategory);
             $em->flush();
 
+
+
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
@@ -75,7 +77,7 @@ class MainCategoryController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request, UserPasswordHasherInterface $userPasswordHasher): Response
+    public function edit($id, EntityManagerInterface $em, Request $request): Response
     {
         $mainCategory = $em->getRepository(MainCategory::class)->find($id);
 
@@ -93,7 +95,7 @@ class MainCategoryController extends AbstractController
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser());
             $log->setIpaddress($request->getClientIp());
-            // $log->setValue($user->getUsername());
+            $log->setValue($mainCategory->getId());
             $log->setAction('Админ мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\CategoryClick;
 use App\Entity\CmsAdminLog;
 use App\Entity\News;
 use App\Form\NewsCreateFormType;
@@ -50,26 +51,23 @@ class NewsController extends AbstractController
         $newsForm->handleRequest($request);
 
         if ($newsForm->isSubmitted() && $newsForm->isValid()) {
-            try {
 
-                $em->persist($news);
-                $em->flush();
+            $em->persist($news);
+            $em->flush();
 
-                $log = new CmsAdminLog();
-                $log->setAdminname($this->getUser()->getUserIdentifier());
-                $log->setIpaddress($request->getClientIp());
-                $log->setValue($news->getId());
-                $log->setAction('Шинэ Мэдээ үүсгэв.');
-                $log->setCreatedAt(new \DateTime('now'));
+            $cat = new CategoryClick();
+            $cat->setNews($news->getId());
 
-                $em->persist($log);
-                $em->flush();
-            } catch (\Exception $e) {
-                if ($e->getCode() == '1062') {
-                    $this->addFlash('danger', 'Email хаяг давхардаж байна.');
-                    return $this->redirectToRoute('app_news_create');
-                }
-            }
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($news->getId());
+            $log->setAction('Шинэ Мэдээ үүсгэв.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
             return $this->redirectToRoute('app_news_index');

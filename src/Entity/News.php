@@ -62,6 +62,9 @@ class News
     #[ORM\OneToMany(mappedBy: 'news', targetEntity: CategoryClick::class, orphanRemoval: true)]
     private Collection $categoryClicks;
 
+    #[ORM\Column]
+    private ?bool $active = null;
+
 
 
     public function __construct()
@@ -279,6 +282,18 @@ class News
                 $categoryClick->setNews(null);
             }
         }
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
 
         return $this;
     }

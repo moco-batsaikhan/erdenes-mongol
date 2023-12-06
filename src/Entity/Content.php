@@ -42,6 +42,9 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pdfFileName = null;
 
+    #[ORM\Column]
+    private ?bool $active = null;
+
     public function __construct()
     {
         $this->contentConnections = new ArrayCollection();
@@ -149,6 +152,18 @@ class Content
     public function setPdfFileName(?string $pdfFileName): static
     {
         $this->pdfFileName = $pdfFileName;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
 
         return $this;
     }

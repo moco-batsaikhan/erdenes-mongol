@@ -61,6 +61,21 @@ class NewsCreateFormType extends AbstractType
                 )
             ))
             ->add(
+                'active',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Төлөв',
+                    'choices' =>
+                    array(
+                        'Идэвхитэй' => true,
+                        'Идэвхигүй' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
+            ->add(
                 'isSpecial',
                 ChoiceType::class,
                 array(

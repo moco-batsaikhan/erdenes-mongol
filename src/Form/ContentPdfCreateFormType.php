@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class ContentPdfCreateFormType extends AbstractType
@@ -36,6 +38,21 @@ class ContentPdfCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+            ->add(
+                'active',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Төлөв',
+                    'choices' =>
+                    array(
+                        'Идэвхитэй' => true,
+                        'Идэвхигүй' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
