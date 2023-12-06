@@ -10,6 +10,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CkeditorCreateFormType extends AbstractType
@@ -38,6 +39,11 @@ class CkeditorCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+            ->add('News', EntityType::class, [
+                'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
+                'class' => 'App\Entity\News',
+                'choice_label' => 'mnTitle',
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

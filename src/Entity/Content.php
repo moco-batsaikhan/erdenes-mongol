@@ -36,19 +36,14 @@ class Content
     #[ORM\Column]
     private ?int $priority = null;
 
-    #[ORM\OneToMany(mappedBy: 'content', targetEntity: ContentConnection::class, orphanRemoval: true)]
-    private Collection $contentConnections;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pdfFileName = null;
 
     #[ORM\Column]
     private ?bool $active = null;
 
-    public function __construct()
-    {
-        $this->contentConnections = new ArrayCollection();
-    }
+    #[ORM\ManyToOne(inversedBy: 'contents')]
+    private ?News $News = null;
 
     public function getId(): ?int
     {
@@ -114,36 +109,6 @@ class Content
         return $this;
     }
 
-    /**
-     * @return Collection<int, ContentConnection>
-     */
-    public function getContentConnections(): Collection
-    {
-        return $this->contentConnections;
-    }
-
-    public function addContentConnection(ContentConnection $contentConnection): static
-    {
-        if (!$this->contentConnections->contains($contentConnection)) {
-            $this->contentConnections->add($contentConnection);
-            $contentConnection->setContent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContentConnection(ContentConnection $contentConnection): static
-    {
-        if ($this->contentConnections->removeElement($contentConnection)) {
-            // set the owning side to null (unless already changed)
-            if ($contentConnection->getContent() === $this) {
-                $contentConnection->setContent(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getPdfFileName(): ?string
     {
         return $this->pdfFileName;
@@ -164,6 +129,18 @@ class Content
     public function setActive(bool $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getNews(): ?News
+    {
+        return $this->News;
+    }
+
+    public function setNews(?News $News): static
+    {
+        $this->News = $News;
 
         return $this;
     }

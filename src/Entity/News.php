@@ -56,23 +56,23 @@ class News
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'news', targetEntity: ContentConnection::class, orphanRemoval: true)]
-    private Collection $contentConnections;
-
     #[ORM\OneToMany(mappedBy: 'news', targetEntity: CategoryClick::class, orphanRemoval: true)]
     private Collection $categoryClicks;
 
     #[ORM\Column]
     private ?bool $active = null;
 
+    #[ORM\OneToMany(mappedBy: 'News', targetEntity: Content::class)]
+    private Collection $contents;
+
 
 
     public function __construct()
     {
-        $this->contentConnections = new ArrayCollection();
         $this->categoryClicks = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->contents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -226,35 +226,7 @@ class News
         return $this->imageFile;
     }
 
-    /**
-     * @return Collection<int, ContentConnection>
-     */
-    public function getContentConnections(): Collection
-    {
-        return $this->contentConnections;
-    }
 
-    public function addContentConnection(ContentConnection $contentConnection): static
-    {
-        if (!$this->contentConnections->contains($contentConnection)) {
-            $this->contentConnections->add($contentConnection);
-            $contentConnection->setNews($this);
-        }
-
-        return $this;
-    }
-
-    public function removeContentConnection(ContentConnection $contentConnection): static
-    {
-        if ($this->contentConnections->removeElement($contentConnection)) {
-            // set the owning side to null (unless already changed)
-            if ($contentConnection->getNews() === $this) {
-                $contentConnection->setNews(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, CategoryClick>
@@ -294,6 +266,36 @@ class News
     public function setActive(bool $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Content>
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Content $content): static
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents->add($content);
+            $content->setNews($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContent(Content $content): static
+    {
+        if ($this->contents->removeElement($content)) {
+            // set the owning side to null (unless already changed)
+            if ($content->getNews() === $this) {
+                $content->setNews(null);
+            }
+        }
 
         return $this;
     }

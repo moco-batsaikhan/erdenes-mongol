@@ -35,9 +35,6 @@ class NewsController extends AbstractController
             'section_title' => 'Мэдээ',
             'news' => $news,
         ]);
-        return $this->render('news/index.html.twig', [
-            'controller_name' => 'NewsController',
-        ]);
     }
 
 
