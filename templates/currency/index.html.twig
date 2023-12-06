@@ -37,10 +37,10 @@
 						<tr>
 							<th>№</th>
 							<th>Суурь</th>
-							<th>Үнэлгээ</th>
+							{# <th>Үнэлгээ</th> #}
 							<th>Он сар</th>
 							<th>Үүсгэсэн хэрэглэгч</th>
-							<th>#</th>
+							{# <th>#</th> #}
 						</tr>
 					</thead>
 					<tbody>
@@ -48,19 +48,13 @@
 							<tr>
 								<td>{{ currency.id }}</td>
 								<td>{{ currency.base }}</td>
-								<td>{{ currency.rates }}</td>
-
-								{% for rate in currency.rates %}
-									<tr>
-										<td>{{ rate}}</td>
-									</tr>
-								{% endfor %}
+								{# <td>{{ currency.rates }}</td> #}
 								<td>{{ currency.currencyDate|date('Y-m-d') }}</td>
-								<td>
-									<a href="{{ path('app_banner_edit', {'id' : currency.id}) }}" class="btn btn-primary btn-sm">
-										<i class="fas fa-edit"></i>
-									</a>
-								</td>
+								{# <td>
+																	<a href="{{ path('app_banner_edit', {'id' : currency.id}) }}" class="btn btn-primary btn-sm">
+																		<i class="fas fa-edit"></i>
+																	</a>
+																</td> #}
 							</tr>
 						{% endfor %}
 					</tbody>

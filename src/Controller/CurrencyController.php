@@ -10,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+
 
 
 #[Route('/currency', name: 'app_currency')]
@@ -34,6 +36,21 @@ class CurrencyController extends AbstractController
     }
 
 
+    private function extractJsonFromExcel(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet): array
+    {
+        $sheet = $spreadsheet->getActiveSheet();
+        $jsonColumn = $sheet->getColumnIterator()->current();
+
+        $jsonArray = [];
+
+        foreach ($jsonColumn->getCellIterator() as $cell) {
+            $jsonArray[] = json_decode($cell->getValue(), true);
+        }
+
+        return $jsonArray;
+    }
+
+
     #[Route('/create', name: '_create')]
     public function create(EntityManagerInterface $em, Request $request): Response
     {
@@ -45,6 +62,14 @@ class CurrencyController extends AbstractController
 
         if ($currencyForm->isSubmitted() && $currencyForm->isValid()) {
             try {
+
+                $excelFile = $currencyForm->get('file')->getData();
+
+                $spreadsheet = IOFactory::load($excelFile->getPathname());
+                $json = $this->extractJsonFromExcel($spreadsheet);
+
+                $currency->setRates($json);
+                $currency->setCreatedUser($this->getUser());
 
                 $em->persist($currency);
                 $em->flush();

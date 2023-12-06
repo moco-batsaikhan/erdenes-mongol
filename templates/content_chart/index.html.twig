@@ -20,14 +20,14 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							ckEditor
+							chart
 						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_content_create_ckeditor') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_content_create_chart') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -43,7 +43,6 @@
 							<th>Агуулгийн нэр</th>
 							<th>Агуулга</th>
 							<th>Дараалал</th>
-							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -51,13 +50,11 @@
 							<tr>
 								<td>{{ content.id }}</td>
 								<td>{{ content.name }}</td>
-								<td>{{ content.body }}</td>
+								{# {% if content.file is not null %}
+																<ul>
+																</ul> #}
 								<td>{{ content.priority}}</td>
-								<td>
-									<a href="{{ path('app_content_edit', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
-										<i class="fas fa-edit"></i>
-									</a>
-								</td>
+
 							</tr>
 						{% endfor %}
 					</tbody>

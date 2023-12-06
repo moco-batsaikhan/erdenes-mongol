@@ -6,8 +6,11 @@ use App\Entity\Currency;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\JsonType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+
 
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,13 +21,15 @@ class CurrencyCreateFormType extends AbstractType
     {
         $builder
             ->add('base', NumberType::class, array(
-                'label' => 'Дарааалал',
+                'label' => 'Суурь',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ))
-            ->add('rates', JsonType::class, [
-                'required' => false,
+            ->add('rates', FileType::class, [
+                'label' => 'Excel File (XLSX)',
+                'required' => true,
+                'mapped' => false,
             ])
             ->add('CurrencyDate', DateType::class, array(
                 'label' => 'Ханшийн он сар',

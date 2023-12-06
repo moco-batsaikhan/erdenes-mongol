@@ -1,3 +1,6 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+upload_excel:
+  path: "/uploads/excel"
+  controller: 'App\Controller\ExcelController::uploadExcel'

@@ -30,7 +30,7 @@ class Content
     #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pdfFileName")]
     private $pdfFile;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $body = null;
 
     #[ORM\Column]
@@ -44,6 +44,9 @@ class Content
 
     #[ORM\ManyToOne(inversedBy: 'contents')]
     private ?News $News = null;
+
+    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    private ?array $file = null;
 
     public function getId(): ?int
     {
@@ -141,6 +144,18 @@ class Content
     public function setNews(?News $News): static
     {
         $this->News = $News;
+
+        return $this;
+    }
+
+    public function getFile(): ?array
+    {
+        return $this->file;
+    }
+
+    public function setFile(?array $file): static
+    {
+        $this->file = $file;
 
         return $this;
     }
