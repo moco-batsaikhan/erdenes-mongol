@@ -51,14 +51,14 @@ class SubCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?MainCategory $mainCategoryId = null;
 
-    #[ORM\OneToMany(mappedBy: 'subCategory', targetEntity: CategoryClick::class, orphanRemoval: true)]
-    private Collection $categoryClicks;
+    #[ORM\OneToMany(mappedBy: 'SubCategory', targetEntity: News::class)]
+    private Collection $news;
 
     public function __construct()
     {
-        $this->categoryClicks = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,29 +199,29 @@ class SubCategory
     }
 
     /**
-     * @return Collection<int, CategoryClick>
+     * @return Collection<int, News>
      */
-    public function getCategoryClicks(): Collection
+    public function getNews(): Collection
     {
-        return $this->categoryClicks;
+        return $this->news;
     }
 
-    public function addCategoryClick(CategoryClick $categoryClick): static
+    public function addNews(News $news): static
     {
-        if (!$this->categoryClicks->contains($categoryClick)) {
-            $this->categoryClicks->add($categoryClick);
-            $categoryClick->setSubCategory($this);
+        if (!$this->news->contains($news)) {
+            $this->news->add($news);
+            $news->setSubCategory($this);
         }
 
         return $this;
     }
 
-    public function removeCategoryClick(CategoryClick $categoryClick): static
+    public function removeNews(News $news): static
     {
-        if ($this->categoryClicks->removeElement($categoryClick)) {
+        if ($this->news->removeElement($news)) {
             // set the owning side to null (unless already changed)
-            if ($categoryClick->getSubCategory() === $this) {
-                $categoryClick->setSubCategory(null);
+            if ($news->getSubCategory() === $this) {
+                $news->setSubCategory(null);
             }
         }
 

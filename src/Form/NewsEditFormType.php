@@ -6,6 +6,9 @@ use App\Entity\News;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 
@@ -58,6 +61,21 @@ class NewsEditFormType extends AbstractType
             ))
             ->add(
                 'active',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Идэвхжүүлэх',
+                    'choices' =>
+                    array(
+                        'Идэвхтэй' => true,
+                        'Идэвхгүй' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
+            ->add(
+                'isSpecial',
                 ChoiceType::class,
                 array(
                     'attr' => array('class' => 'form-control'),

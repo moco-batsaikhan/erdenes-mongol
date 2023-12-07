@@ -30,9 +30,6 @@ class CkeditorCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
-            // ->add('body', TextareaType::class, [
-            //     'attr' => ['class' => 'ckeditor'],
-            // ])
             ->add('priority', NumberType::class, array(
                 'label' => 'Дарааалал',
                 'attr' => array(

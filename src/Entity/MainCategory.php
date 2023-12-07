@@ -47,18 +47,14 @@ class MainCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'mainCategoryId', targetEntity: SubCategory::class, orphanRemoval: true)]
-    private Collection $yes;
-
-    #[ORM\OneToMany(mappedBy: 'mainCategory', targetEntity: CategoryClick::class, orphanRemoval: true)]
-    private Collection $categoryClicks;
+    #[ORM\OneToMany(mappedBy: 'MainCategoryId', targetEntity: News::class)]
+    private Collection $news;
 
     public function __construct()
     {
-        $this->yes = new ArrayCollection();
-        $this->categoryClicks = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
+        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,59 +183,29 @@ class MainCategory
     }
 
     /**
-     * @return Collection<int, SubCategory>
+     * @return Collection<int, News>
      */
-    public function getYes(): Collection
+    public function getNews(): Collection
     {
-        return $this->yes;
+        return $this->news;
     }
 
-    public function addYe(SubCategory $ye): static
+    public function addNews(News $news): static
     {
-        if (!$this->yes->contains($ye)) {
-            $this->yes->add($ye);
-            $ye->setMainCategoryId($this);
+        if (!$this->news->contains($news)) {
+            $this->news->add($news);
+            $news->setMainCategoryId($this);
         }
 
         return $this;
     }
 
-    public function removeYe(SubCategory $ye): static
+    public function removeNews(News $news): static
     {
-        if ($this->yes->removeElement($ye)) {
+        if ($this->news->removeElement($news)) {
             // set the owning side to null (unless already changed)
-            if ($ye->getMainCategoryId() === $this) {
-                $ye->setMainCategoryId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, CategoryClick>
-     */
-    public function getCategoryClicks(): Collection
-    {
-        return $this->categoryClicks;
-    }
-
-    public function addCategoryClick(CategoryClick $categoryClick): static
-    {
-        if (!$this->categoryClicks->contains($categoryClick)) {
-            $this->categoryClicks->add($categoryClick);
-            $categoryClick->setMainCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategoryClick(CategoryClick $categoryClick): static
-    {
-        if ($this->categoryClicks->removeElement($categoryClick)) {
-            // set the owning side to null (unless already changed)
-            if ($categoryClick->getMainCategory() === $this) {
-                $categoryClick->setMainCategory(null);
+            if ($news->getMainCategoryId() === $this) {
+                $news->setMainCategoryId(null);
             }
         }
 

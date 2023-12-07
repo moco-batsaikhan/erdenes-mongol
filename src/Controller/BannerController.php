@@ -29,6 +29,7 @@ class BannerController extends AbstractController
         $bannerRepo = $em->getRepository(Banner::class);
         $banner = $bannerRepo->findAll();
 
+
         return $this->render('banner/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,

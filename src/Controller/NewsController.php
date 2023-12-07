@@ -48,12 +48,12 @@ class NewsController extends AbstractController
         $newsForm->handleRequest($request);
 
         if ($newsForm->isSubmitted() && $newsForm->isValid()) {
+            $news->setCreatedUser($this->getUser());
 
             $em->persist($news);
             $em->flush();
 
-            $cat = new CategoryClick();
-            $cat->setNews($news->getId());
+
 
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());

@@ -67,8 +67,8 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td><img src="{{ asset('uploads/image' ~ partnerOrganization.imageUrl) }}"></td>
-								<td><img src="{{ asset('uploads/image' ~ partnerOrganization.icon) }}"></td>
+								<td><img src="{{ asset("app.path.image/" ~ partnerOrganization.imageUrl) }}"></td>
+								<td><img src="{{ asset("app.path.image/" ~ partnerOrganization.icon) }}"></td>
 								<td>{{ partnerOrganization.mnDescription }}</td>
 								<td>{{ partnerOrganization.enDescription }}</td>
 								<td>{{ partnerOrganization.cnDescription }}</td>

@@ -56,20 +56,23 @@ class News
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'news', targetEntity: CategoryClick::class, orphanRemoval: true)]
-    private Collection $categoryClicks;
-
     #[ORM\Column]
     private ?bool $active = null;
 
     #[ORM\OneToMany(mappedBy: 'News', targetEntity: Content::class)]
     private Collection $contents;
 
+    #[ORM\ManyToOne(inversedBy: 'news')]
+    private ?MainCategory $MainCategoryId = null;
 
+    #[ORM\ManyToOne(inversedBy: 'news')]
+    private ?SubCategory $SubCategory = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $redirectType = null;
 
     public function __construct()
     {
-        $this->categoryClicks = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->contents = new ArrayCollection();
@@ -228,36 +231,6 @@ class News
 
 
 
-    /**
-     * @return Collection<int, CategoryClick>
-     */
-    public function getCategoryClicks(): Collection
-    {
-        return $this->categoryClicks;
-    }
-
-    public function addCategoryClick(CategoryClick $categoryClick): static
-    {
-        if (!$this->categoryClicks->contains($categoryClick)) {
-            $this->categoryClicks->add($categoryClick);
-            $categoryClick->setNews($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategoryClick(CategoryClick $categoryClick): static
-    {
-        if ($this->categoryClicks->removeElement($categoryClick)) {
-            // set the owning side to null (unless already changed)
-            if ($categoryClick->getNews() === $this) {
-                $categoryClick->setNews(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function isActive(): ?bool
     {
         return $this->active;
@@ -296,6 +269,42 @@ class News
                 $content->setNews(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMainCategoryId(): ?MainCategory
+    {
+        return $this->MainCategoryId;
+    }
+
+    public function setMainCategoryId(?MainCategory $MainCategoryId): static
+    {
+        $this->MainCategoryId = $MainCategoryId;
+
+        return $this;
+    }
+
+    public function getSubCategory(): ?SubCategory
+    {
+        return $this->SubCategory;
+    }
+
+    public function setSubCategory(?SubCategory $SubCategory): static
+    {
+        $this->SubCategory = $SubCategory;
+
+        return $this;
+    }
+
+    public function getRedirectType(): ?string
+    {
+        return $this->redirectType;
+    }
+
+    public function setRedirectType(string $redirectType): static
+    {
+        $this->redirectType = $redirectType;
 
         return $this;
     }

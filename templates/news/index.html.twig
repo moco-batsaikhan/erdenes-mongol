@@ -40,8 +40,8 @@
 							<th>Гарчиг(Англи)</th>
 							<th>Гарчиг(Хятад)</th>
 							<th>Агуулга эхлэл(Монгол)</th>
-							<th>Агуулга эхлэл(Монгол)</th>
-							<th>Агуулга эхлэл(Монгол)</th>
+							<th>Агуулга эхлэл(Англи)</th>
+							<th>Агуулга эхлэл(Хятад)</th>
 							<th>Онцгой</th>
 							<th>Төлөв</th>
 							<th>Үүсгэсэн хэрэглэгч</th>
@@ -55,8 +55,11 @@
 								<td>{{ n.mnTitle }}</td>
 								<td>{{ n.enTitle }}</td>
 								<td>{{ n.cnTitle }}</td>
+								<td>{{ n.mnHeadline }}</td>
+								<td>{{ n.enHeadline }}</td>
+								<td>{{ n.cnHeadline }}</td>
 								<td>
-									{% if n.active == true %}
+									{% if n.isSpecial == true %}
 										<b style="color: darkgreen">Энгийн</b>
 									{% else %}
 										<b style="color: red">Онцгой</b>
@@ -69,10 +72,8 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td>{{ n.mnHeadline }}</td>
-								<td>{{ n.enHeadline }}</td>
-								<td>{{ n.cnHeadline }}</td>
-								<td>{{ n.createdUser }}</td>
+
+								<td>{{ n.getCreatedUser().username }}</td>
 								<td>
 									<a href="{{ path('app_news_edit', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>

@@ -10,6 +10,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -102,7 +104,31 @@ class NewsCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
-
+            ->add('MainCategoryId', EntityType::class, [
+                'label' => 'Үндсэн цэснээс сонгох',
+                'class' => 'App\Entity\MainCategory',
+                'choice_label' => 'mnName',
+            ])
+            ->add('subCategory', EntityType::class, [
+                'label' => 'Үндсэн цэснээс сонгох',
+                'class' => 'App\Entity\SubCategory',
+                'choice_label' => 'mnName',
+            ])
+            ->add(
+                'redirectType',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Үсрэх төрөл',
+                    'choices' =>
+                    array(
+                        'Шууд мэдээрүү үсрэх' => true,
+                        'Жагсаалт байдлаар харагдах' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
