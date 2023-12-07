@@ -21,66 +21,69 @@
 						<li class="breadcrumb-item">
 							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
 						</li>
-
 						<li class="breadcrumb-item">
 							Нүүр хуудас дараалал
 						</li>
 					</ol>
 				</nav>
 			</div>
-
 			<br>
-
 			{% include 'layout/flash.html.twig' %}
-
-
-			<div>
-				<div class="page-content page-container" id="page-content">
-					<div class="padding">
-						<div class="row">
-							<div class="col-sm-8">
-
-								<div class="container-fluid d-flex justify-content-center">
-									{% for section in sections %}
-										<div class="list list-row card" id="sortable" data-sortable-id="{{ section.id}}" aria-dropeffect="move">
-											<div class="list-item" data-id="{{ section.id}}" data-item-sortable-id="0" draggable="true" role="option" aria-grabbed="false" style="">
-												<div>
-													<a
-														href="#" data-abc="true">
-														{# {% if section.code == 'ABOUT_US' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">Б</span>
-																																																																																																																																																											{% else if section.code == 'GRAPIC' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">Г</span>
-																																																																																																																																																											{% else if section.code == 'NEWS' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">М</span>
-																																																																																																																																																											{% else if section.code == 'WORD' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">У</span>
-																																																																																																																																																											{% else if section.code == 'VIDEO_NEWS' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">В</span>
-																																																																																																																																																											{% else if section.code == 'JOB_ADS' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">А</span>
-																																																																																																																																																											{% else if section.code == 'SUBSIDIARY_COMPANY' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">О</span>
-																																																																																																																																																											{% else if section.code == 'PROJECT' %}
-																																																																																																																																																												<span class="w-40 avatar gd-primary">Т</span>
-																																																																																																																																																											{% endif %} #}
-														<span class="w-40 avatar gd-primary">S</span>
-													</a>
-												</div>
-												<div class="flex">
-													<a href="#" class="item-author text-color" data-abc="true">
-														{{ section.sectionName}}</a>
-												</div>
-											</div>
+			<form class="page-content page-container" id="sortable-form">
+				<div class="padding">
+					<div class="row">
+						<div class="col-sm-8">
+							<ul class="list list-row card" id="sortable" data-sortable-id="1" aria-dropeffect="move">
+								{% for key, section in sections %}
+									<li
+										class="list-item" id="{{ section.id}}" data-item-sortable-id="{{ section.priority }}" draggable="true" role="option" aria-grabbed="false" style="">
+										{# <div>
+																																																																																																					<span class="w-40 avatar gd-primary">
+																																																																																																						{{section.priority}}
+																																																																																																					</span>
+																																																																																																				</div> #}
+										<div class="flex">
+											{{ section.sectionName}}
 										</div>
-									{% endfor %}
-								</div>
-							</div>
+									</li>
+								{% endfor %}
+							</ul>
 						</div>
 					</div>
 				</div>
-			</div>
-			<button type="submit" class="btn btn-primary">Хадгалах</button>
+			</form>
 		</div>
 	</div>
+
+
+	{% block scripts %}
+		<script>
+			$(function () {
+$("#sortable").sortable({
+update: function (event, ui) {
+
+var orderedIds = $("#sortable").sortable("toArray", {attribute: "id"});
+
+$.ajax({
+url: `/section/edit`,
+type: "POST",
+data: {
+orderedIds: orderedIds
+},
+success: function (response) {
+console.log("Reorder successful");
+},
+error: function (xhr, status, error) {
+console.error("Error during reorder: " + error);
+
+}
+});
+
+
+}
+});
+$("#sortable").disableSelection();
+});
+		</script>
+	{% endblock %}
 {% endblock %}

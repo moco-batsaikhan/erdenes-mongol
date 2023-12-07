@@ -48,30 +48,25 @@ class PartnerOrganizationController extends AbstractController
         $organizationForm->handleRequest($request);
 
         if ($organizationForm->isSubmitted() && $organizationForm->isValid()) {
-            try {
 
-                $em->persist($partnerOrganization);
-                $em->flush();
+            $partnerOrganization->setCreatedUser($this->getUser());
+            $em->persist($partnerOrganization);
+            $em->flush();
 
 
-                $log = new CmsAdminLog();
-                $log->setAdminname($this->getUser()->getUserIdentifier());
-                $log->setIpaddress($request->getClientIp());
-                $log->setValue($partnerOrganization->getName());
-                $log->setAction('Шинэ нүүр зураг үүсгэв.');
-                $log->setCreatedAt(new \DateTime('now'));
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($partnerOrganization->getName());
+            $log->setAction('Шинэ хамтрагч байгууллага үүсгэв.');
+            $log->setCreatedAt(new \DateTime('now'));
 
-                $em->persist($log);
-                $em->flush();
-            } catch (\Exception $e) {
-                if ($e->getCode() == '1062') {
-                    $this->addFlash('danger', 'Email хаяг давхардаж байна.');
-                    return $this->redirectToRoute('app_partner_organization_create');
-                }
-            }
+            $em->persist($log);
+            $em->flush();
+
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
-            return $this->redirectToRoute('app_banner_index');
+            return $this->redirectToRoute('app_partner_organization_index');
         }
 
         return $this->render('partner_organization/create.html.twig', [
@@ -96,10 +91,11 @@ class PartnerOrganizationController extends AbstractController
             $em->persist($partnerOrganization);
             $em->flush();
 
+
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($partnerOrganization->getUsername());
+            $log->setValue($partnerOrganization->getId());
             $log->setAction('Нүүр мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 

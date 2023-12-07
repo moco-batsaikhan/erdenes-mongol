@@ -95,7 +95,7 @@ class PartnerOrganizationCreateTypeFormType extends AbstractType
             ])
             ->add('iconFile', VichFileType::class, [
                 'required' => true,
-                'label' => 'Зураг оруулах',
+                'label' => 'icon оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',

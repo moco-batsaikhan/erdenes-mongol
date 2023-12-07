@@ -48,7 +48,7 @@
 							<th>Тайлбар (Хятад)</th>
 							<th>Холбоо барих</th>
 							<th>Хаяг</th>
-							<th>Үүсгэсэн админ</th>
+							{# <th>Үүсгэсэн админ</th> #}
 							<th>#</th>
 						</tr>
 					</thead>
@@ -74,7 +74,7 @@
 								<td>{{ partnerOrganization.cnDescription }}</td>
 								<td>{{ partnerOrganization.contact }}</td>
 								<td>{{ partnerOrganization.address }}</td>
-								<td>{{ partnerOrganization.createdUser }}</td>
+								{# <td>{{ partnerOrganization.createdUser }}</td> #}
 								<td>
 									<a href="{{ path('app_partner_organization_edit', {'id' : partnerOrganization.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
