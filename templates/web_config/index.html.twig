@@ -40,7 +40,15 @@
 						{% for configForm in configForms %}
 							<tr>
 								<td>{{ configForm.id }}</td>
-								<td>{{ configForm.colorCode }}</td>
+								<td>
+									{% if configForm.colorCode == '#CD5C5C' %}
+										<b style="color: #CD5C5C">Улаан</b>
+									{% elseif configForm.colorCode == '#48C9B0' %}
+										<b style="color: #48C9B0">ногоон</b>
+									{% elseif configForm.colorCode == '#3498DB' %}
+										<b style="color: #3498DB">хөх</b>
+									{% endif %}
+								</td>
 								<td>{{ configForm.fontSize}}</td>
 								<td>{{ configForm.priority}}</td>
 								<td>
@@ -51,8 +59,9 @@
 							</tr>
 						{% endfor %}
 					</tbody>
-				</tr>
-			</tbody>
-		</tbody>
-	</table>
-</div></div></div>{% endblock %}
+
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

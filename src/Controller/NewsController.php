@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CategoryClick;
 use App\Entity\CmsAdminLog;
+use App\Entity\Content;
 use App\Entity\News;
 use App\Form\NewsCreateFormType;
 use App\Form\NewsEditFormType;
@@ -110,6 +111,47 @@ class NewsController extends AbstractController
         return $this->render('news/edit.html.twig', [
             'newsForm' => $editNewsForm->createView(),
             'page_title' => 'Нүүр зураг засах',
+        ]);
+    }
+
+    #[Route('/publish/{id}', name: '_punlish', requirements: ['id' => "\d+"])]
+    public function publish($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $news = $em->getRepository(News::class)->find($id);
+
+        $news->setProcessType('PUBLISHED');
+
+        $em->persist($news);
+        $em->flush();
+
+        $log = new CmsAdminLog();
+        $log->setAdminname($this->getUser());
+        $log->setIpaddress($request->getClientIp());
+        $log->setValue($news->getId());
+        $log->setAction('Мэдээ нийтлэв.');
+        $log->setCreatedAt(new \DateTime('now'));
+
+        $em->persist($log);
+        $em->flush();
+
+        $this->addFlash('success', 'Амжилттай засагдлаа.');
+        return $this->redirectToRoute('app_news_index');
+    }
+
+
+    #[Route('/news/{id}/contents', name: '_contents', requirements: ['id' => "\d+"])]
+    public function contents($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $news = $em->getRepository(News::class)->find($id);
+
+        $contents = $em->getRepository(Content::class)->findBy(['News' => $news]);
+
+
+        return $this->render('news/contents.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Мэдээ',
+            'contents' => $contents,
         ]);
     }
 }

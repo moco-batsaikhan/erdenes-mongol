@@ -42,8 +42,10 @@
 							<th>№</th>
 							<th>Агуулгийн нэр</th>
 							<th>Агуулгийн төрөл</th>
-							<th>Агуулга</th>
-							<th>Дараалал</th>
+							{# <th>Агуулга</th> #}
+							<th>Контентийн дараалал</th>
+							<th>Мэдээ</th>
+
 						</tr>
 					</thead>
 					<tbody>
@@ -52,8 +54,10 @@
 								<td>{{ content.id }}</td>
 								<td>{{ content.name }}</td>
 								<td>{{ content.type }}</td>
-								<td>{{ content.pdfFileName }}</td>
+								{# <td>{{ content.pdfFileName }}</td> #}
 								<td>{{ content.priority}}</td>
+								<td>{{ content.getNews.MnTitle }}</td>
+
 
 							</tr>
 						{% endfor %}

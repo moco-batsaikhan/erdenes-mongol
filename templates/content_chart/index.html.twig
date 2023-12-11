@@ -41,8 +41,9 @@
 						<tr>
 							<th>№</th>
 							<th>Агуулгийн нэр</th>
-							<th>Агуулга</th>
-							<th>Дараалал</th>
+							<th>Контентийн дараалал</th>
+							<th>Төрөл</th>
+							<th>Мэдээ</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -50,11 +51,9 @@
 							<tr>
 								<td>{{ content.id }}</td>
 								<td>{{ content.name }}</td>
-								{# {% if content.file is not null %}
-																<ul>
-																</ul> #}
 								<td>{{ content.priority}}</td>
-
+								<td>{{ content.type}}</td>
+								<td>{{ content.getNews.MnTitle }}</td>
 							</tr>
 						{% endfor %}
 					</tbody>

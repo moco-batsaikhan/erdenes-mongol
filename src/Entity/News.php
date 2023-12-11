@@ -71,6 +71,9 @@ class News
     #[ORM\Column(length: 255)]
     private ?string $redirectType = null;
 
+    #[ORM\Column(length: 16)]
+    private ?string $processType = "CREATED";
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -305,6 +308,18 @@ class News
     public function setRedirectType(string $redirectType): static
     {
         $this->redirectType = $redirectType;
+
+        return $this;
+    }
+
+    public function getProcessType(): ?string
+    {
+        return $this->processType;
+    }
+
+    public function setProcessType(string $processType): static
+    {
+        $this->processType = $processType;
 
         return $this;
     }

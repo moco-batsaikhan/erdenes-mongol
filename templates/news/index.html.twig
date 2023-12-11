@@ -39,12 +39,13 @@
 							<th>Гарчиг(Монгол)</th>
 							<th>Гарчиг(Англи)</th>
 							<th>Гарчиг(Хятад)</th>
-							<th>Агуулга эхлэл(Монгол)</th>
-							<th>Агуулга эхлэл(Англи)</th>
-							<th>Агуулга эхлэл(Хятад)</th>
+							<th>Агуулга(Монгол)</th>
+							<th>Агуулга(Англи)</th>
+							<th>Агуулга(Хятад)</th>
 							<th>Онцгой</th>
 							<th>Төлөв</th>
-							<th>Үүсгэсэн хэрэглэгч</th>
+							<th>Явц</th>
+							<th>Контентууд</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -72,8 +73,17 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-
-								<td>{{ n.getCreatedUser().username }}</td>
+								<td>
+									{% if n.processType == 'CREATED' %}
+										<a href="#" id="editButton" class="btn btn-primary btn-sm">
+											Нийтлэх
+										</a>
+									{% endif %}
+								</td>
+								<td>
+									<a href="{{ path('app_news_contents', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
+										Контентууд</a>
+								</td>
 								<td>
 									<a href="{{ path('app_news_edit', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
@@ -86,4 +96,24 @@
 			</tbody>
 		</tbody>
 	</table>
-</div></div></div>{% endblock %}
+</div></div></div>{# <script>document.getElementById('editButton').addEventListener('click', function () {
+								
+								fetch('your_api_endpoint', {
+								method: 'PUT',
+								headers: {
+								'Content-Type': 'application/json'
+								},
+								body: JSON.stringify(
+								{key1: 'value1', key2: 'value2'}
+								)
+								}).then(response => {
+								if (!response.ok) {
+								throw new Error('Network response was not ok');
+								}
+								return response.json();
+								}).then(data => {
+								console.log(data);
+								}).catch(error => {
+								console.error('There was a problem with the fetch operation:', error);
+								});
+								});</script> #}{% endblock %}

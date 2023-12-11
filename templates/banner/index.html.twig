@@ -61,8 +61,8 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td><img src="{{ asset("app.path.image/" ~ banner.imageUrl) }}"></td>
-								<td><img src="{{ asset("app.path.image/" ~ banner.icon) }}"></td>
+								<td><img src="{{ asset("uploads/image/" ~ banner.imageUrl) }}"></td>
+								<td><img src="{{ asset("uploads/image/" ~ banner.icon) }}"></td>
 								<td>{{ banner.startedDate|date('Y-m-d') }}</td>
 								<td>{{ banner.endDate|date('Y-m-d') }}</td>
 								<td>
@@ -73,12 +73,13 @@
 							</tr>
 						{% endfor %}
 					</tbody>
-				</tr>
-			</tbody>
-		</tbody>
-	</table>
-</div>
 
-{# {% if banners|length > 0 %}
-	{% include 'layout/pagination.html.twig' %}
-{% endif %} #}</div></div>{% endblock %}
+				</table>
+			</div>
+
+			{# {% if banners|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %} #}
+		</div>
+	</div>
+{% endblock %}

@@ -51,15 +51,16 @@
 								{# <td>{{ currency.rates }}</td> #}
 								<td>{{ currency.currencyDate|date('Y-m-d') }}</td>
 								{# <td>
-																	<a href="{{ path('app_banner_edit', {'id' : currency.id}) }}" class="btn btn-primary btn-sm">
-																		<i class="fas fa-edit"></i>
-																	</a>
-																</td> #}
+																									<a href="{{ path('app_banner_edit', {'id' : currency.id}) }}" class="btn btn-primary btn-sm">
+																										<i class="fas fa-edit"></i>
+																									</a>
+																								</td> #}
 							</tr>
 						{% endfor %}
 					</tbody>
-				</tr>
-			</tbody>
-		</tbody>
-	</table>
-</div></div></div>{% endblock %}
+
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -110,7 +110,7 @@ class NewsCreateFormType extends AbstractType
                 'choice_label' => 'mnName',
             ])
             ->add('subCategory', EntityType::class, [
-                'label' => 'Үндсэн цэснээс сонгох',
+                'label' => 'Туслах цэснээс сонгох',
                 'class' => 'App\Entity\SubCategory',
                 'choice_label' => 'mnName',
             ])

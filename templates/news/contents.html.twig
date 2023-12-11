@@ -16,14 +16,14 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							Видео мэдээлэл
+							<a>Мэдээ мэдээлэл</a>
 						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_video_news_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_news_create') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -36,30 +36,25 @@
 					<thead>
 						<tr>
 							<th>№</th>
-							<th>Гарчиг</th>
-							<th>Төлөв</th>
-							<th>Линк(youtube)</th>
-							<th>#</th>
+							<th>Агуулгийн нэр</th>
+							{# <th>Агуулга</th> #}
+							<th>Контентийн дараалал</th>
+							<th>Контентийн төрөл</th>
+							{# <th>#</th> #}
 						</tr>
 					</thead>
 					<tbody>
-						{% for video in videos %}
+						{% for content in contents %}
 							<tr>
-								<td>{{ video.id }}</td>
-								<td>{{ video.name }}</td>
-								<td>
-									{% if video.active == true %}
-										<b style="color: darkgreen">Идэвхитэй</b>
-									{% else %}
-										<b style="color: red">Идэвхигүй</b>
-									{% endif %}
-								</td>
-								<td>{{ video.url}}</td>
-								<td>
-									<a href="{{ path('app_video_news_edit', {'id' : video.id}) }}" class="btn btn-primary btn-sm">
-										<i class="fas fa-edit"></i>
-									</a>
-								</td>
+								<td>{{ content.id }}</td>
+								<td>{{ content.name }}</td>
+								<td>{{ content.priority}}</td>
+								<td>{{ content.type}}</td>
+								{# <td>
+																									<a href="{{ path('app_news_edit', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
+																										<i class="fas fa-edit"></i>
+																									</a>
+																								</td> #}
 							</tr>
 						{% endfor %}
 					</tbody>
