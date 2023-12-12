@@ -75,8 +75,12 @@
 								</td>
 								<td>
 									{% if n.processType == 'CREATED' %}
-										<a href="#" id="editButton" class="btn btn-primary btn-sm">
+										<a href="{{ path('app_news_punlish', {'id' : n.id}) }}" id="editButton" class="btn btn-success">
 											Нийтлэх
+										</a>
+									{% elseif n.processType == 'PUBLISHED' %}
+										<a href="#" id="editButton" class="btn btn-info">
+											Харах
 										</a>
 									{% endif %}
 								</td>
@@ -97,23 +101,23 @@
 		</tbody>
 	</table>
 </div></div></div>{# <script>document.getElementById('editButton').addEventListener('click', function () {
-								
-								fetch('your_api_endpoint', {
-								method: 'PUT',
-								headers: {
-								'Content-Type': 'application/json'
-								},
-								body: JSON.stringify(
-								{key1: 'value1', key2: 'value2'}
-								)
-								}).then(response => {
-								if (!response.ok) {
-								throw new Error('Network response was not ok');
-								}
-								return response.json();
-								}).then(data => {
-								console.log(data);
-								}).catch(error => {
-								console.error('There was a problem with the fetch operation:', error);
-								});
-								});</script> #}{% endblock %}
+																	
+																	fetch('your_api_endpoint', {
+																	method: 'PUT',
+																	headers: {
+																	'Content-Type': 'application/json'
+																	},
+																	body: JSON.stringify(
+																	{key1: 'value1', key2: 'value2'}
+																	)
+																	}).then(response => {
+																	if (!response.ok) {
+																	throw new Error('Network response was not ok');
+																	}
+																	return response.json();
+																	}).then(data => {
+																	console.log(data);
+																	}).catch(error => {
+																	console.error('There was a problem with the fetch operation:', error);
+																	});
+																	});</script> #}{% endblock %}

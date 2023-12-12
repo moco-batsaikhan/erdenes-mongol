@@ -18,12 +18,15 @@
 						<li class="breadcrumb-item">
 							<a>Мэдээ мэдээлэл</a>
 						</li>
+						<li class="breadcrumb-item">
+							<a>Агуулгууд</a>
+						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_news_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_news_choose_content') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -51,10 +54,10 @@
 								<td>{{ content.priority}}</td>
 								<td>{{ content.type}}</td>
 								{# <td>
-																									<a href="{{ path('app_news_edit', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
-																										<i class="fas fa-edit"></i>
-																									</a>
-																								</td> #}
+																																									<a href="{{ path('app_news_edit', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
+																																										<i class="fas fa-edit"></i>
+																																									</a>
+																																								</td> #}
 							</tr>
 						{% endfor %}
 					</tbody>

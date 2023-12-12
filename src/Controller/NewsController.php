@@ -114,6 +114,17 @@ class NewsController extends AbstractController
         ]);
     }
 
+    #[Route('/choose-content', name: '_choose_content')]
+    public function listIndex(): Response
+    {
+
+        return $this->render('news/choose-content.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Контент ',
+        ]);
+    }
+
     #[Route('/publish/{id}', name: '_punlish', requirements: ['id' => "\d+"])]
     public function publish($id, EntityManagerInterface $em, Request $request): Response
     {
@@ -125,7 +136,7 @@ class NewsController extends AbstractController
         $em->flush();
 
         $log = new CmsAdminLog();
-        $log->setAdminname($this->getUser());
+        // $log->setAdminname($this->getUser());
         $log->setIpaddress($request->getClientIp());
         $log->setValue($news->getId());
         $log->setAction('Мэдээ нийтлэв.');
@@ -134,7 +145,7 @@ class NewsController extends AbstractController
         $em->persist($log);
         $em->flush();
 
-        $this->addFlash('success', 'Амжилттай засагдлаа.');
+        $this->addFlash('success', 'Амжилттай нийтлэгдлээ.');
         return $this->redirectToRoute('app_news_index');
     }
 
