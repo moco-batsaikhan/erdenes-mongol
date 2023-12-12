@@ -297,4 +297,36 @@ class ContentController extends AbstractController
             'section_title' => 'Нэмэх',
         ]);
     }
+
+    #[Route('/edit/priority', name: 'edit_priority')]
+    public function reorder(Request $request, EntityManagerInterface $entityManager)
+    {
+        $orderedIds = $request->request->get('orderedIds', []);
+        $orderedIds = array_filter((array) $orderedIds);
+        dd($orderedIds);
+
+
+        // foreach ($orderedIds as $position => $id) {
+        //     $section = $entityManager->getRepository(Layout::class)->find($id);
+
+        //     if ($section instanceof Layout) {
+        //         $section->setPriority($position + 1);
+        //     }
+        // }
+
+        // $entityManager->persist($section);
+        // $entityManager->flush();
+
+        // $log = new CmsAdminLog();
+        // $log->setAdminname($this->getUser()->getUserIdentifier());
+        // $log->setIpaddress($request->getClientIp());
+        // $log->setValue('Байршлууд');
+        // $log->setAction('Нүүр хуудас байршил өөрчлөв.');
+        // $log->setCreatedAt(new \DateTime('now'));
+
+        // $entityManager->persist($log);
+        // $entityManager->flush();
+
+        // return new JsonResponse(['success' => true]);
+    }
 }

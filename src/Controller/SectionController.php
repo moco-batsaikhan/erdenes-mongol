@@ -29,17 +29,6 @@ class SectionController extends AbstractController
 
         $results = $section->getResult();
 
-        $log = new CmsAdminLog();
-        $log->setAdminname($this->getUser()->getUserIdentifier());
-        $log->setIpaddress($request->getClientIp());
-        $log->setValue('Байршлууд');
-        $log->setAction('Нүүр хуудас байршил өөрчлөв.');
-        $log->setCreatedAt(new \DateTime('now'));
-
-        $em->persist($log);
-        $em->flush();
-
-
         return $this->render('section/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
@@ -65,6 +54,16 @@ class SectionController extends AbstractController
         }
 
         $entityManager->persist($section);
+        $entityManager->flush();
+
+        $log = new CmsAdminLog();
+        $log->setAdminname($this->getUser()->getUserIdentifier());
+        $log->setIpaddress($request->getClientIp());
+        $log->setValue('Байршлууд');
+        $log->setAction('Нүүр хуудас байршил өөрчлөв.');
+        $log->setCreatedAt(new \DateTime('now'));
+
+        $entityManager->persist($log);
         $entityManager->flush();
 
         return new JsonResponse(['success' => true]);

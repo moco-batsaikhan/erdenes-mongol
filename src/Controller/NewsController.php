@@ -150,12 +150,12 @@ class NewsController extends AbstractController
     }
 
 
-    #[Route('/news/{id}/contents', name: '_contents', requirements: ['id' => "\d+"])]
+    #[Route('/{id}/contents', name: '_contents', requirements: ['id' => "\d+"])]
     public function contents($id, EntityManagerInterface $em, Request $request): Response
     {
         $news = $em->getRepository(News::class)->find($id);
 
-        $contents = $em->getRepository(Content::class)->findBy(['News' => $news]);
+        $contents = $em->getRepository(Content::class)->findBy(['News' => $news], ['priority' => 'ASC']);
 
 
         return $this->render('news/contents.html.twig', [

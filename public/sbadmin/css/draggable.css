@@ -48,6 +48,11 @@ body {
    background: #ECF0F1;
 }
 
+.content-list:hover{
+   background: #ECF0F1;
+   cursor: pointer;
+}
+
 .list-item.block .media {
    border-bottom-left-radius: 0;
    border-bottom-right-radius: 0
