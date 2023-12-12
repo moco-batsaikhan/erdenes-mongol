@@ -1,6 +1,10 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-upload_excel:
-  path: "/uploads/excel"
-  controller: 'App\Controller\ExcelController::uploadExcel'
+app_file:
+  resource: "../src/Controller/CurrencyController.php"
+  type: annotation
+
+download_example:
+  path: "/download-example"
+  controller: 'App\Controller\CurrencyController::downloadExampleAction'

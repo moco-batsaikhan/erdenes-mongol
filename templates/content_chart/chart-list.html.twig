@@ -24,12 +24,22 @@
 			</div>
 			<br>
 			<div class="list-group">
-				<a href="#" class="list-group-item list-group-item-action">
-					Cras justo odio
+				<a href="{{ path('app_content_create_chart', {'chartName': 'LineGraph'}) }}" class="list-group-item list-group-item-action">
+					Шугаман график
 				</a>
-				<a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-				<a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-				<a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+				<a href="{{ path('app_content_create_chart', {'chartName': 'OrganizationGraph'}) }}" class="list-group-item list-group-item-action">Бүтцийн график
+				</a>
+				<a href="{{ path('app_content_create_chart', {'chartName': 'FlowAnalysisGraph'}) }}" class="list-group-item list-group-item-action">Урсгалын график
+				</a>
+				<a href="{{ path('app_content_create_chart', {'chartName': 'ColumnGraph'}) }}" class="list-group-item list-group-item-action">Баганан график
+				</a>
+				<a href="{{ path('app_content_create_chart', {'chartName': 'DonutGraph'}) }}" class="list-group-item list-group-item-action">Pie, Donut график
+				</a>
+				<a href="{{ path('app_content_create_chart', {'chartName': 'ComboGraph'}) }}" class="list-group-item list-group-item-action">Комбо график
+				</a>
+				<a href="{{ path('app_content_create_chart', {'chartName': 'CaugeGraph'}) }}" class="list-group-item list-group-item-action">Метрик график
+				</a>
+
 			</div>
 		</div>
 	</div>

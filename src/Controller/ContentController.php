@@ -14,7 +14,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 use function PHPSTORM_META\type;
 
@@ -25,6 +26,7 @@ class ContentController extends AbstractController
     private $current = 'content';
     private $pageTitle = 'Контент';
     private $columnSearch = [];
+    private $pathName = '';
 
     #[Route('/pdf', name: '_pdf_index')]
     public function pdfIndex(EntityManagerInterface $em): Response
@@ -120,9 +122,21 @@ class ContentController extends AbstractController
         return $jsonArray;
     }
 
+    #[Route('/chart-list', name: '_chart_list_index')]
+    public function listIndex(): Response
+    {
+
+        return $this->render('content_chart/chart-list.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Контент ',
+        ]);
+    }
+
     #[Route('/create/chart', name: '_create_chart')]
     public function createChartData(EntityManagerInterface $em, Request $request): Response
     {
+        $chartName = $request->get('chartName');
 
         $contentChart = new Content;
         $contentChart->setType('JSON');
@@ -159,8 +173,49 @@ class ContentController extends AbstractController
 
         return $this->render('content_chart/create.html.twig', [
             'contentChartForm' => $contentChartForm->createView(),
+            'pathName' => $chartName,
             'page_title' => 'Үндсэн цэс',
         ]);
+    }
+
+    #[Route('/download-example-file', name: '_download_example_file')]
+    public function downloadExampleAction(Request $request)
+    {
+
+        $chartName = $request->get('chartName');
+
+        // if ($chartName == 'LineGraph') {
+        //     $pathName = 'LineGraph';
+        // } elseif ($chartName == 'OrganizationGraph') {
+        //     $pathName = 'OrganizationGraph';
+        // } elseif ($chartName == 'FlowAnalysisGraph') {
+        //     $pathName = 'FlowAnalysisGraph';
+        // } elseif ($chartName == 'ColumnGraph') {
+        //     $pathName = 'ColumnGraph';
+        // } elseif ($chartName == 'DonutGraph') {
+        //     $pathName = 'DonutGraph';
+        // } elseif ($chartName == 'ComboGraph') {
+        //     $pathName = 'ComboGraph';
+        // } elseif ($chartName == 'CaugeGraph') {
+        //     $pathName = 'LineCaugeGraphGraph';
+        // };
+
+
+        $exampleFilePath = $this->getParameter('kernel.project_dir') . '/public/uploads/excel/' . $chartName . '.xlsx';
+
+        if (!file_exists($exampleFilePath)) {
+            throw $this->createNotFoundException('Example file not found.');
+        }
+
+        $response = new BinaryFileResponse($exampleFilePath);
+
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'example.xlsx'
+        ));
+
+        return $response;
     }
 
 

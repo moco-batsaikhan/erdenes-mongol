@@ -18,7 +18,7 @@
 				</li>
 
 				<li class="breadcrumb-item">
-					<a href="{{ path('app_content_pdf_index') }}">chart</a>
+					<a href="{{ path('app_content_pdf_index') }}">График</a>
 				</li>
 
 				<li class="breadcrumb-item active" aria-current="page">
@@ -27,6 +27,18 @@
 			</ol>
 		</nav>
 	</div>
+
+
+	<br>
+
+
+	<div>
+		<a href="{{ path('app_content_download_example_file', {'chartName': pathName}) }}" class="btn btn-primary btn-sm">
+			жишээ татах</a>
+	</div>
+
+	<br>
+	<br>
 
 	{% include 'layout/flash.html.twig' %}
 

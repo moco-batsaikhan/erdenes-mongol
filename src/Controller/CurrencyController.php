@@ -9,6 +9,8 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 
@@ -19,6 +21,27 @@ class CurrencyController extends AbstractController
 {
     private $current = 'currency';
     private $pageTitle = 'Ханшийн мэдээлэл';
+
+    #[Route('/download-example-file', name: '_download_example_file')]
+    public function downloadExampleAction()
+    {
+
+        $exampleFilePath = $this->getParameter('kernel.project_dir') . '/public/uploads/excel/example.xlsx';
+
+        if (!file_exists($exampleFilePath)) {
+            throw $this->createNotFoundException('Example file not found.');
+        }
+
+        $response = new BinaryFileResponse($exampleFilePath);
+
+        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            'example.xlsx'
+        ));
+
+        return $response;
+    }
 
     #[Route('', name: '_index')]
     public function index(EntityManagerInterface $em): Response
@@ -36,21 +59,6 @@ class CurrencyController extends AbstractController
     }
 
 
-    private function extractJsonFromExcel(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet): array
-    {
-        $sheet = $spreadsheet->getActiveSheet();
-        $jsonColumn = $sheet->getColumnIterator()->current();
-
-        $jsonArray = [];
-
-        foreach ($jsonColumn->getCellIterator() as $cell) {
-            $jsonArray[] = json_decode($cell->getValue(), true);
-        }
-
-        return $jsonArray;
-    }
-
-
     #[Route('/create', name: '_create')]
     public function create(EntityManagerInterface $em, Request $request): Response
     {
@@ -63,12 +71,12 @@ class CurrencyController extends AbstractController
         if ($currencyForm->isSubmitted() && $currencyForm->isValid()) {
             try {
 
-                $excelFile = $currencyForm->get('file')->getData();
+                $excelFile = $currencyForm->get('rates')->getData();
 
                 $spreadsheet = IOFactory::load($excelFile->getPathname());
-                $json = $this->extractJsonFromExcel($spreadsheet);
+                $data = $spreadsheet->getActiveSheet()->toArray(null, true, true, true);
 
-                $currency->setRates($json);
+                $currency->setRates($data);
                 $currency->setCreatedUser($this->getUser());
 
                 $em->persist($currency);

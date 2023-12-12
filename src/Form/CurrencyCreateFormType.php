@@ -20,12 +20,12 @@ class CurrencyCreateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('base', NumberType::class, array(
-                'label' => 'Суурь',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ))
+            // ->add('base', NumberType::class, array(
+            //     'label' => 'Суурь',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //     )
+            // ))
             ->add('rates', FileType::class, [
                 'label' => 'Excel File (XLSX)',
                 'required' => true,
