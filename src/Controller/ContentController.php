@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
 use function PHPSTORM_META\type;
@@ -298,35 +299,35 @@ class ContentController extends AbstractController
         ]);
     }
 
-    #[Route('/edit/priority', name: 'edit_priority')]
+    #[Route('/edit/priority', name: '_edit_priority', methods: ['POST'])]
     public function reorder(Request $request, EntityManagerInterface $entityManager)
     {
         $orderedIds = $request->request->get('orderedIds', []);
         $orderedIds = array_filter((array) $orderedIds);
-        dd($orderedIds);
 
 
-        // foreach ($orderedIds as $position => $id) {
-        //     $section = $entityManager->getRepository(Layout::class)->find($id);
 
-        //     if ($section instanceof Layout) {
-        //         $section->setPriority($position + 1);
-        //     }
-        // }
+        foreach ($orderedIds as $position => $id) {
+            $section = $entityManager->getRepository(Content::class)->find($id);
 
-        // $entityManager->persist($section);
-        // $entityManager->flush();
+            if ($section instanceof Content) {
+                $section->setPriority($position + 1);
+            }
+        }
 
-        // $log = new CmsAdminLog();
-        // $log->setAdminname($this->getUser()->getUserIdentifier());
-        // $log->setIpaddress($request->getClientIp());
-        // $log->setValue('Байршлууд');
-        // $log->setAction('Нүүр хуудас байршил өөрчлөв.');
-        // $log->setCreatedAt(new \DateTime('now'));
+        $entityManager->persist($section);
+        $entityManager->flush();
 
-        // $entityManager->persist($log);
-        // $entityManager->flush();
+        $log = new CmsAdminLog();
+        $log->setAdminname($this->getUser()->getUserIdentifier());
+        $log->setIpaddress($request->getClientIp());
+        $log->setValue('Байршлууд');
+        $log->setAction('Мэдээний байршил өөрчлөв.');
+        $log->setCreatedAt(new \DateTime('now'));
 
-        // return new JsonResponse(['success' => true]);
+        $entityManager->persist($log);
+        $entityManager->flush();
+
+        return new JsonResponse(['success' => true]);
     }
 }

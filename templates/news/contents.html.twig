@@ -69,9 +69,11 @@
 		</div>
 	</div>
 
-	{% block scripts %}
-		<script>
-			$(function () {
+
+{% endblock %}
+{% block scripts %}
+	<script>
+		$(document).ready(function () {
 $("#sortable").sortable({
 update: function (event, ui) {
 var orderedIds = $("#sortable").sortable("toArray", {attribute: "id"});
@@ -79,7 +81,7 @@ var orderedIds = $("#sortable").sortable("toArray", {attribute: "id"});
 console.log("passs", orderedIds);
 
 $.ajax({
-url: `/content/edit/priority`,
+url: `{{path('app_content_edit_priority')}}`,
 type: "POST",
 data: {
 orderedIds: orderedIds
@@ -96,6 +98,5 @@ console.error("Error during reorder: " + error);
 });
 $("#sortable").disableSelection();
 });
-		</script>
-	{% endblock %}
+	</script>
 {% endblock %}

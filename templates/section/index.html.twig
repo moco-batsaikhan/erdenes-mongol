@@ -38,10 +38,10 @@
 									<li
 										class="list-item" id="{{ section.id}}" data-item-sortable-id="{{ section.priority }}" draggable="true" role="option" aria-grabbed="false" style="">
 										{# <div>
-																																																																																																					<span class="w-40 avatar gd-primary">
-																																																																																																						{{section.priority}}
-																																																																																																					</span>
-																																																																																																				</div> #}
+																																																																																																															<span class="w-40 avatar gd-primary">
+																																																																																																																{{section.priority}}
+																																																																																																															</span>
+																																																																																																														</div> #}
 										<div class="flex">
 											{{ section.sectionName}}
 										</div>
@@ -56,9 +56,11 @@
 	</div>
 
 
-	{% block scripts %}
-		<script>
-			$(function () {
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		$(function () {
 $("#sortable").sortable({
 update: function (event, ui) {
 
@@ -84,6 +86,5 @@ console.error("Error during reorder: " + error);
 });
 $("#sortable").disableSelection();
 });
-		</script>
-	{% endblock %}
+	</script>
 {% endblock %}
