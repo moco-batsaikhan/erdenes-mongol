@@ -36,15 +36,12 @@
 					<thead>
 						<tr>
 							<th>№</th>
-							<th>Цэс(Монгол)</th>
-							<th>Цэс(Англи)</th>
-							<th>Цэс(Хятад)</th>
+							<th>Цэс нэр(Монгол)</th>
+							<th>Цэс нэр(Англи)</th>
+							<th>Цэс нэр(Хятад)</th>
 							<th>Төлөв</th>
-							<th>Төрөл</th>
+							<th>Байршил</th>
 							<th>Дараалал</th>
-							<th>Үсрэх url</th>
-							{# <th>Үүсгэсэн хэрэглэгч</th> #}
-							<th>Үүсгэсэн хугацаа</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -62,21 +59,28 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td>{{ category.type}}</td>
+								<td>
+									{% if category.type == 'ALL' %}
+										<b>Бүх байршил дээр</b>
+									{% elseif category.type == 'SIDEBAR' %}
+										<b>Хажуугийн цэс</b>
+									{% elseif category.type == 'FOOTER' %}
+										<b>Доорх цэс</b>
+									{% elseif category.type == 'HEADER' %}
+										<b>Дээрх цэс</b>
+									{% endif %}
+								</td>
 								<td>{{ category.priority}}</td>
-								<td>{{ category.url}}</td>
-								{# <td>{{ category.createdUser }}</td> #}
-								<td>{{ category.createdAt|date('Y-m-d') }}</td>
 								<td>
 									<a href="{{ path('app_main_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
 								</td>
 							</tr>
-						{% endfor %}
+						</tbody>
 					</tbody>
 				</tr>
-			</tbody>
+			{% endfor %}
 		</tbody>
-	</table>
-</div></div></div>{% endblock %}
+	</tr>
+</tbody></tbody></table></div></div></div>{% endblock %}

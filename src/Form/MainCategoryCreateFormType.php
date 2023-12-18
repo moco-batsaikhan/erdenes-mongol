@@ -18,21 +18,21 @@ class MainCategoryCreateFormType extends AbstractType
     {
         $builder
             ->add('mnName', TextType::class, array(
-                'label' => 'Монгол нэр',
+                'label' => 'Цэс нэр(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "цэсний нэр оруулна уу ...",
                 )
             ))
             ->add('enName', TextType::class, array(
-                'label' => 'Англи нэр',
+                'label' => 'Цэс нэр(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "цэсний нэр оруулна уу ...",
                 )
             ))
             ->add('cnName', TextType::class, array(
-                'label' => 'Хятад нэр',
+                'label' => 'Цэс нэр(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "цэсний нэр оруулна уу ...",
@@ -54,7 +54,7 @@ class MainCategoryCreateFormType extends AbstractType
                 )
             )
             ->add('priority', NumberType::class, array(
-                'label' => 'Дарааалал',
+                'label' => 'Цэс өрөгдөх дарааалал',
                 'attr' => array(
                     "class" => "form-control",
                 )
@@ -64,24 +64,18 @@ class MainCategoryCreateFormType extends AbstractType
                 ChoiceType::class,
                 array(
                     'attr' => array('class' => 'form-control'),
-                    'label' => 'Байршил',
+                    'label' => 'Байршил сонгох',
                     'choices' =>
                     array(
-                        'Хажуу цэс' => 'sidebar',
-                        'Доорх цэс' => 'footer',
-                        'Бүгд' => 'all'
+                        'Дээрх цэс' => 'HEADER',
+                        'Хажуу цэс' => 'SIDEBAR',
+                        'Доорх цэс' => 'FOOTER',
+                        'Бүх цэс' => 'ALL'
                     ),
                     'multiple' => false,
                     'required' => true,
                 )
             )
-            ->add('url', TextType::class, array(
-                'label' => 'Дарах үед үсрэх url',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "url оруулна уу ...",
-                )
-            ))
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

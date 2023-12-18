@@ -180,30 +180,14 @@ class ContentController extends AbstractController
     }
 
     #[Route('/download-example-file', name: '_download_example_file')]
-    public function downloadExampleAction(Request $request)
+    public function downloadGraphExampleAction(Request $request)
     {
 
         $chartName = $request->get('chartName');
 
-        // if ($chartName == 'LineGraph') {
-        //     $pathName = 'LineGraph';
-        // } elseif ($chartName == 'OrganizationGraph') {
-        //     $pathName = 'OrganizationGraph';
-        // } elseif ($chartName == 'FlowAnalysisGraph') {
-        //     $pathName = 'FlowAnalysisGraph';
-        // } elseif ($chartName == 'ColumnGraph') {
-        //     $pathName = 'ColumnGraph';
-        // } elseif ($chartName == 'DonutGraph') {
-        //     $pathName = 'DonutGraph';
-        // } elseif ($chartName == 'ComboGraph') {
-        //     $pathName = 'ComboGraph';
-        // } elseif ($chartName == 'CaugeGraph') {
-        //     $pathName = 'LineCaugeGraphGraph';
-        // };
-
-
         $exampleFilePath = $this->getParameter('kernel.project_dir') . '/public/uploads/excel/' . $chartName . '.xlsx';
 
+        dd($exampleFilePath);
         if (!file_exists($exampleFilePath)) {
             throw $this->createNotFoundException('Example file not found.');
         }
@@ -211,10 +195,7 @@ class ContentController extends AbstractController
         $response = new BinaryFileResponse($exampleFilePath);
 
         $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $response->headers->set('Content-Disposition', $response->headers->makeDisposition(
-            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-            'example.xlsx'
-        ));
+        $response->headers->set('Content-Disposition', 'attachment; filename=`chartName`');
 
         return $response;
     }

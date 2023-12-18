@@ -45,7 +45,7 @@
 							<th>Онцгой</th>
 							<th>Төлөв</th>
 							<th>Явц</th>
-							<th>Контентууд</th>
+							<th>Агуулгууд харах</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -86,7 +86,8 @@
 								</td>
 								<td>
 									<a href="{{ path('app_news_contents', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
-										Контентууд</a>
+										Агуулгууд
+									</a>
 								</td>
 								<td>
 									<a href="{{ path('app_news_edit', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
@@ -101,23 +102,23 @@
 		</tbody>
 	</table>
 </div></div></div>{# <script>document.getElementById('editButton').addEventListener('click', function () {
-																	
-																	fetch('your_api_endpoint', {
-																	method: 'PUT',
-																	headers: {
-																	'Content-Type': 'application/json'
-																	},
-																	body: JSON.stringify(
-																	{key1: 'value1', key2: 'value2'}
-																	)
-																	}).then(response => {
-																	if (!response.ok) {
-																	throw new Error('Network response was not ok');
-																	}
-																	return response.json();
-																	}).then(data => {
-																	console.log(data);
-																	}).catch(error => {
-																	console.error('There was a problem with the fetch operation:', error);
-																	});
-																	});</script> #}{% endblock %}
+																			
+																			fetch('your_api_endpoint', {
+																			method: 'PUT',
+																			headers: {
+																			'Content-Type': 'application/json'
+																			},
+																			body: JSON.stringify(
+																			{key1: 'value1', key2: 'value2'}
+																			)
+																			}).then(response => {
+																			if (!response.ok) {
+																			throw new Error('Network response was not ok');
+																			}
+																			return response.json();
+																			}).then(data => {
+																			console.log(data);
+																			}).catch(error => {
+																			console.error('There was a problem with the fetch operation:', error);
+																			});
+																			});</script> #}{% endblock %}

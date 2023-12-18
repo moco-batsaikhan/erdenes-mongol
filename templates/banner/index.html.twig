@@ -61,8 +61,8 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td><img src="{{ asset("uploads/image/" ~ banner.imageUrl) }}"></td>
-								<td><img src="{{ asset("uploads/image/" ~ banner.icon) }}"></td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.imageUrl) }}" class="img-fluid" alt="Banner Image"></td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.icon) }}" class="img-fluid" alt="Banner Image"></td>
 								<td>{{ banner.startedDate|date('Y-m-d') }}</td>
 								<td>{{ banner.endDate|date('Y-m-d') }}</td>
 								<td>
@@ -78,8 +78,8 @@
 			</div>
 
 			{# {% if banners|length > 0 %}
-				{% include 'layout/pagination.html.twig' %}
-			{% endif %} #}
+																												{% include 'layout/pagination.html.twig' %}
+																											{% endif %} #}
 		</div>
 	</div>
 {% endblock %}

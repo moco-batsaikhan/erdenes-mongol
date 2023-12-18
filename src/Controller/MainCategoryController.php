@@ -70,7 +70,7 @@ class MainCategoryController extends AbstractController
             return $this->redirectToRoute('app_main_category_index');
         }
 
-        return $this->render('main_category/create.thml.twig', [
+        return $this->render('main_category/create.html.twig', [
             'mainCategoryForm' => $mainCategoryForm->createView(),
             'page_title' => 'Үндсэн цэс',
         ]);
@@ -93,7 +93,7 @@ class MainCategoryController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUsername());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($mainCategory->getId());
             $log->setAction('Админ мэдээлэл засав.');
@@ -105,7 +105,7 @@ class MainCategoryController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
 
-            return $this->redirectToRoute('app_main_category_edit', array('id' => $id));
+            return $this->redirectToRoute('app_main_category_index', array('id' => $id));
         }
 
 

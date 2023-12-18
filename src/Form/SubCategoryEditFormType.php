@@ -52,35 +52,13 @@ class SubCategoryEditFormType extends AbstractType
                     'required' => false,
                 )
             )
-            // ->add(
-            //     'type',
-            //     ChoiceType::class,
-            //     array(
-            //         'attr' => array('class' => 'form-control'),
-            //         'label' => 'Байршил',
-            //         'choices' =>
-            //         array(
-            //             'Хажуу цэс' => 'sidebar',
-            //             'Доорх цэс' => 'footer',
-            //             'Бүгд' => 'all'
-            //         ),
-            //         'multiple' => false,
-            //         'required' => true,
-            //     )
-            // )
             ->add('priority', NumberType::class, array(
                 'label' => 'Дарааалал',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ))
-            ->add('url', TextType::class, array(
-                'label' => 'үсрэх url',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => " оруулна уу ...",
-                )
-            ))
+
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

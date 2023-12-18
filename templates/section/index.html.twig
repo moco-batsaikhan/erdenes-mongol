@@ -33,21 +33,15 @@
 				<div class="padding">
 					<div class="row">
 						<div class="col-sm-8">
-							<ul class="list list-row card" id="sortable" data-sortable-id="1" aria-dropeffect="move">
+							<ol class="list-group list-group-light list-group-numbered" id="sortable" data-sortable-id="1" aria-dropeffect="move">
 								{% for key, section in sections %}
-									<li
-										class="list-item" id="{{ section.id}}" data-item-sortable-id="{{ section.priority }}" draggable="true" role="option" aria-grabbed="false" style="">
-										{# <div>
-																																																																																																															<span class="w-40 avatar gd-primary">
-																																																																																																																{{section.priority}}
-																																																																																																															</span>
-																																																																																																														</div> #}
+									<li class="list-group-item" id="{{ section.id}}" data-item-sortable-id="{{ section.priority }}" draggable="true" role="option" aria-grabbed="false" style="cursor: pointer">
 										<div class="flex">
 											{{ section.sectionName}}
 										</div>
 									</li>
 								{% endfor %}
-							</ul>
+							</ol>
 						</div>
 					</div>
 				</div>

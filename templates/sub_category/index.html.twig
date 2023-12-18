@@ -36,14 +36,12 @@
 					<thead>
 						<tr>
 							<th>№</th>
-							<th>Цэс(Монгол)</th>
-							<th>Цэс(Англи)</th>
-							<th>Цэс(Хятад)</th>
+							<th>Цэс нэр(Монгол)</th>
+							<th>Цэс нэр(Англи)</th>
+							<th>Цэс нэр(Хятад)</th>
 							<th>Төлөв</th>
 							<th>Дараалал</th>
-							<th>Үсрэх url</th>
-							{# <th>Үндсэн цэс</th> #}
-							<th>Үүсгэсэн хугацаа</th>
+							<th>Харьяалагдах үндсэн цэсний нэр</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -62,9 +60,7 @@
 									{% endif %}
 								</td>
 								<td>{{ category.priority}}</td>
-								<td>{{ category.url}}</td>
-								{# <td>{{ category.mainCategoryId}}</td> #}
-								<td>{{ category.createdAt|date('Y-m-d') }}</td>
+								<td>{{ category.getMainCategoryId.MnName}}</td>
 								<td>
 									<a href="{{ path('app_sub_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>

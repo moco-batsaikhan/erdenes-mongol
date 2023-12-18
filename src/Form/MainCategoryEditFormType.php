@@ -17,21 +17,21 @@ class MainCategoryEditFormType extends AbstractType
     {
         $builder
             ->add('mnName', TextType::class, array(
-                'label' => 'Монгол цэс',
+                'label' => 'Цэс нэр(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "цэс нэр оруулна уу ...",
                 )
             ))
             ->add('enName', TextType::class, array(
-                'label' => 'Англи цэс',
+                'label' => 'Цэс нэр(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "цэс нэр оруулна уу ...",
                 )
             ))
             ->add('cnName', TextType::class, array(
-                'label' => 'Хятад цэс',
+                'label' => 'Цэс нэр(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "цэс нэр оруулна уу ...",
@@ -60,28 +60,21 @@ class MainCategoryEditFormType extends AbstractType
                     'label' => 'Байршил',
                     'choices' =>
                     array(
-                        'Хажуу цэс' => 'sidebar',
-                        'Доорх цэс' => 'footer',
-                        'Бүгд' => 'all'
+                        'Дээрх цэс' => 'HEADER',
+                        'Хажуу цэс' => 'SIDEBAR',
+                        'Доорх цэс' => 'FOOTER',
+                        'Бүх цэс' => 'ALL'
                     ),
                     'multiple' => false,
                     'required' => true,
                 )
             )
             ->add('priority', NumberType::class, array(
-                'label' => 'Дарааалал',
+                'label' => 'Өрөгдөх дарааалал',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ))
-            ->add('url', TextType::class, array(
-                'label' => 'үсрэх url',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => " оруулна уу ...",
-                )
-            ))
-
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

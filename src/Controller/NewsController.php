@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\CategoryClick;
 use App\Entity\CmsAdminLog;
 use App\Entity\Content;
 use App\Entity\News;
@@ -20,7 +19,6 @@ class NewsController extends AbstractController
 
     private $current = 'news';
     private $pageTitle = 'Мэдээ';
-    private $columnSearch = [];
 
 
     #[Route('', name: '_index')]

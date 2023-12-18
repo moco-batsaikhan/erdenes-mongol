@@ -7,4 +7,4 @@ app_file:
 
 download_example:
   path: "/download-example"
-  controller: 'App\Controller\CurrencyController::downloadExampleAction'
+  controller: 'App\Controller\ContentController::downloadGraphExampleAction'
