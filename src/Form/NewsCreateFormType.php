@@ -104,16 +104,6 @@ class NewsCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
-            ->add('MainCategoryId', EntityType::class, [
-                'label' => 'Үндсэн цэснээс сонгох',
-                'class' => 'App\Entity\MainCategory',
-                'choice_label' => 'mnName',
-            ])
-            ->add('subCategory', EntityType::class, [
-                'label' => 'Туслах цэснээс сонгох',
-                'class' => 'App\Entity\SubCategory',
-                'choice_label' => 'mnName',
-            ])
             ->add(
                 'redirectType',
                 ChoiceType::class,

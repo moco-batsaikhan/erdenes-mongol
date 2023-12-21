@@ -93,7 +93,7 @@ class MainCategoryController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser()->getUsername());
+            $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($mainCategory->getId());
             $log->setAction('Админ мэдээлэл засав.');

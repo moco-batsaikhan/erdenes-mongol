@@ -51,7 +51,7 @@ class WebConfigController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($config->getId());
             $log->setAction('Вебийн тохиргооны мэдээлэл засав.');

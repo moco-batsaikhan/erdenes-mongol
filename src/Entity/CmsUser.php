@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CmsUserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -30,6 +32,22 @@ class CmsUser implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
+
+    #[ORM\OneToMany(mappedBy: 'createdUser', targetEntity: DevelopmentHistory::class)]
+    private Collection $developmentHistory;
+
+    #[ORM\OneToMany(mappedBy: 'createdUser', targetEntity: Employee::class)]
+    private Collection $Employee;
+
+    #[ORM\OneToMany(mappedBy: 'createdUser', targetEntity: Organization::class)]
+    private Collection $organizations;
+
+    public function __construct()
+    {
+        $this->developmentHistory = new ArrayCollection();
+        $this->Employee = new ArrayCollection();
+        $this->organizations = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -130,5 +148,95 @@ class CmsUser implements UserInterface, PasswordAuthenticatedUserInterface
     public function setIsVerified(bool $isVerified): void
     {
         $this->isVerified = $isVerified;
+    }
+
+    /**
+     * @return Collection<int, DevelopmentHistory>
+     */
+    public function getDevelopmentHistory(): Collection
+    {
+        return $this->developmentHistory;
+    }
+
+    public function addDevelopmentHistory(DevelopmentHistory $developmentHistory): static
+    {
+        if (!$this->developmentHistory->contains($developmentHistory)) {
+            $this->developmentHistory->add($developmentHistory);
+            $developmentHistory->setCreatedUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDevelopmentHistory(DevelopmentHistory $developmentHistory): static
+    {
+        if ($this->developmentHistory->removeElement($developmentHistory)) {
+            // set the owning side to null (unless already changed)
+            if ($developmentHistory->getCreatedUser() === $this) {
+                $developmentHistory->setCreatedUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Employee>
+     */
+    public function getEmployee(): Collection
+    {
+        return $this->Employee;
+    }
+
+    public function addEmployee(Employee $employee): static
+    {
+        if (!$this->Employee->contains($employee)) {
+            $this->Employee->add($employee);
+            $employee->setCreatedUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmployee(Employee $employee): static
+    {
+        if ($this->Employee->removeElement($employee)) {
+            // set the owning side to null (unless already changed)
+            if ($employee->getCreatedUser() === $this) {
+                $employee->setCreatedUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Organization>
+     */
+    public function getOrganizations(): Collection
+    {
+        return $this->organizations;
+    }
+
+    public function addOrganization(Organization $organization): static
+    {
+        if (!$this->organizations->contains($organization)) {
+            $this->organizations->add($organization);
+            $organization->setCreatedUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganization(Organization $organization): static
+    {
+        if ($this->organizations->removeElement($organization)) {
+            // set the owning side to null (unless already changed)
+            if ($organization->getCreatedUser() === $this) {
+                $organization->setCreatedUser(null);
+            }
+        }
+
+        return $this;
     }
 }

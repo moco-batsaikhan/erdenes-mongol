@@ -92,7 +92,7 @@ class NewsController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($news->getId());
             $log->setAction('Нүүр мэдээлэл засав.');
@@ -134,7 +134,7 @@ class NewsController extends AbstractController
         $em->flush();
 
         $log = new CmsAdminLog();
-        // $log->setAdminname($this->getUser());
+        $log->setAdminname($this->getUser()->getUserIdentifier());
         $log->setIpaddress($request->getClientIp());
         $log->setValue($news->getId());
         $log->setAction('Мэдээ нийтлэв.');

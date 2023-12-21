@@ -95,7 +95,7 @@ class SubCategoryController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($subCategory->getId());
             $log->setAction('Админ туслах цэс засав.');

@@ -47,14 +47,13 @@ class MainCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'MainCategoryId', targetEntity: News::class)]
-    private Collection $news;
+    #[ORM\ManyToOne(inversedBy: 'mainCategories')]
+    private ?NewsType $newsType = null;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
-        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -182,32 +181,14 @@ class MainCategory
         return $this;
     }
 
-    /**
-     * @return Collection<int, News>
-     */
-    public function getNews(): Collection
+    public function getNewsType(): ?NewsType
     {
-        return $this->news;
+        return $this->newsType;
     }
 
-    public function addNews(News $news): static
+    public function setNewsType(?NewsType $newsType): static
     {
-        if (!$this->news->contains($news)) {
-            $this->news->add($news);
-            $news->setMainCategoryId($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNews(News $news): static
-    {
-        if ($this->news->removeElement($news)) {
-            // set the owning side to null (unless already changed)
-            if ($news->getMainCategoryId() === $this) {
-                $news->setMainCategoryId(null);
-            }
-        }
+        $this->newsType = $newsType;
 
         return $this;
     }

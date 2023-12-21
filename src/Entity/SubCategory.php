@@ -51,14 +51,14 @@ class SubCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?MainCategory $mainCategoryId = null;
 
-    #[ORM\OneToMany(mappedBy: 'SubCategory', targetEntity: News::class)]
-    private Collection $news;
+
+    #[ORM\ManyToOne(inversedBy: 'subCategories')]
+    private ?NewsType $newsType = null;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
-        $this->news = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -198,32 +198,14 @@ class SubCategory
         return $this;
     }
 
-    /**
-     * @return Collection<int, News>
-     */
-    public function getNews(): Collection
+    public function getNewsType(): ?NewsType
     {
-        return $this->news;
+        return $this->newsType;
     }
 
-    public function addNews(News $news): static
+    public function setNewsType(?NewsType $newsType): static
     {
-        if (!$this->news->contains($news)) {
-            $this->news->add($news);
-            $news->setSubCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeNews(News $news): static
-    {
-        if ($this->news->removeElement($news)) {
-            // set the owning side to null (unless already changed)
-            if ($news->getSubCategory() === $this) {
-                $news->setSubCategory(null);
-            }
-        }
+        $this->newsType = $newsType;
 
         return $this;
     }

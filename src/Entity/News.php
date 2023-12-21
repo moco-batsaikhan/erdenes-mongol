@@ -62,17 +62,15 @@ class News
     #[ORM\OneToMany(mappedBy: 'News', targetEntity: Content::class)]
     private Collection $contents;
 
-    #[ORM\ManyToOne(inversedBy: 'news')]
-    private ?MainCategory $MainCategoryId = null;
-
-    #[ORM\ManyToOne(inversedBy: 'news')]
-    private ?SubCategory $SubCategory = null;
-
     #[ORM\Column(length: 255)]
     private ?string $redirectType = null;
 
     #[ORM\Column(length: 16)]
     private ?string $processType = "CREATED";
+
+    #[ORM\ManyToOne(inversedBy: 'news')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?NewsType $newsType = null;
 
     public function __construct()
     {
@@ -276,30 +274,6 @@ class News
         return $this;
     }
 
-    public function getMainCategoryId(): ?MainCategory
-    {
-        return $this->MainCategoryId;
-    }
-
-    public function setMainCategoryId(?MainCategory $MainCategoryId): static
-    {
-        $this->MainCategoryId = $MainCategoryId;
-
-        return $this;
-    }
-
-    public function getSubCategory(): ?SubCategory
-    {
-        return $this->SubCategory;
-    }
-
-    public function setSubCategory(?SubCategory $SubCategory): static
-    {
-        $this->SubCategory = $SubCategory;
-
-        return $this;
-    }
-
     public function getRedirectType(): ?string
     {
         return $this->redirectType;
@@ -320,6 +294,18 @@ class News
     public function setProcessType(string $processType): static
     {
         $this->processType = $processType;
+
+        return $this;
+    }
+
+    public function getNewsType(): ?NewsType
+    {
+        return $this->newsType;
+    }
+
+    public function setNewsType(?NewsType $newsType): static
+    {
+        $this->newsType = $newsType;
 
         return $this;
     }

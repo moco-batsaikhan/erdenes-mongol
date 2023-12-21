@@ -16,7 +16,7 @@ class MapController extends AbstractController
     private $pageTitle = 'Төсөл хөтөлбөрүүд';
     private $columnSearch = [];
 
-    #[Route('', name: 'app_map_index')]
+    #[Route('', name: '_index')]
     public function index(EntityManagerInterface $em): Response
     {
 
