@@ -2,37 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\PartnerOrganization;
+use App\Entity\Organization;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
-
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PartnerOrganizationEditTypeFormType extends AbstractType
+class OrganizationEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('mnTitle', TextType::class, array(
+            ->add('mnName', TextType::class, array(
                 'label' => 'Монгол гарчиг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "гарчиг оруулна уу ...",
                 )
             ))
-            ->add('enTitle', TextType::class, array(
+            ->add('enName', TextType::class, array(
                 'label' => 'Англи гарчиг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
-                )
-            ))
-            ->add('cnTitle', TextType::class, array(
-                'label' => 'Хятад гарчиг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "гарчиг оруулна уу ...",
@@ -59,21 +51,6 @@ class PartnerOrganizationEditTypeFormType extends AbstractType
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add(
-                'active',
-                ChoiceType::class,
-                array(
-                    'attr' => array('class' => 'form-control'),
-                    'label' => 'Төлөв',
-                    'choices' =>
-                    array(
-                        'Идэвхитэй' => true,
-                        'Идэвхигүй' => false
-                    ),
-                    'multiple' => false,
-                    'required' => false,
-                )
-            )
             ->add('imageFile', VichFileType::class, [
                 'required' => true,
                 'label' => 'Зураг оруулах',
@@ -85,9 +62,9 @@ class PartnerOrganizationEditTypeFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
-            ->add('iconFile', VichFileType::class, [
+            ->add('logoFile', VichFileType::class, [
                 'required' => true,
-                'label' => 'Зураг оруулах',
+                'label' => 'icon оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
@@ -96,6 +73,13 @@ class PartnerOrganizationEditTypeFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
+            ->add('webUrl', TextType::class, array(
+                'label' => 'Байгууллагийн веб хаяг',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "веб хаяг оруулна уу ...",
+                )
+            ))
             ->add('address', TextType::class, array(
                 'label' => 'Хаяг',
                 'attr' => array(
@@ -121,7 +105,7 @@ class PartnerOrganizationEditTypeFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PartnerOrganization::class,
+            'data_class' => Organization::class,
         ]);
     }
 }

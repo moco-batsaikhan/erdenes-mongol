@@ -5,7 +5,10 @@ namespace App\Entity;
 use App\Repository\AboutUsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: AboutUsRepository::class)]
 class AboutUs
 {
@@ -40,6 +43,9 @@ class AboutUs
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    private ?File $imageFile = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $enPrinciples = null;
@@ -227,5 +233,19 @@ class AboutUs
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 }

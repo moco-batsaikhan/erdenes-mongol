@@ -44,28 +44,6 @@ class BannerEditFormType extends AbstractType
                 )
 
             ))
-            ->add('imageFile', VichFileType::class, [
-                'required' => true,
-                'label' => 'Зураг оруулах',
-                'allow_delete' => true,
-                'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'delete_label' => 'Устгах',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ])
-            ->add('iconFile', VichFileType::class, [
-                'required' => true,
-                'label' => 'Зураг оруулах',
-                'allow_delete' => true,
-                'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'delete_label' => 'Устгах',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ])
             ->add('startedDate', DateType::class, array(
                 'label' => 'Эхлэх огноо',
                 'required' => true,

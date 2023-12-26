@@ -5,8 +5,8 @@
 	<a
 		class="sidebar-brand d-flex align-items-center justify-content-center" href="{{path('app_home')}}">
 		{# <div class="sidebar-brand-icon rotate-n-15">
-																																																																																																																															<i class="fas fa-laugh-wink"></i>
-																																																																																																																														</div> #}
+																																																																																																																																																									<i class="fas fa-laugh-wink"></i>
+																																																																																																																																																								</div> #}
 		<div class="sidebar-brand-text mx-3">Erdenes Mongol
 		</div>
 	</a>
@@ -24,8 +24,8 @@
 	</li>
 
 	{# {% if is_granted('ROLE_ADMIN') 
-																																																																																																											or is_granted('ROLE_BANNER')
-																																																																																																									        %} #}
+																																																																																																																								or is_granted('ROLE_BANNER')
+																																																																																																																						        %} #}
 
 	<!-- Divider -->
 	<hr
@@ -72,11 +72,8 @@
 		</div>
 	</li>
 
-	<!-- Divider -->
-	<hr
-	class="sidebar-divider">
+	<hr class="sidebar-divider">
 
-	<!-- Heading -->
 	<div class="sidebar-heading">
 		Агуулга
 	</div>
@@ -101,9 +98,23 @@
 
 
 	<li class="nav-item">
-		<a class="nav-link" href="{{ path('app_partner_organization_index') }} ">
+		<a class="nav-link" href="{{ path('app_about_us_index') }} ">
+			<i class="fa fa-id-card"></i>
+			<span>Бидний тухай хуудас</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_employee_index') }} ">
+			<i class="fas fa-users"></i>
+			<span>Хамт олон</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_organization_index') }} ">
 			<i class="fas fa-fw fa-handshake"></i>
-			<span>Хамтрагч байгууллагууд</span>
+			<span>Байгууллагийн мэдээлэл</span>
 		</a>
 	</li>
 
@@ -122,11 +133,8 @@
 	</li>
 
 
-	<!-- Divider -->
-	<hr
-	class="sidebar-divider d-none d-md-block">
+	<hr class="sidebar-divider d-none d-md-block">
 
-	<!-- Sidebar Toggler (Sidebar) -->
 	<div class="text-center d-none d-md-inline">
 		<button class="rounded-circle border-0" id="sidebarToggle"></button>
 	</div>

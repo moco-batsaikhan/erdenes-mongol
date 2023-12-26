@@ -100,15 +100,15 @@ class BannerController extends AbstractController
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($banner->getUsername());
-            $log->setAction('Нүүр мэдээлэл засав.');
+            $log->setValue($banner->getMnText());
+            $log->setAction('Нүүр зураг мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
             $em->flush();
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
-            return $this->redirectToRoute('app_banner_edit', array('id' => $id));
+            return $this->redirectToRoute('app_banner_index', array('id' => $id));
         }
 
 

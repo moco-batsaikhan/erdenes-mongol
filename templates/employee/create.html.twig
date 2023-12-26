@@ -14,7 +14,7 @@
 				</li>
 
 				<li class="breadcrumb-item">
-					<a href="{{ path('app_banner_index') }}">Нүүр зураг</a>
+					<a href="{{ path('app_employee_index') }}">Хамт олон</a>
 				</li>
 
 				<li class="breadcrumb-item active" aria-current="page">
@@ -26,41 +26,34 @@
 
 	{% include 'layout/flash.html.twig' %}
 
-	{{ form_start(bannerForm) }}
+	{{ form_start(employeeForm) }}
 
 	<div class="form-group">
-		{{ form_row(bannerForm.mnText) }}
+		{{ form_row(employeeForm.name) }}
 	</div>
 
 	<div class="form-group">
-		{{ form_row(bannerForm.enText) }}
+		{{ form_row(employeeForm.division) }}
 	</div>
 
 	<div class="form-group">
-		{{ form_row(bannerForm.cnText) }}
+		{{ form_row(employeeForm.imageFile) }}
 	</div>
 
 	<div class="form-group">
-		{{ form_row(bannerForm.imageFile) }}
-	</div>
-
-
-	<div class="form-group">
-		{{ form_row(bannerForm.active) }}
-	</div>
-
-
-	<div class="form-group">
-		{{ form_row(bannerForm.iconFile) }}
+		{{ form_row(employeeForm.email) }}
 	</div>
 
 	<div class="form-group">
-		{{ form_row(bannerForm.startedDate) }}
+		{{ form_row(employeeForm.phone) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(employeeForm.department) }}
 	</div>
 
 	<div class="form-group">
-		{{ form_row(bannerForm.endDate) }}
+		{{ form_row(employeeForm.priority) }}
 	</div>
 
-	{{ form_end(bannerForm) }}
+	{{ form_end(employeeForm) }}
 {% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AboutUsController!
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							Бидний тухай
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
+			<div class="table-responsive">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>Эрхэм зорилго(Монгол)
+							</th>
+							<th>Эрхэм зорилго(Англи)</th>
+							<th>Эрхэм зорилго(Хятад)</th>
+							<th>Алсын хараа(Монгол)
+							</th>
+							<th>Алсын хараа(Англи)</th>
+							<th>Алсын хараа(Хятад)</th>
+							<th>Уриа үг(Монгол)
+							</th>
+							<th>Уриа үг(Англи)</th>
+							<th>Уриа үг(Хятад)</th>
+							<th>Баримтлах зарчим(Монгол)
+							</th>
+							<th>Баримтлах зарчим(Англи)</th>
+							<th>Баримтлах зарчим(Хятад)</th>
+							<th>Зураг</th>
+							<th>#</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for aboutUs in items %}
+							<tr>
+								<td>{{ aboutUs.mnPurpose}}</td>
+								<td>{{ aboutUs.enPurpose}}</td>
+								<td>{{ aboutUs.cnPurpose}}</td>
+								<td>{{ aboutUs.mnVision}}</td>
+								<td>{{ aboutUs.enVision}}</td>
+								<td>{{ aboutUs.cnVision}}</td>
+								<td>{{ aboutUs.mnSlogan}}</td>
+								<td>{{ aboutUs.enSlogan}}</td>
+								<td>{{ aboutUs.cnSlogan}}</td>
+								<td>{{ aboutUs.mnPrinciples}}</td>
+								<td>{{ aboutUs.enPrinciples}}</td>
+								<td>{{ aboutUs.cnPrinciples}}</td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ aboutUs.imageUrl) }}" class="img-fluid" alt="About us Image"></td>
+								<td>
+									<a href="{{ path('app_web_config_edit', {'id' : aboutUs.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+				</table>
+			</div>
+		</div>
+	</div>
+{% endblock %}

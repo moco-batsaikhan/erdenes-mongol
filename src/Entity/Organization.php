@@ -4,8 +4,11 @@ namespace App\Entity;
 
 use App\Repository\OrganizationRepository;
 use Doctrine\DBAL\Types\Types;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\ORM\Mapping as ORM;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: OrganizationRepository::class)]
 class Organization
 {
@@ -23,8 +26,14 @@ class Organization
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
 
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    private ?File $imageFile = null;
+
     #[ORM\Column(length: 255)]
     private ?string $logo = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "logo")]
+    private ?File $logoFile = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $mnDescription = null;
@@ -228,5 +237,33 @@ class Organization
         $this->updatedAt = $updatedAt;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setLogoFile(File $image = null)
+    {
+        $this->logoFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getLogoFile()
+    {
+        return $this->logoFile;
     }
 }

@@ -16,7 +16,7 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							<a href="{{ path('app_banner_index') }}">хамтрагч байгууллага</a>
+							<a href="{{ path('app_partner_index') }}">Байгууллагийн мэдээлэл</a>
 						</li>
 
 						<li class="breadcrumb-item active" aria-current="page">
@@ -31,15 +31,11 @@
 			{{ form_start(organizationForm) }}
 
 			<div class="form-group">
-				{{ form_row(organizationForm.mnTitle) }}
+				{{ form_row(organizationForm.mnName) }}
 			</div>
 
 			<div class="form-group">
-				{{ form_row(organizationForm.enTitle) }}
-			</div>
-
-			<div class="form-group">
-				{{ form_row(organizationForm.cnTitle) }}
+				{{ form_row(organizationForm.enName) }}
 			</div>
 
 			<div class="form-group">
@@ -47,14 +43,11 @@
 			</div>
 
 			<div class="form-group">
-				{{ form_row(organizationForm.active) }}
+				{{ form_row(organizationForm.logoFile) }}
 			</div>
-
-
 			<div class="form-group">
-				{{ form_row(organizationForm.iconFile) }}
+				{{ form_row(organizationForm.type) }}
 			</div>
-
 			<div class="form-group">
 				{{ form_row(organizationForm.mnDescription) }}
 			</div>
@@ -73,6 +66,9 @@
 
 			<div class="form-group">
 				{{ form_row(organizationForm.address) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(organizationForm.webUrl) }}
 			</div>
 
 			{{ form_end(organizationForm) }}

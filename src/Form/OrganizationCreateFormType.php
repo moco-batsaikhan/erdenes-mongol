@@ -2,45 +2,29 @@
 
 namespace App\Form;
 
-use App\Entity\PartnerOrganization;
+use App\Entity\Organization;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
-
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PartnerOrganizationCreateTypeFormType extends AbstractType
+class OrganizationCreateFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-
-            ->add('name', TextType::class, array(
-                'label' => 'Байгууллагийн нэр',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "нэр оруулна уу ...",
-                )
-            ))
-            ->add('mnTitle', TextType::class, array(
+            ->add('mnName', TextType::class, array(
                 'label' => 'Монгол гарчиг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "гарчиг оруулна уу ...",
                 )
             ))
-            ->add('enTitle', TextType::class, array(
+            ->add('enName', TextType::class, array(
                 'label' => 'Англи гарчиг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
-                )
-            ))
-            ->add('cnTitle', TextType::class, array(
-                'label' => 'Хятад гарчиг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "гарчиг оруулна уу ...",
@@ -67,21 +51,6 @@ class PartnerOrganizationCreateTypeFormType extends AbstractType
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add(
-                'active',
-                ChoiceType::class,
-                array(
-                    'attr' => array('class' => 'form-control'),
-                    'label' => 'Төлөв',
-                    'choices' =>
-                    array(
-                        'Идэвхитэй' => true,
-                        'Идэвхигүй' => false
-                    ),
-                    'multiple' => false,
-                    'required' => false,
-                )
-            )
             ->add('imageFile', VichFileType::class, [
                 'required' => true,
                 'label' => 'Зураг оруулах',
@@ -93,7 +62,7 @@ class PartnerOrganizationCreateTypeFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
-            ->add('iconFile', VichFileType::class, [
+            ->add('logoFile', VichFileType::class, [
                 'required' => true,
                 'label' => 'icon оруулах',
                 'allow_delete' => true,
@@ -104,6 +73,28 @@ class PartnerOrganizationCreateTypeFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Байгууллагийн төрөл',
+                    'choices' =>
+                    array(
+                        'Охин компани' => 'SUBSIDIARY',
+                        'Хамтрагч байгууллага' => 'PARTNERORGANIZATION'
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
+            ->add('webUrl', TextType::class, array(
+                'label' => 'Байгууллагийн веб хаяг',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "веб хаяг оруулна уу ...",
+                )
+            ))
             ->add('address', TextType::class, array(
                 'label' => 'Хаяг',
                 'attr' => array(
@@ -129,7 +120,7 @@ class PartnerOrganizationCreateTypeFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => PartnerOrganization::class,
+            'data_class' => Organization::class,
         ]);
     }
 }
