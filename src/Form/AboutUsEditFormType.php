@@ -50,13 +50,6 @@ class AboutUsEditFormType extends AbstractType
                     "placeholder" => "гарчиг оруулна уу ...",
                 )
             ))
-            ->add('cnVision', TextType::class, array(
-                'label' => 'Монгол гарчиг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
-                )
-            ))
             ->add('mnSlogan', TextType::class, array(
                 'label' => 'Монгол гарчиг',
                 'attr' => array(

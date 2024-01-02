@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\MainCategory;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -76,6 +77,27 @@ class MainCategoryCreateFormType extends AbstractType
                     'required' => true,
                 )
             )
+            ->add(
+                'clickType',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Дарах үед',
+                    'choices' =>
+                    array(
+                        '' => '',
+                        'Сонгосон жагсаалтуудруу үсрэх' => 'THUMBNAIL',
+                        'Сонгосон хуудасруу үсрэх' => 'REDIRECT',
+                    ),
+                    'multiple' => false,
+                    'required' => true,
+                )
+            )
+            // ->add('newsTypeId', EntityType::class, [
+            //     'label' => 'Үсрэх мэдээний төрөл сонгох',
+            //     'class' => 'App\Entity\NewsType',
+            //     'choice_label' => 'newsTypeId',
+            // ])
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

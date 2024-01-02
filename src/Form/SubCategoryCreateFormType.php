@@ -59,17 +59,32 @@ class SubCategoryCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
-            ->add('url', TextType::class, array(
-                'label' => 'Дарах үед үсрэх url',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "url оруулна уу ...",
-                )
-            ))
             ->add('mainCategoryId', EntityType::class, [
-                'label' => 'Үндсэн цэснээс сонгох',
+                'label' => 'Харьяалагдах үндсэн цэс сонгох',
                 'class' => 'App\Entity\MainCategory',
                 'choice_label' => 'mnName',
+            ])
+
+            ->add(
+                'clickType',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Дарах үед',
+                    'choices' =>
+                    array(
+                        'Сонгосон жагсаалтуудруу үсрэх' => 'THUMBNAIL',
+                        'Сонгосон хуудасруу үсрэх' => 'REDIRECT',
+                    ),
+                    'multiple' => false,
+                    'required' => true,
+                )
+            )
+
+            ->add('newsTypeId', EntityType::class, [
+                'label' => 'Үсрэх мэдээний төрөл сонгох',
+                'class' => 'App\Entity\NewsType',
+                'choice_label' => 'newsTypeId',
             ])
 
             ->add('save', SubmitType::class, [

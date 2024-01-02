@@ -31,9 +31,6 @@ class MainCategory
     #[ORM\Column(nullable: true)]
     private ?int $priority = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $url = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
 
@@ -47,8 +44,11 @@ class MainCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $clickType = null;
+
     #[ORM\ManyToOne(inversedBy: 'mainCategories')]
-    private ?NewsType $newsType = null;
+    private ?NewsType $newsTypeId = null;
 
     public function __construct()
     {
@@ -105,18 +105,6 @@ class MainCategory
     public function setType(?string $type): static
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(?string $url): static
-    {
-        $this->url = $url;
 
         return $this;
     }
@@ -181,14 +169,26 @@ class MainCategory
         return $this;
     }
 
-    public function getNewsType(): ?NewsType
+    public function getClickType(): ?string
     {
-        return $this->newsType;
+        return $this->clickType;
     }
 
-    public function setNewsType(?NewsType $newsType): static
+    public function setClickType(string $clickType): static
     {
-        $this->newsType = $newsType;
+        $this->clickType = $clickType;
+
+        return $this;
+    }
+
+    public function getNewsTypeId(): ?NewsType
+    {
+        return $this->newsTypeId;
+    }
+
+    public function setNewsTypeId(?NewsType $newsTypeId): static
+    {
+        $this->newsTypeId = $newsTypeId;
 
         return $this;
     }

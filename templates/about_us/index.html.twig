@@ -1,6 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AboutUsController!
+
+{% block stylesheets %}
+	<style>
+		.ab-text {
+			border-style: solid;
+			background-color: #F8F9F9;
+			padding: 15px;
+			border-width: 1px;
+			border-color: #000;
+		}
+		label {
+			color: #000;
+		}
+	</style>
+{% endblock %}
+{% block title %}AboutUs
 {% endblock %}
 
 {% block body %}
@@ -23,57 +38,67 @@
 
 			{% include 'layout/flash.html.twig' %}
 
-			<div class="table-responsive">
-				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-					<thead>
-						<tr>
-							<th>Эрхэм зорилго(Монгол)
-							</th>
-							<th>Эрхэм зорилго(Англи)</th>
-							<th>Эрхэм зорилго(Хятад)</th>
-							<th>Алсын хараа(Монгол)
-							</th>
-							<th>Алсын хараа(Англи)</th>
-							<th>Алсын хараа(Хятад)</th>
-							<th>Уриа үг(Монгол)
-							</th>
-							<th>Уриа үг(Англи)</th>
-							<th>Уриа үг(Хятад)</th>
-							<th>Баримтлах зарчим(Монгол)
-							</th>
-							<th>Баримтлах зарчим(Англи)</th>
-							<th>Баримтлах зарчим(Хятад)</th>
-							<th>Зураг</th>
-							<th>#</th>
-						</tr>
-					</thead>
-					<tbody>
-						{% for aboutUs in items %}
-							<tr>
-								<td>{{ aboutUs.mnPurpose}}</td>
-								<td>{{ aboutUs.enPurpose}}</td>
-								<td>{{ aboutUs.cnPurpose}}</td>
-								<td>{{ aboutUs.mnVision}}</td>
-								<td>{{ aboutUs.enVision}}</td>
-								<td>{{ aboutUs.cnVision}}</td>
-								<td>{{ aboutUs.mnSlogan}}</td>
-								<td>{{ aboutUs.enSlogan}}</td>
-								<td>{{ aboutUs.cnSlogan}}</td>
-								<td>{{ aboutUs.mnPrinciples}}</td>
-								<td>{{ aboutUs.enPrinciples}}</td>
-								<td>{{ aboutUs.cnPrinciples}}</td>
-								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ aboutUs.imageUrl) }}" class="img-fluid" alt="About us Image"></td>
-								<td>
-									<a href="{{ path('app_web_config_edit', {'id' : aboutUs.id}) }}" class="btn btn-primary btn-sm">
-										<i class="fas fa-edit"></i>
-									</a>
-								</td>
-							</tr>
-						{% endfor %}
-					</tbody>
+			<form class="row g-3">
+				{% for aboutUs in items %}
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Эрхэм зорилго(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnPurpose}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput2">Эрхэм зорилго(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enPurpose}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Эрхэм зорилго(Хятад)</label>
+						<p class="ab-text">{{ aboutUs.cnPurpose}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput2">Алсын хараа(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnVision}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Алсын хараа(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enVision}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Уриа үг(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnSlogan}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput2">Уриа үг(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enSlogan}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Уриа үг(Хятад)</label>
+						<p class="ab-text">{{ aboutUs.cnSlogan}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput2">Баримтлах зарчим(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnPrinciples}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput">Баримтлах зарчим(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enPrinciples}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput2">Баримтлах зарчим(Хятад)</label>
+						<p class="ab-text">{{ aboutUs.cnPrinciples}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput">Зураг</label>
+						<p class="ab-text">{{ aboutUs.imageUrl}}</p>
+					</div>
+					<div class="col text-center">
+						<a href="{{ path('app_about_us_edit', {'id' : aboutUs.id}) }}" class="btn btn-primary btn-sm col-auto">
+							Засах</a>
+					</div>
 
-				</table>
-			</div>
+				{% endfor %}
+
+
+			</form>
+
+
 		</div>
 	</div>
 {% endblock %}

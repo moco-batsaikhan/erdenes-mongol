@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\SubCategory;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -58,7 +59,11 @@ class SubCategoryEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
-
+            ->add('newsType', EntityType::class, [
+                'label' => 'Үсрэх мэдээний төрөл сонгох',
+                'class' => 'App\Entity\NewsType',
+                'choice_label' => 'newsType',
+            ])
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

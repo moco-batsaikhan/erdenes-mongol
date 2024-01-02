@@ -31,9 +31,6 @@ class SubCategory
     #[ORM\Column(length: 16, nullable: true)]
     private ?string $opentype = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $url = null;
-
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
 
@@ -51,9 +48,11 @@ class SubCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?MainCategory $mainCategoryId = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $clickType = null;
 
     #[ORM\ManyToOne(inversedBy: 'subCategories')]
-    private ?NewsType $newsType = null;
+    private ?NewsType $newsTypeId = null;
 
     public function __construct()
     {
@@ -126,18 +125,6 @@ class SubCategory
         return $this;
     }
 
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(?string $url): static
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
     public function isActive(): ?bool
     {
         return $this->active;
@@ -198,14 +185,26 @@ class SubCategory
         return $this;
     }
 
-    public function getNewsType(): ?NewsType
+    public function getClickType(): ?string
     {
-        return $this->newsType;
+        return $this->clickType;
     }
 
-    public function setNewsType(?NewsType $newsType): static
+    public function setClickType(string $clickType): static
     {
-        $this->newsType = $newsType;
+        $this->clickType = $clickType;
+
+        return $this;
+    }
+
+    public function getNewsTypeId(): ?NewsType
+    {
+        return $this->newsTypeId;
+    }
+
+    public function setNewsTypeId(?NewsType $newsTypeId): static
+    {
+        $this->newsTypeId = $newsTypeId;
 
         return $this;
     }
