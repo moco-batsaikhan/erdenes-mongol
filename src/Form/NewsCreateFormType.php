@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\News;
+use App\Entity\NewsType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -22,21 +23,21 @@ class NewsCreateFormType extends AbstractType
     {
         $builder
             ->add('mnTitle', TextType::class, array(
-                'label' => 'Монгол тайлбар',
+                'label' => 'Монгол гарчиг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
             ->add('enTitle', TextType::class, array(
-                'label' => 'Англи тайлбар',
+                'label' => 'Англи гарчиг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
             ->add('cnTitle', TextType::class, array(
-                'label' => 'Хятад тайлбар',
+                'label' => 'Хятад гарчиг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
@@ -119,6 +120,11 @@ class NewsCreateFormType extends AbstractType
                     'required' => false,
                 )
             )
+            ->add('newsType', EntityType::class, [
+                'label' => 'Үсрэх мэдээний төрөл сонгох',
+                'class' => NewsType::class,
+                'choice_label' => 'name',
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

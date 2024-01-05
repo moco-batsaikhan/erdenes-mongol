@@ -24,7 +24,7 @@ class NewsType
     #[ORM\OneToMany(mappedBy: 'newsTypeId', targetEntity: SubCategory::class)]
     private Collection $subCategories;
 
-    #[ORM\OneToMany(mappedBy: 'newsTypeId', targetEntity: MainCategory::class)]
+    #[ORM\OneToMany(mappedBy: 'newsType', targetEntity: MainCategory::class)]
     private Collection $mainCategories;
 
     public function __construct()
@@ -123,7 +123,7 @@ class NewsType
     {
         if (!$this->mainCategories->contains($mainCategory)) {
             $this->mainCategories->add($mainCategory);
-            $mainCategory->setNewsTypeId($this);
+            $mainCategory->setNewsType($this);
         }
 
         return $this;
@@ -132,9 +132,8 @@ class NewsType
     public function removeMainCategory(MainCategory $mainCategory): static
     {
         if ($this->mainCategories->removeElement($mainCategory)) {
-            // set the owning side to null (unless already changed)
-            if ($mainCategory->getNewsTypeId() === $this) {
-                $mainCategory->setNewsTypeId(null);
+            if ($mainCategory->getNewsType() === $this) {
+                $mainCategory->setNewsType(null);
             }
         }
 

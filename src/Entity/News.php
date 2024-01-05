@@ -43,13 +43,13 @@ class News
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
     private ?File $imageFile = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $mnHeadline = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $enHeadline = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cnHeadline = null;
 
     #[ORM\ManyToOne(inversedBy: 'news')]

@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\News;
+use App\Entity\NewsType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -89,16 +91,10 @@ class NewsEditFormType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('imageFile', VichFileType::class, [
-                'required' => true,
-                'label' => 'Зураг оруулах',
-                'allow_delete' => true,
-                'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'delete_label' => 'Устгах',
-                'attr' => array(
-                    "class" => "form-control",
-                )
+            ->add('newsType', EntityType::class, [
+                'label' => 'Үсрэх мэдээний төрөл сонгох',
+                'class' => NewsType::class,
+                'choice_label' => 'name',
             ])
 
             ->add('save', SubmitType::class, [

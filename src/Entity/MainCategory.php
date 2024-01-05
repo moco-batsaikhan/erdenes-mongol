@@ -48,7 +48,7 @@ class MainCategory
     private ?string $clickType = null;
 
     #[ORM\ManyToOne(inversedBy: 'mainCategories')]
-    private ?NewsType $newsTypeId = null;
+    private ?NewsType $newsType = null;
 
     public function __construct()
     {
@@ -181,14 +181,14 @@ class MainCategory
         return $this;
     }
 
-    public function getNewsTypeId(): ?NewsType
+    public function getNewsType(): ?NewsType
     {
-        return $this->newsTypeId;
+        return $this->newsType;
     }
 
-    public function setNewsTypeId(?NewsType $newsTypeId): static
+    public function setNewsType(?NewsType $newsType): static
     {
-        $this->newsTypeId = $newsTypeId;
+        $this->newsType = $newsType;
 
         return $this;
     }

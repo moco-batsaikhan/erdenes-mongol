@@ -163,4 +163,23 @@ class NewsController extends AbstractController
             'contents' => $contents,
         ]);
     }
+
+    #[Route('/{id}/news-example', name: '_example', requirements: ['id' => "\d+"])]
+    public function exampleNews($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $news = $em->getRepository(News::class)->find($id);
+
+        $contents = $em->getRepository(Content::class)->findBy(['News' => $news], ['priority' => 'ASC']);
+
+        dd($contents);
+
+
+        return $this->render('news/web-example.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Мэдээ',
+            'news' => $news,
+            'contents' => $contents,
+        ]);
+    }
 }

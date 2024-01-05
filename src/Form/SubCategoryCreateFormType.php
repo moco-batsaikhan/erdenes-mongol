@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\NewsType;
 use App\Entity\SubCategory;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
@@ -65,27 +66,29 @@ class SubCategoryCreateFormType extends AbstractType
                 'choice_label' => 'mnName',
             ])
 
+            ->add('newsTypeId', EntityType::class, [
+                'label' => 'Үсрэх мэдээний төрөл сонгох',
+                'class' => NewsType::class,
+                'choice_label' => 'name',
+                'placeholder' => '',
+                'required' => false,
+            ])
+
             ->add(
                 'clickType',
                 ChoiceType::class,
                 array(
                     'attr' => array('class' => 'form-control'),
-                    'label' => 'Дарах үед',
+                    'label' => 'Цэсийг дарах үед',
                     'choices' =>
                     array(
-                        'Сонгосон жагсаалтуудруу үсрэх' => 'THUMBNAIL',
-                        'Сонгосон хуудасруу үсрэх' => 'REDIRECT',
+                        'Сонгосон мэдээний жагсаалтуудруу үсрэх' => 'THUMBNAIL',
+                        'Сонгосон мэдээрүү шууд үсрэх' => 'REDIRECT',
                     ),
                     'multiple' => false,
                     'required' => true,
                 )
             )
-
-            ->add('newsTypeId', EntityType::class, [
-                'label' => 'Үсрэх мэдээний төрөл сонгох',
-                'class' => 'App\Entity\NewsType',
-                'choice_label' => 'newsTypeId',
-            ])
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
