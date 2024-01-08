@@ -6,7 +6,6 @@ use App\Entity\CmsAdminLog;
 use App\Entity\Content;
 use App\Form\ChartDataCreateFormType;
 use App\Form\CkeditorCreateFormType;
-use App\Form\CkeditorEditFormType;
 use App\Form\ContentPdfCreateFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,9 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 
-use function PHPSTORM_META\type;
 
 #[Route('/content', name: 'app_content')]
 class ContentController extends AbstractController
@@ -149,10 +146,11 @@ class ContentController extends AbstractController
 
             $excelFile = $contentChartForm->get('file')->getData();
 
-            $spreadsheet = IOFactory::load($excelFile->getPathname());
-            $json = $this->extractJsonFromExcel($spreadsheet);
+            $jsonData = $this->processFile($excelFile);
 
-            $contentChart->setFile($json);
+            $jsonDataArray = json_decode($jsonData, true);
+
+            $contentChart->setFile($jsonDataArray);
 
             $em->persist($contentChart);
             $em->flush();
@@ -161,7 +159,7 @@ class ContentController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($contentChart->getId());
-            $log->setAction('Шинэ chart үүсгэв.');
+            $log->setAction('Шинэ график үүсгэв.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -175,29 +173,45 @@ class ContentController extends AbstractController
         return $this->render('content_chart/create.html.twig', [
             'contentChartForm' => $contentChartForm->createView(),
             'pathName' => $chartName,
-            'page_title' => 'Үндсэн цэс',
+            'page_title' => 'График',
         ]);
     }
 
+    private function processFile($file)
+    {
+        if ($file === null || !$file->isValid()) {
+            throw new \Exception('Invalid file');
+        }
+
+        $fileExtension = $file->getClientOriginalExtension();
+
+        if (!in_array($fileExtension, ['xls', 'xlsx'])) {
+            throw new \Exception('Invalid file format. Please upload an Excel file.');
+        }
+
+        $spreadsheet = IOFactory::load($file->getPathname());
+
+        $worksheet = $spreadsheet->getActiveSheet();
+        $data = $worksheet->toArray();
+
+        $jsonData = json_encode($data);
+
+        return $jsonData;
+    }
+
     #[Route('/download-example-file', name: '_download_example_file')]
-    public function downloadGraphExampleAction(Request $request)
+    public function downloadGraphExampleAction(Request $request): BinaryFileResponse
     {
 
         $chartName = $request->get('chartName');
 
         $exampleFilePath = $this->getParameter('kernel.project_dir') . '/public/uploads/excel/' . $chartName . '.xlsx';
 
-        dd($exampleFilePath);
         if (!file_exists($exampleFilePath)) {
             throw $this->createNotFoundException('Example file not found.');
         }
 
-        $response = new BinaryFileResponse($exampleFilePath);
-
-        $response->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $response->headers->set('Content-Disposition', 'attachment; filename=`chartName`');
-
-        return $response;
+        return $this->file($exampleFilePath);
     }
 
 

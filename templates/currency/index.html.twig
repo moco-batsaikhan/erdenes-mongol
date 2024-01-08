@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
+
+{% block stylesheets %}
+	<style>
+		.currency-layout {
+			width: 100%;
+			background-color: green;
+		}
+	</style>
+{% endblock %}
 {% block title %}
 	{{ page_title }}
 {% endblock %}
@@ -21,46 +30,11 @@
 					</ol>
 				</nav>
 			</div>
-
-			<div>
-				<a href="{{ path('app_currency_create') }}" class="btn btn-primary btn-sm">
-					+ Шинээр нэмэх</a>
+			<div class="currency-layout">
+				<iframe style="width:310px;font-size:11px;height:450px;border: none;overflow:hidden;margin:0;font-size:55px;color: blue;" src="//monxansh.appspot.com/xansh.html?currency=USD|EUR|JPY|GBP|RUB|CNY|KRW&currency_title=Currency&currency_rate_title=Rate&source=Source"></iframe>
+				<iframe style="width:310px;font-size:11px;height:450px;border: none;overflow:hidden;margin:0;" src="//monxansh.appspot.com/xansh.html?currency=USD|EUR|JPY|GBP|RUB|CNY|KRW&conv_tool=1"></iframe>
 			</div>
 
-			<br>
-
-			{% include 'layout/flash.html.twig' %}
-
-			<div class="table-responsive">
-				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-					<thead>
-						<tr>
-							<th>№</th>
-							<th>Суурь</th>
-							{# <th>Үнэлгээ</th> #}
-							<th>Он сар</th>
-							<th>Үүсгэсэн хэрэглэгч</th>
-							{# <th>#</th> #}
-						</tr>
-					</thead>
-					<tbody>
-						{% for currency in currencys %}
-							<tr>
-								<td>{{ currency.id }}</td>
-								<td>{{ currency.base }}</td>
-								{# <td>{{ currency.rates }}</td> #}
-								<td>{{ currency.currencyDate|date('Y-m-d') }}</td>
-								{# <td>
-																									<a href="{{ path('app_banner_edit', {'id' : currency.id}) }}" class="btn btn-primary btn-sm">
-																										<i class="fas fa-edit"></i>
-																									</a>
-																								</td> #}
-							</tr>
-						{% endfor %}
-					</tbody>
-
-				</table>
-			</div>
 		</div>
 	</div>
 {% endblock %}

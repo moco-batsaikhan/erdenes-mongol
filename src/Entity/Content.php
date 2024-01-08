@@ -45,7 +45,7 @@ class Content
     #[ORM\ManyToOne(inversedBy: 'contents')]
     private ?News $News = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
+    #[ORM\Column(nullable: true)]
     private ?array $file = null;
 
     public function getId(): ?int
