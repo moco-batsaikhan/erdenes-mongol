@@ -23,7 +23,7 @@
 			</div>
 
 			<div>
-				<a href="{{ path('app_banner_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_map_create') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -47,13 +47,13 @@
 					<tbody>
 						{% for mapData in mapDatas %}
 							<tr>
-								<td>{{ banner.id }}</td>
-								<td>{{ banner.name }}</td>
-								<td>{{ banner.information }}</td>
-								<td>{{ banner.latitude }}</td>
-								<td>{{ banner.longitude }}</td>
+								<td>{{ mapData.id }}</td>
+								<td>{{ mapData.name }}</td>
+								<td>{{ mapData.information }}</td>
+								<td>{{ mapData.latitude }}</td>
+								<td>{{ mapData.longitude }}</td>
 								<td>
-									<a href="{{ path('app_banner_edit', {'id' : banner.id}) }}" class="btn btn-primary btn-sm">
+									<a href="{{ path('app_map_edit', {'id' : mapData.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
 								</td>
@@ -64,9 +64,9 @@
 				</table>
 			</div>
 
-			{# {% if banners|length > 0 %}
-																																																							{% include 'layout/pagination.html.twig' %}
-																																																						{% endif %} #}
+			{% if mapDatas|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

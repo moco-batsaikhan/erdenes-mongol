@@ -21,18 +21,26 @@ class NewsController extends AbstractController
     private $pageTitle = 'Мэдээ';
 
 
-    #[Route('', name: '_index')]
-    public function index(Request $request, EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(Request $request, EntityManagerInterface $em, $page = 1): Response
     {
 
         $newsRepo = $em->getRepository(News::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+
         $news = $newsRepo->findAll();
+        $data = $newsRepo->findBy([], null, $pageSize, $offset);
+
 
         return $this->render('news/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Мэдээ',
-            'news' => $news,
+            'news' => $data,
+            'pageCount' => ceil(count($news) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_news_index'
         ]);
     }
 

@@ -78,9 +78,13 @@
 								</td>
 							</tr>
 						</tbody>
-					</tbody>
-				{% endfor %}
-			</tr>
-		</table>
+					{% endfor %}
+				</table>
+			</div>
+
+			{% if categories|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
+		</div>
 	</div>
 {% endblock %}

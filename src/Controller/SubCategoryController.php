@@ -25,19 +25,25 @@ class SubCategoryController extends AbstractController
     private $columnSearch = [];
 
 
-    #[Route('', name: '_index')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(EntityManagerInterface $em, $page = 1): Response
     {
 
 
         $subCatRepo = $em->getRepository(SubCategory::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
         $subCategory = $subCatRepo->findAll();
+        $data = $subCatRepo->findBy([], null, $pageSize, $offset);
 
         return $this->render('sub_category/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Туслах цэс',
-            'categories' => $subCategory,
+            'categories' => $data,
+            'pageCount' => ceil(count($subCategory) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_sub_category_index'
         ]);
     }
 

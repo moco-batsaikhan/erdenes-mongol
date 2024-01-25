@@ -19,22 +19,29 @@ class BannerController extends AbstractController
 {
 
     private $current = 'banner';
-    private $pageTitle = 'Баннер';
+    private $pageTitle = 'нүүр зураг';
     private $columnSearch = [];
 
 
-    #[Route('', name: '_index')]
-    public function index(Request $request, EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(EntityManagerInterface $em, $page = 1): Response
     {
         $bannerRepo = $em->getRepository(Banner::class);
-        $banner = $bannerRepo->findAll();
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
 
+        $banner = $bannerRepo->findAll();
+        $data = $bannerRepo->findBy([], null, $pageSize, $offset);
 
         return $this->render('banner/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Баннер',
-            'banners' => $banner,
+            'banners' => $data,
+            'pageCount' => ceil(count($banner) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_banner_index'
+
         ]);
     }
 

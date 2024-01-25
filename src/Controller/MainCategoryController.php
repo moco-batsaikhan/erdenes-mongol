@@ -23,17 +23,25 @@ class MainCategoryController extends AbstractController
     private $columnSearch = [];
 
 
-    #[Route('', name: '_index')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(EntityManagerInterface $em, $page = 1): Response
     {
         $mainCatRepo = $em->getRepository(MainCategory::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+
         $mainCategory = $mainCatRepo->findAll();
+
+        $data = $mainCatRepo->findBy([], null, $pageSize, $offset);
 
         return $this->render('main_category/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Үндсэн цэс',
-            'categories' => $mainCategory,
+            'categories' => $data,
+            'pageCount' => ceil(count($mainCategory) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_main_category_index'
         ]);
     }
 

@@ -72,4 +72,10 @@
 
 				</table>
 			</div>
-		{% endblock %}
+			{% if categories|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
+
+{% endblock %}

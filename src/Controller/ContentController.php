@@ -26,46 +26,67 @@ class ContentController extends AbstractController
     private $columnSearch = [];
     private $pathName = '';
 
-    #[Route('/pdf', name: '_pdf_index')]
-    public function pdfIndex(EntityManagerInterface $em): Response
+    #[Route('/pdf/{page}', name: '_pdf_index', requirements: ['page' => "\d+"])]
+    public function pdfIndex(EntityManagerInterface $em, $page = 1): Response
     {
-
         $contentRepo = $em->getRepository(Content::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+
         $content = $contentRepo->findBy(['type' => 'PDF']);
+        $data = $contentRepo->findBy(['type' => 'PDF'], null, $pageSize, $offset);
+
 
         return $this->render('content_pdf/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Контент ',
-            'contents' => $content,
+            'contents' => $data,
+            'pageCount' => ceil(count($content) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_content_pdf_index'
         ]);
     }
 
-    #[Route('/ckeditor', name: '_ckeditor_index')]
-    public function ckeditorIndex(EntityManagerInterface $em): Response
+    #[Route('/ckeditor/{page}', name: '_ckeditor_index', requirements: ['page' => "\d+"])]
+    public function ckeditorIndex(EntityManagerInterface $em, $page = 1): Response
     {
         $contentEditorRepo = $em->getRepository(Content::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
         $content = $contentEditorRepo->findBy(['type' => 'CK_EDITOR']);
+        $data = $contentEditorRepo->findBy(['type' => 'CK_EDITOR'], null, $pageSize, $offset);
+
 
         return $this->render('content_ckeditor/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Контент ',
-            'contents' => $content,
+            'contents' => $data,
+            'pageCount' => ceil(count($content) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_content_ckeditor_index'
         ]);
     }
 
-    #[Route('/chart', name: '_chart_index')]
-    public function chartIndex(EntityManagerInterface $em): Response
+    #[Route('/chart/{page}', name: '_chart_index', requirements: ['page' => "\d+"])]
+    public function chartIndex(EntityManagerInterface $em, $page = 1): Response
     {
         $contentEditorRepo = $em->getRepository(Content::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
         $content = $contentEditorRepo->findBy(['type' => 'JSON']);
+        $data = $contentEditorRepo->findBy(['type' => 'JSON'], null, $pageSize, $offset);
+
 
         return $this->render('content_chart/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Контент ',
-            'contents' => $content,
+            'contents' => $data,
+            'pageCount' => ceil(count($content) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_content_chart_index'
         ]);
     }
 

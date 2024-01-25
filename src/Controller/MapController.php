@@ -20,18 +20,25 @@ class MapController extends AbstractController
     private $pageTitle = 'Төсөл хөтөлбөрүүд';
     private $columnSearch = [];
 
-    #[Route('', name: '_index')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(EntityManagerInterface $em, $page = 1): Response
     {
 
         $mapRepo = $em->getRepository(Map::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
         $map = $mapRepo->findAll();
+        $data = $mapRepo->findBy([], null, $pageSize, $offset);
+
 
         return $this->render('map/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Төсөл хөтөлбөр',
-            'mapDatas' => $map,
+            'mapDatas' => $data,
+            'pageCount' => ceil(count($map) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_map_index'
         ]);
     }
 

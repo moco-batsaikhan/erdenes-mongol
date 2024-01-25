@@ -21,18 +21,25 @@ class VideoNewsController extends AbstractController
     private $pageTitle = 'Видео мэдээлэл';
 
 
-    #[Route('', name: '_index')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(EntityManagerInterface $em, $page = 1): Response
     {
 
         $videoNewsRepo = $em->getRepository(VideoNews::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
         $videoNews = $videoNewsRepo->findAll();
+        $data = $videoNewsRepo->findBy([], null, $pageSize, $offset);
+
 
         return $this->render('video_news/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Видео мэдээлэл',
-            'videos' => $videoNews,
+            'videos' => $data,
+            'pageCount' => ceil(count($videoNews) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_video_news_index'
         ]);
     }
 

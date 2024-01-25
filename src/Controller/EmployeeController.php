@@ -18,17 +18,23 @@ class EmployeeController extends AbstractController
     private $current = 'employee';
     private $pageTitle = 'Хамт олон';
 
-    #[Route('', name: '_index')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(EntityManagerInterface $em, $page = 1): Response
     {
         $employeeRepo = $em->getRepository(Employee::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
         $employee = $employeeRepo->findAll();
+        $data = $employeeRepo->findBy([], null, $pageSize, $offset);
 
         return $this->render('employee/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Хамт олон',
-            'items' => $employee,
+            'items' => $data,
+            'pageCount' => ceil(count($employee) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_employee_index'
         ]);
     }
 

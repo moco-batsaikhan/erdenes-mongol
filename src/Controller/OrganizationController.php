@@ -21,18 +21,27 @@ class OrganizationController extends AbstractController
     private $pageTitle = 'Байгууллагууд';
 
 
-    #[Route('', name: '_index')]
-    public function index(EntityManagerInterface $em): Response
+    #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
+    public function index(EntityManagerInterface $em, $page = 1): Response
     {
 
         $organizationRepo = $em->getRepository(Organization::class);
         $organization = $organizationRepo->findAll();
 
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+
+        $data = $organizationRepo->findBy([], null, $pageSize, $offset);
+
         return $this->render('organization/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Байгууллагууд',
-            'organizations' => $organization,
+            'organizations' => $data,
+            'pageCount' => ceil(count($organization) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_organization_index'
+
         ]);
     }
 
