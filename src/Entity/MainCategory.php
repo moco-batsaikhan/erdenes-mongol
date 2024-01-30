@@ -25,17 +25,11 @@ class MainCategory
     #[ORM\Column(length: 36, nullable: true)]
     private ?string $enName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $icon = null;
-
     #[ORM\Column(length: 36, nullable: true)]
     private ?string $type = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $priority = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $url = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
@@ -50,16 +44,16 @@ class MainCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'mainCategoryId', targetEntity: SubCategory::class, orphanRemoval: true)]
-    private Collection $yes;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $clickType = null;
 
-    #[ORM\OneToMany(mappedBy: 'mainCategory', targetEntity: CategoryClick::class, orphanRemoval: true)]
-    private Collection $categoryClicks;
+    #[ORM\ManyToOne(inversedBy: 'mainCategories')]
+    private ?NewsType $newsType = null;
 
     public function __construct()
     {
-        $this->yes = new ArrayCollection();
-        $this->categoryClicks = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -103,18 +97,6 @@ class MainCategory
         return $this;
     }
 
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function setIcon(?string $icon): static
-    {
-        $this->icon = $icon;
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
@@ -123,18 +105,6 @@ class MainCategory
     public function setType(?string $type): static
     {
         $this->type = $type;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(?string $url): static
-    {
-        $this->url = $url;
 
         return $this;
     }
@@ -199,62 +169,26 @@ class MainCategory
         return $this;
     }
 
-    /**
-     * @return Collection<int, SubCategory>
-     */
-    public function getYes(): Collection
+    public function getClickType(): ?string
     {
-        return $this->yes;
+        return $this->clickType;
     }
 
-    public function addYe(SubCategory $ye): static
+    public function setClickType(string $clickType): static
     {
-        if (!$this->yes->contains($ye)) {
-            $this->yes->add($ye);
-            $ye->setMainCategoryId($this);
-        }
+        $this->clickType = $clickType;
 
         return $this;
     }
 
-    public function removeYe(SubCategory $ye): static
+    public function getNewsType(): ?NewsType
     {
-        if ($this->yes->removeElement($ye)) {
-            // set the owning side to null (unless already changed)
-            if ($ye->getMainCategoryId() === $this) {
-                $ye->setMainCategoryId(null);
-            }
-        }
-
-        return $this;
+        return $this->newsType;
     }
 
-    /**
-     * @return Collection<int, CategoryClick>
-     */
-    public function getCategoryClicks(): Collection
+    public function setNewsType(?NewsType $newsType): static
     {
-        return $this->categoryClicks;
-    }
-
-    public function addCategoryClick(CategoryClick $categoryClick): static
-    {
-        if (!$this->categoryClicks->contains($categoryClick)) {
-            $this->categoryClicks->add($categoryClick);
-            $categoryClick->setMainCategory($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCategoryClick(CategoryClick $categoryClick): static
-    {
-        if ($this->categoryClicks->removeElement($categoryClick)) {
-            // set the owning side to null (unless already changed)
-            if ($categoryClick->getMainCategory() === $this) {
-                $categoryClick->setMainCategory(null);
-            }
-        }
+        $this->newsType = $newsType;
 
         return $this;
     }

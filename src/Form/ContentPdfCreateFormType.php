@@ -1,0 +1,74 @@
+<?php
+
+namespace App\Form;
+
+use App\Entity\Content;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
+class ContentPdfCreateFormType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add('name', TextType::class, array(
+                'label' => 'Монгол тайлбар',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('pdfFile', VichFileType::class, [
+                'label' => 'PDF File',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
+            ->add('priority', NumberType::class, array(
+                'label' => 'Дарааалал',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add(
+                'active',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Төлөв',
+                    'choices' =>
+                    array(
+                        'Идэвхитэй' => true,
+                        'Идэвхигүй' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
+            ->add('News', EntityType::class, [
+                'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
+                'class' => 'App\Entity\News',
+                'choice_label' => 'mnTitle',
+            ])
+            ->add('save', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
+                'label' => 'Хадгалах'
+            ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Content::class,
+        ]);
+    }
+}

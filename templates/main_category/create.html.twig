@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="display-grid">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_main_category_index') }}">Цэс</a>
+				</li>
+
+				<li class="breadcrumb-item active" aria-current="page">
+					Нэмэх
+				</li>
+			</ol>
+		</nav>
+	</div>
+
+	{% include 'layout/flash.html.twig' %}
+
+	{{ form_start(mainCategoryForm) }}
+
+	<div class="form-group">
+		{{ form_row(mainCategoryForm.mnName) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(mainCategoryForm.enName) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(mainCategoryForm.cnName) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(mainCategoryForm.priority) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(mainCategoryForm.type) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(mainCategoryForm.active) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(mainCategoryForm.clickType) }}
+	</div>
+
+	{# <div class="form-group">
+				{{ form_row(mainCategoryForm.newsTypeId) }}
+			</div> #}
+
+	<div class="form-group">
+		<p>
+			Шинээр мэдээний төрөл үүсгэх
+		</p>
+
+		<a href="{{ path('app_news_type_create') }}" class="btn btn-success btn-sm">
+			Шинэ төрөл нэмэх</a>
+	</div>
+
+
+	{{ form_end(mainCategoryForm) }}
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							Үндсэн цэс
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			<div>
+				<a href="{{ path('app_main_category_create') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
+
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
+			<div class="table-responsive">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Цэс нэр(Монгол)</th>
+							<th>Цэс нэр(Англи)</th>
+							<th>Цэс нэр(Хятад)</th>
+							<th>Төлөв</th>
+							<th>Байршил</th>
+							<th>Дараалал</th>
+							<th>#</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for category in categories %}
+							<tr>
+								<td>{{ category.id }}</td>
+								<td>{{ category.mnName }}</td>
+								<td>{{ category.enName }}</td>
+								<td>{{ category.cnName }}</td>
+								<td>
+									{% if category.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
+								<td>
+									{% if category.type == 'ALL' %}
+										<b>Бүх байршил дээр</b>
+									{% elseif category.type == 'SIDEBAR' %}
+										<b>Хажуугийн цэс</b>
+									{% elseif category.type == 'FOOTER' %}
+										<b>Доорх цэс</b>
+									{% elseif category.type == 'HEADER' %}
+										<b>Дээрх цэс</b>
+									{% endif %}
+								</td>
+								<td>{{ category.priority}}</td>
+								<td>
+									<a href="{{ path('app_main_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
+							</tr>
+						</tbody>
+					{% endfor %}
+				</table>
+			</div>
+
+			{% if categories|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

@@ -1,89 +1,92 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ page_title }}
+	{{ page_title }}
 {% endblock %}
 
 {% block body %}
 
-    <div class="card">
-        <div class="card-body">
-            <div class="display-grid">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ path('app_home') }}">Нүүр хуудас</a>
-                        </li>
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
 
-                        <li class="breadcrumb-item">
-                            Админ
-                        </li>
-                    </ol>
-                </nav>
-            </div>
+						<li class="breadcrumb-item">
+							Админ
+						</li>
+					</ol>
+				</nav>
+			</div>
 
-            <div>
-                <a href="{{ path('app_admin_create') }}" class="btn btn-primary btn-sm">
-                    + Шинээр нэмэх</a>
-            </div>
+			<div>
+				<a href="{{ path('app_admin_create') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
 
-            <br>
+			<br>
 
-            {% include 'layout/flash.html.twig' %}
+			{% include 'layout/flash.html.twig' %}
 
-            <div class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Админ нэр</th>
-                        <th>Эрх</th>
-                        <th>Төлөв</th>
-                        <th>#</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for admin in admins %}
-                        <tr>
-                            <td>{{ admin.id }}</td>
-                            <td>{{ admin.username }}</td>
-                            <td>
-                                {% if admin.roles %}
-                                    {% for r in admin.roles %}
-                                        {% if r == 'ROLE_SUPER_ADMIN' %}
-                                            Супер админ
-                                        {% elseif r == 'ROLE_ADMIN' %}
-                                            Админ
-                                        {% elseif r == 'ROLE_NEWS_ADMIN' %}
-                                            Мэдээний админ
-                                        {% else %}
+			<div class="table-responsive">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Админ нэр</th>
+							<th>Эрх</th>
+							<th>Төлөв</th>
+							<th>#</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for admin in admins %}
+							<tr>
+								<td>{{ admin.id }}</td>
+								<td>{{ admin.username }}</td>
+								<td>
+									{% if admin.roles %}
+										{% for r in admin.roles %}
+											{% if r == 'ROLE_SUPER_ADMIN' %}
+												Супер админ
+											{% elseif r == 'ROLE_ADMIN' %}
+												Админ
+											{% elseif r == 'ROLE_NEWS_ADMIN' %}
+												Мэдээний админ
+												{% else %}
 
-                                        {% endif %}
-                                    {% endfor %}
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if admin.isVerified %}
-                                    <b style="color: darkgreen">Идэвхитэй</b>
-                                {% else %}
-                                    <b style="color: red">Идэвхигүй</b>
-                                {% endif %}
-                            </td>
-                            <td>
-                                <a href="{{ path('app_admin_edit', {'id' : admin.id}) }}"
-                                   class="btn btn-primary btn-sm">
-                                    <i class="fas fa-edit"></i>
-                                </a>
+											{% endif %}
+										{% endfor %}
+									{% endif %}
+								</td>
+								<td>
+									{% if admin.isVerified %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
+								<td>
+									<a href="{{ path('app_admin_edit', {'id' : admin.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
 
-                            </td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
 
-        </div>
-    </div>
+
+			{# {% if admins|length > 0 %}
+							{% include 'layout/pagination.html.twig' %}
+						{% endif %} #}
+		</div>
+	</div>
 
 
 {% endblock %}

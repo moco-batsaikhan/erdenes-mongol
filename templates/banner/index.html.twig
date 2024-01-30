@@ -6,35 +6,45 @@
 
 {% block body %}
 
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
 
-	<div class="card shadow mb-4">
-		<div class="card-header py-3">
+						<li class="breadcrumb-item">
+							Нүүр зураг
+						</li>
+					</ol>
+				</nav>
+			</div>
 
 			<div>
-				<a href="{{ path('app_admin_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_banner_create') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
-			<hr>
 
-			<h6 class="m-0 font-weight-bold text-primary">{{ section_title }}</h6>
-		</div>
-		<div class="card-body">
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
 			<div class="table-responsive">
-				<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>id</th>
-							<th>Монгол тайлбар</th>
-							<th>Англи тайлбар</th>
-							<th>Хятад тайлбар</th>
-							<th>Статус</th>
+							<th>№</th>
+							<th>Тайлбар(Монгол)</th>
+							<th>Тайлбар(Англи)</th>
+							<th>Тайлбар(Хятад)</th>
+							<th>Төлөв</th>
 							<th>Зураг</th>
 							<th>icon</th>
 							<th>Эхлэх хугацаа</th>
 							<th>Дуусах хугацаа</th>
-							<th>Үүсгэсэн хэрэглэгч</th>
-							<th>Үүсгэсэн хугацаа</th>
-							<th>Үүсгэсэн хугацаа</th>
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -44,32 +54,32 @@
 								<td>{{ banner.mnText }}</td>
 								<td>{{ banner.enText }}</td>
 								<td>{{ banner.cnText }}</td>
-								<td>{{ banner.active }}</td>
-								<td>{{ banner.imageUrl }}</td>
-								<td>{{ banner.icon }}</td>
-								<td>{{ banner.startedDate }}</td>
-								<td>{{ banner.endDate }}</td>
-								<td>{{ banner.endDate }}</td>
-								<td>{{ banner.type }}</td>
-
-								<td>{{ banner.endDate }}</td>
-
-
 								<td>
-									<button type="button" class="btn btn-success">
-										<i class="fas fa-edit"></i>
-									</button>
-									<button type="button" class="btn btn-danger">
-										<i class="far fa-trash-alt"></i>
-									</button>
+									{% if banner.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
 								</td>
-							{% endfor %}
-						</tbody>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.imageUrl) }}" class="img-fluid" alt="Banner Image"></td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.icon) }}" class="img-fluid" alt="Banner Image"></td>
+								<td>{{ banner.startedDate|date('Y-m-d') }}</td>
+								<td>{{ banner.endDate|date('Y-m-d') }}</td>
+								<td>
+									<a href="{{ path('app_banner_edit', {'id' : banner.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
 					</tbody>
+
 				</table>
 			</div>
+
+			{% if banners|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
 		</div>
 	</div>
-
-
 {% endblock %}

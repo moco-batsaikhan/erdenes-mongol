@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+{% block body %}
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_banner_index') }}">Вебийн тохиргоо</a>
+						</li>
+
+						<li class="breadcrumb-item active" aria-current="page">
+							Засах
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			{% include 'layout/flash.html.twig' %}
+
+			{{ form_start(configForm) }}
+
+			<div class="form-group">
+				{{ form_row(configForm.colorCode) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(configForm.fontSize) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(configForm.priority) }}
+			</div>
+
+			{{ form_end(configForm) }}
+
+		</div>
+	</div>
+
+{% endblock %}

@@ -7,7 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+
+
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ContentRepository::class)]
 class Content
 {
@@ -22,19 +27,26 @@ class Content
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pdfFileName")]
+    private $pdfFile;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $body = null;
 
     #[ORM\Column]
     private ?int $priority = null;
 
-    #[ORM\OneToMany(mappedBy: 'content', targetEntity: ContentConnection::class, orphanRemoval: true)]
-    private Collection $contentConnections;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pdfFileName = null;
 
-    public function __construct()
-    {
-        $this->contentConnections = new ArrayCollection();
-    }
+    #[ORM\Column]
+    private ?bool $active = null;
+
+    #[ORM\ManyToOne(inversedBy: 'contents')]
+    private ?News $News = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?array $file = null;
 
     public function getId(): ?int
     {
@@ -65,6 +77,17 @@ class Content
         return $this;
     }
 
+    public function getPdfFile(): ?File
+    {
+        return $this->pdfFile;
+    }
+
+    public function setPdfFile(?File $pdfFile): void
+    {
+        $this->pdfFile = $pdfFile;
+    }
+
+
     public function getBody(): ?string
     {
         return $this->body;
@@ -89,32 +112,50 @@ class Content
         return $this;
     }
 
-    /**
-     * @return Collection<int, ContentConnection>
-     */
-    public function getContentConnections(): Collection
+    public function getPdfFileName(): ?string
     {
-        return $this->contentConnections;
+        return $this->pdfFileName;
     }
 
-    public function addContentConnection(ContentConnection $contentConnection): static
+    public function setPdfFileName(?string $pdfFileName): static
     {
-        if (!$this->contentConnections->contains($contentConnection)) {
-            $this->contentConnections->add($contentConnection);
-            $contentConnection->setContent($this);
-        }
+        $this->pdfFileName = $pdfFileName;
 
         return $this;
     }
 
-    public function removeContentConnection(ContentConnection $contentConnection): static
+    public function isActive(): ?bool
     {
-        if ($this->contentConnections->removeElement($contentConnection)) {
-            // set the owning side to null (unless already changed)
-            if ($contentConnection->getContent() === $this) {
-                $contentConnection->setContent(null);
-            }
-        }
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    public function getNews(): ?News
+    {
+        return $this->News;
+    }
+
+    public function setNews(?News $News): static
+    {
+        $this->News = $News;
+
+        return $this;
+    }
+
+    public function getFile(): ?array
+    {
+        return $this->file;
+    }
+
+    public function setFile(?array $file): static
+    {
+        $this->file = $file;
 
         return $this;
     }

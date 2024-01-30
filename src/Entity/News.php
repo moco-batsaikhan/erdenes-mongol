@@ -7,7 +7,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
 class News
 {
@@ -37,29 +40,43 @@ class News
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $mnHeadline = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $enHeadline = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cnHeadline = null;
 
     #[ORM\ManyToOne(inversedBy: 'news')]
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\OneToMany(mappedBy: 'news', targetEntity: ContentConnection::class, orphanRemoval: true)]
-    private Collection $contentConnections;
+    #[ORM\Column]
+    private ?bool $active = null;
 
-    #[ORM\OneToMany(mappedBy: 'news', targetEntity: CategoryClick::class, orphanRemoval: true)]
-    private Collection $categoryClicks;
+    #[ORM\OneToMany(mappedBy: 'News', targetEntity: Content::class)]
+    private Collection $contents;
+
+    #[ORM\Column(length: 255)]
+    private ?string $redirectType = null;
+
+    #[ORM\Column(length: 16)]
+    private ?string $processType = "CREATED";
+
+    #[ORM\ManyToOne(inversedBy: 'news')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?NewsType $newsType = null;
 
     public function __construct()
     {
-        $this->contentConnections = new ArrayCollection();
-        $this->categoryClicks = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+        $this->contents = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -199,62 +216,96 @@ class News
         return $this;
     }
 
-    /**
-     * @return Collection<int, ContentConnection>
-     */
-    public function getContentConnections(): Collection
+    public function setImageFile(File $image = null)
     {
-        return $this->contentConnections;
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
     }
 
-    public function addContentConnection(ContentConnection $contentConnection): static
+    public function getImageFile()
     {
-        if (!$this->contentConnections->contains($contentConnection)) {
-            $this->contentConnections->add($contentConnection);
-            $contentConnection->setNews($this);
+        return $this->imageFile;
+    }
+
+
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(bool $active): static
+    {
+        $this->active = $active;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Content>
+     */
+    public function getContents(): Collection
+    {
+        return $this->contents;
+    }
+
+    public function addContent(Content $content): static
+    {
+        if (!$this->contents->contains($content)) {
+            $this->contents->add($content);
+            $content->setNews($this);
         }
 
         return $this;
     }
 
-    public function removeContentConnection(ContentConnection $contentConnection): static
+    public function removeContent(Content $content): static
     {
-        if ($this->contentConnections->removeElement($contentConnection)) {
+        if ($this->contents->removeElement($content)) {
             // set the owning side to null (unless already changed)
-            if ($contentConnection->getNews() === $this) {
-                $contentConnection->setNews(null);
+            if ($content->getNews() === $this) {
+                $content->setNews(null);
             }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection<int, CategoryClick>
-     */
-    public function getCategoryClicks(): Collection
+    public function getRedirectType(): ?string
     {
-        return $this->categoryClicks;
+        return $this->redirectType;
     }
 
-    public function addCategoryClick(CategoryClick $categoryClick): static
+    public function setRedirectType(string $redirectType): static
     {
-        if (!$this->categoryClicks->contains($categoryClick)) {
-            $this->categoryClicks->add($categoryClick);
-            $categoryClick->setNews($this);
-        }
+        $this->redirectType = $redirectType;
 
         return $this;
     }
 
-    public function removeCategoryClick(CategoryClick $categoryClick): static
+    public function getProcessType(): ?string
     {
-        if ($this->categoryClicks->removeElement($categoryClick)) {
-            // set the owning side to null (unless already changed)
-            if ($categoryClick->getNews() === $this) {
-                $categoryClick->setNews(null);
-            }
-        }
+        return $this->processType;
+    }
+
+    public function setProcessType(string $processType): static
+    {
+        $this->processType = $processType;
+
+        return $this;
+    }
+
+    public function getNewsType(): ?NewsType
+    {
+        return $this->newsType;
+    }
+
+    public function setNewsType(?NewsType $newsType): static
+    {
+        $this->newsType = $newsType;
 
         return $this;
     }

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="display-grid">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_content_pdf_index') }}">График</a>
+				</li>
+
+				<li class="breadcrumb-item active" aria-current="page">
+					Нэмэх
+				</li>
+			</ol>
+		</nav>
+	</div>
+
+	<br>
+
+	<div>
+		<span>Та энэхүү файл дээр графикт оруулах өгөгдлүүдээ оруулна уу!</х>
+		<a href="{{ path('app_content_download_example_file', {'chartName': pathName}) }}" class="btn btn-info">
+			жишээ татах</a>
+	</div>
+
+	<br>
+
+	{% include 'layout/flash.html.twig' %}
+
+	{{ form_start(contentChartForm) }}
+
+	<div class="form-group">
+		{{ form_row(contentChartForm.name) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(contentChartForm.file) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(contentChartForm.priority) }}
+	</div>
+
+	{{ form_end(contentChartForm) }}
+{% endblock %}

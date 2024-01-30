@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+	<style>
+		.ab-text {
+			border-style: solid;
+			background-color: #F8F9F9;
+			padding: 15px;
+			border-width: 1px;
+			border-color: #000;
+		}
+		label {
+			color: #000;
+		}
+	</style>
+{% endblock %}
+{% block title %}AboutUs
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							Бидний тухай
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
+			<form class="row g-3">
+				{% for aboutUs in items %}
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Эрхэм зорилго(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnPurpose}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput2">Эрхэм зорилго(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enPurpose}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Эрхэм зорилго(Хятад)</label>
+						<p class="ab-text">{{ aboutUs.cnPurpose}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput2">Алсын хараа(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnVision}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Алсын хараа(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enVision}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Уриа үг(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnSlogan}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput2">Уриа үг(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enSlogan}}</p>
+					</div>
+					<div class="form-group col-md-6">
+						<label for="formGroupExampleInput">Уриа үг(Хятад)</label>
+						<p class="ab-text">{{ aboutUs.cnSlogan}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput2">Баримтлах зарчим(Монгол)</label>
+						<p class="ab-text">{{ aboutUs.mnPrinciples}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput">Баримтлах зарчим(Англи)</label>
+						<p class="ab-text">{{ aboutUs.enPrinciples}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput2">Баримтлах зарчим(Хятад)</label>
+						<p class="ab-text">{{ aboutUs.cnPrinciples}}</p>
+					</div>
+					<div class="form-group col-md-12">
+						<label for="formGroupExampleInput">Зураг</label>
+						<p class="ab-text">{{ aboutUs.imageUrl}}</p>
+					</div>
+					<div class="col text-center">
+						<a href="{{ path('app_about_us_edit', {'id' : aboutUs.id}) }}" class="btn btn-primary btn-sm col-auto">
+							Засах</a>
+					</div>
+
+				{% endfor %}
+
+
+			</form>
+
+
+		</div>
+	</div>
+{% endblock %}

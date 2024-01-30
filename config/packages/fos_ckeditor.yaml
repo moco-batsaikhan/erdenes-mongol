@@ -1,0 +1,15 @@
+# friendsofsymfony/ckeditor-bundle:
+#   configs:
+#     my_config:
+#       filebrowserBrowseRoute: "elfinder"
+#       filebrowserBrowseRouteParameters:
+#         instance: "default"
+#         homeFolder: "~"
+twig:
+  form_themes:
+    - "@FOSCKEditor/Form/ckeditor_widget.html.twig"
+fos_ck_editor:
+  configs:
+    default:
+      filebrowserUploadMethod: form
+      filebrowserBrowseRoute: elfinder

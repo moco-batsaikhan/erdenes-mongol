@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-//use Symfony\Component\Form\Exception\;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class BannerCreateFormType extends AbstractType
@@ -19,7 +18,27 @@ class BannerCreateFormType extends AbstractType
     {
         $builder
 
-
+            ->add('mnText', TextType::class, array(
+                'label' => 'Монгол тайлбар',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('enText', TextType::class, array(
+                'label' => 'Англи тайлбар',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('cnText', TextType::class, array(
+                'label' => 'Хятад тайлбар',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
             ->add(
                 'active',
                 ChoiceType::class,
@@ -35,21 +54,6 @@ class BannerCreateFormType extends AbstractType
                     'required' => false,
                 )
             )
-            ->add('order', TextType::class, array(
-                'label' => 'Дарааалал',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ))
-
-            ->add('url', TextType::class, array(
-                'label' => 'Үсрэх url',
-                'required' => false,
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ))
-
             ->add('imageFile', VichFileType::class, [
                 'required' => true,
                 'label' => 'Зураг оруулах',
@@ -61,7 +65,18 @@ class BannerCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
-            ->add('startDate', DateType::class, array(
+            ->add('iconFile', VichFileType::class, [
+                'required' => true,
+                'label' => 'Зураг оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Зураг харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
+            ->add('startedDate', DateType::class, array(
                 'label' => 'Эхлэх огноо',
                 'required' => true,
                 'attr' => array(

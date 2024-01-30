@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="{{ asset('sbadmin/css/draggable.css') }}" rel="stylesheet">
+	</head>
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a>Мэдээ мэдээлэл</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a>Агуулгууд</a>
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			<div>
+				<a href="{{ path('app_news_choose_content') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
+
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
+			<form class="table-responsive" id="sortable-form">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Агуулгийн нэр</th>
+							{# <th>Агуулга</th> #}
+							<th>Контентийн дараалал</th>
+							<th>Контентийн төрөл</th>
+						</tr>
+					</thead>
+					<tbody id="sortable" data-sortable-id="1" aria-dropeffect="move">
+						{% for content in contents %}
+							<tr id="{{ content.id}}" data-item-sortable-id="{{ content.priority }}" draggable="true" role="option" aria-grabbed="false">
+								<td class="content-list">{{ content.id }}</td>
+								<td class="content-list">{{ content.name }}</td>
+								<td class="content-list">{{ content.priority}}</td>
+								<td class="content-list">{{ content.type}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+				</table>
+			</form>
+
+
+		</div>
+	</div>
+
+
+{% endblock %}
+{% block scripts %}
+	<script>
+		$(document).ready(function () {
+$("#sortable").sortable({
+update: function (event, ui) {
+var orderedIds = $("#sortable").sortable("toArray", {attribute: "id"});
+
+console.log("passs", orderedIds);
+
+$.ajax({
+url: `{{path('app_content_edit_priority')}}`,
+type: "POST",
+data: {
+orderedIds: orderedIds
+},
+success: function (response) {
+console.log("Reorder successful");
+},
+error: function (xhr, status, error) {
+console.error("Error during reorder: " + error);
+
+}
+});
+}
+});
+$("#sortable").disableSelection();
+});
+	</script>
+{% endblock %}

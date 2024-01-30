@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link href="{{ asset('sbadmin/css/draggable.css') }}" rel="stylesheet">
+		{% block stylesheets %}{% endblock %}
+	</head>
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+						<li class="breadcrumb-item">
+							Нүүр хуудас дараалал
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<br>
+			{% include 'layout/flash.html.twig' %}
+			<form class="page-content page-container" id="sortable-form">
+				<div class="padding">
+					<div class="row">
+						<div class="col-sm-8">
+							<ol class="list-group list-group-light list-group-numbered" id="sortable" data-sortable-id="1" aria-dropeffect="move">
+								{% for key, section in sections %}
+									<li class="list-group-item" id="{{ section.id}}" data-item-sortable-id="{{ section.priority }}" draggable="true" role="option" aria-grabbed="false" style="cursor: pointer">
+										<div class="flex">
+											{{ section.sectionName}}
+										</div>
+									</li>
+								{% endfor %}
+							</ol>
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		$(function () {
+$("#sortable").sortable({
+update: function (event, ui) {
+
+var orderedIds = $("#sortable").sortable("toArray", {attribute: "id"});
+
+$.ajax({
+url: `/section/edit`,
+type: "POST",
+data: {
+orderedIds: orderedIds
+},
+success: function (response) {
+console.log("Reorder successful");
+},
+error: function (xhr, status, error) {
+console.error("Error during reorder: " + error);
+
+}
+});
+
+
+}
+});
+$("#sortable").disableSelection();
+});
+	</script>
+{% endblock %}

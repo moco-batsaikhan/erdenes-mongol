@@ -14,18 +14,6 @@ class Map
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private array $coordinates = [];
-
-    #[ORM\Column(nullable: true)]
-    private ?array $data = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $offsetX = null;
-
-    #[ORM\Column(nullable: true)]
-    private ?int $offsetY = null;
-
     #[ORM\Column(length: 16)]
     private ?string $dataType = null;
 
@@ -39,57 +27,27 @@ class Map
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
+    #[ORM\Column]
+    private ?int $latitude = null;
+
+    #[ORM\Column]
+    private ?int $longitude = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $name = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $information = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCoordinates(): array
-    {
-        return $this->coordinates;
-    }
-
-    public function setCoordinates(array $coordinates): static
-    {
-        $this->coordinates = $coordinates;
-
-        return $this;
-    }
-
-    public function getData(): ?array
-    {
-        return $this->data;
-    }
-
-    public function setData(?array $data): static
-    {
-        $this->data = $data;
-
-        return $this;
-    }
-
-    public function getOffsetX(): ?int
-    {
-        return $this->offsetX;
-    }
-
-    public function setOffsetX(?int $offsetX): static
-    {
-        $this->offsetX = $offsetX;
-
-        return $this;
-    }
-
-    public function getOffsetY(): ?int
-    {
-        return $this->offsetY;
-    }
-
-    public function setOffsetY(?int $offsetY): static
-    {
-        $this->offsetY = $offsetY;
-
-        return $this;
     }
 
     public function getDataType(): ?string
@@ -136,6 +94,54 @@ class Map
     public function setCreatedUser(?CmsUser $createdUser): static
     {
         $this->createdUser = $createdUser;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?int
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(int $latitude): static
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?int
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(int $longitude): static
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getInformation(): ?string
+    {
+        return $this->information;
+    }
+
+    public function setInformation(?string $information): static
+    {
+        $this->information = $information;
 
         return $this;
     }

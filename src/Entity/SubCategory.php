@@ -25,17 +25,11 @@ class SubCategory
     #[ORM\Column(length: 32)]
     private ?string $enName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $icon = null;
-
     #[ORM\Column(nullable: true)]
     private ?int $priority = null;
 
     #[ORM\Column(length: 16, nullable: true)]
     private ?string $opentype = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $url = null;
 
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
@@ -54,12 +48,16 @@ class SubCategory
     #[ORM\JoinColumn(nullable: false)]
     private ?MainCategory $mainCategoryId = null;
 
-    #[ORM\OneToMany(mappedBy: 'subCategory', targetEntity: CategoryClick::class, orphanRemoval: true)]
-    private Collection $categoryClicks;
+    #[ORM\Column(length: 255)]
+    private ?string $clickType = null;
+
+    #[ORM\ManyToOne(inversedBy: 'subCategories')]
+    private ?NewsType $newsTypeId = null;
 
     public function __construct()
     {
-        $this->categoryClicks = new ArrayCollection();
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
     }
 
     public function getId(): ?int
@@ -103,18 +101,6 @@ class SubCategory
         return $this;
     }
 
-    public function getIcon(): ?string
-    {
-        return $this->icon;
-    }
-
-    public function setIcon(?string $icon): static
-    {
-        $this->icon = $icon;
-
-        return $this;
-    }
-
     public function getPriority(): ?int
     {
         return $this->priority;
@@ -135,18 +121,6 @@ class SubCategory
     public function setOpentype(?string $opentype): static
     {
         $this->opentype = $opentype;
-
-        return $this;
-    }
-
-    public function getUrl(): ?string
-    {
-        return $this->url;
-    }
-
-    public function setUrl(?string $url): static
-    {
-        $this->url = $url;
 
         return $this;
     }
@@ -211,32 +185,26 @@ class SubCategory
         return $this;
     }
 
-    /**
-     * @return Collection<int, CategoryClick>
-     */
-    public function getCategoryClicks(): Collection
+    public function getClickType(): ?string
     {
-        return $this->categoryClicks;
+        return $this->clickType;
     }
 
-    public function addCategoryClick(CategoryClick $categoryClick): static
+    public function setClickType(string $clickType): static
     {
-        if (!$this->categoryClicks->contains($categoryClick)) {
-            $this->categoryClicks->add($categoryClick);
-            $categoryClick->setSubCategory($this);
-        }
+        $this->clickType = $clickType;
 
         return $this;
     }
 
-    public function removeCategoryClick(CategoryClick $categoryClick): static
+    public function getNewsTypeId(): ?NewsType
     {
-        if ($this->categoryClicks->removeElement($categoryClick)) {
-            // set the owning side to null (unless already changed)
-            if ($categoryClick->getSubCategory() === $this) {
-                $categoryClick->setSubCategory(null);
-            }
-        }
+        return $this->newsTypeId;
+    }
+
+    public function setNewsTypeId(?NewsType $newsTypeId): static
+    {
+        $this->newsTypeId = $newsTypeId;
 
         return $this;
     }

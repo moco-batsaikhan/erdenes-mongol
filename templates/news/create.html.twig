@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="display-grid">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_banner_index') }}">Мэдээ</a>
+				</li>
+
+				<li class="breadcrumb-item active" aria-current="page">
+					Нэмэх
+				</li>
+			</ol>
+		</nav>
+	</div>
+
+	{% include 'layout/flash.html.twig' %}
+
+	{{ form_start(newsForm) }}
+
+	<div class="form-group">
+		{{ form_row(newsForm.mnTitle) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(newsForm.enTitle) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(newsForm.cnTitle) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(newsForm.imageFile) }}
+	</div>
+
+
+	<div class="form-group">
+		{{ form_row(newsForm.isSpecial) }}
+	</div>
+
+
+	<div class="form-group">
+		{{ form_row(newsForm.mnHeadline) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(newsForm.enHeadline) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(newsForm.cnHeadline) }}
+	</div>
+
+	{{ form_end(newsForm) }}
+{% endblock %}

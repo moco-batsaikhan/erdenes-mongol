@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+{% block body %}
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_partner_index') }}">Байгууллагийн мэдээлэл</a>
+						</li>
+
+						<li class="breadcrumb-item active" aria-current="page">
+							Засах
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			{% include 'layout/flash.html.twig' %}
+
+			{{ form_start(organizationForm) }}
+
+			<div class="form-group">
+				{{ form_row(organizationForm.mnName) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(organizationForm.enName) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(organizationForm.imageFile) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(organizationForm.logoFile) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(organizationForm.type) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(organizationForm.mnDescription) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(organizationForm.enDescription) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(organizationForm.cnDescription) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(organizationForm.contact) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(organizationForm.address) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(organizationForm.webUrl) }}
+			</div>
+
+			{{ form_end(organizationForm) }}
+
+		</div>
+	</div>
+
+{% endblock %}

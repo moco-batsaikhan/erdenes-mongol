@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+{% block body %}
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_map_index') }}">Төсөл хөтөлбөр</a>
+						</li>
+
+						<li class="breadcrumb-item active" aria-current="page">
+							Засах
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			{% include 'layout/flash.html.twig' %}
+
+			{{ form_start(mapForm) }}
+
+			<div class="form-group">
+				{{ form_row(mapForm.name) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(mapForm.information) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(mapForm.dataType) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(mapForm.latitude) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(mapForm.longitude) }}
+			</div>
+
+			{{ form_end(mapForm) }}
+
+		</div>
+	</div>
+
+{% endblock %}

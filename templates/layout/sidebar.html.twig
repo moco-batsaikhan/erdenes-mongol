@@ -5,8 +5,8 @@
 	<a
 		class="sidebar-brand d-flex align-items-center justify-content-center" href="{{path('app_home')}}">
 		{# <div class="sidebar-brand-icon rotate-n-15">
-																																									<i class="fas fa-laugh-wink"></i>
-																																								</div> #}
+																																																																																																																																																																			<i class="fas fa-laugh-wink"></i>
+																																																																																																																																																																		</div> #}
 		<div class="sidebar-brand-text mx-3">Erdenes Mongol
 		</div>
 	</a>
@@ -24,8 +24,8 @@
 	</li>
 
 	{# {% if is_granted('ROLE_ADMIN') 
-																																																																or is_granted('ROLE_BANNER')
-																																																														        %} #}
+																																																																																																																													or is_granted('ROLE_BANNER')
+																																																																																																																											        %} #}
 
 	<!-- Divider -->
 	<hr
@@ -43,9 +43,7 @@
 			<span>Админ удирдлага</span>
 		</a>
 		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-			<div
-				class="bg-white py-2 collapse-inner rounded">
-				{# <h6 class="collapse-header">Custom Components:</h6> #}
+			<div class="bg-white py-2 collapse-inner rounded">
 				<a class="collapse-item" href="{{path('app_admin_index')}}">Админ</a>
 				<a class="collapse-item" href="{{ path('app_admin_log_index') }}">Админ лог</a>
 			</div>
@@ -59,68 +57,84 @@
 			<span>Тохиргоо</span>
 		</a>
 		<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div
-				class="bg-white py-2 collapse-inner rounded">
-				{# <h6 class="collapse-header"></h6> #}
-				<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Цэс</a>
-				<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Section дараалал</a>
-				<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Веб тохиргоо</a>
-				<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Баннер</a>
-				<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Төсөл хөтөлбөрүүд</a>
+			<div class="bg-white py-2 collapse-inner rounded">
+				<h6 class="collapse-header">Цэс</h6>
+				<a class="collapse-item" href=" {{ path('app_main_category_index') }} ">Үндсэн цэс</a>
+				<a class="collapse-item" href=" {{ path('app_sub_category_index') }} ">Туслах цэс</a>
+
+				<hr class="sidebar-divider">
+				<h6 class="collapse-header">Нүүр хуудас тохиргоо</h6>
+				<a class="collapse-item" href=" {{ path('app_section_index') }} ">Хэсгүүдийн дараалал</a>
+				<a class="collapse-item" href=" {{ path('app_web_config_index') }} ">Үндсэн тохиргоонууд</a>
+				<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Нүүр зураг</a>
+				<a class="collapse-item" href=" {{ path('app_map_index') }} ">Төсөл хөтөлбөрүүд</a>
 			</div>
 		</div>
 	</li>
 
-	<!-- Divider -->
-	<hr
-	class="sidebar-divider">
+	<hr class="sidebar-divider">
 
-	<!-- Heading -->
 	<div class="sidebar-heading">
-		Агуулга
+		Веб доторх хуудсууд тохиргоо
 	</div>
 
 	<li class="nav-item">
-		<a class="nav-link" href="charts.html">
-			<i class="fas fa-fw fa-newspaper"></i>
-			<span>Мэдээ мэдээлэл</span>
-		</a>
-	</li>
-
-	<li class="nav-item">
-		<a class="nav-link" href="charts.html">
-			<i class="fas fa-fw fa-file"></i>
-			<span>Контент</span>
-		</a>
-	</li>
-
-	<!-- Nav Item - Charts -->
-	<li class="nav-item">
-		<a class="nav-link" href="charts.html">
-			<i class="fas fa-fw fa-address-card"></i>
-			<span>Бидний тухай</span>
-		</a>
-	</li>
-
-	<li class="nav-item">
-		<a class="nav-link" href="charts.html">
+		<a class="nav-link" href="{{ path('app_organization_index') }} ">
 			<i class="fas fa-fw fa-handshake"></i>
-			<span>Хамтрагч байгууллагууд</span>
+			<span>Байгууллагийн мэдээлэл</span>
 		</a>
 	</li>
 
 	<li class="nav-item">
-		<a class="nav-link" href="charts.html">
+		<a class="nav-link" href="{{ path('app_about_us_index') }} ">
+			<i class="fa fa-id-card"></i>
+			<span>Бидний тухай хуудас</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_currency_index') }} ">
 			<i class="fas fa-fw fa-chart-area"></i>
 			<span>Ханшийн мэдээлэл</span>
 		</a>
 	</li>
 
-	<!-- Divider -->
-	<hr
-	class="sidebar-divider d-none d-md-block">
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_video_news_index') }} ">
+			<i class="fas fa-fw fa-video"></i>
+			<span>Видео мэдээлэл</span>
+		</a>
+	</li>
 
-	<!-- Sidebar Toggler (Sidebar) -->
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_employee_index') }} ">
+			<i class="fas fa-users"></i>
+			<span>Хамт олон</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
+			<i class="fas fa-fw fa-newspaper"></i>
+			<span>Контент</span>
+		</a>
+		<div id="collapseNews" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+			<div class="bg-white py-2 collapse-inner rounded">
+				<h6 class="collapse-header">Үндсэн</h6>
+				<a class="collapse-item" href="{{path('app_news_index')}}">Контентууд</a>
+				<h6 class="collapse-header">Контент агуулга нэмэх</h6>
+				<a class="collapse-item" href="{{ path('app_content_chart_index') }}">График</a>
+				<a class="collapse-item" href="{{ path('app_content_pdf_index') }}">PDF</a>
+				<a class="collapse-item" href="{{ path('app_content_ckeditor_index') }}">CkEditor</a>
+				<h6 class="collapse-header">Төрөл</h6>
+				<a class="collapse-item" href="{{ path('app_news_type_index') }}">Мэдээний төрлүүд</a>
+				{# <a class="collapse-item" href="{{ path('app_admin_log_index') }}">Зургийн цоморлог</a> #}
+			</div>
+		</div>
+	</li>
+
+	<hr class="sidebar-divider d-none d-md-block">
+
 	<div class="text-center d-none d-md-inline">
 		<button class="rounded-circle border-0" id="sidebarToggle"></button>
 	</div>

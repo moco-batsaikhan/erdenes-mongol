@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+{% block body %}
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_about_us_index') }}">Бидний тухай</a>
+						</li>
+
+						<li class="breadcrumb-item active" aria-current="page">
+							Засах
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			{% include 'layout/flash.html.twig' %}
+
+			{{ form_start(abouUsForm) }}
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.mnPurpose) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.enPurpose) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.cnPurpose) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(abouUsForm.mnVision) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.enVision) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.mnSlogan) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.enSlogan) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.cnSlogan) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(abouUsForm.mnPrinciples) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.enPrinciples) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.cnPrinciples) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(abouUsForm.imageFile) }}
+			</div>
+
+			{{ form_end(abouUsForm) }}
+
+		</div>
+	</div>
+
+{% endblock %}

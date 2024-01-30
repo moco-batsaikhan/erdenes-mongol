@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+	<style>
+		.currency-layout {
+			width: 100%;
+			background-color: green;
+		}
+	</style>
+{% endblock %}
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							Ханшийн мэдээлэл
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<div class="currency-layout">
+				<iframe style="width:310px;font-size:11px;height:450px;border: none;overflow:hidden;margin:0;font-size:55px;color: blue;" src="//monxansh.appspot.com/xansh.html?currency=USD|EUR|JPY|GBP|RUB|CNY|KRW&currency_title=Currency&currency_rate_title=Rate&source=Source"></iframe>
+				<iframe style="width:310px;font-size:11px;height:450px;border: none;overflow:hidden;margin:0;" src="//monxansh.appspot.com/xansh.html?currency=USD|EUR|JPY|GBP|RUB|CNY|KRW&conv_tool=1"></iframe>
+			</div>
+
+		</div>
+	</div>
+{% endblock %}

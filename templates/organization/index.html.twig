@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							Байгууллагийн мэдээлэл
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			<div>
+				<a href="{{ path('app_organization_create') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
+
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
+			<div class="table-responsive">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>
+								Байгууллагийн нэр (Монгол)</th>
+							<th>
+								Байгууллагийн нэр (Англи)</th>
+							<th>Зураг</th>
+							<th>Лого</th>
+							<th>Тайлбар (Монгол)</th>
+							<th>Тайлбар (Англи)</th>
+							<th>Тайлбар (Хятад)</th>
+							<th>Байгууллагийн веб хаяг</th>
+							<th>Холбоо барих</th>
+							<th>Хаяг</th>
+							<th>Байгууллагийн төрөл</th>
+							<th>#</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for organization in organizations %}
+							<tr>
+								<td>{{ organization.id }}</td>
+								<td>{{ organization.mnName }}</td>
+								<td>{{ organization.enName }}</td>
+								<td><img src="{{ asset("app.path.image/" ~ organization.imageUrl) }}"></td>
+								<td><img src="{{ asset("app.path.image/" ~ organization.logo) }}"></td>
+								<td>{{ organization.mnDescription }}</td>
+								<td>{{ organization.enDescription }}</td>
+								<td>{{ organization.cnDescription }}</td>
+								<td>{{ organization.webUrl }}</td>
+								<td>{{ organization.contact }}</td>
+								<td>{{ organization.address }}</td>
+								<td>{{ organization.type }}</td>
+								<td>
+									<a href="{{ path('app_organization_edit', {'id' : partnerOrganization.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% if organizations|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

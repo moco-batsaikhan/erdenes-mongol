@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="display-grid">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a>Мэдээ мэдээлэл</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_content_pdf_index') }}">pdf</a>
+				</li>
+
+				<li class="breadcrumb-item active" aria-current="page">
+					Нэмэх
+				</li>
+			</ol>
+		</nav>
+	</div>
+
+	{% include 'layout/flash.html.twig' %}
+
+	{{ form_start(contentPdfForm) }}
+
+	<div class="form-group">
+		{{ form_row(contentPdfForm.name) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(contentPdfForm.pdfFile) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(contentPdfForm.priority) }}
+	</div>
+
+	{{ form_end(contentPdfForm) }}</div></div>{% endblock %}
