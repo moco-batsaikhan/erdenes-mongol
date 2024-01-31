@@ -47,6 +47,18 @@
             "ref": "f5ad42002183a6881962683e6d84bbb25cdfce5d"
         }
     },
+    "friendsofsymfony/rest-bundle": {
+        "version": "3.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "3.0",
+            "ref": "3762cc4e4f2d6faabeca5a151b41c8c791bd96e5"
+        },
+        "files": [
+            "./config/packages/fos_rest.yaml"
+        ]
+    },
     "helios-ag/fm-elfinder-bundle": {
         "version": "12.4",
         "recipe": {
@@ -55,6 +67,18 @@
             "version": "10.0",
             "ref": "addd79a9903ee92664f4cff61eb6cdd1b95945e7"
         }
+    },
+    "jms/serializer-bundle": {
+        "version": "5.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "main",
+            "version": "4.0",
+            "ref": "cc04e10cf7171525b50c18b36004edf64cb478be"
+        },
+        "files": [
+            "./config/packages/jms_serializer.yaml"
+        ]
     },
     "omines/datatables-bundle": {
         "version": "0.7",

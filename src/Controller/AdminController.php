@@ -110,7 +110,7 @@ class AdminController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUsername());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($user->getUsername());
             $log->setAction('Админ мэдээлэл засав.');
