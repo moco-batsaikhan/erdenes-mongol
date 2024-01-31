@@ -41,6 +41,7 @@ class NewsEditFormType extends AbstractType
                 )
             ))
             ->add('mnHeadline', TextType::class, array(
+                'required' => false,
                 'label' => 'Монгол тайлбар',
                 'attr' => array(
                     "class" => "form-control",
@@ -48,6 +49,7 @@ class NewsEditFormType extends AbstractType
                 )
             ))
             ->add('enHeadline', TextType::class, array(
+                'required' => false,
                 'label' => 'Англи тайлбар',
                 'attr' => array(
                     "class" => "form-control",
@@ -55,6 +57,7 @@ class NewsEditFormType extends AbstractType
                 )
             ))
             ->add('cnHeadline', TextType::class, array(
+                'required' => false,
                 'label' => 'Хятад тайлбар',
                 'attr' => array(
                     "class" => "form-control",
@@ -76,6 +79,18 @@ class NewsEditFormType extends AbstractType
                     'required' => false,
                 )
             )
+            
+            ->add('imageFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Зураг оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Зураг харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
             ->add(
                 'isSpecial',
                 ChoiceType::class,
@@ -84,8 +99,8 @@ class NewsEditFormType extends AbstractType
                     'label' => 'Онцгойлох',
                     'choices' =>
                     array(
-                        'Онцгой' => true,
-                        'Энгийн' => false
+                        'Онцгой' => false,
+                        'Энгийн' => true
                     ),
                     'multiple' => false,
                     'required' => false,

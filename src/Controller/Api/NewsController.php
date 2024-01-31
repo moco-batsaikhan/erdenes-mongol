@@ -3,6 +3,8 @@
 namespace App\Controller\Api;
 
 use App\Entity\News;
+use App\Entity\VideoNews;
+use Exception;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,33 +16,82 @@ use Symfony\Component\HttpFoundation\Request;
 #[Route('/api', name: 'api_')]
 class NewsController extends AbstractController
 {
-    #[Route('/news/{page}', name: 'news_index', requirements: ['page' => '\d+'], defaults: ['page' => 1], methods: ['get'])]
-    public function index(ManagerRegistry $doctrine, SerializerInterface $serializer, $page)
+    #[Route('/news/{type}/{page}', name: 'news_index', requirements: ['page' => '\d+'], defaults: ['page' => 1], methods: ['get'])]
+    public function index(ManagerRegistry $doctrine, SerializerInterface $serializer, $type, $page)
     {
         $pagesize = 20;
+
+
         $qb = $doctrine
             ->getRepository(News::class)
             ->createQueryBuilder('p');
-
         $cloneQb = clone $qb;
-        $count = $cloneQb->select('count(p.id)')->where('p.active = 1')->getQuery()->getSingleScalarResult();
-        $news = $qb->setFirstResult(($page - 1) * $pagesize)
-            ->setMaxResults($pagesize)
+        $count = $cloneQb->select('count(p.id)')->where('p.active = 1')
+            ->leftJoin('p.newsType', 'nt');
+
+
+        $data = $qb
             ->where('p.active = 1')
+            ->leftJoin('p.newsType', 'nt');
+
+
+        switch ($type) {
+            case 'video':
+                $videoBuilder = $doctrine->getRepository(VideoNews::class)->createQueryBUilder('p');
+                $cloneQuery = clone $videoBuilder;
+                $countVideo = $cloneQuery->select('count(p.id)')->where('p.active = 1')->getQuery()->getSingleScalarResult();
+                $videoNews = $videoBuilder->where('p.active = 1')
+                    ->setFirstResult(($page - 1) * $pagesize)
+                    ->setMaxResults($pagesize)
+                    ->getQuery()
+                    ->getArrayResult();
+
+                $news = $serializer->serialize($videoNews, 'json');
+
+
+                $response = [
+                    'count' => $countVideo,
+                    'pagesize' => $pagesize,
+                    'data' => json_decode($news)
+                ];
+
+                return new JsonResponse($response);
+
+            case 'statistics':
+                $count->andWhere('nt.id = 4');
+                $data->andWhere('nt.id = 4');
+                break;
+            case 'project':
+                $count->andWhere('nt.id = 5');
+                $data->andWhere('nt.id = 5');
+                break;
+            case 'published':
+                $count->andWhere('nt.id = 3');
+                $data->andWhere('nt.id = 3');
+                break;
+
+            default:
+                return new JsonResponse(['code' => 404, 'message' => 'Алдаа! Буруу утга оруулсан байна.', 'allowedTypes' => ['video', 'statistics', 'project', 'published']]);
+
+        }
+
+        $count = $count
+            ->getQuery()
+            ->getSingleScalarResult();
+        $data = $data
+            ->setFirstResult(($page - 1) * $pagesize)
+            ->setMaxResults($pagesize)
             ->getQuery()
             ->getArrayResult();
 
-        $reports = $serializer->serialize($news, 'json');
+        $news = $serializer->serialize($data, 'json');
 
 
         $response = [
             'count' => $count,
             'pagesize' => $pagesize,
-            'data' => json_decode($reports)
+            'data' => json_decode($news)
         ];
-
-
-
 
         return new JsonResponse($response);
     }
