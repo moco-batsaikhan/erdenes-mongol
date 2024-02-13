@@ -39,11 +39,8 @@
 							<th>И-мэйл
 							</th>
 							<th>Дугаар</th>
-							<th>Алсын хараа(Хятад)</th>
-							<th>Алба, хэлтэс
-							</th>
+							<th>Алба, хэлтэс</th>
 							<th>Дараалал</th>
-							<th>Уриа үг(Хятад)</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -52,7 +49,7 @@
 							<tr>
 								<td>{{ item.name}}</td>
 								<td>{{ item.division}}</td>
-								<td>{{ item.imageUrl}}</td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ item.image) }}" class="img-fluid" alt="Employee Image"></td>
 								<td>{{ item.email}}</td>
 								<td>{{ item.phone}}</td>
 								<td>{{ item.department}}</td>

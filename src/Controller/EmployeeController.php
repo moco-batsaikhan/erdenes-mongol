@@ -50,6 +50,7 @@ class EmployeeController extends AbstractController
         if ($employeeForm->isSubmitted() && $employeeForm->isValid()) {
             try {
 
+                $employee->setCreatedUser($this->getUser());
                 $em->persist($employee);
                 $em->flush();
 
@@ -97,9 +98,9 @@ class EmployeeController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($employee->getUsername());
+            $log->setValue($employee->getName());
             $log->setAction('Ажилтаны мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
@@ -107,7 +108,7 @@ class EmployeeController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
-            return $this->redirectToRoute('app_employee_edit', array('id' => $id));
+            return $this->redirectToRoute('app_employee_index', array('id' => $id));
         }
 
 

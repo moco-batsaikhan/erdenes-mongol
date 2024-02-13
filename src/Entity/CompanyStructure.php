@@ -131,9 +131,9 @@ class CompanyStructure
     {
         $this->iconFile = $image;
 
-        // if ($image) {
-        //     $this->updatedAt = new \DateTime('now');
-        // }
+        if ($image) {
+            $this->updateAt = new \DateTime('now');
+        }
     }
 
     public function getIconFile()
