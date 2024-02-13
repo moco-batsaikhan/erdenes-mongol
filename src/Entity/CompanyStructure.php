@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\CompanyStructureRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: CompanyStructureRepository::class)]
 class CompanyStructure
 {
@@ -27,7 +29,7 @@ class CompanyStructure
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $address = null;
 
-    #[Vich\UploadableField(mapping: "app_icon", fileNameProperty: "icon")]
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "icon")]
     private ?File $iconFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -36,11 +38,17 @@ class CompanyStructure
     #[ORM\Column(length: 255)]
     private ?string $description = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $createdAt = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    private ?\DateTimeInterface $updateAt = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updateAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {
@@ -119,41 +127,41 @@ class CompanyStructure
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function setIconFile(File $image = null)
+    {
+        $this->iconFile = $image;
+
+        // if ($image) {
+        //     $this->updatedAt = new \DateTime('now');
+        // }
+    }
+
+    public function getIconFile()
+    {
+        return $this->iconFile;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdateAt(): ?\DateTimeInterface
     {
-        return $this->updatedAt;
+        return $this->updateAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    public function setUpdateAt(\DateTimeInterface $updateAt): static
     {
-        $this->updatedAt = $updatedAt;
+        $this->updateAt = $updateAt;
 
         return $this;
-    }
-
-    public function setIconFile(File $icon = null)
-    {
-        $this->iconFile = $icon;
-
-        if ($icon) {
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
-
-    public function getIconFile()
-    {
-        return $this->iconFile;
     }
 }

@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a>компаний бүтэц</a>
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			<div>
+				<a href="{{ path('app_structure_create') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
+
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
+			<div class="table-responsive">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Нэр</th>
+							<th>Тайлбар</th>
+							<th>Хаяг</th>
+							<th>Утас</th>
+							<th>Веб</th>
+							<th>Лого</th>
+							<th>#</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for n in structure %}
+							<tr>
+								<td>{{ n.id }}</td>
+								<td>{{ n.name }}</td>
+								<td>{{ n.description }}</td>
+								<td>{{ n.address }}</td>
+								<td>{{ n.web }}</td>
+								<td>{{ n.phone }}</td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.icon) }}" class="img-fluid" alt="Banner Image"></td>
+								<td>
+									<a href="{{ path('app_structure_edit', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% if structure|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
+		</div>
+
+	</div>
+
+
+{% endblock %}
