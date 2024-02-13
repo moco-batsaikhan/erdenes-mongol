@@ -103,7 +103,7 @@ class MapController extends AbstractController
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($map->getMnText());
+            $log->setValue($map->getName());
             $log->setAction('Төсөл хөтөлбөр мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
