@@ -96,4 +96,29 @@ class NewsController extends AbstractController
         return new JsonResponse($response);
     }
 
+
+    #[Route('/newsDetail/{id}', name: 'news_detail', requirements: ['id' => '\d+'], methods: ['get'])]
+    public function detail(ManagerRegistry $doctrine, SerializerInterface $serializer, $id)
+    {
+
+        $data = $doctrine
+            ->getRepository(News::class)
+            ->createQueryBuilder('p')
+            ->where('p.active = 1')
+            ->andWhere('p.id = :id')
+            ->setParameter('id',$id)
+            ->getQuery()
+            ->getArrayResult();
+
+        $news = $serializer->serialize($data, 'json');
+
+
+        $response = [
+            'data' => json_decode($news)
+        ];
+
+        return new JsonResponse($response);
+    }
+
+
 }
