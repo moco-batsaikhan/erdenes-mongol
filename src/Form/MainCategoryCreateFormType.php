@@ -89,6 +89,7 @@ class MainCategoryCreateFormType extends AbstractType
                         '' => '',
                         'Сонгосон жагсаалтуудруу үсрэх' => 'THUMBNAIL',
                         'Сонгосон хуудасруу үсрэх' => 'REDIRECT',
+                        'Уналттай цэс' => 'DROPDOWN',
                     ),
                     'multiple' => false,
                     'required' => true,
