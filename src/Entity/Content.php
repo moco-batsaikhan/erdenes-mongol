@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\ContentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -47,6 +45,9 @@ class Content
 
     #[ORM\Column(nullable: true)]
     private ?array $file = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageFileName = null;
 
     public function getId(): ?int
     {
@@ -156,6 +157,18 @@ class Content
     public function setFile(?array $file): static
     {
         $this->file = $file;
+
+        return $this;
+    }
+
+    public function getImageFileName(): ?string
+    {
+        return $this->imageFileName;
+    }
+
+    public function setImageFileName(?string $imageFileName): static
+    {
+        $this->imageFileName = $imageFileName;
 
         return $this;
     }
