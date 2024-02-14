@@ -8,7 +8,6 @@ use Exception;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -19,73 +18,64 @@ class MapDataController extends AbstractController
 {
 
     #[Route('/all/{page}', name: 'all_map_data', requirements: ['page' => '\d+'], defaults: ['page' => 1],  methods: ['get'])]
-    public function findAll(EntityManagerInterface $entityManager, SerializerInterface $serializer, Request $request): Response
+    public function getMapData(EntityManagerInterface $entityManager, SerializerInterface $serializer, $page): Response
     {
         try {
-            $page = $request->attributes->getInt('page', 1);
-            $repository = $entityManager->getRepository(Map::class);
-            $totalItems = count($repository->findAll());
+            $pageSize = 10;
 
-            if ($totalItems == 0) {
-                throw new NotFoundHttpException(
-                    'No product found'
-                );
-            }
+            $qb = $entityManager->createQueryBuilder();
+            $qb->select('e.id', 'e.name', 'e.information', 'e.dataType', 'e.latitude', 'e.longitude')
+                ->from(Map::class, 'e')
+                ->setFirstResult(($page - 1) * $pageSize)
+                ->setMaxResults($pageSize);
 
-            $itemsPerPage = 10;
-            $pageCount = ceil($totalItems / $itemsPerPage);
+            $query = $qb->getQuery();
+            $data = $query->getResult();
 
-            $datas = $repository->findBy([], null, $itemsPerPage, ($page - 1) * $itemsPerPage);
-
-            if (!$datas) {
-                throw new NotFoundHttpException(
-                    'No product found'
-                );
-            }
-
-            $mapDatas = $serializer->serialize($datas, 'json');
+            $mapDatas = $serializer->serialize($data, 'json');
 
             $response = [
-                'pageCount' => $pageCount,
-                'pageSize' => $itemsPerPage,
-                'data' => json_decode($mapDatas)
+                'data' => json_decode($mapDatas),
+                'page' => $page,
+                'pagesize' => $pageSize
             ];
 
-            return new JsonResponse(['data' => $response]);
+            return new JsonResponse($response);
         } catch (Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
 
     #[Route('/{id}', name: 'map_data_index',  methods: ['get'])]
-    public function FindById(EntityManagerInterface $entityManager, SerializerInterface $serializer, Request $request): Response
+    public function getMapDataById($id, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
         try {
-
-            $id = $request->query->get('id');
-
             if (!$id) {
                 throw new BadRequestHttpException('Parameter "id" is required.');
             }
 
-            $data = $entityManager->getRepository(Map::class)->find($id);
+            $qb = $entityManager->createQueryBuilder();
+            $qb->select('e.id', 'e.name', 'e.information', 'e.dataType', 'e.latitude', 'e.longitude')
+                ->from(Map::class, 'e')
+                ->where('e.id = :id')
+                ->setParameter('id', $id);
+
+            $data = $qb->getQuery()->getOneOrNullResult();
 
             if (!$data) {
-                throw new NotFoundHttpException(
-                    'No product found for id ' . $id
-                );
+                throw new NotFoundHttpException('No map data found for id ' . $id);
             }
 
-            $mapData = $serializer->serialize($data, 'json');
+            $employeeData = $serializer->serialize($data, 'json');
 
             $response = [
-                'data' => json_decode($mapData)
+                'data' => json_decode($employeeData)
             ];
 
-            return new JsonResponse(['data' => $response]);
+            return new JsonResponse($response);
         } catch (BadRequestHttpException | NotFoundHttpException $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
