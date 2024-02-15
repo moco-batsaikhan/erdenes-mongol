@@ -37,7 +37,7 @@ class NewsController extends AbstractController
 
         switch ($type) {
             case 'video':
-                $videoBuilder = $doctrine->getRepository(VideoNews::class)->createQueryBUilder('p');
+                $videoBuilder = $doctrine->getRepository(VideoNews::class)->createQueryBuilder('p');
                 $cloneQuery = clone $videoBuilder;
                 $countVideo = $cloneQuery->select('count(p.id)')->where('p.active = 1')->getQuery()->getSingleScalarResult();
                 $videoNews = $videoBuilder->where('p.active = 1')
