@@ -14,17 +14,11 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							Хамт олон
+							Санал хүсэлт
 						</li>
 					</ol>
 				</nav>
 			</div>
-
-			<div>
-				<a href="{{ path('app_employee_create') }}" class="btn btn-primary btn-sm">
-					+ Шинээр нэмэх</a>
-			</div>
-			<br>
 
 			{% include 'layout/flash.html.twig' %}
 
@@ -34,38 +28,26 @@
 						<tr>
 							<th>Нэр
 							</th>
-							<th>Албан тушаал</th>
-							<th>Зураг</th>
 							<th>И-мэйл
 							</th>
-							<th>Дугаар</th>
-							<th>Алба, хэлтэс</th>
-							<th>Дараалал</th>
-							<th>#</th>
+							<th>Санал хүсэлт</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for item in items %}
+						{% for item in feedbackDatas %}
 							<tr>
 								<td>{{ item.name}}</td>
-								<td>{{ item.division}}</td>
-								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ item.image) }}" class="img-fluid" alt="Employee Image"></td>
 								<td>{{ item.email}}</td>
-								<td>{{ item.phone}}</td>
-								<td>{{ item.department}}</td>
-								<td>{{ item.priority}}</td>
-								<td>
-									<a href="{{ path('app_employee_edit', {'id' : item.id}) }}" class="btn btn-primary btn-sm">
-										<i class="fas fa-edit"></i>
-									</a>
-								</td>
+								<td>{{ item.feedback}}</td>
 							</tr>
 						{% endfor %}
 					</tbody>
 
 				</table>
 			</div>
-			{% if items|length > 0 %}
+
+
+			{% if feedbackDatas|length > 0 %}
 				{% include 'layout/pagination.html.twig' %}
 			{% endif %}
 		</div>

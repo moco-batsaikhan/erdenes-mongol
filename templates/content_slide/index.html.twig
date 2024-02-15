@@ -16,14 +16,18 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							Төсөл хөтөлбөр
+							<a>Мэдээ мэдээлэл</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							slide
 						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_map_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_content_create_slide') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -36,36 +40,25 @@
 					<thead>
 						<tr>
 							<th>№</th>
-							<th>Төслийн нэр</th>
-							<th>Тайлбар</th>
-							<th>Өргөрөг</th>
-							<th>Уртраг</th>
-							<th>Төслийн төрөл</th>
-							<th>#</th>
+							<th>Агуулгийн нэр</th>
+							<th>Агуулгийн төрөл</th>
+							<th>Контентийн дараалал</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for mapData in mapDatas %}
+						{% for content in contents %}
 							<tr>
-								<td>{{ mapData.id }}</td>
-								<td>{{ mapData.name }}</td>
-								<td>{{ mapData.information }}</td>
-								<td>{{ mapData.latitude }}</td>
-								<td>{{ mapData.longitude }}</td>
-								<td>{{ mapData.dataType }}</td>
-								<td>
-									<a href="{{ path('app_map_edit', {'id' : mapData.id}) }}" class="btn btn-primary btn-sm">
-										<i class="fas fa-edit"></i>
-									</a>
-								</td>
+								<td>{{ content.id }}</td>
+								<td>{{ content.name }}</td>
+								<td>{{ content.type }}</td>
+								<td>{{ content.priority}}</td>
 							</tr>
 						{% endfor %}
 					</tbody>
 
 				</table>
 			</div>
-
-			{% if mapDatas|length > 0 %}
+			{% if contents|length > 0 %}
 				{% include 'layout/pagination.html.twig' %}
 			{% endif %}
 		</div>

@@ -2,16 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Employee;
-use Symfony\Component\Form\AbstractType;
+use App\Entity\CompanyStructure;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EmployeeEditFormType extends AbstractType
+class StructureCreateFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -23,41 +22,35 @@ class EmployeeEditFormType extends AbstractType
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add('division', TextType::class, array(
-                'label' => 'Албан тушаал',
+            ->add('description', TextType::class, array(
+                'label' => 'Тайлбар',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add('email', TextType::class, array(
-                'label' => 'И-мэйл',
+            ->add('phone', TextType::class, array(
+                'label' => 'Утас',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add('phone', NumberType::class, array(
-                'label' => 'Дугаар',
+            ->add('web', TextType::class, array(
+                'label' => 'Веб хаяг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add('department', TextType::class, array(
-                'label' => 'Алба, хэлтэс',
+            ->add('address', TextType::class, array(
+                'label' => 'Хаяг',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add('priority', NumberType::class, array(
-                'label' => 'Дарааалал',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ))
-            ->add('imageFile', VichFileType::class, [
+            ->add('iconFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Зураг оруулах',
                 'allow_delete' => true,
@@ -77,7 +70,7 @@ class EmployeeEditFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Employee::class,
+            'data_class' => CompanyStructure::class,
         ]);
     }
 }

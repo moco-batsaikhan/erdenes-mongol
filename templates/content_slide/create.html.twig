@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{ page_title }}
+	Slide
 {% endblock %}
 
 {% block body %}
@@ -18,7 +18,7 @@
 				</li>
 
 				<li class="breadcrumb-item">
-					<a href="{{ path('app_content_pdf_index') }}">График</a>
+					<a href="{{ path('app_content_slide_index') }}">slide</a>
 				</li>
 
 				<li class="breadcrumb-item active" aria-current="page">
@@ -28,31 +28,20 @@
 		</nav>
 	</div>
 
-	<br>
-
-	<div>
-		<span>Та энэхүү файл дээр графикт оруулах өгөгдлүүдээ оруулна уу!</span>
-		<a href="{{ path('app_content_download_example_file', {'chartName': pathName}) }}" class="btn btn-info">
-			жишээ татах</a>
-	</div>
-
-	<br>
 
 	{% include 'layout/flash.html.twig' %}
 
-	{{ form_start(contentChartForm) }}
-
+	{{ form_start(form) }}
 	<div class="form-group">
-		{{ form_row(contentChartForm.name) }}
-	</div>
+		{{ form_row(form.name) }}
 
+	</div>
 	<div class="form-group">
-		{{ form_row(contentChartForm.file) }}
-	</div>
+		{{ form_row(form.images, {'attr': {'multiple': 'multiple'}}) }}
 
+	</div>
 	<div class="form-group">
-		{{ form_row(contentChartForm.priority) }}
+		{{ form_row(form.priority) }}
 	</div>
-
-	{{ form_end(contentChartForm) }}
+	{{ form_end(form) }}
 {% endblock %}

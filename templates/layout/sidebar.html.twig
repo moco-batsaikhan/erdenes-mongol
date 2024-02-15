@@ -5,8 +5,8 @@
 	<a
 		class="sidebar-brand d-flex align-items-center justify-content-center" href="{{path('app_home')}}">
 		{# <div class="sidebar-brand-icon rotate-n-15">
-																																																																																																																																																																			<i class="fas fa-laugh-wink"></i>
-																																																																																																																																																																		</div> #}
+																																																																																																																																																																																			<i class="fas fa-laugh-wink"></i>
+																																																																																																																																																																																		</div> #}
 		<div class="sidebar-brand-text mx-3">Erdenes Mongol
 		</div>
 	</a>
@@ -24,8 +24,8 @@
 	</li>
 
 	{# {% if is_granted('ROLE_ADMIN') 
-																																																																																																																													or is_granted('ROLE_BANNER')
-																																																																																																																											        %} #}
+																																																																																																																																					or is_granted('ROLE_BANNER')
+																																																																																																																																			        %} #}
 
 	<!-- Divider -->
 	<hr
@@ -114,6 +114,20 @@
 	</li>
 
 	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_structure_index') }} ">
+			<i class="fas fa-users"></i>
+			<span>Компаний бүтэц</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
+		<a class="nav-link" href="{{ path('app_feedback_index') }} ">
+			<i class="fas fa-users"></i>
+			<span>Санал хүсэлт</span>
+		</a>
+	</li>
+
+	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
 			<i class="fas fa-fw fa-newspaper"></i>
 			<span>Контент</span>
@@ -126,9 +140,9 @@
 				<a class="collapse-item" href="{{ path('app_content_chart_index') }}">График</a>
 				<a class="collapse-item" href="{{ path('app_content_pdf_index') }}">PDF</a>
 				<a class="collapse-item" href="{{ path('app_content_ckeditor_index') }}">CkEditor</a>
+				<a class="collapse-item" href="{{ path('app_content_slide_index') }}">Зургийн цоморлог</a>
 				<h6 class="collapse-header">Төрөл</h6>
 				<a class="collapse-item" href="{{ path('app_news_type_index') }}">Мэдээний төрлүүд</a>
-				{# <a class="collapse-item" href="{{ path('app_admin_log_index') }}">Зургийн цоморлог</a> #}
 			</div>
 		</div>
 	</li>
