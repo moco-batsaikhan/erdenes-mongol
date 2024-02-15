@@ -2,7 +2,7 @@ fm_elfinder:
   instances:
     default:
       editor: ckeditor
-      locale: fr
+      locale: en
       theme: smoothness
       path_prefix: "/"
       relative_path: true
