@@ -56,27 +56,22 @@ class OrganizationController extends AbstractController
         $organizationForm->handleRequest($request);
 
         if ($organizationForm->isSubmitted() && $organizationForm->isValid()) {
-            try {
 
-                $em->persist($organization);
-                $em->flush();
+            $organization->setCreatedUser($this->getUser());
+            $em->persist($organization);
+            $em->flush();
 
 
-                $log = new CmsAdminLog();
-                $log->setAdminname($this->getUser()->getUserIdentifier());
-                $log->setIpaddress($request->getClientIp());
-                $log->setValue($organization->getMnName());
-                $log->setAction('Шинэ байгууллагийн мэдээлэл үүсгэв.');
-                $log->setCreatedAt(new \DateTime('now'));
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($organization->getMnName());
+            $log->setAction('Шинэ байгууллагийн мэдээлэл үүсгэв.');
+            $log->setCreatedAt(new \DateTime('now'));
 
-                $em->persist($log);
-                $em->flush();
-            } catch (\Exception $e) {
-                if ($e->getCode() == '1062') {
-                    $this->addFlash('danger', 'Email хаяг давхардаж байна.');
-                    return $this->redirectToRoute('app_organization_create');
-                }
-            }
+            $em->persist($log);
+            $em->flush();
+
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
             return $this->redirectToRoute('app_organization_index');
