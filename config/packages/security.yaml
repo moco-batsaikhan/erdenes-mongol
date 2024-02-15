@@ -40,4 +40,6 @@ security:
     - { path: ^/$, roles: ROLE_ADMIN }
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/admin-log, roles: ROLE_ADMIN }
-    - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/profile, roles: ROLE_ADMIN }
+    - { path: ^/efconnect, role: ROLE_ADMIN }
+    - { path: ^/elfinder, role: ROLE_ADMIN }

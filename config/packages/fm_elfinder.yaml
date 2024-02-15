@@ -4,14 +4,14 @@ fm_elfinder:
       editor: ckeditor
       locale: fr
       theme: smoothness
-      path_prefix: " "
+      path_prefix: "/"
       relative_path: true
       connector:
         roots:
           uploads:
             driver: LocalFileSystem
             path: uploads/image
-            # url: "%app.path.image%"
+#             url: "%app.path.image%"
             alias: "Home"
             show_hidden: false
             upload_allow: ["image/png", "image/jpg", "image/jpeg"]
