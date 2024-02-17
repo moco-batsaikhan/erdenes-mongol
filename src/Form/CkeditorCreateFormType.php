@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 class CkeditorCreateFormType extends AbstractType
@@ -36,6 +37,21 @@ class CkeditorCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+            ->add(
+                'active',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Төлөв',
+                    'choices' =>
+                    array(
+                        'Идэвхитэй' => true,
+                        'Идэвхигүй' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
             ->add('News', EntityType::class, [
                 'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
                 'class' => 'App\Entity\News',
