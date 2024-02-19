@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\CompanyStructure;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
@@ -22,11 +23,10 @@ class StructureCreateFormType extends AbstractType
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add('description', TextType::class, array(
-                'label' => 'Тайлбар',
+            ->add('body', CKEditorType::class, array(
+                'label' => 'Агуулга',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
             ->add('phone', TextType::class, array(

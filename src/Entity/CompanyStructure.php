@@ -35,14 +35,14 @@ class CompanyStructure
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $icon = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $description = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updateAt = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $body = null;
 
     public function __construct()
     {
@@ -115,18 +115,6 @@ class CompanyStructure
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(string $description): static
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
     public function setIconFile(File $image = null)
     {
         $this->iconFile = $image;
@@ -161,6 +149,18 @@ class CompanyStructure
     public function setUpdateAt(\DateTimeInterface $updateAt): static
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function getBody(): ?string
+    {
+        return $this->body;
+    }
+
+    public function setBody(string $body): static
+    {
+        $this->body = $body;
 
         return $this;
     }
