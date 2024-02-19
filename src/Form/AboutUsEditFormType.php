@@ -16,82 +16,62 @@ class AboutUsEditFormType extends AbstractType
     {
         $builder
             ->add('mnPurpose', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Эрхэм зорилго(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('enPurpose', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Эрхэм зорилго(Англи)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('cnPurpose', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Эрхэм зорилго(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('mnVision', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Алсын хараа(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('enVision', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Алсын хараа(Англи)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('mnSlogan', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Уриа үг(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('enSlogan', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Уриа үг(Англи)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('cnSlogan', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Уриа үг(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('mnSlogan', TextType::class, array(
-                'label' => 'Монгол гарчиг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
-                )
-            ))
-            ->add('enSlogan', TextType::class, array(
-                'label' => 'Монгол гарчиг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
-                )
-            ))
-            ->add('cnSlogan', TextType::class, array(
-                'label' => 'Монгол гарчиг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
-                )
-            ))
+
             ->add('imageFile', VichFileType::class, [
                 'required' => true,
                 'label' => 'Зураг оруулах',
@@ -104,24 +84,38 @@ class AboutUsEditFormType extends AbstractType
                 )
             ])
             ->add('mnPrinciples', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Баримтлах зарчим(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('enPrinciples', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Баримтлах зарчим(Англи)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('cnPrinciples', TextType::class, array(
-                'label' => 'Монгол гарчиг',
+                'label' => 'Баримтлах зарчим(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "гарчиг оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
+                )
+            ))
+            ->add('firsNumber', TextType::class, array(
+                'label' => 'Статистик тоо эхнийх',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "оруулна уу ...",
+                )
+            ))
+            ->add('secondNumber', TextType::class, array(
+                'label' => 'Статистик тоо сүүлийнх',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
 
