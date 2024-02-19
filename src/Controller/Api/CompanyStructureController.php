@@ -22,7 +22,7 @@ class CompanyStructureController extends AbstractController
         $pageSize = 10;
 
         $qb = $entityManager->createQueryBuilder();
-        $qb->select('e.id', 'e.name', 'e.phone', 'e.icon', 'e.web', 'e.address', 'e.description')
+        $qb->select('e.id', 'e.name', 'e.phone', 'e.icon', 'e.web', 'e.address', 'e.body')
             ->from(CompanyStructure::class, 'e')
             ->setFirstResult(($page - 1) * $pageSize)
             ->setMaxResults($pageSize);
@@ -50,7 +50,7 @@ class CompanyStructureController extends AbstractController
             }
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', 'e.name', 'e.phone', 'e.icon', 'e.web', 'e.address', 'e.description')
+            $qb->select('e.id', 'e.name', 'e.phone', 'e.icon', 'e.web', 'e.address', 'e.body')
                 ->from(CompanyStructure::class, 'e')
                 ->where('e.id = :id')
                 ->setParameter('id', $id);
