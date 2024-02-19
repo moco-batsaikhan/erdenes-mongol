@@ -58,8 +58,8 @@
 								<td>{{ organization.id }}</td>
 								<td>{{ organization.mnName }}</td>
 								<td>{{ organization.enName }}</td>
-								<td><img src="{{ asset("app.path.image/" ~ organization.imageUrl) }}"></td>
-								<td><img src="{{ asset("app.path.image/" ~ organization.logo) }}"></td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ organization.imageUrl) }}" class="img-fluid" alt="Organization Image"></td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ organization.logo) }}" class="img-fluid" alt="Organization Logo"></td>
 								<td>{{ organization.mnDescription }}</td>
 								<td>{{ organization.enDescription }}</td>
 								<td>{{ organization.cnDescription }}</td>
@@ -68,9 +68,10 @@
 								<td>{{ organization.address }}</td>
 								<td>{{ organization.type }}</td>
 								<td>
-									<a href="{{ path('app_organization_edit', {'id' : partnerOrganization.id}) }}" class="btn btn-primary btn-sm">
+									<a href="{{ path('app_organization_edit', {'id' : organization.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
+
 								</td>
 							</tr>
 						{% endfor %}

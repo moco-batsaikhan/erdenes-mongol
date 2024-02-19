@@ -43,9 +43,9 @@
 							<th>Агуулгийн нэр</th>
 							<th>Агуулга</th>
 							<th>Контентийн дараалал</th>
-							<th>Мэдээ</th>
+							<th>Харьяалагдах мэдээ</th>
 
-							<th>#</th>
+							{# <th>#</th> #}
 						</tr>
 					</thead>
 					<tbody>
@@ -56,11 +56,11 @@
 								<td>{{ content.body }}</td>
 								<td>{{ content.priority}}</td>
 								<td>{{ content.getNews.MnTitle }}</td>
-								<td>
-									<a href="{{ path('app_content_edit', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
-										<i class="fas fa-edit"></i>
-									</a>
-								</td>
+								{# <td>
+																									<a href="{{ path('app_content_edit', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+																										<i class="fas fa-edit"></i>
+																									</a>
+																								</td> #}
 							</tr>
 						{% endfor %}
 					</tbody>
