@@ -88,7 +88,8 @@ class NewsController extends AbstractController
                 'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageUrl'],
                 'redirectType' => $value['p_redirectType'],
                 'active' => $value['p_active'],
-                'special' => $value['p_isSpecial']
+                'special' => $value['p_isSpecial'],
+                'createdDate' => $value['p_createdAt']
             ];
         }
 
