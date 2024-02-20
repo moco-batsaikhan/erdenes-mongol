@@ -70,12 +70,13 @@ class SubCategoryCreateFormType extends AbstractType
                 'clickType',
                 ChoiceType::class,
                 array(
-                    'attr' => array('class' => 'form-control'),
+                    'attr' => array('class' => 'form-control click-type-select'),
                     'label' => 'Цэсийг дарах үед',
                     'choices' =>
                     array(
                         'Сонгосон мэдээний жагсаалтуудруу үсрэх' => 'THUMBNAIL',
                         'Сонгосон мэдээрүү шууд үсрэх' => 'REDIRECT',
+                        'Сонгосон линкрүү шууд үсрэх' => 'LINK',
                     ),
                     'multiple' => false,
                     'required' => true,

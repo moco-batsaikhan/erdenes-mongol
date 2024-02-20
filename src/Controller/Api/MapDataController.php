@@ -17,8 +17,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class MapDataController extends AbstractController
 {
 
-    #[Route('/all/{page}', name: 'all_map_data', requirements: ['page' => '\d+'], defaults: ['page' => 1],  methods: ['get'])]
-    public function getMapData(EntityManagerInterface $entityManager, SerializerInterface $serializer, $page): Response
+    #[Route('/all/{type}/{page}', name: 'all_map_data', requirements: ['page' => '\d+'], defaults: ['page' => 1],  methods: ['get'])]
+    public function getMapData(EntityManagerInterface $entityManager, SerializerInterface $serializer, $page, $type): Response
     {
         try {
             $pageSize = 10;
