@@ -3,6 +3,7 @@
 namespace App\Controller\Api;
 
 use App\Entity\News;
+use App\Entity\Content;
 use App\Entity\VideoNews;
 use Exception;
 use JMS\Serializer\SerializerInterface;
@@ -91,20 +92,35 @@ class NewsController extends AbstractController
     public function detail(ManagerRegistry $doctrine, SerializerInterface $serializer, $id)
     {
 
-        $data = $doctrine
+        $news = $doctrine
             ->getRepository(News::class)
             ->createQueryBuilder('p')
             ->where('p.active = 1')
             ->andWhere('p.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getArrayResult();
+            ->getScalarResult()[0];
 
-        $news = $serializer->serialize($data, 'json');
+
+
+
+        $content = $doctrine
+            ->getRepository(Content::class)
+            ->createQueryBuilder('p')
+            ->where('p.active = 1')
+            ->andWhere('p.News = :id')
+            ->setParameter('id', $news['p_id'])
+            ->getQuery()
+            ->getScalarResult()[0];
+
+        $news['content'] = $content;
+
+        $news = $serializer->serialize($news, 'json');
+
 
 
         $response = [
-            'data' => json_decode($news)
+            'news' => json_decode($news)
         ];
 
         return new JsonResponse($response);
