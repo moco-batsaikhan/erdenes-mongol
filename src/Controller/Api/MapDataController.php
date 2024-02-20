@@ -29,6 +29,11 @@ class MapDataController extends AbstractController
                 ->setFirstResult(($page - 1) * $pageSize)
                 ->setMaxResults($pageSize);
 
+            if ($type !== 'ALL') {
+                $qb->andWhere('e.dataType = :type')
+                    ->setParameter('type', $type);
+            }
+
             $query = $qb->getQuery();
             $data = $query->getResult();
 
