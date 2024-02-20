@@ -25,12 +25,16 @@ class MenuController extends AbstractController
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
         $data = $entityManager->getRepository(MainCategory::class)
             ->createQueryBuilder('p')
+            ->leftjoin('App\Entity\NewsType', 'nt', \Doctrine\ORM\Query\Expr\Join::WITH, 'nt.id = p.newsType')
+            ->leftjoin('App\Entity\News', 'n', \Doctrine\ORM\Query\Expr\Join::WITH, 'n.id = p.newsId')
+            ->select('p,n,nt')
             ->where('p.type = :HEADER')
             ->andWhere('p.active = 1')
             ->setParameter('HEADER', $type)
             ->orderBy('p.priority', 'ASC')
             ->getQuery()
             ->getScalarResult();
+
 
         $menuDto = [];
         foreach ($data as $key => $value) {
@@ -39,6 +43,9 @@ class MenuController extends AbstractController
                 'name' => $value['p_' . $lang . 'Name'],
                 'type' => $value['p_type'],
                 'active' => $value['p_active'],
+                'link' => $value['p_redirectLink'],
+                'newsId' => $value['n_id'],
+                'newsTypeId' => $value['nt_id'],
                 'clickType' => $value['p_clickType']
             ];
         }
