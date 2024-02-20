@@ -68,12 +68,38 @@
 			</div>
 
 			<div class="form-group" id="newsType-field" style="display: none;">
-				{{ form_row(subCategoryForm.newsType) }}
+				{{ form_row(subCategoryForm.newsTypeId) }}
 			</div>
 
 			{{ form_end(subCategoryForm) }}
 
 		</div>
 	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+var clickTypeSelect = document.querySelector('.click-type-select');
+
+clickTypeSelect.addEventListener('change', function () {
+var selectedValue = clickTypeSelect.value;
+
+document.getElementById('redirectLink-field').style.display = 'none';
+document.getElementById('newsId-field').style.display = 'none';
+document.getElementById('newsType-field').style.display = 'none';
+document.getElementById('create-type-field').style.display = 'none';
+
+if (selectedValue === 'REDIRECT') {
+document.getElementById('newsId-field').style.display = 'block';
+
+} else if (selectedValue === 'LINK') {
+document.getElementById('redirectLink-field').style.display = 'block';
+
+} else if (selectedValue === 'THUMBNAIL') {
+document.getElementById('create-type-field').style.display = 'block';
+document.getElementById('newsType-field').style.display = 'block';
+}
+});
+});
+	</script>
 
 {% endblock %}
