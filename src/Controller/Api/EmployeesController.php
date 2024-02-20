@@ -33,6 +33,12 @@ class EmployeesController extends AbstractController
 
         $employees = $serializer->serialize($data, 'json');
 
+        foreach ($data as &$employee) {
+            if ($employee['image']) {
+                $employee['image'] = $this->getParameter('base_url') . 'uploads/image/' . $employee['image'];
+            }
+        }
+
         $response = [
             'data' => json_decode($employees),
             'page' => $page,

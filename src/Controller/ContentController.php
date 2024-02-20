@@ -216,9 +216,23 @@ class ContentController extends AbstractController
         $worksheet = $spreadsheet->getActiveSheet();
         $data = $worksheet->toArray();
 
-        $jsonData = json_encode($data);
+        $headers = array_shift($data);
 
-        return $jsonData;
+        $jsonData = [];
+
+        foreach ($data as $row) {
+            $rowData = [];
+            foreach ($headers as $index => $header) {
+                if (isset($row[$index])) {
+                    $rowData[$header] = $row[$index];
+                } else {
+                    $rowData[$header] = '';
+                }
+            }
+            $jsonData[] = $rowData;
+        }
+
+        return json_encode($jsonData);
     }
 
     #[Route('/download-example-file', name: '_download_example_file')]
