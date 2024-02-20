@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\News;
 use App\Entity\NewsType;
 use App\Entity\SubCategory;
 use Symfony\Component\Form\AbstractType;
@@ -65,15 +66,6 @@ class SubCategoryCreateFormType extends AbstractType
                 'class' => 'App\Entity\MainCategory',
                 'choice_label' => 'mnName',
             ])
-
-            ->add('newsTypeId', EntityType::class, [
-                'label' => 'Үсрэх мэдээний төрөл сонгох',
-                'class' => NewsType::class,
-                'choice_label' => 'name',
-                'placeholder' => '',
-                'required' => false,
-            ])
-
             ->add(
                 'clickType',
                 ChoiceType::class,
@@ -89,6 +81,29 @@ class SubCategoryCreateFormType extends AbstractType
                     'required' => true,
                 )
             )
+            ->add('newsTypeId', EntityType::class, [
+                'label' => 'Үсрэх мэдээний төрөл сонгох',
+                'class' => NewsType::class,
+                'choice_label' => 'name',
+                'placeholder' => '',
+                'required' => false,
+            ])
+            ->add('newsId', EntityType::class, [
+                'label' => 'Үсрэх мэдээ сонгох',
+                'class' => News::class,
+                'choice_label' => 'mnTitle',
+                'placeholder' => '',
+                'required' => false,
+            ])
+
+            ->add('redirectLink', TextType::class, array(
+                'label' => 'Үсрэх линк оруулна уу',
+                'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "линк оруулна уу ...",
+                )
+            ))
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\News;
 use App\Entity\NewsType;
 use App\Entity\SubCategory;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -60,6 +61,22 @@ class SubCategoryEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+            ->add(
+                'clickType',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control click-type-select'),
+                    'label' => 'Цэсийг дарах үед',
+                    'choices' =>
+                    array(
+                        'Сонгосон мэдээний жагсаалтуудруу үсрэх' => 'THUMBNAIL',
+                        'Сонгосон мэдээрүү шууд үсрэх' => 'REDIRECT',
+                        'Сонгосон линкрүү шууд үсрэх' => 'LINK',
+                    ),
+                    'multiple' => false,
+                    'required' => true,
+                )
+            )
             ->add('newsTypeId', EntityType::class, [
                 'label' => 'Үсрэх мэдээний төрөл сонгох',
                 'class' => NewsType::class,
@@ -67,6 +84,22 @@ class SubCategoryEditFormType extends AbstractType
                 'placeholder' => '',
                 'required' => false,
             ])
+            ->add('newsId', EntityType::class, [
+                'label' => 'Үсрэх мэдээ сонгох',
+                'class' => News::class,
+                'choice_label' => 'mnTitle',
+                'placeholder' => '',
+                'required' => false,
+            ])
+
+            ->add('redirectLink', TextType::class, array(
+                'label' => 'Үсрэх линк оруулна уу',
+                'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "линк оруулна уу ...",
+                )
+            ))
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

@@ -72,11 +72,19 @@ class News
     #[ORM\JoinColumn(nullable: false)]
     private ?NewsType $newsType = null;
 
+    #[ORM\OneToMany(mappedBy: 'newsId', targetEntity: MainCategory::class)]
+    private Collection $mainCategories;
+
+    #[ORM\OneToMany(mappedBy: 'newsId', targetEntity: SubCategory::class)]
+    private Collection $subCategories;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
         $this->updatedAt = new \DateTime();
         $this->contents = new ArrayCollection();
+        $this->mainCategories = new ArrayCollection();
+        $this->subCategories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -306,6 +314,66 @@ class News
     public function setNewsType(?NewsType $newsType): static
     {
         $this->newsType = $newsType;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, MainCategory>
+     */
+    public function getMainCategories(): Collection
+    {
+        return $this->mainCategories;
+    }
+
+    public function addMainCategory(MainCategory $mainCategory): static
+    {
+        if (!$this->mainCategories->contains($mainCategory)) {
+            $this->mainCategories->add($mainCategory);
+            $mainCategory->setNewsId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMainCategory(MainCategory $mainCategory): static
+    {
+        if ($this->mainCategories->removeElement($mainCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($mainCategory->getNewsId() === $this) {
+                $mainCategory->setNewsId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, SubCategory>
+     */
+    public function getSubCategories(): Collection
+    {
+        return $this->subCategories;
+    }
+
+    public function addSubCategory(SubCategory $subCategory): static
+    {
+        if (!$this->subCategories->contains($subCategory)) {
+            $this->subCategories->add($subCategory);
+            $subCategory->setNewsId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSubCategory(SubCategory $subCategory): static
+    {
+        if ($this->subCategories->removeElement($subCategory)) {
+            // set the owning side to null (unless already changed)
+            if ($subCategory->getNewsId() === $this) {
+                $subCategory->setNewsId(null);
+            }
+        }
 
         return $this;
     }

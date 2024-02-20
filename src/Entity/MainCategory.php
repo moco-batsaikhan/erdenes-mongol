@@ -50,6 +50,12 @@ class MainCategory
     #[ORM\ManyToOne(inversedBy: 'mainCategories')]
     private ?NewsType $newsType = null;
 
+    #[ORM\ManyToOne(inversedBy: 'mainCategories')]
+    private ?News $newsId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $redirectLink = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -189,6 +195,30 @@ class MainCategory
     public function setNewsType(?NewsType $newsType): static
     {
         $this->newsType = $newsType;
+
+        return $this;
+    }
+
+    public function getNewsId(): ?News
+    {
+        return $this->newsId;
+    }
+
+    public function setNewsId(?News $newsId): static
+    {
+        $this->newsId = $newsId;
+
+        return $this;
+    }
+
+    public function getRedirectLink(): ?string
+    {
+        return $this->redirectLink;
+    }
+
+    public function setRedirectLink(?string $redirectLink): static
+    {
+        $this->redirectLink = $redirectLink;
 
         return $this;
     }

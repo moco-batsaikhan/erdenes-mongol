@@ -39,7 +39,7 @@
 							<th>Цэс нэр(Монгол)</th>
 							<th>Цэс нэр(Англи)</th>
 							<th>Цэс нэр(Хятад)</th>
-							<th>Төлөв</th>
+							<th>Үсрэх төрөл</th>
 							<th>Байршил</th>
 							<th>Дараалал</th>
 							<th>#</th>
@@ -53,10 +53,14 @@
 								<td>{{ category.enName }}</td>
 								<td>{{ category.cnName }}</td>
 								<td>
-									{% if category.active == true %}
-										<b style="color: darkgreen">Идэвхитэй</b>
-									{% else %}
-										<b style="color: red">Идэвхигүй</b>
+									{% if category.clickType == 'DROPDOWN' %}
+										<b>Туслах цэс</b>
+									{% elseif category.clickType == 'REDIRECT' %}
+										<b>Мэдээрүү үсрэх</b>
+									{% elseif category.clickType == 'LINK' %}
+										<b>Сонгосон линкрүү үсрэх</b>
+									{% elseif category.clickType == 'THUMBNAIL' %}
+										<b>Мэдээнүүдрүү үсрэх</b>
 									{% endif %}
 								</td>
 								<td>
