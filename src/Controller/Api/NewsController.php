@@ -50,6 +50,7 @@ class NewsController extends AbstractController
                 ->getQuery()
                 ->getArrayResult();
 
+
             $news = $serializer->serialize($videoNews, 'json');
 
 
@@ -145,7 +146,7 @@ class NewsController extends AbstractController
             ->orderBy('p.priority', 'ASC')
             ->getQuery()
             ->getScalarResult();
-
+        $newContentsDto = [];
         foreach ($contents as $key => $value) {
             $newContentsDto[] = [
                 'id' => $value['p_id'],
@@ -154,8 +155,8 @@ class NewsController extends AbstractController
                 'body' => $value['p_body'],
                 'active' => $value['p_active'],
                 'file' => $value['p_file'],
-                'pdfFileName' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
-                'imageFileNanme' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
+                'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
+                'imageFileUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
 
             ];
         }
