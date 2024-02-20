@@ -61,6 +61,12 @@ class CompanyStructureController extends AbstractController
                 throw new NotFoundHttpException('No employee found for id ' . $id);
             }
 
+            foreach ($data as &$structure) {
+                if ($structure['icon']) {
+                    $structure['icon'] = $this->getParameter('base_url') . 'uploads/image/' . $structure['icon'];
+                }
+            }
+
             $structure = $serializer->serialize($data, 'json');
 
             $response = [
