@@ -66,7 +66,10 @@ class MenuController extends AbstractController
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
         $data = $entityManager->getRepository(SubCategory::class)
             ->createQueryBuilder('p')
+            ->select('p,n,nt')
             ->leftjoin('App\Entity\MainCategory', 'mc', \Doctrine\ORM\Query\Expr\Join::WITH, 'mc.id = p.mainCategoryId')
+            ->leftjoin('App\Entity\NewsType', 'nt', \Doctrine\ORM\Query\Expr\Join::WITH, 'nt.id = p.newsTypeId')
+            ->leftjoin('App\Entity\News', 'n', \Doctrine\ORM\Query\Expr\Join::WITH, 'n.id = p.newsId')
             ->where('mc.id = :MC_ID')
             ->andWhere('mc.type = :MC_TYPE')
             ->andWhere('p.active = 1')
@@ -83,6 +86,9 @@ class MenuController extends AbstractController
                 'id' => $value['p_id'],
                 'name' => $value['p_' . $lang . 'Name'],
                 'active' => $value['p_active'],
+                'link' => $value['p_redirectLink'],
+                'newsId' => $value['n_id'],
+                'newsTypeId' => $value['nt_id'],
                 'clickType' => $value['p_clickType']
             ];
         }
