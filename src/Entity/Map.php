@@ -27,17 +27,19 @@ class Map
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\Column]
-    private ?int $latitude = null;
 
-    #[ORM\Column]
-    private ?int $longitude = null;
 
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $information = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $latitude = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $longitude = null;
 
     public function __construct()
     {
@@ -98,30 +100,6 @@ class Map
         return $this;
     }
 
-    public function getLatitude(): ?int
-    {
-        return $this->latitude;
-    }
-
-    public function setLatitude(int $latitude): static
-    {
-        $this->latitude = $latitude;
-
-        return $this;
-    }
-
-    public function getLongitude(): ?int
-    {
-        return $this->longitude;
-    }
-
-    public function setLongitude(int $longitude): static
-    {
-        $this->longitude = $longitude;
-
-        return $this;
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -142,6 +120,30 @@ class Map
     public function setInformation(?string $information): static
     {
         $this->information = $information;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?float $latitude): static
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?float $longitude): static
+    {
+        $this->longitude = $longitude;
 
         return $this;
     }

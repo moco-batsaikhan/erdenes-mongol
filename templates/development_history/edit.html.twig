@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+{% block body %}
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_development_history_index') }}">Хөгжлийн түүх</a>
+						</li>
+
+						<li class="breadcrumb-item active" aria-current="page">
+							Засах
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			{% include 'layout/flash.html.twig' %}
+
+			{{ form_start(myForm) }}
+
+			<div class="form-group">
+				{{ form_row(myForm.year) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(myForm.file) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(myForm.priority) }}
+			</div>
+
+			{{ form_end(myForm) }}
+
+		</div>
+	</div>
+
+{% endblock %}

@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a>Мэдээ мэдээлэл</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							slide
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			<div>
+				<a href="{{ path('app_content_create_slide') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
+
+			<br>
+
+			{% include 'layout/flash.html.twig' %}
+
+			<div class="table-responsive">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Агуулгийн нэр</th>
+							<th>Агуулгийн төрөл</th>
+							<th>Контентийн дараалал</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for content in contents %}
+							<tr>
+								<td>{{ content.id }}</td>
+								<td>{{ content.name }}</td>
+								<td>{{ content.type }}</td>
+								<td>{{ content.priority}}</td>
+							</tr>
+						{% endfor %}
+					</tbody>
+
+				</table>
+			</div>
+			{% if contents|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

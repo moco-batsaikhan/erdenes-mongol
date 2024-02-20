@@ -58,7 +58,7 @@ class EmployeeEditFormType extends AbstractType
                 )
             ))
             ->add('imageFile', VichFileType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => 'Зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,

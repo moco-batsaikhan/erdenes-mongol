@@ -7,6 +7,7 @@ use App\Entity\Content;
 use App\Form\ChartDataCreateFormType;
 use App\Form\CkeditorCreateFormType;
 use App\Form\ContentPdfCreateFormType;
+use App\Form\SlideCreateFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -215,9 +216,23 @@ class ContentController extends AbstractController
         $worksheet = $spreadsheet->getActiveSheet();
         $data = $worksheet->toArray();
 
-        $jsonData = json_encode($data);
+        $headers = array_shift($data);
 
-        return $jsonData;
+        $jsonData = [];
+
+        foreach ($data as $row) {
+            $rowData = [];
+            foreach ($headers as $index => $header) {
+                if (isset($row[$index])) {
+                    $rowData[$header] = $row[$index];
+                } else {
+                    $rowData[$header] = '';
+                }
+            }
+            $jsonData[] = $rowData;
+        }
+
+        return json_encode($jsonData);
     }
 
     #[Route('/download-example-file', name: '_download_example_file')]
@@ -345,5 +360,78 @@ class ContentController extends AbstractController
         $entityManager->flush();
 
         return new JsonResponse(['success' => true]);
+    }
+
+
+    #[Route('/slide/{page}', name: '_slide_index', requirements: ['page' => "\d+"])]
+    public function slideIndex(EntityManagerInterface $em, $page = 1): Response
+    {
+        $contentEditorRepo = $em->getRepository(Content::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+        $content = $contentEditorRepo->findBy(['type' => 'SLIDE']);
+        $data = $contentEditorRepo->findBy(['type' => 'SLIDE'], null, $pageSize, $offset);
+
+
+        return $this->render('content_slide/index.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Контент ',
+            'contents' => $data,
+            'pageCount' => ceil(count($content) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_content_chart_index'
+        ]);
+    }
+
+
+    #[Route('/slide/create', name: '_create_slide')]
+    public function createSlide(EntityManagerInterface $em, Request $request): Response
+    {
+        $content = new Content();
+        $content->setType('CK_EDITOR');
+        $contentForm = $this->createForm(CkeditorCreateFormType::class, $content, [
+            'method' => 'POST',
+        ]);
+
+        $contentForm->handleRequest($request);
+
+        if ($contentForm->isSubmitted() && $contentForm->isValid()) {
+            $uploadedFiles = $contentForm['images']->getData();
+
+            foreach ($uploadedFiles as $file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+                $file->move(
+                    $this->getParameter('images_directory'),
+                    $fileName
+                );
+
+                $content->setImageFileName($fileName);
+                $em->persist($content);
+            }
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($content->getId());
+            $log->setAction('Шинэ мэдээлэл үүсгэв.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
+
+            return $this->redirectToRoute('app_content_ckeditor_index');
+        }
+
+        return $this->render('content_slide/create.html.twig', [
+            'form' => $contentForm->createView(),
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Нэмэх',
+        ]);
     }
 }

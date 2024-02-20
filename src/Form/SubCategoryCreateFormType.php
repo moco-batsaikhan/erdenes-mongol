@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\News;
 use App\Entity\NewsType;
 use App\Entity\SubCategory;
 use Symfony\Component\Form\AbstractType;
@@ -65,7 +66,22 @@ class SubCategoryCreateFormType extends AbstractType
                 'class' => 'App\Entity\MainCategory',
                 'choice_label' => 'mnName',
             ])
-
+            ->add(
+                'clickType',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control click-type-select'),
+                    'label' => 'Цэсийг дарах үед',
+                    'choices' =>
+                    array(
+                        'Сонгосон мэдээний жагсаалтуудруу үсрэх' => 'THUMBNAIL',
+                        'Сонгосон мэдээрүү шууд үсрэх' => 'REDIRECT',
+                        'Сонгосон линкрүү шууд үсрэх' => 'LINK',
+                    ),
+                    'multiple' => false,
+                    'required' => true,
+                )
+            )
             ->add('newsTypeId', EntityType::class, [
                 'label' => 'Үсрэх мэдээний төрөл сонгох',
                 'class' => NewsType::class,
@@ -73,22 +89,22 @@ class SubCategoryCreateFormType extends AbstractType
                 'placeholder' => '',
                 'required' => false,
             ])
+            ->add('newsId', EntityType::class, [
+                'label' => 'Үсрэх мэдээ сонгох',
+                'class' => News::class,
+                'choice_label' => 'mnTitle',
+                'placeholder' => '',
+                'required' => false,
+            ])
 
-            ->add(
-                'clickType',
-                ChoiceType::class,
-                array(
-                    'attr' => array('class' => 'form-control'),
-                    'label' => 'Цэсийг дарах үед',
-                    'choices' =>
-                    array(
-                        'Сонгосон мэдээний жагсаалтуудруу үсрэх' => 'THUMBNAIL',
-                        'Сонгосон мэдээрүү шууд үсрэх' => 'REDIRECT',
-                    ),
-                    'multiple' => false,
-                    'required' => true,
+            ->add('redirectLink', TextType::class, array(
+                'label' => 'Үсрэх линк оруулна уу',
+                'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "линк оруулна уу ...",
                 )
-            )
+            ))
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

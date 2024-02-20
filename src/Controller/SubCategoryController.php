@@ -113,7 +113,7 @@ class SubCategoryController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
 
-            return $this->redirectToRoute('app_sub_category_edit', array('id' => $id));
+            return $this->redirectToRoute('app_sub_category_index');
         }
 
 
