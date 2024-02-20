@@ -62,6 +62,12 @@ class AboutUs
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column]
+    private ?int $firsNumber = null;
+
+    #[ORM\Column]
+    private ?int $secondNumber = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -247,5 +253,29 @@ class AboutUs
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    public function getFirsNumber(): ?int
+    {
+        return $this->firsNumber;
+    }
+
+    public function setFirsNumber(int $firsNumber): static
+    {
+        $this->firsNumber = $firsNumber;
+
+        return $this;
+    }
+
+    public function getSecondNumber(): ?int
+    {
+        return $this->secondNumber;
+    }
+
+    public function setSecondNumber(int $secondNumber): static
+    {
+        $this->secondNumber = $secondNumber;
+
+        return $this;
     }
 }

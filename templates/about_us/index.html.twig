@@ -38,67 +38,173 @@
 
 			{% include 'layout/flash.html.twig' %}
 
-			<form class="row g-3">
+			<div class="container">
 				{% for aboutUs in items %}
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput">Эрхэм зорилго(Монгол)</label>
-						<p class="ab-text">{{ aboutUs.mnPurpose}}</p>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput2">Эрхэм зорилго(Англи)</label>
-						<p class="ab-text">{{ aboutUs.enPurpose}}</p>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput">Эрхэм зорилго(Хятад)</label>
-						<p class="ab-text">{{ aboutUs.cnPurpose}}</p>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput2">Алсын хараа(Монгол)</label>
-						<p class="ab-text">{{ aboutUs.mnVision}}</p>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput">Алсын хараа(Англи)</label>
-						<p class="ab-text">{{ aboutUs.enVision}}</p>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput">Уриа үг(Монгол)</label>
-						<p class="ab-text">{{ aboutUs.mnSlogan}}</p>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput2">Уриа үг(Англи)</label>
-						<p class="ab-text">{{ aboutUs.enSlogan}}</p>
-					</div>
-					<div class="form-group col-md-6">
-						<label for="formGroupExampleInput">Уриа үг(Хятад)</label>
-						<p class="ab-text">{{ aboutUs.cnSlogan}}</p>
-					</div>
-					<div class="form-group col-md-12">
-						<label for="formGroupExampleInput2">Баримтлах зарчим(Монгол)</label>
-						<p class="ab-text">{{ aboutUs.mnPrinciples}}</p>
-					</div>
-					<div class="form-group col-md-12">
-						<label for="formGroupExampleInput">Баримтлах зарчим(Англи)</label>
-						<p class="ab-text">{{ aboutUs.enPrinciples}}</p>
-					</div>
-					<div class="form-group col-md-12">
-						<label for="formGroupExampleInput2">Баримтлах зарчим(Хятад)</label>
-						<p class="ab-text">{{ aboutUs.cnPrinciples}}</p>
-					</div>
-					<div class="form-group col-md-12">
-						<label for="formGroupExampleInput">Зураг</label>
-						<p class="ab-text">{{ aboutUs.imageUrl}}</p>
-					</div>
-					<div class="col text-center">
-						<a href="{{ path('app_about_us_edit', {'id' : aboutUs.id}) }}" class="btn btn-primary btn-sm col-auto">
-							Засах</a>
-					</div>
 
+					<div class="main-body">
+						<div class="row gutters-sm">
+							<div class="col-md-4 mb-3">
+								<div class="card" style="width: 100%">
+									<div class="card-body">
+										<div class="d-flex flex-column align-items-center text-center">
+											<img src={{ asset("uploads/image/" ~ aboutUs.imageUrl) }} alt="Abou us" class="rounded-circle" width="150">
+										</div>
+
+
+									</div>
+								</div>
+							</div>
+							<div class="col-md-8">
+								<div class="card mb-3">
+									<div class="card-body">
+
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Алсын хараа(Монгол)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.mnVision}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Алсын хараа(Англи)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.enVision}}
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+							</div>
+
+
+							<div class="col-md-12">
+								<div class="card mb-3">
+									<div class="card-body">
+
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Баримтлах зарчим(Монгол)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.mnPrinciples}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Баримтлах зарчим(Англи)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.enPrinciples}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Баримтлах зарчим(Хятад)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.cnPrinciples}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Уриа үг(Монгол)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.mnSlogan}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Уриа үг(Англи)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.enSlogan}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Уриа үг(Хятад)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.cnSlogan}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Эрхэм зорилго(Монгол)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.mnPurpose}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Эрхэм зорилго(Англи)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.enPurpose}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Эрхэм зорилго(Хятад)</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.cnPurpose}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Статистик тоо эхнийх</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.firsNumber}}
+											</div>
+										</div>
+										<hr>
+										<div class="row">
+											<div class="col-sm-3">
+												<h6 class="mb-0">Статистик тоо сүүлийнх</h6>
+											</div>
+											<div class="col-sm-9 text-secondary">
+												{{aboutUs.secondNumber}}
+											</div>
+										</div>
+
+
+									</div>
+								</div>
+
+
+							</div>
+							<div class="row">
+								<div class="col-md-12 text-center">
+									<a class="btn btn-info" href="{{ path('app_about_us_edit', {'id' : aboutUs.id}) }}">Edit</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
 				{% endfor %}
 
-
-			</form>
+			</div>
 
 
 		</div>
+
 	</div>
 {% endblock %}

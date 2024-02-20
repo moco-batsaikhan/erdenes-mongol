@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+
+	<div class="display-grid">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_development_history_index') }}">Хөгжлийн түүх</a>
+				</li>
+
+				<li class="breadcrumb-item active" aria-current="page">
+					Нэмэх
+				</li>
+			</ol>
+		</nav>
+	</div>
+
+	<br>
+
+	<div>
+		<span>Та энэхүү файл дээр графикт оруулах өгөгдлүүдээ оруулна уу!</span>
+		<a href="{{ path('app_development_history_download_example_file') }}" class="btn btn-info">
+			жишээ татах</a>
+	</div>
+
+	<br>
+
+	{% include 'layout/flash.html.twig' %}
+
+	{{ form_start(myForm) }}
+
+	<div class="form-group">
+		{{ form_row(myForm.year) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(myForm.file) }}
+	</div>
+
+	<div class="form-group">
+		{{ form_row(myForm.priority) }}
+	</div>
+
+	{{ form_end(myForm) }}
+{% endblock %}
