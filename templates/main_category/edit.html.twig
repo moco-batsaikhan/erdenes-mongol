@@ -46,12 +46,36 @@
 				{{ form_row(mainCategoryForm.priority) }}
 			</div>
 
+			<div class="form-group">
+				{{ form_row(mainCategoryForm.type) }}
+			</div>
 
 			<div class="form-group">
 				{{ form_row(mainCategoryForm.active) }}
 			</div>
 
 			<div class="form-group">
+				{{ form_row(mainCategoryForm.clickType) }}
+			</div>
+
+			<div class="form-group" id="create-type-field" style="display: none;">
+				<p>
+					Шинээр мэдээний төрөл үүсгэх
+				</p>
+
+				<a href="{{ path('app_news_type_create') }}" class="btn btn-success btn-sm">
+					Шинэ төрөл нэмэх</a>
+			</div>
+
+			<div class="form-group" id="redirectLink-field" style="display: none;">
+				{{ form_row(mainCategoryForm.redirectLink) }}
+			</div>
+
+			<div class="form-group" id="newsId-field" style="display: none;">
+				{{ form_row(mainCategoryForm.newsId) }}
+			</div>
+
+			<div class="form-group" id="newsType-field" style="display: none;">
 				{{ form_row(mainCategoryForm.newsType) }}
 			</div>
 
@@ -59,5 +83,31 @@
 
 		</div>
 	</div>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+var clickTypeSelect = document.querySelector('.click-type-select');
+
+clickTypeSelect.addEventListener('change', function () {
+var selectedValue = clickTypeSelect.value;
+
+document.getElementById('redirectLink-field').style.display = 'none';
+document.getElementById('newsId-field').style.display = 'none';
+document.getElementById('newsType-field').style.display = 'none';
+document.getElementById('create-type-field').style.display = 'none';
+
+if (selectedValue === 'REDIRECT') {
+document.getElementById('newsId-field').style.display = 'block';
+
+} else if (selectedValue === 'LINK') {
+document.getElementById('redirectLink-field').style.display = 'block';
+
+} else if (selectedValue === 'THUMBNAIL') {
+document.getElementById('create-type-field').style.display = 'block';
+document.getElementById('newsType-field').style.display = 'block';
+} else if (selectedValue === 'DROPDOWN') {}
+});
+});
+	</script>
 
 {% endblock %}

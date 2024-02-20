@@ -46,12 +46,29 @@
 				{{ form_row(subCategoryForm.priority) }}
 			</div>
 
-
 			<div class="form-group">
 				{{ form_row(subCategoryForm.active) }}
 			</div>
-			<div class="form-group">
-				{{ form_row(subCategoryForm.newsTypeId) }}
+
+			<div class="form-group" id="create-type-field" style="display: none;">
+				<p>
+					Шинээр мэдээний төрөл үүсгэх
+				</p>
+
+				<a href="{{ path('app_news_type_create') }}" class="btn btn-success btn-sm">
+					Шинэ төрөл нэмэх</a>
+			</div>
+
+			<div class="form-group" id="redirectLink-field" style="display: none;">
+				{{ form_row(subCategoryForm.redirectLink) }}
+			</div>
+
+			<div class="form-group" id="newsId-field" style="display: none;">
+				{{ form_row(subCategoryForm.newsId) }}
+			</div>
+
+			<div class="form-group" id="newsType-field" style="display: none;">
+				{{ form_row(subCategoryForm.newsType) }}
 			</div>
 
 			{{ form_end(subCategoryForm) }}

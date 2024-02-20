@@ -54,6 +54,12 @@ class SubCategory
     #[ORM\ManyToOne(inversedBy: 'subCategories')]
     private ?NewsType $newsTypeId = null;
 
+    #[ORM\ManyToOne(inversedBy: 'subCategories')]
+    private ?News $newsId = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $redirectLink = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -205,6 +211,30 @@ class SubCategory
     public function setNewsTypeId(?NewsType $newsTypeId): static
     {
         $this->newsTypeId = $newsTypeId;
+
+        return $this;
+    }
+
+    public function getNewsId(): ?News
+    {
+        return $this->newsId;
+    }
+
+    public function setNewsId(?News $newsId): static
+    {
+        $this->newsId = $newsId;
+
+        return $this;
+    }
+
+    public function getRedirectLink(): ?string
+    {
+        return $this->redirectLink;
+    }
+
+    public function setRedirectLink(?string $redirectLink): static
+    {
+        $this->redirectLink = $redirectLink;
 
         return $this;
     }

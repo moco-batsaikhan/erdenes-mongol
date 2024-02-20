@@ -61,8 +61,6 @@ class MainCategoryController extends AbstractController
             $em->persist($mainCategory);
             $em->flush();
 
-
-
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());

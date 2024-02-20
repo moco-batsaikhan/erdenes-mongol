@@ -18,9 +18,12 @@ use Symfony\Component\HttpFoundation\Request;
 class NewsController extends AbstractController
 {
     #[Route('/news/{typeId}/{page}', name: 'news_index', requirements: ['page' => '\d+'], defaults: ['page' => 1], methods: ['get'])]
-    public function index(ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId, $page)
+    public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId, $page)
     {
         $pagesize = 20;
+
+
+        $lang = $request->get('lang') ? $request->get('lang') : 'mn';
 
 
         $qb = $doctrine
@@ -37,7 +40,7 @@ class NewsController extends AbstractController
 
 
 
-        if ($typeId == "videoMedee") {
+        if ($typeId == "7") {
             $videoBuilder = $doctrine->getRepository(VideoNews::class)->createQueryBuilder('p');
             $cloneQuery = clone $videoBuilder;
             $countVideo = $cloneQuery->select('count(p.id)')->where('p.active = 1')->getQuery()->getSingleScalarResult();
@@ -73,10 +76,22 @@ class NewsController extends AbstractController
             ->setFirstResult(($page - 1) * $pagesize)
             ->setMaxResults($pagesize)
             ->getQuery()
-            ->getArrayResult();
+            ->getScalarResult();
 
-        $news = $serializer->serialize($data, 'json');
+        $newsDto = [];
+        foreach ($data as $key => $value) {
+            $newsDto[] = [
+                'id' => $value['p_id'],
+                'title' => $value['p_' . $lang . 'Title'],
+                'headLine' => $value['p_' . $lang . 'Headline'],
+                'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageUrl'],
+                'redirectType' => $value['p_redirectType'],
+                'active' => $value['p_active'],
+                'special' => $value['p_isSpecial']
+            ];
+        }
 
+        $news = $serializer->serialize($newsDto, 'json');
 
         $response = [
             'count' => $count,
@@ -89,33 +104,69 @@ class NewsController extends AbstractController
 
 
     #[Route('/newsDetail/{id}', name: 'news_detail', requirements: ['id' => '\d+'], methods: ['get'])]
-    public function detail(ManagerRegistry $doctrine, SerializerInterface $serializer, $id)
+    public function detail(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $id)
     {
+
+        $lang = $request->get('lang') ? $request->get('lang') : 'mn';
+        $isSpecial = !$request->get('isSpecial');
 
         $news = $doctrine
             ->getRepository(News::class)
             ->createQueryBuilder('p')
             ->where('p.active = 1')
             ->andWhere('p.id = :id')
+            ->andWhere('p.isSpecial = :special')
+            ->setParameter('special', $isSpecial)
             ->setParameter('id', $id)
             ->getQuery()
-            ->getScalarResult()[0];
+            ->getScalarResult();
+
+        if (!isset($news[0])) {
+            return new JsonResponse(['code' => '404', 'message' => 'Not found news by id ' . $id]);
+        }
+        $news = $news[0];
 
 
-
-
-        $content = $doctrine
+        $newsDto = [
+            'id' => $news['p_id'],
+            'title' => $news['p_' . $lang . 'Title'],
+            'headLine' => $news['p_' . $lang . 'Headline'],
+            'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_imageUrl'],
+            'redirectType' => $news['p_redirectType'],
+            'active' => $news['p_active'],
+            'special' => $news['p_isSpecial']
+        ];
+        $contents = $doctrine
             ->getRepository(Content::class)
             ->createQueryBuilder('p')
             ->where('p.active = 1')
             ->andWhere('p.News = :id')
-            ->setParameter('id', $news['p_id'])
+            ->setParameter('id', $newsDto['id'])
+            ->orderBy('p.priority', 'ASC')
             ->getQuery()
-            ->getScalarResult()[0];
+            ->getScalarResult();
 
-        $news['content'] = $content;
+        foreach ($contents as $key => $value) {
+            $newContentsDto[] = [
+                'id' => $value['p_id'],
+                'name' => $value['p_name'],
+                'type' => $value['p_type'],
+                'body' => $value['p_body'],
+                'active' => $value['p_active'],
+                'file' => $value['p_file'],
+                'pdfFileName' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
+                'imageFileNanme' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
 
-        $news = $serializer->serialize($news, 'json');
+            ];
+        }
+
+
+
+        $newsDto['content'] = $newContentsDto;
+
+
+
+        $news = $serializer->serialize($newsDto, 'json');
 
 
 

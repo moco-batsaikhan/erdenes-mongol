@@ -19,18 +19,31 @@ use Symfony\Component\HttpFoundation\Request;
 class MenuController extends AbstractController
 {
     #[Route('/menu/{type}', name: 'menu_index', methods: ['get'])]
-    public function getAction(EntityManagerInterface $entityManager, SerializerInterface $serializer,$type): Response
+    public function getAction(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, $type): Response
     {
+
+        $lang = $request->get('lang') ? $request->get('lang') : 'mn';
         $data = $entityManager->getRepository(MainCategory::class)
             ->createQueryBuilder('p')
             ->where('p.type = :HEADER')
             ->andWhere('p.active = 1')
-            ->setParameter('HEADER',$type)
+            ->setParameter('HEADER', $type)
             ->orderBy('p.priority', 'ASC')
             ->getQuery()
-            ->getArrayResult();
+            ->getScalarResult();
 
-        $section = $serializer->serialize($data, 'json');
+        $menuDto = [];
+        foreach ($data as $key => $value) {
+            $menuDto[] = [
+                'id' => $value['p_id'],
+                'name' => $value['p_' . $lang . 'Name'],
+                'type' => $value['p_type'],
+                'active' => $value['p_active'],
+                'clickType' => $value['p_clickType']
+            ];
+        }
+
+        $section = $serializer->serialize($menuDto, 'json');
 
 
         $response = [
@@ -40,22 +53,34 @@ class MenuController extends AbstractController
         return new JsonResponse($response);
     }
 
-    #[Route('/menu/{type}/{mainId}',requirements: ['mainId' => '\d+'], name: 'menu_sub', methods: ['get'])]
-    public function getSubAction(EntityManagerInterface $entityManager, SerializerInterface $serializer,$type,$mainId): Response
+    #[Route('/menu/{type}/{mainId}', requirements: ['mainId' => '\d+'], name: 'menu_sub', methods: ['get'])]
+    public function getSubAction(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, $type, $mainId): Response
     {
+        $lang = $request->get('lang') ? $request->get('lang') : 'mn';
         $data = $entityManager->getRepository(SubCategory::class)
             ->createQueryBuilder('p')
-            ->leftjoin('App\Entity\MainCategory','mc', \Doctrine\ORM\Query\Expr\Join::WITH, 'mc.id = p.mainCategoryId')
+            ->leftjoin('App\Entity\MainCategory', 'mc', \Doctrine\ORM\Query\Expr\Join::WITH, 'mc.id = p.mainCategoryId')
             ->where('mc.id = :MC_ID')
             ->andWhere('mc.type = :MC_TYPE')
             ->andWhere('p.active = 1')
-            ->setParameter('MC_ID',$mainId)
-            ->setParameter('MC_TYPE',$type)
+            ->setParameter('MC_ID', $mainId)
+            ->setParameter('MC_TYPE', $type)
             ->orderBy('p.priority', 'ASC')
             ->getQuery()
-            ->getArrayResult();
+            ->getScalarResult();
 
-        $section = $serializer->serialize($data, 'json');
+
+        $subMenuDto = [];
+        foreach ($data as $key => $value) {
+            $subMenuDto[] = [
+                'id' => $value['p_id'],
+                'name' => $value['p_' . $lang . 'Name'],
+                'active' => $value['p_active'],
+                'clickType' => $value['p_clickType']
+            ];
+        }
+
+        $section = $serializer->serialize($subMenuDto, 'json');
 
 
         $response = [

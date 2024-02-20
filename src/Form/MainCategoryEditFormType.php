@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\MainCategory;
+use App\Entity\News;
 use App\Entity\NewsType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -77,6 +78,24 @@ class MainCategoryEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+            ->add(
+                'clickType',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control click-type-select'),
+                    'label' => 'Дарах үед',
+                    'choices' =>
+                    array(
+                        '' => '',
+                        'Сонгосон жагсаалтуудруу үсрэх' => 'THUMBNAIL',
+                        'Сонгосон мэдээрүү үсрэх' => 'REDIRECT',
+                        'Сонгосон линкрүү үсрэх' => 'LINK',
+                        'Уналттай цэс' => 'DROPDOWN',
+                    ),
+                    'multiple' => false,
+                    'required' => true,
+                )
+            )
             ->add('newsType', EntityType::class, [
                 'label' => 'Үсрэх мэдээний төрөл сонгох',
                 'class' => NewsType::class,
@@ -84,6 +103,21 @@ class MainCategoryEditFormType extends AbstractType
                 'placeholder' => '',
                 'required' => false,
             ])
+            ->add('newsId', EntityType::class, [
+                'label' => 'Үсрэх мэдээ сонгох',
+                'class' => News::class,
+                'choice_label' => 'mnTitle',
+                'placeholder' => '',
+                'required' => false,
+            ])
+            ->add('redirectLink', TextType::class, array(
+                'label' => 'Үсрэх линк оруулна уу',
+                'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "линк оруулна уу ...",
+                )
+            ))
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
