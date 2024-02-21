@@ -49,6 +49,9 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageFileName = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $graphType = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -169,6 +172,18 @@ class Content
     public function setImageFileName(?string $imageFileName): static
     {
         $this->imageFileName = $imageFileName;
+
+        return $this;
+    }
+
+    public function getGraphType(): ?string
+    {
+        return $this->graphType;
+    }
+
+    public function setGraphType(?string $graphType): static
+    {
+        $this->graphType = $graphType;
 
         return $this;
     }
