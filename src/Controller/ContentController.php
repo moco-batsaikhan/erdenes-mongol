@@ -160,6 +160,7 @@ class ContentController extends AbstractController
 
         $contentChart = new Content;
         $contentChart->setType('JSON');
+        $contentChart->setGraphType($chartName);
         $contentChartForm = $this->createForm(ChartDataCreateFormType::class, $contentChart);
 
         $contentChartForm->handleRequest($request);
