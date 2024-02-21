@@ -159,6 +159,7 @@ class NewsController extends AbstractController
                 'body' => $value['p_body'],
                 'active' => $value['p_active'],
                 'file' => $value['p_file'],
+                'graphType' =>$value['p_graphType'],
                 'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
                 'imageFileUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
 
