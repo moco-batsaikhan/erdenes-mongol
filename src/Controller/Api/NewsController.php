@@ -110,16 +110,18 @@ class NewsController extends AbstractController
     {
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
-        $isSpecial = !$request->get('isSpecial');
+        $isSpecial = $request->get('isSpecial');
 
-        $news = $doctrine
+        $qb = $doctrine
             ->getRepository(News::class)
             ->createQueryBuilder('p')
             ->where('p.active = 1')
             ->andWhere('p.id = :id')
-            ->andWhere('p.isSpecial = :special')
-            ->setParameter('special', $isSpecial)
-            ->setParameter('id', $id)
+            ->andWhere('p.isSpecial = :special');
+        if ($isSpecial) {
+            $qb->setParameter('special', $isSpecial);
+        }
+        $news = $qb->setParameter('id', $id)
             ->getQuery()
             ->getScalarResult();
 
@@ -136,7 +138,8 @@ class NewsController extends AbstractController
             'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_imageUrl'],
             'redirectType' => $news['p_redirectType'],
             'active' => $news['p_active'],
-            'special' => $news['p_isSpecial']
+            'special' => $news['p_isSpecial'],
+            'createdDate' => $news['p_createdAt']
         ];
         $contents = $doctrine
             ->getRepository(Content::class)
