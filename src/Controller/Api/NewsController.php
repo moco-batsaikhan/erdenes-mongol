@@ -116,10 +116,10 @@ class NewsController extends AbstractController
             ->getRepository(News::class)
             ->createQueryBuilder('p')
             ->where('p.active = 1')
-            ->andWhere('p.id = :id')
-            ->andWhere('p.isSpecial = :special');
+            ->andWhere('p.id = :id');
         if ($isSpecial) {
-            $qb->setParameter('special', $isSpecial);
+            $qb->andWhere('p.isSpecial = :special')
+                ->setParameter('special', $isSpecial);
         }
         $news = $qb->setParameter('id', $id)
             ->getQuery()
@@ -159,7 +159,7 @@ class NewsController extends AbstractController
                 'body' => $value['p_body'],
                 'active' => $value['p_active'],
                 'file' => $value['p_file'],
-                'graphType' =>$value['p_graphType'],
+                'graphType' => $value['p_graphType'],
                 'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
                 'imageFileUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
 
