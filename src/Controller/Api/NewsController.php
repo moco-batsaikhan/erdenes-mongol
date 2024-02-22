@@ -50,6 +50,7 @@ class NewsController extends AbstractController
                 ->getQuery()
                 ->getArrayResult();
 
+
             $news = $serializer->serialize($videoNews, 'json');
 
 
@@ -87,7 +88,8 @@ class NewsController extends AbstractController
                 'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageUrl'],
                 'redirectType' => $value['p_redirectType'],
                 'active' => $value['p_active'],
-                'special' => $value['p_isSpecial']
+                'special' => $value['p_isSpecial'],
+                'createdDate' => $value['p_createdAt']
             ];
         }
 
@@ -108,16 +110,18 @@ class NewsController extends AbstractController
     {
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
-        $isSpecial = !$request->get('isSpecial');
+        $isSpecial = $request->get('isSpecial');
 
-        $news = $doctrine
+        $qb = $doctrine
             ->getRepository(News::class)
             ->createQueryBuilder('p')
             ->where('p.active = 1')
-            ->andWhere('p.id = :id')
-            ->andWhere('p.isSpecial = :special')
-            ->setParameter('special', $isSpecial)
-            ->setParameter('id', $id)
+            ->andWhere('p.id = :id');
+        if ($isSpecial) {
+            $qb->andWhere('p.isSpecial = :special')
+                ->setParameter('special', $isSpecial);
+        }
+        $news = $qb->setParameter('id', $id)
             ->getQuery()
             ->getScalarResult();
 
@@ -134,7 +138,8 @@ class NewsController extends AbstractController
             'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_imageUrl'],
             'redirectType' => $news['p_redirectType'],
             'active' => $news['p_active'],
-            'special' => $news['p_isSpecial']
+            'special' => $news['p_isSpecial'],
+            'createdDate' => $news['p_createdAt']
         ];
         $contents = $doctrine
             ->getRepository(Content::class)
@@ -145,7 +150,7 @@ class NewsController extends AbstractController
             ->orderBy('p.priority', 'ASC')
             ->getQuery()
             ->getScalarResult();
-
+        $newContentsDto = [];
         foreach ($contents as $key => $value) {
             $newContentsDto[] = [
                 'id' => $value['p_id'],
@@ -154,8 +159,9 @@ class NewsController extends AbstractController
                 'body' => $value['p_body'],
                 'active' => $value['p_active'],
                 'file' => $value['p_file'],
-                'pdfFileName' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
-                'imageFileNanme' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
+                'graphType' => $value['p_graphType'],
+                'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
+                'imageFileUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
 
             ];
         }

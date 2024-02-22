@@ -99,8 +99,8 @@ class NewsEditFormType extends AbstractType
                     'label' => 'Онцгойлох',
                     'choices' =>
                     array(
-                        'Онцгой' => false,
-                        'Энгийн' => true
+                        'Онцгой' => true,
+                        'Энгийн' => false
                     ),
                     'multiple' => false,
                     'required' => false,
