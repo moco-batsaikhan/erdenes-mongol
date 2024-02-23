@@ -511,27 +511,35 @@ class ContentController extends AbstractController
     public function createSlide(EntityManagerInterface $em, Request $request): Response
     {
         $content = new Content();
-        $content->setType('CK_EDITOR');
-        $contentForm = $this->createForm(CkeditorCreateFormType::class, $content, [
+        $content->setType('SLIDE');
+
+        $contentForm = $this->createForm(SlideCreateFormType::class, $content, [
             'method' => 'POST',
         ]);
 
         $contentForm->handleRequest($request);
 
         if ($contentForm->isSubmitted() && $contentForm->isValid()) {
-            $uploadedFiles = $contentForm['images']->getData();
+            $uploadedFiles = $contentForm['file']->getData();
+            $imageFileNames = [];
 
             foreach ($uploadedFiles as $file) {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
+
+
                 $file->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('kernel.project_dir') . 'public/uploads/image/',
                     $fileName
                 );
 
-                $content->setImageFileName($fileName);
-                $em->persist($content);
+                $fullFileName = $this->getParameter('base_url') . '/uploads/image/' . $fileName;
+
+                $imageFileNames[] = $fullFileName;
             }
+
+            $content->setFile($imageFileNames);
+            $em->persist($content);
             $em->flush();
 
             $log = new CmsAdminLog();
@@ -546,7 +554,7 @@ class ContentController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
-            return $this->redirectToRoute('app_content_ckeditor_index');
+            return $this->redirectToRoute('app_content_slide_index');
         }
 
         return $this->render('content_slide/create.html.twig', [

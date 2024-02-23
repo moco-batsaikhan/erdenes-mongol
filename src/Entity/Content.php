@@ -47,9 +47,6 @@ class Content
     private ?array $file = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $imageFileName = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $graphType = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
@@ -181,18 +178,6 @@ class Content
     public function setFile(?array $file): static
     {
         $this->file = $file;
-
-        return $this;
-    }
-
-    public function getImageFileName(): ?string
-    {
-        return $this->imageFileName;
-    }
-
-    public function setImageFileName(?string $imageFileName): static
-    {
-        $this->imageFileName = $imageFileName;
 
         return $this;
     }

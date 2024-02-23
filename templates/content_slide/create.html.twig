@@ -5,22 +5,18 @@
 {% endblock %}
 
 {% block body %}
-
 	<div class="display-grid">
 		<nav aria-label="breadcrumb">
 			<ol class="breadcrumb">
 				<li class="breadcrumb-item">
 					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
 				</li>
-
 				<li class="breadcrumb-item">
 					<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
 				</li>
-
 				<li class="breadcrumb-item">
 					<a href="{{ path('app_content_slide_index') }}">slide</a>
 				</li>
-
 				<li class="breadcrumb-item active" aria-current="page">
 					Нэмэх
 				</li>
@@ -28,17 +24,14 @@
 		</nav>
 	</div>
 
-
 	{% include 'layout/flash.html.twig' %}
 
 	{{ form_start(form) }}
 	<div class="form-group">
 		{{ form_row(form.name) }}
-
 	</div>
 	<div class="form-group">
-		{{ form_row(form.images, {'attr': {'multiple': 'multiple'}}) }}
-
+		{{ form_row(form.file, {'attr': {'multiple': 'multiple'}}) }}
 	</div>
 	<div class="form-group">
 		{{ form_row(form.priority) }}
