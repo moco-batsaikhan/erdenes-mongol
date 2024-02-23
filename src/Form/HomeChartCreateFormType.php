@@ -10,18 +10,27 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-class ChartDataCreateFormType extends AbstractType
+class HomeChartCreateFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, array(
-                'label' => 'нэр',
+            ->add('mnDescription', TextType::class, array(
+                'label' => 'График тайлбар(Монгол)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('enDescription', TextType::class, array(
+                'label' => 'График тайлбар(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('cnDescription', TextType::class, array(
+                'label' => 'График тайлбар(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                 )
@@ -30,18 +39,6 @@ class ChartDataCreateFormType extends AbstractType
                 'label' => 'Excel File (XLSX)',
                 'required' => true,
                 'mapped' => false,
-            ])
-
-            ->add('priority', NumberType::class, array(
-                'label' => 'Дарааалал',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ))
-            ->add('News', EntityType::class, [
-                'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
-                'class' => 'App\Entity\News',
-                'choice_label' => 'mnTitle',
             ])
             ->add(
                 'active',

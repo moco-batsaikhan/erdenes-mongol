@@ -7,6 +7,7 @@ use App\Entity\Content;
 use App\Form\ChartDataCreateFormType;
 use App\Form\CkeditorCreateFormType;
 use App\Form\ContentPdfCreateFormType;
+use App\Form\HomeChartCreateFormType;
 use App\Form\SlideCreateFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -153,6 +154,17 @@ class ContentController extends AbstractController
         ]);
     }
 
+    #[Route('/home/graph/list', name: '_home_graph_index')]
+    public function HomeListIndex(): Response
+    {
+
+        return $this->render('home_chart/chart-list.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => ' График ',
+        ]);
+    }
+
     #[Route('/create/chart', name: '_create_chart')]
     public function createChartData(EntityManagerInterface $em, Request $request): Response
     {
@@ -190,7 +202,7 @@ class ContentController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
-            return $this->redirectToRoute('app_content_chart_index');
+            return $this->redirectToRoute('app_content_chart_home_index');
         }
 
         return $this->render('content_chart/create.html.twig', [
@@ -199,6 +211,77 @@ class ContentController extends AbstractController
             'page_title' => 'График',
         ]);
     }
+
+    #[Route('/home-chart/{page}', name: '_chart_home_index', requirements: ['page' => "\d+"])]
+    public function chartHomeIndex(EntityManagerInterface $em, $page = 1): Response
+    {
+        $contentEditorRepo = $em->getRepository(Content::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+        $content = $contentEditorRepo->findBy(['type' => 'HOME_JSON']);
+        $data = $contentEditorRepo->findBy(['type' => 'HOME_JSON'], null, $pageSize, $offset);
+
+
+        return $this->render('home_chart/index.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'contents' => $data,
+            'pageCount' => ceil(count($content) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_content_chart_home_index'
+        ]);
+    }
+
+
+    #[Route('/create/home-chart', name: '_create_home_chart')]
+    public function createHomeChartData(EntityManagerInterface $em, Request $request): Response
+    {
+        $chartName = $request->get('chartName');
+
+        $contentChart = new Content;
+        $contentChart->setType('HOME_JSON');
+        $contentChart->setPriority(1);
+        $contentChart->setGraphType($chartName);
+        $contentChartForm = $this->createForm(HomeChartCreateFormType::class, $contentChart);
+
+        $contentChartForm->handleRequest($request);
+
+        if ($contentChartForm->isSubmitted() && $contentChartForm->isValid()) {
+
+            $excelFile = $contentChartForm->get('file')->getData();
+
+            $jsonData = $this->processFile($excelFile);
+
+            $jsonDataArray = json_decode($jsonData, true);
+
+            $contentChart->setFile($jsonDataArray);
+
+            $em->persist($contentChart);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($contentChart->getId());
+            $log->setAction('Шинээр нүүр хэсгийн график үүсгэв.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
+
+            return $this->redirectToRoute('app_content_chart_home_index');
+        }
+
+        return $this->render('home_chart/create.html.twig', [
+            'contentChartForm' => $contentChartForm->createView(),
+            'pathName' => $chartName,
+            'page_title' => 'Нүүр график',
+        ]);
+    }
+
+
 
     private function processFile($file)
     {

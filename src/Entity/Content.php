@@ -52,6 +52,27 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $graphType = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mn_description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $en_description = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cn_description = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+        $this->updatedAt = new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -184,6 +205,66 @@ class Content
     public function setGraphType(?string $graphType): static
     {
         $this->graphType = $graphType;
+
+        return $this;
+    }
+
+    public function getMnDescription(): ?string
+    {
+        return $this->mn_description;
+    }
+
+    public function setMnDescription(?string $mn_description): static
+    {
+        $this->mn_description = $mn_description;
+
+        return $this;
+    }
+
+    public function getEnDescription(): ?string
+    {
+        return $this->en_description;
+    }
+
+    public function setEnDescription(?string $en_description): static
+    {
+        $this->en_description = $en_description;
+
+        return $this;
+    }
+
+    public function getCnDescription(): ?string
+    {
+        return $this->cn_description;
+    }
+
+    public function setCnDescription(?string $cn_description): static
+    {
+        $this->cn_description = $cn_description;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
