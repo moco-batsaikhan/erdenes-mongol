@@ -8,6 +8,7 @@ use App\Form\ChartDataCreateFormType;
 use App\Form\CkeditorCreateFormType;
 use App\Form\ContentPdfCreateFormType;
 use App\Form\HomeChartCreateFormType;
+use App\Form\HomeChartEditFormType;
 use App\Form\SlideCreateFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -278,6 +279,43 @@ class ContentController extends AbstractController
             'contentChartForm' => $contentChartForm->createView(),
             'pathName' => $chartName,
             'page_title' => 'Нүүр график',
+        ]);
+    }
+
+
+    #[Route('/edit/home-chart/{id}', name: '_edit_home_chart', requirements: ['id' => "\d+"])]
+    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $config = $em->getRepository(Content::class)->find($id);
+
+        $editHomeChartForm = $this->createForm(HomeChartEditFormType::class, $config, [
+            'method' => 'POST',
+        ]);
+
+        $editHomeChartForm->handleRequest($request);
+
+        if ($editHomeChartForm->isSubmitted() && $editHomeChartForm->isValid()) {
+
+            $em->persist($config);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($config->getId());
+            $log->setAction('Нүүр зургийн график засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай тохирууллаа.');
+            return $this->redirectToRoute('app_content_chart_home_index');
+        }
+
+        return $this->render('home_chart/edit.html.twig', [
+            'editForm' => $editHomeChartForm->createView(),
+            'page_title' => 'Вебийн тохиргооны мэдээлэл засах',
         ]);
     }
 

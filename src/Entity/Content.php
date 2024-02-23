@@ -52,20 +52,20 @@ class Content
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $graphType = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mn_description = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $en_description = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cn_description = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnDescription = null;
 
     public function __construct()
     {
@@ -209,42 +209,6 @@ class Content
         return $this;
     }
 
-    public function getMnDescription(): ?string
-    {
-        return $this->mn_description;
-    }
-
-    public function setMnDescription(?string $mn_description): static
-    {
-        $this->mn_description = $mn_description;
-
-        return $this;
-    }
-
-    public function getEnDescription(): ?string
-    {
-        return $this->en_description;
-    }
-
-    public function setEnDescription(?string $en_description): static
-    {
-        $this->en_description = $en_description;
-
-        return $this;
-    }
-
-    public function getCnDescription(): ?string
-    {
-        return $this->cn_description;
-    }
-
-    public function setCnDescription(?string $cn_description): static
-    {
-        $this->cn_description = $cn_description;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -265,6 +229,42 @@ class Content
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getMnDescription(): ?string
+    {
+        return $this->mnDescription;
+    }
+
+    public function setMnDescription(?string $mnDescription): static
+    {
+        $this->mnDescription = $mnDescription;
+
+        return $this;
+    }
+
+    public function getEnDescription(): ?string
+    {
+        return $this->enDescription;
+    }
+
+    public function setEnDescription(?string $enDescription): static
+    {
+        $this->enDescription = $enDescription;
+
+        return $this;
+    }
+
+    public function getCnDescription(): ?string
+    {
+        return $this->cnDescription;
+    }
+
+    public function setCnDescription(?string $cnDescription): static
+    {
+        $this->cnDescription = $cnDescription;
 
         return $this;
     }
