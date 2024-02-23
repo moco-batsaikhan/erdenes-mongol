@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+	<div class="display-grid">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item">
+					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+				</li>
+
+				<li class="breadcrumb-item">
+					<a href="#">Ажлын байрны зар</a>
+				</li>
+
+				<li class="breadcrumb-item active" aria-current="page">
+					Нэмэх
+				</li>
+			</ol>
+		</nav>
+	</div>
+	<div class="card">
+		<div class="card-body">
+
+			<hr>
+			{% include 'layout/flash.html.twig' %}
+			{{ form_start(form) }}
+			{{ form_row(form.title) }}
+			{{ form_row(form.body) }}
+			{{ form_row(form.profession) }}
+			{{ form_row(form.active) }}
+			{{ form_row(form.applicationDeadline) }}
+
+			{{ form_end(form) }}
+		</div>
+	</div>
+{% endblock %}

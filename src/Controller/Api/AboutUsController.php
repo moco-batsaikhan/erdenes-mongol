@@ -21,12 +21,22 @@ class AboutUsController extends AbstractController
         $id = 1;
         $data = $entityManager->getRepository(AboutUs::class)->find($id);
 
-        $abouUs = $serializer->serialize($data, 'json');
+        if (!$data) {
+            return new JsonResponse(['error' => 'No data found'], Response::HTTP_NOT_FOUND);
+        }
 
-        $response = [
-            'data' => json_decode($abouUs)
-        ];
+        if (!is_array($data)) {
+            $data = [$data];
+        }
 
-        return new JsonResponse($response);
+        foreach ($data as &$item) {
+            if ($item->getImageUrl()) {
+                $item->setImageUrl($this->getParameter('base_url') . 'uploads/image/' . $item->getImageUrl());
+            }
+        }
+
+        $serializedData = $serializer->serialize($data, 'json');
+
+        return new JsonResponse(['data' => json_decode($serializedData)]);
     }
 }
