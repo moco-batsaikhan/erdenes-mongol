@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+
+{% block body %}
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+						<li class="breadcrumb-item">
+							Графикууд
+						</li>
+						<li class="breadcrumb-item">
+							График сонгох
+						</li>
+					</ol>
+				</nav>
+			</div>
+			<br>
+			<div class="list-group">
+				<a href="{{ path('app_content_create_home_chart', {'chartName': 'LineGraph'}) }}" class="list-group-item list-group-item-action">
+					Шугаман график
+				</a>
+				<a href="{{ path('app_content_create_home_chart', {'chartName': 'OrganizationGraph'}) }}" class="list-group-item list-group-item-action">Бүтцийн график
+				</a>
+				<a href="{{ path('app_content_create_home_chart', {'chartName': 'FlowAnalysisGraph'}) }}" class="list-group-item list-group-item-action">Урсгалын график
+				</a>
+				<a href="{{ path('app_content_create_home_chart', {'chartName': 'ColumnGraph'}) }}" class="list-group-item list-group-item-action">Баганан график
+				</a>
+				<a href="{{ path('app_content_create_home_chart', {'chartName': 'DonutGraph'}) }}" class="list-group-item list-group-item-action">Pie, Donut график
+				</a>
+				<a href="{{ path('app_content_create_home_chart', {'chartName': 'ComboGraph'}) }}" class="list-group-item list-group-item-action">Комбо график
+				</a>
+				<a href="{{ path('app_content_create_home_chart', {'chartName': 'CaugeGraph'}) }}" class="list-group-item list-group-item-action">Метрик график
+				</a>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

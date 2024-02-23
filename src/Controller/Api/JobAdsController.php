@@ -56,11 +56,19 @@ class JobAdsController extends AbstractController
                 ->where('e.id = :id')
                 ->setParameter('id', $id);
 
-            $data = $qb->getQuery()->getOneOrNullResult();
+            $data = $qb->setParameter('id', $id)
+                ->getQuery()
+                ->getScalarResult();
 
             if (!$data) {
                 throw new NotFoundHttpException('No ads found for id ' . $id);
             }
+
+            if (!isset($data[0])) {
+                return new JsonResponse(['code' => '404', 'message' => 'Not found news by id ' . $id]);
+            }
+
+            $data = $data[0];
 
             $adData = $serializer->serialize($data, 'json');
 
