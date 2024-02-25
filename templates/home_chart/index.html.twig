@@ -29,6 +29,13 @@
 
 			<br>
 
+			<h4>
+				Таны оруулсан сүүлийн идэвхтэй график харагдах болно.
+			</h4>
+
+			<br>
+
+
 			{% include 'layout/flash.html.twig' %}
 
 			<div class="table-responsive">
@@ -41,6 +48,7 @@
 							<th>График тайлбар(хятад)</th>
 							<th>График төрөл</th>
 							<th>Төлөв</th>
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -57,6 +65,11 @@
 									{% else %}
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
+								</td>
+								<td>
+									<a href="{{ path('app_content_edit_home_chart', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
 								</td>
 							</tr>
 						{% endfor %}

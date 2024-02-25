@@ -60,7 +60,7 @@ class AboutUsController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Амжилттай тохирууллаа.');
-            return $this->redirectToRoute('app_about_us_edit', array('id' => $id));
+            return $this->redirectToRoute('app_about_us_index', array('id' => $id));
         }
 
         return $this->render('about_us/edit.html.twig', [

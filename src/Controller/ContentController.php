@@ -8,6 +8,7 @@ use App\Form\ChartDataCreateFormType;
 use App\Form\CkeditorCreateFormType;
 use App\Form\ContentPdfCreateFormType;
 use App\Form\HomeChartCreateFormType;
+use App\Form\HomeChartEditFormType;
 use App\Form\SlideCreateFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -282,6 +283,43 @@ class ContentController extends AbstractController
     }
 
 
+    #[Route('/edit/home-chart/{id}', name: '_edit_home_chart', requirements: ['id' => "\d+"])]
+    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $config = $em->getRepository(Content::class)->find($id);
+
+        $editHomeChartForm = $this->createForm(HomeChartEditFormType::class, $config, [
+            'method' => 'POST',
+        ]);
+
+        $editHomeChartForm->handleRequest($request);
+
+        if ($editHomeChartForm->isSubmitted() && $editHomeChartForm->isValid()) {
+
+            $em->persist($config);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($config->getId());
+            $log->setAction('Нүүр зургийн график засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай тохирууллаа.');
+            return $this->redirectToRoute('app_content_chart_home_index');
+        }
+
+        return $this->render('home_chart/edit.html.twig', [
+            'editForm' => $editHomeChartForm->createView(),
+            'page_title' => 'Вебийн тохиргооны мэдээлэл засах',
+        ]);
+    }
+
+
 
     private function processFile($file)
     {
@@ -473,27 +511,35 @@ class ContentController extends AbstractController
     public function createSlide(EntityManagerInterface $em, Request $request): Response
     {
         $content = new Content();
-        $content->setType('CK_EDITOR');
-        $contentForm = $this->createForm(CkeditorCreateFormType::class, $content, [
+        $content->setType('SLIDE');
+
+        $contentForm = $this->createForm(SlideCreateFormType::class, $content, [
             'method' => 'POST',
         ]);
 
         $contentForm->handleRequest($request);
 
         if ($contentForm->isSubmitted() && $contentForm->isValid()) {
-            $uploadedFiles = $contentForm['images']->getData();
+            $uploadedFiles = $contentForm['file']->getData();
+            $imageFileNames = [];
 
             foreach ($uploadedFiles as $file) {
                 $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
+
+
                 $file->move(
-                    $this->getParameter('images_directory'),
+                    $this->getParameter('kernel.project_dir') . 'public/uploads/image/',
                     $fileName
                 );
 
-                $content->setImageFileName($fileName);
-                $em->persist($content);
+                $fullFileName = $this->getParameter('base_url') . '/uploads/image/' . $fileName;
+
+                $imageFileNames[] = $fullFileName;
             }
+
+            $content->setFile($imageFileNames);
+            $em->persist($content);
             $em->flush();
 
             $log = new CmsAdminLog();
@@ -508,7 +554,7 @@ class ContentController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
-            return $this->redirectToRoute('app_content_ckeditor_index');
+            return $this->redirectToRoute('app_content_slide_index');
         }
 
         return $this->render('content_slide/create.html.twig', [
