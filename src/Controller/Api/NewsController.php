@@ -151,6 +151,7 @@ class NewsController extends AbstractController
             ->getQuery()
             ->getScalarResult();
         $newContentsDto = [];
+
         foreach ($contents as $key => $value) {
             $newContentsDto[] = [
                 'id' => $value['p_id'],
@@ -160,8 +161,7 @@ class NewsController extends AbstractController
                 'active' => $value['p_active'],
                 'file' => $value['p_file'],
                 'graphType' => $value['p_graphType'],
-                'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName'],
-                'imageFileUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageFileName']
+                'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName']
 
             ];
         }
@@ -182,6 +182,4 @@ class NewsController extends AbstractController
 
         return new JsonResponse($response);
     }
-
-
 }
