@@ -529,7 +529,7 @@ class ContentController extends AbstractController
 
 
                 $file->move(
-                    $this->getParameter('kernel.project_dir') . 'public/uploads/image/',
+                    $this->getParameter('kernel.project_dir') . '/public/uploads/image/',
                     $fileName
                 );
 
