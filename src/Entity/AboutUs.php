@@ -33,6 +33,9 @@ class AboutUs
     private ?string $enVision = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cnVision = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $enSlogan = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -129,6 +132,18 @@ class AboutUs
     public function setEnVision(?string $enVision): static
     {
         $this->enVision = $enVision;
+
+        return $this;
+    }
+
+    public function getCnVision(): ?string
+    {
+        return $this->cnVision;
+    }
+
+    public function setCnVision(?string $cnVision): static
+    {
+        $this->cnVision = $cnVision;
 
         return $this;
     }
