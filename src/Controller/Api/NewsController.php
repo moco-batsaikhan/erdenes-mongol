@@ -104,14 +104,6 @@ class NewsController extends AbstractController
         return new JsonResponse($response);
     }
 
-    function getFullPath($images)
-    {
-        $urls = array();
-        foreach ($images as $key => $value) {
-            array_push($urls, $this->getParameter('base_url') . $value);
-        }
-        return $urls;
-    }
 
     #[Route('/newsDetail/{id}', name: 'news_detail', requirements: ['id' => '\d+'], methods: ['get'])]
     public function detail(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $id)
@@ -167,7 +159,7 @@ class NewsController extends AbstractController
                 'type' => $value['p_type'],
                 'body' => $value['p_body'],
                 'active' => $value['p_active'],
-                'file' => $value['p_type'] == "SLIDE" ? $this->getFullPath($value['p_file']) : $value['p_file'],
+                'file' =>  $value['p_file'],
                 'graphType' => $value['p_graphType'],
                 'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName']
 
