@@ -78,6 +78,12 @@ class News
     #[ORM\OneToMany(mappedBy: 'newsId', targetEntity: SubCategory::class)]
     private Collection $subCategories;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $bodyImageUrl = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    private ?File $bodyimageFile = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -376,5 +382,31 @@ class News
         }
 
         return $this;
+    }
+
+    public function getBodyImageUrl(): ?string
+    {
+        return $this->bodyImageUrl;
+    }
+
+    public function setBodyImageUrl(?string $bodyImageUrl): static
+    {
+        $this->bodyImageUrl = $bodyImageUrl;
+
+        return $this;
+    }
+
+    public function setBodyImageFile(File $image = null)
+    {
+        $this->bodyimageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getBodyImageFile()
+    {
+        return $this->bodyimageFile;
     }
 }

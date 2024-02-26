@@ -16,11 +16,12 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							<a>Мэдээ мэдээлэл</a>
+							<a href="{{ path('app_news_index') }}">Мэдээ
+							</a>
 						</li>
 
 						<li class="breadcrumb-item">
-							pdf
+							Мэдээ PDF
 						</li>
 					</ol>
 				</nav>
@@ -42,10 +43,10 @@
 							<th>№</th>
 							<th>Агуулгийн нэр</th>
 							<th>Агуулгийн төрөл</th>
-							{# <th>Агуулга</th> #}
+							<th>Төлөв</th>
 							<th>Контентийн дараалал</th>
 							<th>Мэдээ</th>
-
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -54,11 +55,20 @@
 								<td>{{ content.id }}</td>
 								<td>{{ content.name }}</td>
 								<td>{{ content.type }}</td>
-								{# <td>{{ content.pdfFileName }}</td> #}
+								<td>
+									{% if content.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
 								<td>{{ content.priority}}</td>
 								<td>{{ content.getNews.MnTitle }}</td>
-
-
+								<td>
+									<a href="{{ path('app_content_pdf_edit', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>

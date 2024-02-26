@@ -27,19 +27,35 @@ class Map
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-
-
     #[ORM\Column(length: 255)]
     private ?string $name = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $information = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $latitude = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $longitude = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnBody = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enBody = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnBody = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $active = null;
 
     public function __construct()
     {
@@ -112,18 +128,6 @@ class Map
         return $this;
     }
 
-    public function getInformation(): ?string
-    {
-        return $this->information;
-    }
-
-    public function setInformation(?string $information): static
-    {
-        $this->information = $information;
-
-        return $this;
-    }
-
     public function getLatitude(): ?float
     {
         return $this->latitude;
@@ -144,6 +148,90 @@ class Map
     public function setLongitude(?float $longitude): static
     {
         $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getEnDescription(): ?string
+    {
+        return $this->enDescription;
+    }
+
+    public function setEnDescription(?string $enDescription): static
+    {
+        $this->enDescription = $enDescription;
+
+        return $this;
+    }
+
+    public function getMnBody(): ?string
+    {
+        return $this->mnBody;
+    }
+
+    public function setMnBody(?string $mnBody): static
+    {
+        $this->mnBody = $mnBody;
+
+        return $this;
+    }
+
+    public function getMnDescription(): ?string
+    {
+        return $this->mnDescription;
+    }
+
+    public function setMnDescription(?string $mnDescription): static
+    {
+        $this->mnDescription = $mnDescription;
+
+        return $this;
+    }
+
+    public function getCnDescription(): ?string
+    {
+        return $this->cnDescription;
+    }
+
+    public function setCnDescription(?string $cnDescription): static
+    {
+        $this->cnDescription = $cnDescription;
+
+        return $this;
+    }
+
+    public function getEnBody(): ?string
+    {
+        return $this->enBody;
+    }
+
+    public function setEnBody(?string $enBody): static
+    {
+        $this->enBody = $enBody;
+
+        return $this;
+    }
+
+    public function getCnBody(): ?string
+    {
+        return $this->cnBody;
+    }
+
+    public function setCnBody(?string $cnBody): static
+    {
+        $this->cnBody = $cnBody;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): static
+    {
+        $this->active = $active;
 
         return $this;
     }

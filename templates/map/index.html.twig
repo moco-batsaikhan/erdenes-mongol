@@ -37,7 +37,10 @@
 						<tr>
 							<th>№</th>
 							<th>Төслийн нэр</th>
-							<th>Тайлбар</th>
+							<th>Тайлбар(Монгол)</th>
+							<th>Тайлбар(Англи)</th>
+							<th>Тайлбар(Хятад)</th>
+							<th>Төлөв</th>
 							<th>Өргөрөг</th>
 							<th>Уртраг</th>
 							<th>Төслийн төрөл</th>
@@ -49,7 +52,16 @@
 							<tr>
 								<td>{{ mapData.id }}</td>
 								<td>{{ mapData.name }}</td>
-								<td>{{ mapData.information }}</td>
+								<td>{{ mapData.mnDescription }}</td>
+								<td>{{ mapData.enDescription }}</td>
+								<td>{{ mapData.cnDescription }}</td>
+								<td>
+									{% if mapData.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
 								<td>{{ mapData.latitude }}</td>
 								<td>{{ mapData.longitude }}</td>
 								<td>{{ mapData.dataType }}</td>

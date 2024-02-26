@@ -136,6 +136,7 @@ class NewsController extends AbstractController
             'title' => $news['p_' . $lang . 'Title'],
             'headLine' => $news['p_' . $lang . 'Headline'],
             'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_imageUrl'],
+            'bodyImageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_bodyImageUrl'],
             'redirectType' => $news['p_redirectType'],
             'active' => $news['p_active'],
             'special' => $news['p_isSpecial'],

@@ -40,14 +40,14 @@
 								Байгууллагийн нэр (Монгол)</th>
 							<th>
 								Байгууллагийн нэр (Англи)</th>
-							<th>Зураг</th>
+							<th>Төлөв</th>
 							<th>Лого</th>
-							<th>Тайлбар (Монгол)</th>
-							<th>Тайлбар (Англи)</th>
-							<th>Тайлбар (Хятад)</th>
-							<th>Байгууллагийн веб хаяг</th>
-							<th>Холбоо барих</th>
-							<th>Хаяг</th>
+							{# <th>Тайлбар (Монгол)</th>
+																																										<th>Тайлбар (Англи)</th>
+																																										<th>Тайлбар (Хятад)</th>
+																																										<th>Байгууллагийн веб хаяг</th>
+																																										<th>Холбоо барих</th>
+																																										<th>Хаяг</th> #}
 							<th>Байгууллагийн төрөл</th>
 							<th>#</th>
 						</tr>
@@ -58,14 +58,21 @@
 								<td>{{ organization.id }}</td>
 								<td>{{ organization.mnName }}</td>
 								<td>{{ organization.enName }}</td>
-								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ organization.imageUrl) }}" class="img-fluid" alt="Organization Image"></td>
+								<td>
+									{% if organization.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
+								{# <td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ organization.imageUrl) }}" class="img-fluid" alt="Organization Image"></td> #}
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ organization.logo) }}" class="img-fluid" alt="Organization Logo"></td>
-								<td>{{ organization.mnDescription }}</td>
-								<td>{{ organization.enDescription }}</td>
-								<td>{{ organization.cnDescription }}</td>
-								<td>{{ organization.webUrl }}</td>
-								<td>{{ organization.contact }}</td>
-								<td>{{ organization.address }}</td>
+								{# <td>{{ organization.mnDescription }}</td>
+																																																<td>{{ organization.enDescription }}</td>
+																																																<td>{{ organization.cnDescription }}</td>
+																																																<td>{{ organization.webUrl }}</td>
+																																																<td>{{ organization.contact }}</td>
+																																																<td>{{ organization.address }}</td> #}
 								<td>{{ organization.type }}</td>
 								<td>
 									<a href="{{ path('app_organization_edit', {'id' : organization.id}) }}" class="btn btn-primary btn-sm">

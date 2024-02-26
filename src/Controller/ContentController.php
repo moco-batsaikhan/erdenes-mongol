@@ -5,11 +5,15 @@ namespace App\Controller;
 use App\Entity\CmsAdminLog;
 use App\Entity\Content;
 use App\Form\ChartDataCreateFormType;
+use App\Form\ChartDataEditFormType;
 use App\Form\CkeditorCreateFormType;
+use App\Form\CkeditorEditFormType;
 use App\Form\ContentPdfCreateFormType;
+use App\Form\ContentPdfEditFormType;
 use App\Form\HomeChartCreateFormType;
 use App\Form\HomeChartEditFormType;
 use App\Form\SlideCreateFormType;
+use App\Form\SlideEditFormType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +32,110 @@ class ContentController extends AbstractController
     private $pageTitle = 'Контент';
     private $columnSearch = [];
     private $pathName = '';
+
+
+    #[Route('/ckeditor/{page}', name: '_ckeditor_index', requirements: ['page' => "\d+"])]
+    public function ckeditorIndex(EntityManagerInterface $em, $page = 1): Response
+    {
+        $contentEditorRepo = $em->getRepository(Content::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+        $content = $contentEditorRepo->findBy(['type' => 'CK_EDITOR']);
+        $data = $contentEditorRepo->findBy(['type' => 'CK_EDITOR'], null, $pageSize, $offset);
+
+
+        return $this->render('content_ckeditor/index.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Мэдээ HTML',
+            'contents' => $data,
+            'pageCount' => ceil(count($content) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_content_ckeditor_index'
+        ]);
+    }
+
+    #[Route('/ckeditor/edit/{id}', name: '_edit_ckeditor', requirements: ['id' => "\d+"])]
+    public function editCkEditor($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $content = $em->getRepository(Content::class)->find($id);
+
+        $contentForm = $this->createForm(CkeditorEditFormType::class, $content, [
+            'method' => 'POST',
+        ]);
+
+        $contentForm->handleRequest($request);
+
+        if ($contentForm->isSubmitted() && $contentForm->isValid()) {
+
+            $em->persist($content);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($content->getId());
+            $log->setAction('Мэдээ HTML засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай засагдлаа.');
+            return $this->redirectToRoute('app_content_ckeditor_index', array('id' => $id));
+        }
+
+
+        return $this->render('content_ckeditor/edit.html.twig', [
+            'form' => $contentForm->createView(),
+            'page_title' => 'Мэдээ HTML засах',
+        ]);
+    }
+
+
+    #[Route('/ckeditor/create', name: '_create_ckeditor')]
+    public function createCkeditor(EntityManagerInterface $em, Request $request): Response
+    {
+        $content = new Content();
+        $content->setType('CK_EDITOR');
+        $contentForm = $this->createForm(CkeditorCreateFormType::class, $content, [
+            'method' => 'POST',
+        ]);
+
+        $contentForm->handleRequest($request);
+
+        if ($contentForm->isSubmitted() && $contentForm->isValid()) {
+
+            $em->persist($content);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($content->getId());
+            $log->setAction('Мэдээ HTML үүсгэв.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
+
+            return $this->redirectToRoute('app_content_ckeditor_index');
+        }
+
+        return $this->render('content_ckeditor/create.html.twig', [
+            'form' => $contentForm->createView(),
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Нэмэх',
+        ]);
+    }
+
+
+
+
+
 
     #[Route('/pdf/{page}', name: '_pdf_index', requirements: ['page' => "\d+"])]
     public function pdfIndex(EntityManagerInterface $em, $page = 1): Response
@@ -51,51 +159,8 @@ class ContentController extends AbstractController
         ]);
     }
 
-    #[Route('/ckeditor/{page}', name: '_ckeditor_index', requirements: ['page' => "\d+"])]
-    public function ckeditorIndex(EntityManagerInterface $em, $page = 1): Response
-    {
-        $contentEditorRepo = $em->getRepository(Content::class);
-        $pageSize = 30;
-        $offset = ($page - 1) * $pageSize;
-        $content = $contentEditorRepo->findBy(['type' => 'CK_EDITOR']);
-        $data = $contentEditorRepo->findBy(['type' => 'CK_EDITOR'], null, $pageSize, $offset);
-
-
-        return $this->render('content_ckeditor/index.html.twig', [
-            'current' => $this->current,
-            'page_title' => $this->pageTitle,
-            'section_title' => 'Контент ',
-            'contents' => $data,
-            'pageCount' => ceil(count($content) / $pageSize),
-            'currentPage' => $page,
-            'pageRoute' => 'app_content_ckeditor_index'
-        ]);
-    }
-
-    #[Route('/chart/{page}', name: '_chart_index', requirements: ['page' => "\d+"])]
-    public function chartIndex(EntityManagerInterface $em, $page = 1): Response
-    {
-        $contentEditorRepo = $em->getRepository(Content::class);
-        $pageSize = 30;
-        $offset = ($page - 1) * $pageSize;
-        $content = $contentEditorRepo->findBy(['type' => 'JSON']);
-        $data = $contentEditorRepo->findBy(['type' => 'JSON'], null, $pageSize, $offset);
-
-
-        return $this->render('content_chart/index.html.twig', [
-            'current' => $this->current,
-            'page_title' => $this->pageTitle,
-            'section_title' => 'Контент ',
-            'contents' => $data,
-            'pageCount' => ceil(count($content) / $pageSize),
-            'currentPage' => $page,
-            'pageRoute' => 'app_content_chart_index'
-        ]);
-    }
-
-
     #[Route('/create/pdf', name: '_create_pdf')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function createPdf(EntityManagerInterface $em, Request $request): Response
     {
 
         $contentPdf = new Content;
@@ -112,7 +177,7 @@ class ContentController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($contentPdf->getId());
-            $log->setAction('Шинэ pdf үүсгэв.');
+            $log->setAction('Шинэ Мэдээ PDF үүсгэв.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -125,9 +190,56 @@ class ContentController extends AbstractController
 
         return $this->render('content_pdf/create.html.twig', [
             'contentPdfForm' => $contentPdfForm->createView(),
-            'page_title' => 'Үндсэн цэс',
+            'page_title' => 'Мэдээ PDF',
         ]);
     }
+
+    #[Route('/edit/{id}', name: '_pdf_edit', requirements: ['id' => "\d+"])]
+    public function editPdf($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $pdf = $em->getRepository(Content::class)->find($id);
+
+        $editPdfForm = $this->createForm(ContentPdfEditFormType::class, $pdf, [
+            'method' => 'POST',
+        ]);
+
+        $editPdfForm->handleRequest($request);
+
+        if ($editPdfForm->isSubmitted() && $editPdfForm->isValid()) {
+
+            $em->persist($pdf);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($pdf->getId());
+            $log->setAction('Мэдээ PDF засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай засагдлаа.');
+            return $this->redirectToRoute('app_content_pdf_index', array('id' => $id));
+        }
+
+
+        return $this->render('content_pdf/edit.html.twig', [
+            'contentPdfForm' => $editPdfForm->createView(),
+            'page_title' => 'Мэдээ PDF засах',
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
 
 
     private function extractJsonFromExcel(\PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet): array
@@ -166,6 +278,37 @@ class ContentController extends AbstractController
         ]);
     }
 
+
+
+
+
+
+
+
+
+
+
+    #[Route('/chart/{page}', name: '_chart_index', requirements: ['page' => "\d+"])]
+    public function chartIndex(EntityManagerInterface $em, $page = 1): Response
+    {
+        $contentEditorRepo = $em->getRepository(Content::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+        $content = $contentEditorRepo->findBy(['type' => 'JSON']);
+        $data = $contentEditorRepo->findBy(['type' => 'JSON'], null, $pageSize, $offset);
+
+
+        return $this->render('content_chart/index.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Мэдээний график ',
+            'contents' => $data,
+            'pageCount' => ceil(count($content) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_content_chart_index'
+        ]);
+    }
+
     #[Route('/create/chart', name: '_create_chart')]
     public function createChartData(EntityManagerInterface $em, Request $request): Response
     {
@@ -195,7 +338,7 @@ class ContentController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($contentChart->getId());
-            $log->setAction('Шинэ график үүсгэв.');
+            $log->setAction('Шинэ Мэдээний график үүсгэв.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -209,9 +352,60 @@ class ContentController extends AbstractController
         return $this->render('content_chart/create.html.twig', [
             'contentChartForm' => $contentChartForm->createView(),
             'pathName' => $chartName,
-            'page_title' => 'График',
+            'page_title' => 'Мэдээний график',
         ]);
     }
+
+    #[Route('/edit/chart/{id}', name: '_edit_chart', requirements: ['id' => "\d+"])]
+    public function editChart($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $config = $em->getRepository(Content::class)->find($id);
+
+
+        $editChartForm = $this->createForm(ChartDataEditFormType::class, $config, [
+            'method' => 'POST',
+        ]);
+
+        $editChartForm->handleRequest($request);
+
+        if ($editChartForm->isSubmitted() && $editChartForm->isValid()) {
+
+            $em->persist($config);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($config->getId());
+            $log->setAction('Мэдээний график засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай тохирууллаа.');
+            return $this->redirectToRoute('app_content_chart_index');
+        }
+
+        return $this->render('content_chart/edit.html.twig', [
+            'editForm' => $editChartForm->createView(),
+            'page_title' => 'Мэдээний график засах',
+        ]);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     #[Route('/home-chart/{page}', name: '_chart_home_index', requirements: ['page' => "\d+"])]
     public function chartHomeIndex(EntityManagerInterface $em, $page = 1): Response
@@ -232,7 +426,6 @@ class ContentController extends AbstractController
             'pageRoute' => 'app_content_chart_home_index'
         ]);
     }
-
 
     #[Route('/create/home-chart', name: '_create_home_chart')]
     public function createHomeChartData(EntityManagerInterface $em, Request $request): Response
@@ -282,9 +475,8 @@ class ContentController extends AbstractController
         ]);
     }
 
-
     #[Route('/edit/home-chart/{id}', name: '_edit_home_chart', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function editHomeChart($id, EntityManagerInterface $em, Request $request): Response
     {
         $config = $em->getRepository(Content::class)->find($id);
 
@@ -303,7 +495,7 @@ class ContentController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($config->getId());
-            $log->setAction('Нүүр зургийн график засав.');
+            $log->setAction('Нүүр хэсгийн график засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -315,9 +507,19 @@ class ContentController extends AbstractController
 
         return $this->render('home_chart/edit.html.twig', [
             'editForm' => $editHomeChartForm->createView(),
-            'page_title' => 'Вебийн тохиргооны мэдээлэл засах',
+            'page_title' => 'Нүүр график засах',
         ]);
     }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -373,84 +575,7 @@ class ContentController extends AbstractController
     }
 
 
-    // #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    // public function editCkEditor($id, EntityManagerInterface $em, Request $request): Response
-    // {
-    //     $content = $em->getRepository(Content::class)->find($id);
-    //     $data = $content->findOneById($id)['body'];
 
-    //     $contentForm = $this->createForm(CkeditorEditFormType::class, $content, [
-    //         'method' => 'POST',
-    //     ]);
-
-    //     $contentForm->handleRequest($request);
-
-    //     if ($contentForm->isSubmitted() && $contentForm->isValid()) {
-
-    //         $em->persist($content);
-    //         $em->flush();
-
-    //         $log = new CmsAdminLog();
-    //         $log->setAdminname($this->getUser());
-    //         $log->setIpaddress($request->getClientIp());
-    //         $log->setValue($content->getName());
-    //         $log->setAction('мэдээлэл засав.');
-    //         $log->setCreatedAt(new \DateTime('now'));
-
-    //         $em->persist($log);
-    //         $em->flush();
-
-    //         $this->addFlash('success', 'Амжилттай засагдлаа.');
-    //         return $this->redirectToRoute('app_content_ckeditor_edit', array('id' => $id));
-    //     }
-
-
-    //     return $this->render('content_ckeditor/edit.html.twig', [
-    //         'contentForm' => $contentForm->createView(),
-    //         'data' => $data,
-    //         'page_title' => 'мэдээлэл засах',
-    //     ]);
-    // }
-
-
-    #[Route('/ckeditor/create', name: '_create_ckeditor')]
-    public function createCkeditor(EntityManagerInterface $em, Request $request): Response
-    {
-        $content = new Content();
-        $content->setType('CK_EDITOR');
-        $contentForm = $this->createForm(CkeditorCreateFormType::class, $content, [
-            'method' => 'POST',
-        ]);
-
-        $contentForm->handleRequest($request);
-
-        if ($contentForm->isSubmitted() && $contentForm->isValid()) {
-
-            $em->persist($content);
-            $em->flush();
-
-            $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser()->getUserIdentifier());
-            $log->setIpaddress($request->getClientIp());
-            $log->setValue($content->getId());
-            $log->setAction('Шинэ мэдээлэл үүсгэв.');
-            $log->setCreatedAt(new \DateTime('now'));
-
-            $em->persist($log);
-            $em->flush();
-
-            $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
-
-            return $this->redirectToRoute('app_content_ckeditor_index');
-        }
-
-        return $this->render('content_ckeditor/create.html.twig', [
-            'form' => $contentForm->createView(),
-            'current' => $this->current,
-            'page_title' => $this->pageTitle,
-            'section_title' => 'Нэмэх',
-        ]);
-    }
 
     #[Route('/edit/priority', name: '_edit_priority', methods: ['POST'])]
     public function reorder(Request $request, EntityManagerInterface $entityManager)
@@ -483,6 +608,12 @@ class ContentController extends AbstractController
 
         return new JsonResponse(['success' => true]);
     }
+
+
+
+
+
+
 
 
     #[Route('/slide/{page}', name: '_slide_index', requirements: ['page' => "\d+"])]
@@ -546,7 +677,7 @@ class ContentController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($content->getId());
-            $log->setAction('Шинэ мэдээлэл үүсгэв.');
+            $log->setAction('Шинэ Мэдээ SLIDE үүсгэв.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -561,7 +692,43 @@ class ContentController extends AbstractController
             'form' => $contentForm->createView(),
             'current' => $this->current,
             'page_title' => $this->pageTitle,
-            'section_title' => 'Нэмэх',
+            'section_title' => 'Мэдээ SLIDE',
+        ]);
+    }
+
+    #[Route('/slide/edit/{id}', name: '_edit_slide', requirements: ['id' => "\d+"])]
+    public function editSlide($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $config = $em->getRepository(Content::class)->find($id);
+
+        $editSlideForm = $this->createForm(SlideEditFormType::class, $config, [
+            'method' => 'POST',
+        ]);
+
+        $editSlideForm->handleRequest($request);
+
+        if ($editSlideForm->isSubmitted() && $editSlideForm->isValid()) {
+
+            $em->persist($config);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($config->getId());
+            $log->setAction('Мэдээ SLIDE засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай тохирууллаа.');
+            return $this->redirectToRoute('app_content_slide_index');
+        }
+
+        return $this->render('content_slide/edit.html.twig', [
+            'form' => $editSlideForm->createView(),
+            'page_title' => 'Мэдээ SLIDE',
         ]);
     }
 }
