@@ -54,7 +54,7 @@ class WebConfigController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($config->getId());
-            $log->setAction('Вебийн тохиргооны мэдээлэл засав.');
+            $log->setAction('Үндсэн тохиргооны мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -66,7 +66,7 @@ class WebConfigController extends AbstractController
 
         return $this->render('web_config/edit.html.twig', [
             'configForm' => $editWebConfigForm->createView(),
-            'page_title' => 'Вебийн тохиргооны мэдээлэл засах',
+            'page_title' => 'Үндсэн тохиргооны мэдээлэл засах',
         ]);
     }
 }

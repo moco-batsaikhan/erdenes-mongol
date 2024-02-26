@@ -315,7 +315,7 @@ class ContentController extends AbstractController
 
         return $this->render('home_chart/edit.html.twig', [
             'editForm' => $editHomeChartForm->createView(),
-            'page_title' => 'Вебийн тохиргооны мэдээлэл засах',
+            'page_title' => 'Нүүр график засах',
         ]);
     }
 

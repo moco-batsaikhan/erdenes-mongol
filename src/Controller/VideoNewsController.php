@@ -29,7 +29,7 @@ class VideoNewsController extends AbstractController
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
         $videoNews = $videoNewsRepo->findAll();
-        $data = $videoNewsRepo->findBy([], null, $pageSize, $offset);
+        $data = $videoNewsRepo->findBy([], ['createdAt' => 'DESC'], $pageSize, $offset);
 
 
         return $this->render('video_news/index.html.twig', [
@@ -102,7 +102,7 @@ class VideoNewsController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($videoNews->getId());
             $log->setAction('Нүүр мэдээлэл засав.');
@@ -112,7 +112,7 @@ class VideoNewsController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
-            return $this->redirectToRoute('app_video_news_edit', array('id' => $id));
+            return $this->redirectToRoute('app_video_news_index', array('id' => $id));
         }
 
 
