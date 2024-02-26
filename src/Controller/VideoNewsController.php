@@ -29,7 +29,7 @@ class VideoNewsController extends AbstractController
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
         $videoNews = $videoNewsRepo->findAll();
-        $data = $videoNewsRepo->findBy([], ['createdAt' => 'DESC'], $pageSize, $offset);
+        $data = $videoNewsRepo->findBy([], ['id' => 'DESC'], $pageSize, $offset);
 
 
         return $this->render('video_news/index.html.twig', [

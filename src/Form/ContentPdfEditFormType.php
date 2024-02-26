@@ -8,26 +8,23 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use FOS\CKEditorBundle\Form\Type\CKEditorType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
-class CkeditorEditFormType extends AbstractType
+
+class ContentPdfEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'нэр',
+                'label' => 'Монгол тайлбар',
                 'attr' => array(
                     "class" => "form-control",
-                )
-            ))
-            ->add('body', CKEditorType::class, array(
-                'label' => 'Агуулга',
-                'attr' => array(
-                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
             ->add('priority', NumberType::class, array(
@@ -54,7 +51,7 @@ class CkeditorEditFormType extends AbstractType
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
-            ]);;;
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

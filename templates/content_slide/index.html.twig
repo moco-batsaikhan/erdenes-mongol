@@ -16,11 +16,11 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							<a>Мэдээ мэдээлэл</a>
+							<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
 						</li>
 
 						<li class="breadcrumb-item">
-							slide
+							Мэдээ SLIDE
 						</li>
 					</ol>
 				</nav>
@@ -43,6 +43,8 @@
 							<th>Агуулгийн нэр</th>
 							<th>Агуулгийн төрөл</th>
 							<th>Контентийн дараалал</th>
+							<th>Төлөв</th>
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -52,6 +54,18 @@
 								<td>{{ content.name }}</td>
 								<td>{{ content.type }}</td>
 								<td>{{ content.priority}}</td>
+								<td>
+									{% if content.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
+								<td>
+									<a href="{{ path('app_content_edit_slide', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>
