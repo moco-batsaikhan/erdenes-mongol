@@ -15,10 +15,10 @@ class NewsTypeCreateFormType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, array(
-                'label' => 'Хэрэглэгчийн нэр',
+                'label' => 'Мэдээний жагсаалт нэр',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "мэдээний төрлийн нэр оруулна уу ...",
+                    "placeholder" => "мэдээний жагсаалт нэр оруулна уу ...",
                 )
             ))
             ->add('save', SubmitType::class, array(

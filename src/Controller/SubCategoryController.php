@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\CmsAdminLog;
+use App\Entity\MainCategory;
 use App\Entity\SubCategory;
 use App\Form\SubCategoryCreateFormType;
 use App\Form\SubCategoryEditFormType;
@@ -52,14 +53,20 @@ class SubCategoryController extends AbstractController
     public function create(EntityManagerInterface $em, Request $request): Response
     {
 
+        $mainCategoryId = $request->get('id');
         $subCategory = new SubCategory;
+
+
+        $mainCategory = $em->getRepository(MainCategory::class)->find($mainCategoryId);
+
+        $subCategory->setMainCategoryId($mainCategory);
         $subCategoryForm = $this->createForm(SubCategoryCreateFormType::class, $subCategory);
 
         $subCategoryForm->handleRequest($request);
 
         if ($subCategoryForm->isSubmitted() && $subCategoryForm->isValid()) {
             $subCategory->setCreatedUser($this->getUser());
-
+            $subCategory->setMainCategoryId($mainCategory);
             $em->persist($subCategory);
             $em->flush();
 
@@ -75,7 +82,7 @@ class SubCategoryController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
-            return $this->redirectToRoute('app_sub_category_index');
+            return $this->redirectToRoute('app_main_category_index');
         }
 
         return $this->render('sub_category/create.html.twig', [
@@ -113,7 +120,7 @@ class SubCategoryController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
 
-            return $this->redirectToRoute('app_sub_category_index');
+            return $this->redirectToRoute('app_main_category_index');
         }
 
 

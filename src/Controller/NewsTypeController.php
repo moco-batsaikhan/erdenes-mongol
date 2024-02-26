@@ -22,7 +22,7 @@ class NewsTypeController extends AbstractController
         $newsType = $newsTypeRepo->findAll();
 
         return $this->render('news_type/index.html.twig', [
-            'page_title' => 'Мэдээний төрөл',
+            'page_title' => 'Мэдээний жагсаалт',
             'newsTypes' => $newsType,
         ]);
     }
@@ -45,7 +45,7 @@ class NewsTypeController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($newsType->getId());
-            $log->setAction('Шинэ Мэдээний төрөл үүсгэв.');
+            $log->setAction('Шинэ Мэдээний жагсаалт үүсгэв.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -58,7 +58,47 @@ class NewsTypeController extends AbstractController
 
         return $this->render('news_type/create.html.twig', [
             'newsForm' => $newsTypeForm->createView(),
-            'page_title' => 'Мэдээний төрөл',
+            'page_title' => 'Мэдээний жагсаалт',
         ]);
     }
+
+
+
+    #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
+    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $news = $em->getRepository(NewsType::class)->find($id);
+
+        $editNewsForm = $this->createForm(NewsTypeCreateFormType::class, $news, [
+            'method' => 'POST',
+        ]);
+
+        $editNewsForm->handleRequest($request);
+
+        if ($editNewsForm->isSubmitted() && $editNewsForm->isValid()) {
+
+            $em->persist($news);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($news->getId());
+            $log->setAction('Мэдээний жагсаалт засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай засагдлаа.');
+            return $this->redirectToRoute('app_news_type_edit', array('id' => $id));
+        }
+
+
+        return $this->render('news_type/edit.html.twig', [
+            'newsForm' => $editNewsForm->createView(),
+            'page_title' => 'Нүүр зураг засах',
+        ]);
+    }
+
 }

@@ -65,18 +65,20 @@ class SubCategoryCreateFormType extends AbstractType
                 'label' => 'Харьяалагдах үндсэн цэс сонгох',
                 'class' => 'App\Entity\MainCategory',
                 'choice_label' => 'mnName',
+                'attr' => array(
+                    "class" => "form-control",)
             ])
             ->add(
                 'clickType',
                 ChoiceType::class,
                 array(
                     'attr' => array('class' => 'form-control click-type-select'),
-                    'label' => 'Цэсийг дарах үед',
+                    'label' => 'Action хийх үед /цэс дээр дарахад/',
                     'choices' =>
                     array(
-                        'Сонгосон мэдээний жагсаалтуудруу үсрэх' => 'THUMBNAIL',
-                        'Сонгосон мэдээрүү шууд үсрэх' => 'REDIRECT',
-                        'Сонгосон линкрүү шууд үсрэх' => 'LINK',
+                        'Жагсаалт харуулах' => 'THUMBNAIL',
+                        'Мэдээ харуулах' => 'REDIRECT',
+                        'Статик хуудас' => 'LINK',
                     ),
                     'multiple' => false,
                     'required' => true,
@@ -95,6 +97,9 @@ class SubCategoryCreateFormType extends AbstractType
                 'choice_label' => 'mnTitle',
                 'placeholder' => '',
                 'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                )
             ])
 
             ->add('redirectLink', TextType::class, array(
