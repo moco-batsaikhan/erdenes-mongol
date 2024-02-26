@@ -51,7 +51,7 @@ class StructureEditFormType extends AbstractType
                 )
             ))
             ->add('iconFile', VichFileType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => 'Зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
