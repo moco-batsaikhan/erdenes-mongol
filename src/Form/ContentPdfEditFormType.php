@@ -2,34 +2,33 @@
 
 namespace App\Form;
 
-use App\Entity\Currency;
+use App\Entity\Content;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 
-class CurrencyEditFormType extends AbstractType
+class ContentPdfEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('file', FileType::class, [
-                'label' => 'Excel File (XLSX)',
-                'required' => true,
-                'mapped' => false,
-            ])
-            ->add('enFile', FileType::class, [
-                'label' => 'Excel File (XLSX)',
-                'required' => true,
-                'mapped' => false,
-            ])
-            ->add('CurrencyDate', DateType::class, array(
-                'label' => 'Ханшийн он сар',
-                'required' => true,
+            ->add('name', TextType::class, array(
+                'label' => 'Монгол тайлбар',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('priority', NumberType::class, array(
+                'label' => 'Дарааалал',
                 'attr' => array(
                     "class" => "form-control",
                 )
@@ -52,13 +51,13 @@ class CurrencyEditFormType extends AbstractType
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
-            ]);
+            ]);;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Currency::class,
+            'data_class' => Content::class,
         ]);
     }
 }

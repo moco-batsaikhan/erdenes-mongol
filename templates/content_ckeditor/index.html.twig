@@ -20,7 +20,7 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							ckEditor
+							Мэдээ HTML
 						</li>
 					</ol>
 				</nav>
@@ -43,9 +43,9 @@
 							<th>Агуулгийн нэр</th>
 							<th>Агуулга</th>
 							<th>Контентийн дараалал</th>
+							<th>Төлөв</th>
 							<th>Харьяалагдах мэдээ</th>
-
-							{# <th>#</th> #}
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -55,12 +55,19 @@
 								<td>{{ content.name }}</td>
 								<td>{{ content.body }}</td>
 								<td>{{ content.priority}}</td>
+								<td>
+									{% if content.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
 								<td>{{ content.getNews.MnTitle }}</td>
-								{# <td>
-																									<a href="{{ path('app_content_edit', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
-																										<i class="fas fa-edit"></i>
-																									</a>
-																								</td> #}
+								<td>
+									<a href="{{ path('app_content_edit_ckeditor', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>

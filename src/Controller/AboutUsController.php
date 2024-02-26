@@ -53,7 +53,7 @@ class AboutUsController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($config->getId());
-            $log->setAction('Вебийн тохиргооны мэдээлэл засав.');
+            $log->setAction('Компаны танилцуулга мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -65,7 +65,7 @@ class AboutUsController extends AbstractController
 
         return $this->render('about_us/edit.html.twig', [
             'abouUsForm' => $editAboutUsForm->createView(),
-            'page_title' => 'Вебийн тохиргооны мэдээлэл засах',
+            'page_title' => 'Компаны танилцуулга мэдээлэл засах',
         ]);
     }
 }
