@@ -14,11 +14,11 @@ class Currency
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 32, nullable: true)]
-    private ?string $base = null;
+    #[ORM\Column(nullable: true)]
+    private ?array $file = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private ?array $rates = null;
+    #[ORM\Column(nullable: true)]
+    private ?array $enFile = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $createdAt = null;
@@ -33,6 +33,9 @@ class Currency
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $CurrencyDate = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $active = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -44,26 +47,26 @@ class Currency
         return $this->id;
     }
 
-    public function getBase(): ?string
+    public function getFile(): ?array
     {
-        return $this->base;
+        return $this->file;
     }
 
-    public function setBase(?string $base): static
+    public function setFile(?array $file): static
     {
-        $this->base = $base;
+        $this->file = $file;
 
         return $this;
     }
 
-    public function getRates(): ?array
+    public function getEnFile(): ?array
     {
-        return $this->rates;
+        return $this->enFile;
     }
 
-    public function setRates(?array $rates): static
+    public function setEnFile(?array $enFile): static
     {
-        $this->rates = $rates;
+        $this->enFile = $enFile;
 
         return $this;
     }
@@ -112,6 +115,18 @@ class Currency
     public function setCurrencyDate(\DateTimeInterface $CurrencyDate): static
     {
         $this->CurrencyDate = $CurrencyDate;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): static
+    {
+        $this->active = $active;
 
         return $this;
     }

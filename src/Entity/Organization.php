@@ -23,11 +23,11 @@ class Organization
     #[ORM\Column(length: 255)]
     private ?string $enName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $imageUrl = null;
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $imageUrl = null;
 
-    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
-    private ?File $imageFile = null;
+    // #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    // private ?File $imageFile = null;
 
     #[ORM\Column(length: 255)]
     private ?string $logo = null;
@@ -35,23 +35,23 @@ class Organization
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "logo")]
     private ?File $logoFile = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $mnDescription = null;
+    // #[ORM\Column(type: Types::TEXT, nullable: true)]
+    // private ?string $mnDescription = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $enDescription = null;
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $enDescription = null;
 
-    #[ORM\Column(type: Types::TEXT)]
-    private ?string $cnDescription = null;
+    // #[ORM\Column(type: Types::TEXT)]
+    // private ?string $cnDescription = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $contact = null;
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $contact = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $webUrl = null;
+    // #[ORM\Column(length: 255, nullable: true)]
+    // private ?string $webUrl = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $address = null;
+    // #[ORM\Column(length: 255)]
+    // private ?string $address = null;
 
     #[ORM\Column(length: 32)]
     private ?string $type = null;
@@ -65,6 +65,9 @@ class Organization
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?bool $active = null;
 
     public function __construct()
     {
@@ -101,17 +104,17 @@ class Organization
         return $this;
     }
 
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
+    // public function getImageUrl(): ?string
+    // {
+    //     return $this->imageUrl;
+    // }
 
-    public function setImageUrl(?string $imageUrl): static
-    {
-        $this->imageUrl = $imageUrl;
+    // public function setImageUrl(?string $imageUrl): static
+    // {
+    //     $this->imageUrl = $imageUrl;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getLogo(): ?string
     {
@@ -125,77 +128,77 @@ class Organization
         return $this;
     }
 
-    public function getMnDescription(): ?string
-    {
-        return $this->mnDescription;
-    }
+    // public function getMnDescription(): ?string
+    // {
+    //     return $this->mnDescription;
+    // }
 
-    public function setMnDescription(string $mnDescription): static
-    {
-        $this->mnDescription = $mnDescription;
+    // public function setMnDescription(string $mnDescription): static
+    // {
+    //     $this->mnDescription = $mnDescription;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getEnDescription(): ?string
-    {
-        return $this->enDescription;
-    }
+    // public function getEnDescription(): ?string
+    // {
+    //     return $this->enDescription;
+    // }
 
-    public function setEnDescription(?string $enDescription): static
-    {
-        $this->enDescription = $enDescription;
+    // public function setEnDescription(?string $enDescription): static
+    // {
+    //     $this->enDescription = $enDescription;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getCnDescription(): ?string
-    {
-        return $this->cnDescription;
-    }
+    // public function getCnDescription(): ?string
+    // {
+    //     return $this->cnDescription;
+    // }
 
-    public function setCnDescription(string $cnDescription): static
-    {
-        $this->cnDescription = $cnDescription;
+    // public function setCnDescription(string $cnDescription): static
+    // {
+    //     $this->cnDescription = $cnDescription;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getContact(): ?string
-    {
-        return $this->contact;
-    }
+    // public function getContact(): ?string
+    // {
+    //     return $this->contact;
+    // }
 
-    public function setContact(?string $contact): static
-    {
-        $this->contact = $contact;
+    // public function setContact(?string $contact): static
+    // {
+    //     $this->contact = $contact;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getWebUrl(): ?string
-    {
-        return $this->webUrl;
-    }
+    // public function getWebUrl(): ?string
+    // {
+    //     return $this->webUrl;
+    // }
 
-    public function setWebUrl(?string $webUrl): static
-    {
-        $this->webUrl = $webUrl;
+    // public function setWebUrl(?string $webUrl): static
+    // {
+    //     $this->webUrl = $webUrl;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
+    // public function getAddress(): ?string
+    // {
+    //     return $this->address;
+    // }
 
-    public function setAddress(string $address): static
-    {
-        $this->address = $address;
+    // public function setAddress(string $address): static
+    // {
+    //     $this->address = $address;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getType(): ?string
     {
@@ -223,19 +226,19 @@ class Organization
 
 
 
-    public function setImageFile(File $image = null)
-    {
-        $this->imageFile = $image;
+    // public function setImageFile(File $image = null)
+    // {
+    //     $this->imageFile = $image;
 
-        if ($image) {
-            $this->updatedAt = new \DateTime('now');
-        }
-    }
+    //     if ($image) {
+    //         $this->updatedAt = new \DateTime('now');
+    //     }
+    // }
 
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
+    // public function getImageFile()
+    // {
+    //     return $this->imageFile;
+    // }
 
     public function setLogoFile(File $image = null)
     {
@@ -271,6 +274,18 @@ class Organization
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): static
+    {
+        $this->active = $active;
 
         return $this;
     }

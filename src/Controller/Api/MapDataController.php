@@ -9,6 +9,7 @@ use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -18,13 +19,16 @@ class MapDataController extends AbstractController
 {
 
     #[Route('/all/{type}/{page}', name: 'all_map_data', requirements: ['page' => '\d+'], defaults: ['page' => 1],  methods: ['get'])]
-    public function getMapData(EntityManagerInterface $entityManager, SerializerInterface $serializer, $page, $type): Response
+    public function getMapData(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, $page, $type): Response
     {
         try {
-            $pageSize = 10;
+            $lang = $request->query->get('lang', 'mn');
+
+            $pageSize = 20;
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', 'e.name', 'e.information', 'e.dataType', 'e.latitude', 'e.longitude')
+            $qb->select('e.id', 'e.name', "e.{$lang}Description as description", 'e.dataType', 'e.latitude', 'e.longitude')
+                ->where('e.active = 1')
                 ->from(Map::class, 'e')
                 ->setFirstResult(($page - 1) * $pageSize)
                 ->setMaxResults($pageSize);
@@ -37,12 +41,20 @@ class MapDataController extends AbstractController
             $query = $qb->getQuery();
             $data = $query->getResult();
 
+            $totalCount = $entityManager->createQueryBuilder()
+                ->select('COUNT(e.id)')
+                ->from(Map::class, 'e')
+                ->andWhere('e.active = 1')
+                ->getQuery()
+                ->getSingleScalarResult();
+
             $mapDatas = $serializer->serialize($data, 'json');
 
             $response = [
                 'data' => json_decode($mapDatas),
                 'page' => $page,
-                'pagesize' => $pageSize
+                'pageSize' => $pageSize,
+                'totalCount' => $totalCount
             ];
 
             return new JsonResponse($response);
@@ -52,15 +64,17 @@ class MapDataController extends AbstractController
     }
 
     #[Route('/{id}', name: 'map_data_index',  methods: ['get'])]
-    public function getMapDataById($id, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+    public function getMapDataById(Request $request, $id, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
         try {
+            $lang = $request->query->get('lang', 'mn');
+
             if (!$id) {
                 throw new BadRequestHttpException('Parameter "id" is required.');
             }
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', 'e.name', 'e.information', 'e.dataType', 'e.latitude', 'e.longitude')
+            $qb->select('e.id', 'e.name', "e.{$lang}Description as description",  'e.dataType', 'e.latitude', 'e.longitude', "e.{$lang}Body as body")
                 ->from(Map::class, 'e')
                 ->where('e.id = :id')
                 ->setParameter('id', $id);

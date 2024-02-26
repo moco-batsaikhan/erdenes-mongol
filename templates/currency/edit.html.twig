@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ page_title }}
+{% endblock %}
+{% block body %}
+
+
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_currency_index') }}">Ханшийн мэдээлэл</a>
+						</li>
+
+						<li class="breadcrumb-item active" aria-current="page">
+							Засах
+						</li>
+					</ol>
+				</nav>
+			</div>
+
+			{% include 'layout/flash.html.twig' %}
+
+			{{ form_start(currencyForm) }}
+
+			<div class="form-group">
+				{{ form_row(currencyForm.file) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(currencyForm.enFile) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(currencyForm.active) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(currencyForm.CurrencyDate) }}
+			</div>
+
+			{{ form_end(currencyForm) }}
+
+		</div>
+	</div>
+
+{% endblock %}

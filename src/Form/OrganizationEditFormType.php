@@ -30,70 +30,89 @@ class OrganizationEditFormType extends AbstractType
                     "placeholder" => "гарчиг оруулна уу ...",
                 )
             ))
-            ->add('mnDescription', TextType::class, array(
-                'label' => 'Монгол тайлбар',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+            // ->add('mnDescription', TextType::class, array(
+            //     'label' => 'Монгол тайлбар',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //         "placeholder" => "тайлбар оруулна уу ...",
+            //     )
+            // ))
+            // ->add('enDescription', TextType::class, array(
+            //     'label' => 'Англи тайлбар',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //         "placeholder" => "тайлбар оруулна уу ...",
+            //     )
+            // ))
+            // ->add('cnDescription', TextType::class, array(
+            //     'label' => 'Хятад тайлбар',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //         "placeholder" => "тайлбар оруулна уу ...",
+            //     )
+            // ))
+            // ->add('imageFile', VichFileType::class, [
+            //     'required' => true,
+            //     'label' => 'Зураг оруулах',
+            //     'allow_delete' => true,
+            //     'allow_file_upload' => true,
+            //     'download_label' => 'Зураг харах',
+            //     'delete_label' => 'Устгах',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //     )
+            // ])
+            ->add(
+                'active',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Төлөв',
+                    'choices' =>
+                    array(
+                        'Идэвхитэй' => true,
+                        'Идэвхигүй' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
                 )
-            ))
-            ->add('enDescription', TextType::class, array(
-                'label' => 'Англи тайлбар',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+            )
+            // ->add('webUrl', TextType::class, array(
+            //     'label' => 'Байгууллагийн веб хаяг',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //         "placeholder" => "веб хаяг оруулна уу ...",
+            //     )
+            // ))
+            // ->add('address', TextType::class, array(
+            //     'label' => 'Хаяг',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //         "placeholder" => "хаяг оруулна уу ...",
+            //     )
+            // ))
+            // ->add('contact', TextType::class, array(
+            //     'label' => 'Холбоо барих дугаар ',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //         "placeholder" => "дугаар оруулна уу ...",
+            //     )
+            // ))
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Байгууллагийн төрөл',
+                    'choices' =>
+                    array(
+                        'Охин компани' => 'SUBSIDIARY',
+                        'Хамтрагч байгууллага' => 'PARTNERORGANIZATION'
+                    ),
+                    'multiple' => false,
+                    'required' => false,
                 )
-            ))
-            ->add('cnDescription', TextType::class, array(
-                'label' => 'Хятад тайлбар',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
-                )
-            ))
-            ->add('imageFile', VichFileType::class, [
-                'required' => true,
-                'label' => 'Зураг оруулах',
-                'allow_delete' => true,
-                'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'delete_label' => 'Устгах',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ])
-            ->add('logoFile', VichFileType::class, [
-                'required' => true,
-                'label' => 'icon оруулах',
-                'allow_delete' => true,
-                'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'delete_label' => 'Устгах',
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ])
-            ->add('webUrl', TextType::class, array(
-                'label' => 'Байгууллагийн веб хаяг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "веб хаяг оруулна уу ...",
-                )
-            ))
-            ->add('address', TextType::class, array(
-                'label' => 'Хаяг',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "хаяг оруулна уу ...",
-                )
-            ))
-            ->add('contact', TextType::class, array(
-                'label' => 'Холбоо барих дугаар ',
-                'attr' => array(
-                    "class" => "form-control",
-                    "placeholder" => "дугаар оруулна уу ...",
-                )
-            ))
+            )
             ->add('save', SubmitType::class, array(
                 'label' => 'Хадгалах',
                 'attr' => array(

@@ -100,9 +100,9 @@ class OrganizationController extends AbstractController
             $em->flush();
 
             $log = new CmsAdminLog();
-            $log->setAdminname($this->getUser());
+            $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($organization->getUsername());
+            $log->setValue($organization->getId());
             $log->setAction('Нүүр мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
@@ -110,7 +110,7 @@ class OrganizationController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
-            return $this->redirectToRoute('app_organization_edit', array('id' => $id));
+            return $this->redirectToRoute('app_organization_index', array('id' => $id));
         }
 
 
