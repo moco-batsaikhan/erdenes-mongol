@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -15,6 +16,24 @@ class AboutUsEditFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('mnDescription', TextareaType::class, array(
+                'label' => 'Агуулга Монгол',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('enDescription', TextareaType::class, array(
+                'label' => 'Агуулга Англи',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('cnDescription', TextareaType::class, array(
+                'label' => 'Агуулга Хятад',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
             ->add('mnPurpose', TextType::class, array(
                 'label' => 'Эрхэм зорилго(Монгол)',
                 'attr' => array(
@@ -73,7 +92,7 @@ class AboutUsEditFormType extends AbstractType
             ))
 
             ->add('imageFile', VichFileType::class, [
-                'required' => true,
+                'required' => false,
                 'label' => 'Зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,

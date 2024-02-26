@@ -24,8 +24,20 @@ class CkeditorEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
-            ->add('body', CKEditorType::class, array(
-                'label' => 'Агуулга',
+            ->add('mnDescription', CKEditorType::class, array(
+                'label' => 'Агуулга Монгол',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('enDescription', CKEditorType::class, array(
+                'label' => 'Агуулга Англи',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('cnDescription', CKEditorType::class, array(
+                'label' => 'Агуулга Хятад',
                 'attr' => array(
                     "class" => "form-control",
                 )

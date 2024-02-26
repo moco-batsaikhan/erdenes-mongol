@@ -28,9 +28,6 @@ class Content
     #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pdfFileName")]
     private $pdfFile;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $body = null;
-
     #[ORM\Column]
     private ?int $priority = null;
 
@@ -107,19 +104,6 @@ class Content
     public function setPdfFile(?File $pdfFile): void
     {
         $this->pdfFile = $pdfFile;
-    }
-
-
-    public function getBody(): ?string
-    {
-        return $this->body;
-    }
-
-    public function setBody(string $body): static
-    {
-        $this->body = $body;
-
-        return $this;
     }
 
     public function getPriority(): ?int

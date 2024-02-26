@@ -158,7 +158,7 @@ class NewsController extends AbstractController
                 'id' => $value['p_id'],
                 'name' => $value['p_name'],
                 'type' => $value['p_type'],
-                'body' => $value['p_body'],
+                'body' => $value['p_' . $lang . 'Description'],
                 'active' => $value['p_active'],
                 'file' =>  $value['p_file'],
                 'graphType' => $value['p_graphType'],

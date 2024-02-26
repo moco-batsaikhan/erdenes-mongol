@@ -41,8 +41,9 @@
 							<th>Гарчиг(Хятад)</th>
 							<th>Агуулга(Монгол)</th>
 							{# <th>Агуулга(Англи)</th>
-																												<th>Агуулга(Хятад)</th> #}
-							<th>Зураг</th>
+																																																	<th>Агуулга(Хятад)</th> #}
+							<th>Thumbnail зураг</th>
+							<th>Унших хэсэг зураг</th>
 							<th>Онцгой</th>
 							<th>Төлөв</th>
 							<th>Явц</th>
@@ -59,8 +60,9 @@
 								<td>{{ n.cnTitle }}</td>
 								<td>{{ n.mnHeadline }}</td>
 								{# <td>{{ n.enHeadline }}</td>
-																																<td>{{ n.cnHeadline }}</td> #}
-								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.imageUrl) }}" class="img-fluid" alt="Banner Image"></td>
+																																																								<td>{{ n.cnHeadline }}</td> #}
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.imageUrl) }}" class="img-fluid" alt="Thumbnail Image"></td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.bodyImageUrl) }}" class="img-fluid" alt="detail Image"></td>
 								<td>
 									{% if n.isSpecial == true %}
 										<b style="color: darkgreen">Энгийн</b>
@@ -112,24 +114,24 @@
 	</div>
 
 	{# <script>document.getElementById('editButton').addEventListener('click', function () {
-																																																																									
-																																																																									fetch('your_api_endpoint', {
-																																																																									method: 'PUT',
-																																																																									headers: {
-																																																																									'Content-Type': 'application/json'
-																																																																									},
-																																																																									body: JSON.stringify(
-																																																																									{key1: 'value1', key2: 'value2'}
-																																																																									)
-																																																																									}).then(response => {
-																																																																									if (!response.ok) {
-																																																																									throw new Error('Network response was not ok');
-																																																																									}
-																																																																									return response.json();
-																																																																									}).then(data => {
-																																																																									console.log(data);
-																																																																									}).catch(error => {
-																																																																									console.error('There was a problem with the fetch operation:', error);
-																																																																									});
-																																																																									});</script> #}
+																																																																												
+																																																																												fetch('your_api_endpoint', {
+																																																																												method: 'PUT',
+																																																																												headers: {
+																																																																												'Content-Type': 'application/json'
+																																																																												},
+																																																																												body: JSON.stringify(
+																																																																												{key1: 'value1', key2: 'value2'}
+																																																																												)
+																																																																												}).then(response => {
+																																																																												if (!response.ok) {
+																																																																												throw new Error('Network response was not ok');
+																																																																												}
+																																																																												return response.json();
+																																																																												}).then(data => {
+																																																																												console.log(data);
+																																																																												}).catch(error => {
+																																																																												console.error('There was a problem with the fetch operation:', error);
+																																																																												});
+																																																																												});</script> #}
 {% endblock %}
