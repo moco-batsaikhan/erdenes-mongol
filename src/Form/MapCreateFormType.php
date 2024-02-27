@@ -23,21 +23,21 @@ class MapCreateFormType extends AbstractType
                 'label' => 'Нэр(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('enName', TextType::class, array(
                 'label' => 'Нэр(Англи)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('cnName', TextType::class, array(
                 'label' => 'Нэр(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('mnDescription', TextareaType::class, array(

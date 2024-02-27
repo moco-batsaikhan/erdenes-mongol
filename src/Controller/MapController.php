@@ -61,7 +61,7 @@ class MapController extends AbstractController
                 $log = new CmsAdminLog();
                 $log->setAdminname($this->getUser()->getUserIdentifier());
                 $log->setIpaddress($request->getClientIp());
-                $log->setValue($map->getName());
+                $log->setValue($map->getMnName());
                 $log->setAction('Шинэ төсөл хөтөлбөр үүсгэв.');
                 $log->setCreatedAt(new \DateTime('now'));
 
@@ -103,7 +103,7 @@ class MapController extends AbstractController
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($map->getName());
+            $log->setValue($map->getMnName());
             $log->setAction('Төсөл хөтөлбөр мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
