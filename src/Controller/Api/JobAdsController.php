@@ -8,6 +8,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -17,16 +18,17 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class JobAdsController extends AbstractController
 {
 
-    #[Route('/job-ads/{page}', name: 'ads_index', requirements: ['page' => '\d+'], defaults: ['page' => 1],  methods: ['get'])]
-    public function getAds(EntityManagerInterface $entityManager, SerializerInterface $serializer, $page): Response
+    #[Route('/job-ads', name: 'ads_index',  methods: ['get'])]
+    public function getAds(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer,): Response
     {
         $pageSize = 10;
+        $page = $request->get('page') ? $request->get('page') : 1;
 
         $qb = $entityManager->createQueryBuilder();
 
         $cloneQb = clone $qb;
         $count = $cloneQb->select('count(e.id)')->from(JobAds::class, 'e')->where('e.active = 1')->getQuery()
-        ->getSingleScalarResult();
+            ->getSingleScalarResult();
         $qb->select('e.id', 'e.title', 'e.profession', 'e.applicationDeadline', 'e.body', 'e.createdAt')
             ->from(JobAds::class, 'e')
             ->setFirstResult(($page - 1) * $pageSize)
@@ -36,7 +38,7 @@ class JobAdsController extends AbstractController
         $data = $query->getResult();
 
         $ads = $serializer->serialize($data, 'json');
-            
+
         $response = [
             'data' => json_decode($ads),
             'count' => $count,
