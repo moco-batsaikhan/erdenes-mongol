@@ -5,7 +5,10 @@ namespace App\Entity;
 use App\Repository\MapRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: MapRepository::class)]
 class Map
 {
@@ -26,9 +29,6 @@ class Map
     #[ORM\ManyToOne(inversedBy: 'map')]
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $name = null;
 
     #[ORM\Column(nullable: true)]
     private ?float $latitude = null;
@@ -56,6 +56,21 @@ class Map
 
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageUrl = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $mnName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cnName = null;
 
     public function __construct()
     {
@@ -112,18 +127,6 @@ class Map
     public function setCreatedUser(?CmsUser $createdUser): static
     {
         $this->createdUser = $createdUser;
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): static
-    {
-        $this->name = $name;
 
         return $this;
     }
@@ -234,5 +237,67 @@ class Map
         $this->active = $active;
 
         return $this;
+    }
+
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): static
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
+    public function getEnName(): ?string
+    {
+        return $this->enName;
+    }
+
+    public function setEnName(?string $enName): static
+    {
+        $this->enName = $enName;
+
+        return $this;
+    }
+
+    public function getMnName(): ?string
+    {
+        return $this->mnName;
+    }
+
+    public function setMnName(?string $mnName): static
+    {
+        $this->mnName = $mnName;
+
+        return $this;
+    }
+
+    public function getCnName(): ?string
+    {
+        return $this->cnName;
+    }
+
+    public function setCnName(?string $cnName): static
+    {
+        $this->cnName = $cnName;
+
+        return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
     }
 }

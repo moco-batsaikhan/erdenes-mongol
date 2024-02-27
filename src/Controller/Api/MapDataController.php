@@ -41,6 +41,8 @@ class MapDataController extends AbstractController
             $query = $qb->getQuery();
             $data = $query->getResult();
 
+
+
             $totalCount = $entityManager->createQueryBuilder()
                 ->select('COUNT(e.id)')
                 ->from(Map::class, 'e')
@@ -74,7 +76,7 @@ class MapDataController extends AbstractController
             }
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', 'e.name', "e.{$lang}Description as description",  'e.dataType', 'e.latitude', 'e.longitude', "e.{$lang}Body as body")
+            $qb->select('e.id', "e.{$lang}Description as description",  'e.dataType', 'e.latitude', 'e.longitude', "e.{$lang}Body as body", "e.createdAt", "e.imageUrl", "e.{$lang}Name as name")
                 ->from(Map::class, 'e')
                 ->where('e.id = :id')
                 ->setParameter('id', $id);
@@ -83,6 +85,10 @@ class MapDataController extends AbstractController
 
             if (!$data) {
                 throw new NotFoundHttpException('No map data found for id ' . $id);
+            }
+
+            if ($data) {
+                $project['imageUrl'] = $this->getParameter('base_url') . 'uploads/image/' . $data['imageUrl'];
             }
 
             $employeeData = $serializer->serialize($data, 'json');

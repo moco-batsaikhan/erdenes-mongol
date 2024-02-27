@@ -18,11 +18,25 @@ class MapEditFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, array(
-                'label' => 'Төслийн нэр',
+            ->add('mnName', TextType::class, array(
+                'label' => 'Нэр(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "нэр оруулна уу ...",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('enName', TextType::class, array(
+                'label' => 'Нэр(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('cnName', TextType::class, array(
+                'label' => 'Нэр(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
             ->add('mnDescription', TextareaType::class, array(

@@ -36,13 +36,16 @@
 					<thead>
 						<tr>
 							<th>№</th>
-							<th>Төслийн нэр</th>
+							<th>Төслийн нэр(Монгол)</th>
+							<th>Төслийн нэр(Англи)</th>
+							<th>Төслийн нэр(Хятад)</th>
 							<th>Тайлбар(Монгол)</th>
 							<th>Тайлбар(Англи)</th>
 							<th>Тайлбар(Хятад)</th>
 							<th>Төлөв</th>
 							<th>Өргөрөг</th>
 							<th>Уртраг</th>
+							<th>Зураг</th>
 							<th>Төслийн төрөл</th>
 							<th>#</th>
 						</tr>
@@ -51,7 +54,9 @@
 						{% for mapData in mapDatas %}
 							<tr>
 								<td>{{ mapData.id }}</td>
-								<td>{{ mapData.name }}</td>
+								<td>{{ mapData.mnName }}</td>
+								<td>{{ mapData.enName }}</td>
+								<td>{{ mapData.cnName }}</td>
 								<td>{{ mapData.mnDescription }}</td>
 								<td>{{ mapData.enDescription }}</td>
 								<td>{{ mapData.cnDescription }}</td>
@@ -64,6 +69,7 @@
 								</td>
 								<td>{{ mapData.latitude }}</td>
 								<td>{{ mapData.longitude }}</td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ mapData.imageUrl) }}" class="img-fluid" alt="mapData Image"></td>
 								<td>{{ mapData.dataType }}</td>
 								<td>
 									<a href="{{ path('app_map_edit', {'id' : mapData.id}) }}" class="btn btn-primary btn-sm">

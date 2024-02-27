@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -18,11 +19,25 @@ class MapCreateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, array(
-                'label' => 'Төслийн нэр',
+            ->add('mnName', TextType::class, array(
+                'label' => 'Нэр(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "нэр оруулна уу ...",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('enName', TextType::class, array(
+                'label' => 'Нэр(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('cnName', TextType::class, array(
+                'label' => 'Нэр(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
             ->add('mnDescription', TextareaType::class, array(
@@ -52,6 +67,17 @@ class MapCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+            ->add('imageFile', VichFileType::class, [
+                'required' => true,
+                'label' => 'Зураг оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Зураг харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
             ->add(
                 'active',
                 ChoiceType::class,
