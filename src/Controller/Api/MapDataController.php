@@ -27,7 +27,7 @@ class MapDataController extends AbstractController
             $pageSize = 20;
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', 'e.name', "e.{$lang}Description as description", 'e.dataType', 'e.latitude', 'e.longitude')
+            $qb->select('e.id', "e.{$lang}Name as name", "e.{$lang}Description as description", 'e.dataType', 'e.latitude', 'e.longitude')
                 ->where('e.active = 1')
                 ->from(Map::class, 'e')
                 ->setFirstResult(($page - 1) * $pageSize)
@@ -88,7 +88,8 @@ class MapDataController extends AbstractController
             }
 
             if ($data) {
-                $project['imageUrl'] = $this->getParameter('base_url') . 'uploads/image/' . $data['imageUrl'];
+                $imageUrl = $data->getImageUrl();
+                $data['imageUrl'] = $this->getParameter('base_url') . 'uploads/image/' . $imageUrl;
             }
 
             $employeeData = $serializer->serialize($data, 'json');
