@@ -66,12 +66,12 @@ class SubCategoryEditFormType extends AbstractType
                 ChoiceType::class,
                 array(
                     'attr' => array('class' => 'form-control click-type-select'),
-                    'label' => 'Цэсийг дарах үед',
+                    'label' => 'Action хийх үед /цэс дээр дарахад/',
                     'choices' =>
                     array(
-                        'Сонгосон мэдээний жагсаалтуудруу үсрэх' => 'THUMBNAIL',
-                        'Сонгосон мэдээрүү шууд үсрэх' => 'REDIRECT',
-                        'Сонгосон линкрүү шууд үсрэх' => 'LINK',
+                        'Жагсаалт харуулах' => 'THUMBNAIL',
+                        'Мэдээ харуулах' => 'REDIRECT',
+                        'Статик хуудас' => 'LINK',
                     ),
                     'multiple' => false,
                     'required' => true,

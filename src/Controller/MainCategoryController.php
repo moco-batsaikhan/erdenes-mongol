@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CmsAdminLog;
 use App\Entity\MainCategory;
+use App\Entity\SubCategory;
 use App\Form\MainCategoryCreateFormType;
 use App\Form\MainCategoryEditFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,18 +28,27 @@ class MainCategoryController extends AbstractController
     public function index(EntityManagerInterface $em, $page = 1): Response
     {
         $mainCatRepo = $em->getRepository(MainCategory::class);
-        $pageSize = 30;
+        $pageSize = 100;
         $offset = ($page - 1) * $pageSize;
 
         $mainCategory = $mainCatRepo->findAll();
 
         $data = $mainCatRepo->findBy([], null, $pageSize, $offset);
 
+
+
+        $subCatRepo = $em->getRepository(SubCategory::class);
+        $pageSize = 100;
+        $offset = ($page - 1) * $pageSize;
+        $subCategory = $subCatRepo->findAll();
+        $dataSub = $subCatRepo->findBy([], null, $pageSize, $offset);
+
         return $this->render('main_category/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Үндсэн цэс',
             'categories' => $data,
+            'subcategories' => $dataSub,
             'pageCount' => ceil(count($mainCategory) / $pageSize),
             'currentPage' => $page,
             'pageRoute' => 'app_main_category_index'

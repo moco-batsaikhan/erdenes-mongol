@@ -16,7 +16,7 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							Мэдээний төрөл
+							Мэдээний жагсаалт
 						</li>
 					</ol>
 				</nav>
@@ -37,6 +37,7 @@
 						<tr>
 							<th>№</th>
 							<th>Нэр</th>
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -44,6 +45,9 @@
 							<tr>
 								<td>{{ newsType.id }}</td>
 								<td>{{ newsType.name }}</td>
+								<td>	<a href="{{ path('app_news_type_edit', {'id' : newsType.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a></td>
 							</tr>
 						</tbody>
 					</tbody>
