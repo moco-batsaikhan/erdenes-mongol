@@ -40,9 +40,6 @@ class News
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
 
-    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
-    private ?File $imageFile = null;
-
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $mnHeadline = null;
 
@@ -81,8 +78,11 @@ class News
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $bodyImageUrl = null;
 
-    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "bodyImageUrl")]
     private ?File $bodyimageFile = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    private ?File $imageFile = null;
 
     public function __construct()
     {

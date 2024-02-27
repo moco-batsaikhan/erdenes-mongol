@@ -110,7 +110,7 @@ class NewsController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Амжилттай засагдлаа.');
-            return $this->redirectToRoute('app_news_edit', array('id' => $id));
+            return $this->redirectToRoute('app_news_index', array('id' => $id));
         }
 
 

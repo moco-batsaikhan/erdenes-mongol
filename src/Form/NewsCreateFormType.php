@@ -96,7 +96,18 @@ class NewsCreateFormType extends AbstractType
             )
             ->add('imageFile', VichFileType::class, [
                 'required' => true,
-                'label' => 'Зураг оруулах',
+                'label' => 'Thumbnail зураг оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Зураг харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
+            ->add('bodyimageFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Мэдээ унших хэсгийн зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',

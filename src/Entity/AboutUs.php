@@ -71,6 +71,15 @@ class AboutUs
     #[ORM\Column]
     private ?int $secondNumber = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enDescription = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnDescription = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -290,6 +299,42 @@ class AboutUs
     public function setSecondNumber(int $secondNumber): static
     {
         $this->secondNumber = $secondNumber;
+
+        return $this;
+    }
+
+    public function getMnDescription(): ?string
+    {
+        return $this->mnDescription;
+    }
+
+    public function setMnDescription(?string $mnDescription): static
+    {
+        $this->mnDescription = $mnDescription;
+
+        return $this;
+    }
+
+    public function getEnDescription(): ?string
+    {
+        return $this->enDescription;
+    }
+
+    public function setEnDescription(?string $enDescription): static
+    {
+        $this->enDescription = $enDescription;
+
+        return $this;
+    }
+
+    public function getCnDescription(): ?string
+    {
+        return $this->cnDescription;
+    }
+
+    public function setCnDescription(?string $cnDescription): static
+    {
+        $this->cnDescription = $cnDescription;
 
         return $this;
     }
