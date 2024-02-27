@@ -36,30 +36,38 @@ class AboutUsController extends AbstractController
         $purpose = '';
         $vision = '';
         $slogan = '';
+        $description = '';
         switch ($lang) {
             case 'mn':
                 $principles = $data->getMnPrinciples();
                 $purpose = $data->getMnPurpose();
                 $vision = $data->getMnVision();
                 $slogan = $data->getMnSlogan();
+                $description = $data->getMnDescription();
                 break;
             case 'en':
                 $principles = $data->getEnPrinciples();
                 $purpose = $data->getEnPurpose();
                 $vision = $data->getEnVision();
                 $slogan = $data->getEnSlogan();
+                $description = $data->getEnDescription();
+
                 break;
             case 'cn':
                 $principles = $data->getCnPrinciples();
                 $purpose = $data->getCnPurpose();
                 $vision = $data->getCnVision();
                 $slogan = $data->getCnSlogan();
+                $description = $data->getCnDescription();
+
                 break;
             default:
                 $principles = $data->getMnPrinciples();
                 $purpose = $data->getMnPurpose();
                 $vision = $data->getMnVision();
                 $slogan = $data->getMnSlogan();
+                $description = $data->getMnDescription();
+
                 break;
         }
 
@@ -71,6 +79,7 @@ class AboutUsController extends AbstractController
             'slogan' => $slogan,
             'principles' => $principles,
             'firstNumber' => $data->getFirsNumber(),
+            'description' => $description,
             'secondNumber' => $data->getSecondNumber(),
         ];
 
