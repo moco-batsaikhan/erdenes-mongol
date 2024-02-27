@@ -87,12 +87,14 @@ class MapDataController extends AbstractController
                 throw new NotFoundHttpException('No map data found for id ' . $id);
             }
 
-            if ($data) {
-                $imageUrl = $data->getImageUrl();
-                $data['imageUrl'] = $this->getParameter('base_url') . 'uploads/image/' . $imageUrl;
-            }
+
 
             $employeeData = $serializer->serialize($data, 'json');
+
+            if ($data) {
+                $imageUrl = $data->getImageUrl();
+                $employeeData['imageUrl'] = $this->getParameter('base_url') . 'uploads/image/' . $imageUrl;
+            }
 
             $response = [
                 'data' => json_decode($employeeData)
