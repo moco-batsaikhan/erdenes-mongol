@@ -23,6 +23,9 @@ class JobAdsController extends AbstractController
         $pageSize = 10;
 
         $qb = $entityManager->createQueryBuilder();
+
+        $cloneQb = clone $qb;
+        $count = $cloneQb->select('count(e.id)')->from(JobAds::class, 'e')->where('p.active = 1');
         $qb->select('e.id', 'e.title', 'e.profession', 'e.applicationDeadline', 'e.body', 'e.createdAt')
             ->from(JobAds::class, 'e')
             ->setFirstResult(($page - 1) * $pageSize)
@@ -32,9 +35,12 @@ class JobAdsController extends AbstractController
         $data = $query->getResult();
 
         $ads = $serializer->serialize($data, 'json');
-
+        $count = $count
+            ->getQuery()
+            ->getSingleScalarResult();
         $response = [
             'data' => json_decode($ads),
+            'count' => $count,
             'page' => $page,
             'pagesize' => $pageSize
         ];
