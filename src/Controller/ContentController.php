@@ -346,7 +346,7 @@ class ContentController extends AbstractController
 
             $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
 
-            return $this->redirectToRoute('app_content_chart_home_index');
+            return $this->redirectToRoute('app_content_chart_index');
         }
 
         return $this->render('content_chart/create.html.twig', [
