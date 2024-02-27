@@ -81,20 +81,18 @@ class MapDataController extends AbstractController
                 ->where('e.id = :id')
                 ->setParameter('id', $id);
 
-            $data = $qb->getQuery()->getOneOrNullResult();
+            $data = $qb->getQuery()->getSingleResult();
 
             if (!$data) {
                 throw new NotFoundHttpException('No map data found for id ' . $id);
             }
 
-            $imageUrl = "";
+
             if ($data) {
-                $imageUrl = $this->getParameter('base_url') . 'uploads/image/' . $data->getImageUrl();
+                $data['imageUrl'] = $this->getParameter('base_url') . 'uploads/image/' . $data['imageUrl'];
             }
 
             $employeeData = $serializer->serialize($data, 'json');
-            $employeeData['imageUrl'] =  $imageUrl;
-
 
             $response = [
                 'data' => json_decode($employeeData)
