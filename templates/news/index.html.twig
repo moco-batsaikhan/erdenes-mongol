@@ -78,18 +78,14 @@
 									{% endif %}
 								</td>
 								<td style="display: flex">
-									{% if n.processType == 'CREATED' %}
+									{% if n.processType == 'CREATED' && is_granted('ROLE_NEWS_ADMIN')  %}
 										<a href="{{ path('app_news_punlish', {'id' : n.id}) }}" id="editButton" class="btn btn-success">
 											Нийтлэх
 										</a>
-										<a href="{{ path('app_news_example', {'id' : n.id}) }}" id="editButton" class="btn btn-success" style="margin-left: 10px">
-											Харах
-										</a>
-									{% elseif n.processType == 'PUBLISHED' %}
+									{% endif %}
 										<a href="{{ path('app_news_example', {'id' : n.id}) }}" id="editButton" class="btn btn-success">
 											Харах
 										</a>
-									{% endif %}
 								</td>
 								<td>
 									<a href="{{ path('app_news_contents', {'id' : n.id}) }}" class="btn btn-primary btn-sm">

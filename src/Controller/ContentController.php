@@ -479,6 +479,7 @@ class ContentController extends AbstractController
     public function editHomeChart($id, EntityManagerInterface $em, Request $request): Response
     {
         $config = $em->getRepository(Content::class)->find($id);
+        
 
         $editHomeChartForm = $this->createForm(HomeChartEditFormType::class, $config, [
             'method' => 'POST',
@@ -487,6 +488,15 @@ class ContentController extends AbstractController
         $editHomeChartForm->handleRequest($request);
 
         if ($editHomeChartForm->isSubmitted() && $editHomeChartForm->isValid()) {
+
+            $excelFile = $editHomeChartForm->get('file')->getData();
+
+            $jsonData = $this->processFile($excelFile);
+
+            $jsonDataArray = json_decode($jsonData, true);
+
+            $config->setFile($jsonDataArray);
+
 
             $em->persist($config);
             $em->flush();
@@ -538,7 +548,7 @@ class ContentController extends AbstractController
         $spreadsheet = IOFactory::load($file->getPathname());
 
         $worksheet = $spreadsheet->getActiveSheet();
-        $data = $worksheet->toArray();
+        $data = $worksheet->toArray(null,true,false);
 
         $headers = array_shift($data);
 
