@@ -47,10 +47,10 @@ class MainCategoryCreateFormType extends AbstractType
                     'attr' => array('class' => 'form-control'),
                     'label' => 'Төлөв',
                     'choices' =>
-                        array(
-                            'Идэвхитэй' => true,
-                            'Идэвхигүй' => false
-                        ),
+                    array(
+                        'Идэвхитэй' => true,
+                        'Идэвхигүй' => false
+                    ),
                     'multiple' => false,
                     'required' => false,
                 )
@@ -68,12 +68,11 @@ class MainCategoryCreateFormType extends AbstractType
                     'attr' => array('class' => 'form-control'),
                     'label' => 'Цэсний байршил',
                     'choices' =>
-                        array(
-                            'Header байршилд' => 'HEADER',
-//                        'Хажуу цэс' => 'SIDEBAR',
-                            'Footer байршилд' => 'FOOTER',
-                            'Бүх байршилд' => 'ALL'
-                        ),
+                    array(
+                        'Header байршилд' => 'HEADER',
+                        'Footer байршилд' => 'FOOTER',
+                        'Бүх байршилд' => 'ALL'
+                    ),
                     'multiple' => false,
                     'required' => true,
                 )
@@ -85,13 +84,13 @@ class MainCategoryCreateFormType extends AbstractType
                     'attr' => array('class' => 'form-control click-type-select'),
                     'label' => 'Action хийх үед /цэс дээр дарахад/',
                     'choices' =>
-                        array(
-                            '' => '',
-                            'Жагсаалт харуулах' => 'THUMBNAIL',
-                            'Мэдээ харуулах' => 'REDIRECT',
-                            'Статик хуудас' => 'LINK',
-                            'Доорх цэс харагдах' => 'DROPDOWN',
-                        ),
+                    array(
+                        '' => '',
+                        'Жагсаалт харуулах' => 'THUMBNAIL',
+                        'Мэдээ харуулах' => 'REDIRECT',
+                        'Статик хуудас' => 'LINK',
+                        'Доорх цэс харагдах' => 'DROPDOWN',
+                    ),
                     'multiple' => false,
                     'required' => true,
                 )

@@ -35,7 +35,6 @@ class MenuController extends AbstractController
             ->getQuery()
             ->getScalarResult();
 
-
         $menuDto = [];
         foreach ($data as $key => $value) {
             $menuDto[] = [

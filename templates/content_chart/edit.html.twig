@@ -47,9 +47,29 @@
 				{{ form_row(editForm.active) }}
 			</div>
 
+			<div class="form-group">
+				{{ form_row(editForm.graphType,{'attr':{'onChange':"run()"}}) }}
+			</div>
+			{% if editForm.graphType.vars.value != "" %}
+				<div>
+					<span>Та энэхүү файл дээр графикт оруулах өгөгдлүүдээ оруулах!</span>
+					<a id="downloadExampleLink" href="{{ path('app_content_download_example_file', {'chartName': editForm.graphType.vars.value}) }}" class="btn btn-info">
+						жишээ татах</a>
+				</div>
+			{% endif %}
+
 			{{ form_end(editForm) }}
 
 		</div>
 	</div>
+
+	<script>
+		function run() {
+var e = document.getElementById("chart_data_edit_form_graphType");
+
+var value = e.value;
+document.getElementById('downloadExampleLink').setAttribute("href", "http://localhost:8000/content/download-example-file?chartName=" + value);
+}
+	</script>
 
 {% endblock %}
