@@ -30,13 +30,15 @@ class NewsController extends AbstractController
             ->getRepository(News::class)
             ->createQueryBuilder('p');
         $cloneQb = clone $qb;
-        $count = $cloneQb->select('count(p.id)')->where('p.active = 1')->andWhere('p.processType = PUBLISHED')
-            ->leftJoin('p.newsType', 'nt');
+        $count = $cloneQb->select('count(p.id)')->where('p.active = 1')->andWhere('p.processType = :stat')
+        ->setParameter('stat',"PUBLISHED")
+        ->leftJoin('p.newsType', 'nt');
 
 
         $data = $qb
             ->where('p.active = 1')
-            ->andWhere('p.processType = PUBLISHED')
+            ->andWhere('p.processType = :stat')
+            ->setParameter('stat',"PUBLISHED")
             ->leftJoin('p.newsType', 'nt');
 
 
