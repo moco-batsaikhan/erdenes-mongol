@@ -44,6 +44,7 @@
 							<th>Агуулгийн төрөл</th>
 							<th>Контентийн дараалал</th>
 							<th>Төлөв</th>
+							<th>Харьяалагдах мэдээ</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -60,6 +61,11 @@
 									{% else %}
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
+								</td>
+								<td>
+									<a href="{{ path('app_news_edit', {'id' : content.getNews.id }) }}" class="btn btn-primary btn-sm">
+										{{ content.getNews.MnTitle }}
+									</a>
 								</td>
 								<td>
 									<a href="{{ path('app_content_edit_slide', {'id' : content.id}) }}" class="btn btn-primary btn-sm">

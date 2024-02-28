@@ -62,7 +62,11 @@
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td>{{ content.getNews.MnTitle }}</td>
+								<td>
+									<a href="{{ path('app_news_edit', {'id' : content.getNews.id }) }}" class="btn btn-primary btn-sm">
+										{{ content.getNews.MnTitle }}
+									</a>
+								</td>
 								<td>
 									<a href="{{ path('app_content_edit_chart', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>

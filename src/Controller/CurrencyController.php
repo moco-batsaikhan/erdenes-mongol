@@ -174,7 +174,7 @@ class CurrencyController extends AbstractController
 
         return $this->render('currency/edit.html.twig', [
             'currencyForm' => $editCurrencyForm->createView(),
-            'page_title' => 'Нүүр зураг засах',
+            'page_title' => 'Компаний бүтэц засах',
         ]);
     }
 
