@@ -86,7 +86,9 @@
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-var clickTypeSelect = document.querySelector('.click-type-select');
+var clickTypeSelect = document.getElementById(`main_category_Form_clickType`);
+
+console.log("test", clickTypeSelect);
 
 clickTypeSelect.addEventListener('change', function () {
 var selectedValue = clickTypeSelect.value;
@@ -96,16 +98,16 @@ document.getElementById('newsId-field').style.display = 'none';
 document.getElementById('newsType-field').style.display = 'none';
 document.getElementById('create-type-field').style.display = 'none';
 
-if (selectedValue === 'REDIRECT') {
+if (selectedValue && mainCategoryForm.clickType === 'REDIRECT') {
 document.getElementById('newsId-field').style.display = 'block';
 
-} else if (selectedValue === 'LINK') {
+} else if (selectedValue && mainCategoryForm.clickType === 'LINK') {
 document.getElementById('redirectLink-field').style.display = 'block';
 
-} else if (selectedValue === 'THUMBNAIL') {
+} else if (selectedValue && mainCategoryForm.clickType === 'THUMBNAIL') {
 document.getElementById('create-type-field').style.display = 'block';
 document.getElementById('newsType-field').style.display = 'block';
-} else if (selectedValue === 'DROPDOWN') {}
+} else if (selectedValue && mainCategoryForm.clickType === 'DROPDOWN') {}
 });
 });
 	</script>
