@@ -67,10 +67,10 @@ class BannerCreateFormType extends AbstractType
             ])
             ->add('iconFile', VichFileType::class, [
                 'required' => true,
-                'label' => 'Зураг оруулах',
+                'label' => 'Icon оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
+                'download_label' => 'Icon харах',
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

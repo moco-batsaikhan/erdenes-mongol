@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
 class NewsController extends AbstractController
 {
     #[Route('/news/{typeId}', name: 'news_index', methods: ['get'])]
-    public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId, $page)
+    public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId)
     {
         $pagesize = 10;
         $page = $request->get('page') ? $request->get('page') : 1;

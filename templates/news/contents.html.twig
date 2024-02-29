@@ -45,9 +45,9 @@
 						<tr>
 							<th>№</th>
 							<th>Агуулгийн нэр</th>
-							{# <th>Агуулга</th> #}
 							<th>Контентийн дараалал</th>
 							<th>Контентийн төрөл</th>
+							<th>#</th>
 						</tr>
 					</thead>
 					<tbody id="sortable" data-sortable-id="1" aria-dropeffect="move">
@@ -57,6 +57,25 @@
 								<td class="content-list">{{ content.name }}</td>
 								<td class="content-list">{{ content.priority}}</td>
 								<td class="content-list">{{ content.type}}</td>
+								<td>
+									{% if content.type == 'JSON' %}
+										<a href="{{ path('app_content_edit_chart', {'id': content.id}) }}" class="btn btn-primary btn-sm">
+											<i class="fas fa-edit"></i>
+										</a>
+									{% elseif content.type == 'SLIDE' %}
+										<a href="{{ path('app_content_edit_slide', {'id': content.id}) }}" class="btn btn-primary btn-sm">
+											<i class="fas fa-edit"></i>
+										</a>
+									{% elseif content.type == 'CK_EDITOR' %}
+										<a href="{{ path('app_content_edit_ckeditor', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+											<i class="fas fa-edit"></i>
+										</a>
+									{% elseif content.type == 'PDF' %}
+										<a href="{{ path('app_content_pdf_edit', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+											<i class="fas fa-edit"></i>
+										</a>
+									{% endif %}
+								</td>
 							</tr>
 						{% endfor %}
 					</tbody>

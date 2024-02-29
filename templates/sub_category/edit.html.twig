@@ -78,9 +78,20 @@
 
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-var clickTypeSelect = document.querySelector('.click-type-select');
+var clickTypeSelect = document.getElementById("sub_category_edit_form_clickType");
+var selectedValue = clickTypeSelect.value;
 
-clickTypeSelect.addEventListener('change', function () {
+
+if (selectedValue == 'REDIRECT') {
+document.getElementById('newsId-field').style.display = 'block';
+
+} else if (selectedValue == 'LINK') {
+document.getElementById('redirectLink-field').style.display = 'block';
+
+} else if (selectedValue == 'THUMBNAIL') {
+document.getElementById('create-type-field').style.display = 'block';
+document.getElementById('newsType-field').style.display = 'block';
+} else if (selectedValue == 'DROPDOWN') {}clickTypeSelect.addEventListener('change', function () {
 var selectedValue = clickTypeSelect.value;
 
 document.getElementById('redirectLink-field').style.display = 'none';

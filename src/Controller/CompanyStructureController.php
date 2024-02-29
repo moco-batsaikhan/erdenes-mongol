@@ -79,7 +79,7 @@ class CompanyStructureController extends AbstractController
 
         return $this->render('company_structure/create.html.twig', [
             'structureForm' => $structureForm->createView(),
-            'page_title' => 'Нүүр зураг',
+            'page_title' => 'Компаний бүтэц',
         ]);
     }
 
@@ -116,7 +116,7 @@ class CompanyStructureController extends AbstractController
 
         return $this->render('company_structure/edit.html.twig', [
             'structureForm' => $editStructureForm->createView(),
-            'page_title' => 'Нүүр зураг засах',
+            'page_title' => 'Компаний бүтэц засах',
         ]);
     }
 }

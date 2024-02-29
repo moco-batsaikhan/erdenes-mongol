@@ -34,7 +34,19 @@ class CurrencyController extends AbstractController
         $data = $qb->getQuery()->getOneOrNullResult();
 
         if (!$data) {
-            throw new NotFoundHttpException('Таны оруулсан өдрийх ханшийн мэдээлэл ороогүй байна. ' . $date);
+            $qb = $entityManager->createQueryBuilder();
+            $qb->select('e.id, e.file, e.enFile, e.CurrencyDate')
+                ->from(Currency::class, 'e')
+                ->where('e.CurrencyDate < :date')
+                ->orderBy('e.CurrencyDate', 'DESC')
+                ->setParameter('date', $date)
+                ->setMaxResults(1);
+
+            $data = $qb->getQuery()->getOneOrNullResult();
+
+            if (!$data) {
+                throw new NotFoundHttpException('No currency data found for the specified date or previous dates.');
+            }
         }
 
         $currencyData = $serializer->serialize($data, 'json');

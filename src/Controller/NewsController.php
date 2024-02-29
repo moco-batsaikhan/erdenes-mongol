@@ -104,7 +104,7 @@ class NewsController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($news->getId());
-            $log->setAction('Нүүр мэдээлэл засав.');
+            $log->setAction('мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -117,7 +117,7 @@ class NewsController extends AbstractController
 
         return $this->render('news/edit.html.twig', [
             'newsForm' => $editNewsForm->createView(),
-            'page_title' => 'Нүүр зураг засах',
+            'page_title' => 'Мэдээ засах',
         ]);
     }
 
