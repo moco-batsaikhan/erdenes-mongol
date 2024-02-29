@@ -21,6 +21,7 @@ class MenuController extends AbstractController
     #[Route('/menu/{type}', name: 'menu_index', methods: ['get'])]
     public function getAction(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer, $type): Response
     {
+        $type = strtoupper($type);
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
         // $data = $entityManager->getRepository(MainCategory::class)
