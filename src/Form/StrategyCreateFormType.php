@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Strategy;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -160,6 +161,21 @@ class StrategyCreateFormType extends AbstractType
                 ],
                 'required' => false,
             ])
+            ->add(
+                'active',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Төлөв',
+                    'choices' =>
+                    array(
+                        'Идэвхитэй' => true,
+                        'Идэвхигүй' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
             ->add('save', SubmitType::class, [
                 'label' => 'Хадгалах',
                 'attr' => [

@@ -35,6 +35,7 @@
 							<th>Гарчиг(Монгол)</th>
 							<th>Гарчиг(Англи)</th>
 							<th>Гарчиг(Хятад)</th>
+							<th>Төлөв</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -44,6 +45,13 @@
 								<td>{{ item.mnTitle}}</td>
 								<td>{{ item.enTitle}}</td>
 								<td>{{ item.cnTitle}}</td>
+								<td>
+									{% if item.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
 								<td>
 									<a href="{{ path('app_strategy_edit', {'id' : item.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
