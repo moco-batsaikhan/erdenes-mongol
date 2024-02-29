@@ -20,7 +20,7 @@ class NewsController extends AbstractController
     #[Route('/news/{typeId}/{page}', name: 'news_index', requirements: ['page' => '\d+'], defaults: ['page' => 1], methods: ['get'])]
     public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId, $page)
     {
-        $pagesize = 20;
+        $pagesize = 10;
 
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
