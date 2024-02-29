@@ -23,18 +23,35 @@ class MenuController extends AbstractController
     {
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
-        $data = $entityManager->getRepository(MainCategory::class)
+        // $data = $entityManager->getRepository(MainCategory::class)
+        //     ->createQueryBuilder('p')
+        //     ->leftjoin('App\Entity\NewsType', 'nt', \Doctrine\ORM\Query\Expr\Join::WITH, 'nt.id = p.newsType')
+        //     ->leftjoin('App\Entity\News', 'n', \Doctrine\ORM\Query\Expr\Join::WITH, 'n.id = p.newsId')
+        //     ->select('p,n,nt')
+        //     ->where('p.type = :HEADER')
+        //     ->andWhere('p.active = 1')
+        //     ->setParameter('HEADER', $type)
+        //     ->orderBy('p.priority', 'ASC')
+        //     ->getQuery()
+        //     ->getScalarResult();
+
+        $queryBuilder = $entityManager->getRepository(MainCategory::class)
             ->createQueryBuilder('p')
             ->leftjoin('App\Entity\NewsType', 'nt', \Doctrine\ORM\Query\Expr\Join::WITH, 'nt.id = p.newsType')
             ->leftjoin('App\Entity\News', 'n', \Doctrine\ORM\Query\Expr\Join::WITH, 'n.id = p.newsId')
             ->select('p,n,nt')
-            ->where('p.type = :HEADER')
-            ->andWhere('p.active = 1')
-            ->setParameter('HEADER', $type)
-            ->orderBy('p.priority', 'ASC')
-            ->getQuery()
-            ->getScalarResult();
+            ->where('p.active = 1')
+            ->orderBy('p.priority', 'ASC');
 
+        if ($type === 'HEADER') {
+            $queryBuilder->andWhere('p.type IN (:TYPES)')
+                ->setParameter('TYPES', ['HEADER', 'ALL']);
+        } elseif ($type === 'FOOTER') {
+            $queryBuilder->andWhere('p.type IN (:TYPES)')
+                ->setParameter('TYPES', ['FOOTER', 'ALL']);
+        }
+
+        $data = $queryBuilder->getQuery()->getScalarResult();
 
         $menuDto = [];
         foreach ($data as $key => $value) {
