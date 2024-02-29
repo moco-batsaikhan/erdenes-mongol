@@ -17,10 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 #[Route('/api', name: 'api_')]
 class NewsController extends AbstractController
 {
-    #[Route('/news/{typeId}/{page}', name: 'news_index', requirements: ['page' => '\d+'], defaults: ['page' => 1], methods: ['get'])]
+    #[Route('/news/{typeId}', name: 'news_index', methods: ['get'])]
     public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId, $page)
     {
         $pagesize = 10;
+        $page = $request->get('page') ? $request->get('page') : 1;
 
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';

@@ -51,6 +51,18 @@ class Employee
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updateAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $type = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $experience = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $facebook = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $twitter = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -194,6 +206,54 @@ class Employee
     public function setUpdateAt(\DateTimeInterface $updateAt): static
     {
         $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    public function isType(): ?bool
+    {
+        return $this->type;
+    }
+
+    public function setType(?bool $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getExperience(): ?string
+    {
+        return $this->experience;
+    }
+
+    public function setExperience(?string $experience): static
+    {
+        $this->experience = $experience;
+
+        return $this;
+    }
+
+    public function getFacebook(): ?string
+    {
+        return $this->facebook;
+    }
+
+    public function setFacebook(?string $facebook): static
+    {
+        $this->facebook = $facebook;
+
+        return $this;
+    }
+
+    public function getTwitter(): ?string
+    {
+        return $this->twitter;
+    }
+
+    public function setTwitter(?string $twitter): static
+    {
+        $this->twitter = $twitter;
 
         return $this;
     }

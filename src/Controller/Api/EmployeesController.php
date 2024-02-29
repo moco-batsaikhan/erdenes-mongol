@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -16,14 +17,22 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class EmployeesController extends AbstractController
 {
 
-    #[Route('/employees/{page}', name: 'employee_index', requirements: ['page' => '\d+'], defaults: ['page' => 1],  methods: ['get'])]
-    public function getEmployees(EntityManagerInterface $entityManager, SerializerInterface $serializer, $page): Response
+    #[Route('/employees/list/{type}', name: 'employee_index',  methods: ['get'])]
+    public function getEmployees($type,Request $request,EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
         $pageSize = 10;
+        $page = $request->get('page') ? $request->get('page') : 1;
+
 
         $qb = $entityManager->createQueryBuilder();
-        $qb->select('e.id', 'e.name', 'e.priority', 'e.email', 'e.division', 'e.image', 'e.department')
+        $cloneQb = clone $qb;
+        $count = $cloneQb->select('count(e.id)')->from(Employee::class, 'e')
+        ->where('e.type = :type')->setParameter("type",$type)->getQuery()
+        ->getSingleScalarResult();
+        $qb->select('e.id', 'e.name', 'e.priority', 'e.email', 'e.division', 'e.image', 'e.department','e.facebook','e.twitter')
             ->from(Employee::class, 'e')
+            ->where('e.type = :type')
+            ->setParameter("type",$type)
             ->orderBy('e.priority', 'ASC')
             ->setFirstResult(($page - 1) * $pageSize)
             ->setMaxResults($pageSize);
@@ -41,6 +50,7 @@ class EmployeesController extends AbstractController
         $employees = $serializer->serialize($data, 'json');
 
         $response = [
+            'count' => $count,
             'data' => json_decode($employees),
             'page' => $page,
             'pagesize' => $pageSize
@@ -58,7 +68,7 @@ class EmployeesController extends AbstractController
             }
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id, e.name, e.email, e.phone, e.division, e.image, e.priority, e.department')
+            $qb->select('e.id, e.name, e.email, e.phone, e.division, e.image, e.priority, e.department, e.experience, e.facebook,e.twitter')
                 ->from(Employee::class, 'e')
                 ->where('e.id = :id')
                 ->setParameter('id', $id);
