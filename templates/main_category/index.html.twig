@@ -1,126 +1,139 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    {{ page_title }}
+	{{ page_title }}
 {% endblock %}
 
 {% block body %}
 
-    <div class="card">
-        <div class="card-body">
-            <div class="display-grid">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item">
-                            <a href="{{ path('app_home') }}">Нүүр хуудас</a>
-                        </li>
+	<div class="card">
+		<div class="card-body">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
 
-                        <li class="breadcrumb-item">
-                            Үндсэн цэс
-                        </li>
-                    </ol>
-                </nav>
-            </div>
+						<li class="breadcrumb-item">
+							Үндсэн цэс
+						</li>
+					</ol>
+				</nav>
+			</div>
 
-            <div>
-                <a href="{{ path('app_main_category_create') }}" class="btn btn-primary btn-sm">
-                    + Шинээр нэмэх</a>
-            </div>
+			<div>
+				<a href="{{ path('app_main_category_create') }}" class="btn btn-primary btn-sm">
+					+ Шинээр нэмэх</a>
+			</div>
 
-            <br>
+			<br>
 
-            {% include 'layout/flash.html.twig' %}
+			<div>
+				<span>Үндсэн цэснүүдээс эрэмбэлж эхний 10 хүртлэх цэсийг веб дээр харуулах болно.</span>
+			</div>
 
-            <div class="table-responsive">
-                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Цэс нэр</th>
-                        <th>Action хийх үед /цэс дээр дарахад/</th>
-                        <th>Байршил</th>
-                        <th>Дараалал</th>
-                        <th>#</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for category in categories %}
-                    <tr>
-                        <td><b>{{ category.id }}</b></td>
-                        <td> <b>{{ category.mnName }} </b></td>
-                        <td>
-                            {% if category.clickType == 'DROPDOWN' %}
-                                <p>Доорх цэс харагдах</p>
-                            {% elseif category.clickType == 'REDIRECT' %}
-                                <p>Мэдээ харуулах</p>
-                            {% elseif category.clickType == 'LINK' %}
-                                <p>Статик хуудас</p>
-                            {% elseif category.clickType == 'THUMBNAIL' %}
-                                <p>Жагсаалт харуулах</p>
-                            {% endif %}
-                        </td>
-                        <td>
-                            {% if category.type == 'ALL' %}
-                                <p>Бүх байршилд</p>
-                            {% elseif category.type == 'SIDEBAR' %}
-                                <p>Хажуугийн цэс</p>
-                            {% elseif category.type == 'FOOTER' %}
-                                <p>Footer байршилд</p>
-                            {% elseif category.type == 'HEADER' %}
-                                <p>Header байршилд</p>
-                            {% endif %}
-                        </td>
-                        <td>{{ category.priority }}</td>
-                        <td>
-                            <a href="{{ path('app_main_category_edit', {'id' : category.id}) }}"
-                               class="btn btn-primary btn-sm">
-                                <i class="fas fa-edit"></i>
-                            </a>
+			<br>
 
-                            <a href="{{ path('app_sub_category_create', {'id' : category.id}) }}"
-                               class="btn btn-primary btn-sm">
-                                Дэд цэс нэмэх
-                            </a>
-                        </td>
-                    </tr>
+			{% include 'layout/flash.html.twig' %}
 
-                    {% for subcategory in subcategories %}
+			<div class="table-responsive">
+				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+					<thead>
+						<tr>
+							<th>№</th>
+							<th>Цэс нэр</th>
+							<th>Action хийх үед /цэс дээр дарахад/</th>
+							<th>Байршил</th>
+							<th>Дараалал</th>
+							<th>#</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for category in categories %}
+							<tr>
+								<td>
+									<b>{{ category.id }}</b>
+								</td>
+								<td>
+									<b>{{ category.mnName }}
+									</b>
+								</td>
+								<td>
+									{% if category.clickType == 'DROPDOWN' %}
+										<p>Доорх цэс харагдах</p>
+									{% elseif category.clickType == 'REDIRECT' %}
+										<p>Мэдээ харуулах</p>
+									{% elseif category.clickType == 'LINK' %}
+										<p>Статик хуудас</p>
+									{% elseif category.clickType == 'THUMBNAIL' %}
+										<p>Жагсаалт харуулах</p>
+									{% endif %}
+								</td>
+								<td>
+									{% if category.type == 'ALL' %}
+										<p>Бүх байршилд</p>
+									{% elseif category.type == 'SIDEBAR' %}
+										<p>Хажуугийн цэс</p>
+									{% elseif category.type == 'FOOTER' %}
+										<p>Footer байршилд</p>
+									{% elseif category.type == 'HEADER' %}
+										<p>Header байршилд</p>
+									{% endif %}
+								</td>
+								<td>{{ category.priority }}</td>
+								<td>
+									<a href="{{ path('app_main_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
+										<i class="fas fa-edit"></i>
+									</a>
 
-                        {% if subcategory.mainCategoryId.id == category.id %}
-                            <tr>
-                                <td style="text-align: right"><b>{{ subcategory.mainCategoryId.id }}.{{ subcategory.id }}</b></td>
-                                <td style="padding-left: 50px;"><b>{{ subcategory.mnName }} </b></td>
-                                <td>
-                                    {% if subcategory.clickType == 'DROPDOWN' %}
-                                        <p>Доорх цэс харагдах</p>
-                                    {% elseif subcategory.clickType == 'REDIRECT' %}
-                                        <p>Мэдээ харуулах</p>
-                                    {% elseif subcategory.clickType == 'LINK' %}
-                                        <p>Статик хуудас</p>
-                                    {% elseif subcategory.clickType == 'THUMBNAIL' %}
-                                        <p>Жагсаалт харуулах</p>
-                                    {% endif %}
-                                </td>
-                                <td>-
-                                </td>
-                                <td>{{ subcategory.priority }}</td>
-                                <td>
-                                    <a href="{{ path('app_sub_category_edit', {'id' : subcategory.id}) }}"
-                                       class="btn btn-primary btn-sm">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                    {% endfor %}
-                </table>
-            </div>
+									<a href="{{ path('app_sub_category_create', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
+										Дэд цэс нэмэх
+									</a>
+								</td>
+							</tr>
 
-            {% if categories|length > 0 %}
-                {% include 'layout/pagination.html.twig' %}
-            {% endif %}
-        </div>
-    </div>
+							{% for subcategory in subcategories %}
+
+								{% if subcategory.mainCategoryId.id == category.id %}
+									<tr>
+										<td style="text-align: right">
+											<b>{{ subcategory.mainCategoryId.id }}.{{ subcategory.id }}</b>
+										</td>
+										<td style="padding-left: 50px;">
+											<b>{{ subcategory.mnName }}
+											</b>
+										</td>
+										<td>
+											{% if subcategory.clickType == 'DROPDOWN' %}
+												<p>Доорх цэс харагдах</p>
+											{% elseif subcategory.clickType == 'REDIRECT' %}
+												<p>Мэдээ харуулах</p>
+											{% elseif subcategory.clickType == 'LINK' %}
+												<p>Статик хуудас</p>
+											{% elseif subcategory.clickType == 'THUMBNAIL' %}
+												<p>Жагсаалт харуулах</p>
+											{% endif %}
+										</td>
+										<td>-
+										</td>
+										<td>{{ subcategory.priority }}</td>
+										<td>
+											<a href="{{ path('app_sub_category_edit', {'id' : subcategory.id}) }}" class="btn btn-primary btn-sm">
+												<i class="fas fa-edit"></i>
+											</a>
+										</td>
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					{% endfor %}
+				</table>
+			</div>
+
+			{% if categories|length > 0 %}
+				{% include 'layout/pagination.html.twig' %}
+			{% endif %}
+		</div>
+	</div>
 {% endblock %}
