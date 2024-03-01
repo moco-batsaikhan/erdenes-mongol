@@ -69,6 +69,13 @@ class AboutUsEditFormType extends AbstractType
                     "placeholder" => "оруулна уу ...",
                 )
             ))
+            ->add('cnVision', TextType::class, array(
+                'label' => 'Алсын хараа(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "оруулна уу ...",
+                )
+            ))
             ->add('mnSlogan', TextType::class, array(
                 'label' => 'Уриа үг(Монгол)',
                 'attr' => array(
@@ -90,7 +97,6 @@ class AboutUsEditFormType extends AbstractType
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-
             ->add('imageFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Зураг оруулах',

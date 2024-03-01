@@ -27,11 +27,6 @@ class AboutUsController extends AbstractController
             return new JsonResponse(['error' => 'No data found'], Response::HTTP_NOT_FOUND);
         }
 
-        // if (!isset($data[0])) {
-        //     return new JsonResponse(['code' => '404', 'message' => 'Not found data by id ' . $id]);
-        // }
-        // $data = $data[0];
-
         $principles = '';
         $purpose = '';
         $vision = '';
