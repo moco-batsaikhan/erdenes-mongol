@@ -32,6 +32,7 @@ class JobAdsController extends AbstractController
         $qb->select('e.id', 'e.title', 'e.profession', 'e.applicationDeadline', 'e.body', 'e.createdAt')
             ->from(JobAds::class, 'e')
             ->setFirstResult(($page - 1) * $pageSize)
+            ->orderBy('e.createdAt', 'DESC')
             ->setMaxResults($pageSize);
 
         $query = $qb->getQuery();

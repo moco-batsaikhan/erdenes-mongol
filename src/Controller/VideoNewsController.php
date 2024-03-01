@@ -62,7 +62,7 @@ class VideoNewsController extends AbstractController
                 $log->setAdminname($this->getUser()->getUserIdentifier());
                 $log->setIpaddress($request->getClientIp());
                 $log->setValue($videoNews->getName());
-                $log->setAction('Шинэ нүүр зураг үүсгэв.');
+                $log->setAction('Шинэ видео мэдээлэл үүсгэв.');
                 $log->setCreatedAt(new \DateTime('now'));
 
                 $em->persist($log);
@@ -105,7 +105,7 @@ class VideoNewsController extends AbstractController
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
             $log->setValue($videoNews->getId());
-            $log->setAction('Нүүр мэдээлэл засав.');
+            $log->setAction('Видео мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
             $em->persist($log);
@@ -118,7 +118,7 @@ class VideoNewsController extends AbstractController
 
         return $this->render('video_news/edit.html.twig', [
             'editVideoForm' => $editVideoForm->createView(),
-            'page_title' => 'Нүүр зураг засах',
+            'page_title' => 'Видео мэдээлэл засах',
         ]);
     }
 }

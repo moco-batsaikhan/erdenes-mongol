@@ -97,8 +97,7 @@ class NewsTypeController extends AbstractController
 
         return $this->render('news_type/edit.html.twig', [
             'newsForm' => $editNewsForm->createView(),
-            'page_title' => 'Нүүр зураг засах',
+            'page_title' => 'Мэдээний жагсаалт засах',
         ]);
     }
-
 }

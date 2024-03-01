@@ -3,7 +3,9 @@
 namespace App\Form;
 
 use App\Entity\Employee;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -68,6 +70,41 @@ class EmployeeCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
+            ->add(
+                'type',
+                ChoiceType::class,
+                array(
+                    'attr' => array('class' => 'form-control'),
+                    'label' => 'Төрөл',
+                    'choices' =>
+                    array(
+                        'Удирдлагын баг' => true,
+                        'Ажилтан' => false
+                    ),
+                    'multiple' => false,
+                    'required' => false,
+                )
+            )
+            ->add('experience', CKEditorType::class, array(
+                'label' => 'Ажлын туршлага',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('facebook', TextType::class, array(
+                'label' => 'facebook хаяг',
+                'attr' => array(
+                    "class" => "form-control",
+                ),
+                'required' => false,
+            ))
+            ->add('twitter', TextType::class, array(
+                'label' => 'Twitter хаяг',
+                'attr' => array(
+                    "class" => "form-control",
+                ),
+                'required' => false,
+            ))
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

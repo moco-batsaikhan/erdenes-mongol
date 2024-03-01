@@ -1,11 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}
-	{{ page_title }}
+{% block title %}Strategy
 {% endblock %}
 
 {% block body %}
-
 	<div class="card">
 		<div class="card-body">
 			<div class="display-grid">
@@ -16,21 +14,16 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
-						</li>
-
-						<li class="breadcrumb-item">
-							Мэдээ SLIDE
+							Стратеги
 						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_content_create_slide') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_strategy_create') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
-
 			<br>
 
 			{% include 'layout/flash.html.twig' %}
@@ -39,36 +32,28 @@
 				<table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
 					<thead>
 						<tr>
-							<th>№</th>
-							<th>Агуулгийн нэр</th>
-							<th>Агуулгийн төрөл</th>
-							<th>Контентийн дараалал</th>
+							<th>Гарчиг(Монгол)</th>
+							<th>Гарчиг(Англи)</th>
+							<th>Гарчиг(Хятад)</th>
 							<th>Төлөв</th>
-							<th>Харьяалагдах мэдээ</th>
 							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for content in contents %}
+						{% for item in strategys %}
 							<tr>
-								<td>{{ content.id }}</td>
-								<td>{{ content.name }}</td>
-								<td>{{ content.type }}</td>
-								<td>{{ content.priority}}</td>
+								<td>{{ item.mnTitle}}</td>
+								<td>{{ item.enTitle}}</td>
+								<td>{{ item.cnTitle}}</td>
 								<td>
-									{% if content.active == true %}
+									{% if item.active == true %}
 										<b style="color: darkgreen">Идэвхитэй</b>
 									{% else %}
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
 								<td>
-									<a href="{{ path('app_news_edit', {'id' : content.getNews.id }) }}" class="btn btn-primary btn-sm">
-										{{ content.getNews.MnTitle }}
-									</a>
-								</td>
-								<td>
-									<a href="{{ path('app_content_edit_slide', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+									<a href="{{ path('app_strategy_edit', {'id' : item.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
 								</td>
@@ -78,7 +63,7 @@
 
 				</table>
 			</div>
-			{% if contents|length > 0 %}
+			{% if strategys|length > 0 %}
 				{% include 'layout/pagination.html.twig' %}
 			{% endif %}
 		</div>

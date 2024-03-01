@@ -21,29 +21,52 @@ class BannerEditFormType extends AbstractType
         $builder
 
             ->add('mnText', TextType::class, array(
-                'label' => '',
+                'label' => 'Нүүр зургийн тайлбар',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "нүүр зурнийн тайлбар оруулна уу ...",
+                    "placeholder" => "нүүр зургийн тайлбар оруулна уу ...",
                 )
 
             ))
             ->add('enText', TextType::class, array(
-                'label' => '',
+                'label' => 'Нүүр зургийн тайлбар',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "нүүр зурнийн тайлбар оруулна уу ...",
+                    "placeholder" => "нүүр зургийн тайлбар оруулна уу ...",
                 )
 
             ))
             ->add('cnText', TextType::class, array(
-                'label' => '',
+                'label' => 'Нүүр зургийн тайлбар',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "нүүр зурнийн тайлбар оруулна уу ...",
+                    "placeholder" => "нүүр зургийн тайлбар оруулна уу ...",
                 )
 
             ))
+
+            ->add('imageFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Зураг оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Зураг харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
+            ->add('iconFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Icon оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Зураг харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
             ->add('startedDate', DateType::class, array(
                 'label' => 'Эхлэх огноо',
                 'required' => true,
@@ -58,6 +81,7 @@ class BannerEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+
             ->add(
                 'active',
                 ChoiceType::class,
@@ -79,7 +103,7 @@ class BannerEditFormType extends AbstractType
                 'attr' => array(
                     "class" => "btn btn-primary btn-sm"
                 )
-            ));;
+            ));
     }
 
     public function configureOptions(OptionsResolver $resolver): void
