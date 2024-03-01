@@ -77,7 +77,7 @@
 		function run() {
 			var e = document.getElementById("home_chart_edit_form_graphType");
 			var value = e.value;
-			document.getElementById('downloadExampleLink').setAttribute("href","http://localhost:8000/content/download-example-file?chartName="+value);
+			document.getElementById('downloadExampleLink').setAttribute("href","/content/download-example-file?chartName="+value);
 		}
 	</script>
 {% endblock %}
