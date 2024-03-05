@@ -29,19 +29,38 @@ class NewsController extends AbstractController
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
 
-        $news = $newsRepo->findAll();
-        $data = $newsRepo->findBy([], null, $pageSize, $offset);
+        $searchTerm = $request->query->get('search');
+
+        // $news = $newsRepo->findAll();
+        // $data = $newsRepo->findBy([], null, $pageSize, $offset);
+
+        $queryBuilder = $newsRepo->createQueryBuilder('n');
+        if ($searchTerm) {
+            $queryBuilder->where('n.mnTitle LIKE :searchTerm')
+                ->orWhere('n.enTitle LIKE :searchTerm')
+                ->orWhere('n.cnTitle LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $searchTerm . '%');
+        }
+
+        $data = $queryBuilder->setMaxResults($pageSize)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getResult();
+
+        $totalCount = $newsRepo->count([]);
+        $pageCount = ceil($totalCount / $pageSize);
 
 
         return $this->render('news/index.html.twig', [
             'current' => $this->current,
-            'frontBaseUrl'=> $this->getParameter('front_url'),
+            'frontBaseUrl' => $this->getParameter('front_url'),
             'page_title' => $this->pageTitle,
             'section_title' => 'Мэдээ',
             'news' => $data,
-            'pageCount' => ceil(count($news) / $pageSize),
+            'pageCount' =>  $pageCount,
             'currentPage' => $page,
-            'pageRoute' => 'app_news_index'
+            'pageRoute' => 'app_news_index',
+            'searchTerm' => $searchTerm
         ]);
     }
 

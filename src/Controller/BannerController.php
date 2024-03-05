@@ -22,6 +22,19 @@ class BannerController extends AbstractController
     private $pageTitle = 'нүүр зураг';
     private $columnSearch = [];
 
+    #[Route('/delete/{id}', name: '_delete', requirements: ['id' => "\d+"])]
+    public function delete(EntityManagerInterface $em, $id): Response
+    {
+        $banner = $em->getRepository(Banner::class)->find($id);
+
+        $em->remove($banner);
+        $em->flush();
+
+        $this->addFlash('success', 'Баннер амжилттай устгагдлаа.');
+
+        return $this->redirectToRoute('app_banner_index');
+    }
+
 
     #[Route('/{page}', name: '_index', requirements: ['page' => "\d+"])]
     public function index(EntityManagerInterface $em, $page = 1): Response

@@ -65,9 +65,12 @@
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.icon) }}" class="img-fluid" alt="Banner Image"></td>
 								<td>{{ banner.startedDate|date('Y-m-d') }}</td>
 								<td>{{ banner.endDate|date('Y-m-d') }}</td>
-								<td>
+								<td style="display: flex;">
 									<a href="{{ path('app_banner_edit', {'id' : banner.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
+									</a>
+									<a href="{{ path('app_banner_delete', {'id' : banner.id}) }}" class="btn btn-danger btn-sm" onclick="return confirm('Та баннер устгахдаа итгэлтэй байна уу?');">
+										<i class="fas fa-trash"></i>
 									</a>
 								</td>
 							</tr>
