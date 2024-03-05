@@ -35,6 +35,7 @@ class NewsController extends AbstractController
 
         return $this->render('news/index.html.twig', [
             'current' => $this->current,
+            'frontBaseUrl'=> $this->getParameter('front_url'),
             'page_title' => $this->pageTitle,
             'section_title' => 'Мэдээ',
             'news' => $data,

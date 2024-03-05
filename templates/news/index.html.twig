@@ -78,12 +78,12 @@
 									{% endif %}
 								</td>
 								<td style="display: flex">
-									{% if n.processType == 'CREATED' && is_granted('ROLE_NEWS_ADMIN')  %}
+									{% if n.processType == 'CREATED' and is_granted('ROLE_NEWS_ADMIN')  %}
 										<a href="{{ path('app_news_punlish', {'id' : n.id}) }}" id="editButton" class="btn btn-success">
 											Нийтлэх
 										</a>
 									{% endif %}
-										<a href="{{ path('app_news_example', {'id' : n.id}) }}" id="editButton" class="btn btn-success">
+										<a href="{{frontBaseUrl}}mn/news/{{n.id}}" target="_blank" id="editButton" class="btn btn-success">
 											Харах
 										</a>
 								</td>

@@ -76,7 +76,7 @@ class NewsCreateFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(

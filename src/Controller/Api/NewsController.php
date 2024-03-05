@@ -17,10 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 #[Route('/api', name: 'api_')]
 class NewsController extends AbstractController
 {
-    #[Route('/news/{typeId}/{page}', name: 'news_index', requirements: ['page' => '\d+'], defaults: ['page' => 1], methods: ['get'])]
-    public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId, $page)
+    #[Route('/news/{typeId}', name: 'news_index', methods: ['get'])]
+    public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId)
     {
-        $pagesize = 20;
+        $pagesize = 10;
+        $page = $request->get('page') ? $request->get('page') : 1;
 
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
@@ -30,13 +31,15 @@ class NewsController extends AbstractController
             ->getRepository(News::class)
             ->createQueryBuilder('p');
         $cloneQb = clone $qb;
-        $count = $cloneQb->select('count(p.id)')->where('p.active = 1')->andWhere('p.processType = PUBLISHED')
-            ->leftJoin('p.newsType', 'nt');
+        $count = $cloneQb->select('count(p.id)')->where('p.active = 1')->andWhere('p.processType = :stat')
+        ->setParameter('stat',"PUBLISHED")
+        ->leftJoin('p.newsType', 'nt');
 
 
         $data = $qb
             ->where('p.active = 1')
-            ->andWhere('p.processType = PUBLISHED')
+            ->andWhere('p.processType = :stat')
+            ->setParameter('stat',"PUBLISHED")
             ->leftJoin('p.newsType', 'nt');
 
 
