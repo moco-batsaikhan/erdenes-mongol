@@ -12,7 +12,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 
 #[Route('/api', name: 'api_')]
@@ -24,17 +23,6 @@ class MenuController extends AbstractController
         $type = strtoupper($type);
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
-        // $data = $entityManager->getRepository(MainCategory::class)
-        //     ->createQueryBuilder('p')
-        //     ->leftjoin('App\Entity\NewsType', 'nt', \Doctrine\ORM\Query\Expr\Join::WITH, 'nt.id = p.newsType')
-        //     ->leftjoin('App\Entity\News', 'n', \Doctrine\ORM\Query\Expr\Join::WITH, 'n.id = p.newsId')
-        //     ->select('p,n,nt')
-        //     ->where('p.type = :HEADER')
-        //     ->andWhere('p.active = 1')
-        //     ->setParameter('HEADER', $type)
-        //     ->orderBy('p.priority', 'ASC')
-        //     ->getQuery()
-        //     ->getScalarResult();
 
         $queryBuilder = $entityManager->getRepository(MainCategory::class)
             ->createQueryBuilder('p')
@@ -42,7 +30,8 @@ class MenuController extends AbstractController
             ->leftjoin('App\Entity\News', 'n', \Doctrine\ORM\Query\Expr\Join::WITH, 'n.id = p.newsId')
             ->select('p,n,nt')
             ->where('p.active = 1')
-            ->orderBy('p.priority', 'ASC');
+            ->orderBy('p.priority', 'ASC')
+            ->setMaxResults(10);
 
         if ($type === 'HEADER') {
             $queryBuilder->andWhere('p.type IN (:TYPES)')

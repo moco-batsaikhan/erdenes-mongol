@@ -42,12 +42,6 @@ class Banner
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
     private ?File $imageFile = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $endDate = null;
-
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $startedDate = null;
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
@@ -56,6 +50,12 @@ class Banner
 
     #[ORM\ManyToOne(inversedBy: 'banners')]
     private ?CmsUser $createdUser = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enIcon = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "enIcon")]
+    private ?File $enIconFile = null;
 
     public function __construct()
     {
@@ -80,18 +80,6 @@ class Banner
         return $this;
     }
 
-    public function getStartedDate(): ?\DateTimeInterface
-    {
-        return $this->startedDate;
-    }
-
-    public function setStartedDate(?\DateTimeInterface $startedDate): static
-    {
-        $this->startedDate = $startedDate;
-
-        return $this;
-    }
-
     public function getImageUrl(): ?string
     {
         return $this->imageUrl;
@@ -100,18 +88,6 @@ class Banner
     public function setImageUrl(?string $image_url): static
     {
         $this->imageUrl = $image_url;
-
-        return $this;
-    }
-
-    public function getEndDate(): ?\DateTimeInterface
-    {
-        return $this->endDate;
-    }
-
-    public function setEndDate(\DateTimeInterface $endDate): static
-    {
-        $this->endDate = $endDate;
 
         return $this;
     }
@@ -226,5 +202,33 @@ class Banner
     public function getIconFile()
     {
         return $this->iconFile;
+    }
+
+    public function setEnIconFile(File $image = null)
+    {
+        $this->enIconFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getEnIconFile()
+    {
+        return $this->enIconFile;
+    }
+
+
+
+    public function getEnIcon(): ?string
+    {
+        return $this->enIcon;
+    }
+
+    public function setEnIcon(?string $enIcon): static
+    {
+        $this->enIcon = $enIcon;
+
+        return $this;
     }
 }

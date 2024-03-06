@@ -42,7 +42,6 @@ class BannerEditFormType extends AbstractType
                     "class" => "form-control",
                     "placeholder" => "нүүр зургийн тайлбар оруулна уу ...",
                 )
-
             ))
 
             ->add('imageFile', VichFileType::class, [
@@ -58,30 +57,26 @@ class BannerEditFormType extends AbstractType
             ])
             ->add('iconFile', VichFileType::class, [
                 'required' => false,
-                'label' => 'Icon оруулах',
+                'label' => 'Logo оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
+                'download_label' => 'Logo харах',
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ])
-            ->add('startedDate', DateType::class, array(
-                'label' => 'Эхлэх огноо',
-                'required' => true,
+            ->add('enIconFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Logo(Англи) оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Logo харах',
+                'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
-            ))
-            ->add('endDate', DateType::class, array(
-                'label' => 'Дуусах огноо',
-                'required' => true,
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ))
-
+            ])
             ->add(
                 'active',
                 ChoiceType::class,

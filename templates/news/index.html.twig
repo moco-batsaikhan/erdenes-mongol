@@ -22,12 +22,32 @@
 				</nav>
 			</div>
 
-			<div>
-				<a href="{{ path('app_news_create') }}" class="btn btn-primary btn-sm">
-					+ Шинээр нэмэх</a>
+			<br>
+
+
+			<div class="d-flex">
+				<form class="d-none d-sm-inline-block form-inline mr-auto  my-md-0  navbar-search">
+					<div class="input-group">
+						<input type="text" class="form-control bg-light border-0 small" placeholder="Гарчигаар хайх..." aria-label="Search" aria-describedby="basic-addon2" value="{{ searchTerm }}">
+						<div class="input-group-append">
+							<button class="btn btn-primary" type="submit">
+								<i class="fas fa-search fa-sm"></i>
+							</button>
+						</div>
+					</div>
+				</form>
+
+
+				<div>
+					<a href="{{ path('app_news_create') }}" class="btn btn-primary btn-sm">
+						+ Шинээр нэмэх</a>
+				</div>
 			</div>
 
+
 			<br>
+			<br>
+
 
 			{% include 'layout/flash.html.twig' %}
 
@@ -41,7 +61,7 @@
 							<th>Гарчиг(Хятад)</th>
 							<th>Агуулга(Монгол)</th>
 							{# <th>Агуулга(Англи)</th>
-																																																								<th>Агуулга(Хятад)</th> #}
+																																																																																																																																																																																																																		<th>Агуулга(Хятад)</th> #}
 							<th>Thumbnail зураг</th>
 							<th>Унших хэсгийн зураг</th>
 							<th>Онцгой</th>
@@ -60,7 +80,7 @@
 								<td>{{ n.cnTitle }}</td>
 								<td>{{ n.mnHeadline }}</td>
 								{# <td>{{ n.enHeadline }}</td>
-																																																																<td>{{ n.cnHeadline }}</td> #}
+																																																																																																																																																																																																																																																<td>{{ n.cnHeadline }}</td> #}
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.imageUrl) }}" class="img-fluid" alt="Thumbnail Image"></td>
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.bodyImageUrl) }}" class="img-fluid" alt="detail Image"></td>
 								<td>
@@ -83,9 +103,9 @@
 											Нийтлэх
 										</a>
 									{% endif %}
-										<a href="{{frontBaseUrl}}mn/news/{{n.id}}" target="_blank" id="editButton" class="btn btn-success">
-											Харах
-										</a>
+									<a href="{{frontBaseUrl}}mn/news/{{n.id}}" target="_blank" id="editButton" class="btn btn-success">
+										Харах
+									</a>
 								</td>
 								<td>
 									<a href="{{ path('app_news_contents', {'id' : n.id}) }}" class="btn btn-primary btn-sm">
@@ -110,24 +130,24 @@
 	</div>
 
 	{# <script>document.getElementById('editButton').addEventListener('click', function () {
-																																																																													
-																																																																													fetch('your_api_endpoint', {
-																																																																													method: 'PUT',
-																																																																													headers: {
-																																																																													'Content-Type': 'application/json'
-																																																																													},
-																																																																													body: JSON.stringify(
-																																																																													{key1: 'value1', key2: 'value2'}
-																																																																													)
-																																																																													}).then(response => {
-																																																																													if (!response.ok) {
-																																																																													throw new Error('Network response was not ok');
-																																																																													}
-																																																																													return response.json();
-																																																																													}).then(data => {
-																																																																													console.log(data);
-																																																																													}).catch(error => {
-																																																																													console.error('There was a problem with the fetch operation:', error);
-																																																																													});
-																																																																													});</script> #}
+																																																																																																			
+																																																																																																			fetch('your_api_endpoint', {
+																																																																																																			method: 'PUT',
+																																																																																																			headers: {
+																																																																																																			'Content-Type': 'application/json'
+																																																																																																			},
+																																																																																																			body: JSON.stringify(
+																																																																																																			{key1: 'value1', key2: 'value2'}
+																																																																																																			)
+																																																																																																			}).then(response => {
+																																																																																																			if (!response.ok) {
+																																																																																																			throw new Error('Network response was not ok');
+																																																																																																			}
+																																																																																																			return response.json();
+																																																																																																			}).then(data => {
+																																																																																																			console.log(data);
+																																																																																																			}).catch(error => {
+																																																																																																			console.error('There was a problem with the fetch operation:', error);
+																																																																																																			});
+																																																																																																			});</script> #}
 {% endblock %}
