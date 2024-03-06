@@ -30,6 +30,7 @@ class NewsController extends AbstractController
         $offset = ($page - 1) * $pageSize;
 
         $searchTerm = $request->query->get('search');
+        $searchDate = $request->query->get('date');
 
         // $news = $newsRepo->findAll();
         // $data = $newsRepo->findBy([], null, $pageSize, $offset);
@@ -42,7 +43,12 @@ class NewsController extends AbstractController
                 ->setParameter('searchTerm', '%' . $searchTerm . '%');
         }
 
-        $data = $queryBuilder->setMaxResults($pageSize)
+        if ($searchDate) {
+            $queryBuilder->andWhere('n.createdAt = :searchDate')
+                ->setParameter('searchDate', $searchDate);
+        }
+
+        $data = $queryBuilder->orderBy("n.createdAt", "DESC")->setMaxResults($pageSize)
             ->setFirstResult($offset)
             ->getQuery()
             ->getResult();
@@ -57,10 +63,11 @@ class NewsController extends AbstractController
             'page_title' => $this->pageTitle,
             'section_title' => 'Мэдээ',
             'news' => $data,
-            'pageCount' =>  $pageCount,
+            'pageCount' => $pageCount,
             'currentPage' => $page,
             'pageRoute' => 'app_news_index',
-            'searchTerm' => $searchTerm
+            'searchTerm' => $searchTerm,
+            'searchDate'=> $searchDate
         ]);
     }
 

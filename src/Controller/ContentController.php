@@ -41,7 +41,7 @@ class ContentController extends AbstractController
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
         $content = $contentEditorRepo->findBy(['type' => 'CK_EDITOR']);
-        $data = $contentEditorRepo->findBy(['type' => 'CK_EDITOR'], null, $pageSize, $offset);
+        $data = $contentEditorRepo->findBy(['type' => 'CK_EDITOR'], ["createdAt"=>"DESC"], $pageSize, $offset);
 
 
         return $this->render('content_ckeditor/index.html.twig', [
@@ -145,7 +145,7 @@ class ContentController extends AbstractController
         $offset = ($page - 1) * $pageSize;
 
         $content = $contentRepo->findBy(['type' => 'PDF']);
-        $data = $contentRepo->findBy(['type' => 'PDF'], null, $pageSize, $offset);
+        $data = $contentRepo->findBy(['type' => 'PDF'],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
 
         return $this->render('content_pdf/index.html.twig', [
@@ -295,7 +295,7 @@ class ContentController extends AbstractController
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
         $content = $contentEditorRepo->findBy(['type' => 'JSON']);
-        $data = $contentEditorRepo->findBy(['type' => 'JSON'], null, $pageSize, $offset);
+        $data = $contentEditorRepo->findBy(['type' => 'JSON'],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
 
         return $this->render('content_chart/index.html.twig', [
@@ -633,7 +633,7 @@ class ContentController extends AbstractController
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
         $content = $contentEditorRepo->findBy(['type' => 'SLIDE']);
-        $data = $contentEditorRepo->findBy(['type' => 'SLIDE'], null, $pageSize, $offset);
+        $data = $contentEditorRepo->findBy(['type' => 'SLIDE'],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
 
         return $this->render('content_slide/index.html.twig', [

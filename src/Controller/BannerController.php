@@ -44,7 +44,7 @@ class BannerController extends AbstractController
         $offset = ($page - 1) * $pageSize;
 
         $banner = $bannerRepo->findAll();
-        $data = $bannerRepo->findBy([], null, $pageSize, $offset);
+        $data = $bannerRepo->findBy([],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
         return $this->render('banner/index.html.twig', [
             'current' => $this->current,

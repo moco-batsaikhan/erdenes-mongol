@@ -21,7 +21,7 @@ class BannerController extends AbstractController
 
         $lang = $request->query->get('lang', 'mn');
 
-        $data = $entityManager->getRepository(Banner::class)->createQueryBuilder('b')->where('b.active = 1')->orderBy('b.id', "DESC")->getQuery()
+        $data = $entityManager->getRepository(Banner::class)->createQueryBuilder('b')->where('b.active = 1')->orderBy('b.id', "DESC")->getQuery()->setMaxResults(1)
             ->getScalarResult();
 
         if (!$data) {
@@ -29,7 +29,7 @@ class BannerController extends AbstractController
                 ->orderBy('b.id', "DESC")->getQuery()
                 ->setMaxResults(1)->getScalarResult();
         }
-
+        
         $icon = '';
         switch ($lang) {
             case 'mn':
@@ -49,7 +49,7 @@ class BannerController extends AbstractController
         $bannerDto = [
             'id' => $data[0]['b_id'],
             'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $data[0]['b_imageUrl'],
-            'icon' => $icon,
+            'icon' => $this->getParameter('base_url') . 'uploads/image/' . $icon,
             'active' => $data[0]['b_active']
         ];
 

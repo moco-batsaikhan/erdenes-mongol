@@ -37,30 +37,29 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-    - { path: ^/$, roles: ROLE_ADMIN }
-    - { path: ^/admin, roles: ROLE_ADMIN }
-    - { path: ^/admin-log, roles: ROLE_ADMIN }
-    - { path: ^/main/category, roles: ROLE_ADMIN }
-    - { path: ^/section, roles: ROLE_ADMIN }
-    - { path: ^/web/config/index, roles: ROLE_ADMIN }
-    - { path: ^/banner, roles: ROLE_ADMIN }
-    - { path: ^/content/home-chart, roles: ROLE_ADMIN }
-    - { path: ^/map, roles: ROLE_ADMIN }
-    - { path: ^/about/us, roles: ROLE_ADMIN }
-    - { path: ^/employee, roles: ROLE_ADMIN }
-    - { path: ^/development/history, roles: ROLE_ADMIN }
-    - { path: ^/structure/index, roles: ROLE_ADMIN }
-    - { path: ^/currency, roles: ROLE_ADMIN }
-    - { path: ^/video/news, roles: ROLE_ADMIN }
-    - { path: ^/job/ads/index, roles: ROLE_ADMIN }
-    - { path: ^/feedback, roles: ROLE_ADMIN }
-    - { path: ^/news, roles: ROLE_ADMIN }
-    - { path: ^/content/chart, roles: ROLE_ADMIN }
-    - { path: ^/content/pdf, roles: ROLE_ADMIN }
-    - { path: ^/content/ckeditor, roles: ROLE_ADMIN }
-    - { path: ^/content/slide, roles: ROLE_ADMIN }
-    - { path: ^/news/type, roles: ROLE_ADMIN }
-    - { path: ^/profile, roles: ROLE_ADMIN }
-    - { path: ^/efconnect, role: ROLE_ADMIN }
-    - { path: ^/elfinder, role: ROLE_ADMIN }
-
+    - { path: ^/$, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN, ROLE_NEWS_ADMIN] }
+    - { path: ^/admin, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/admin-log, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/main/category, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/section, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/web/config/index, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/banner, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/content/home-chart, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/map, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/about/us, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/employee, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/development/history, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/structure/index, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/feedback, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/news, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/content/chart, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/content/pdf, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/content/ckeditor, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/content/slide, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/news/type, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/currency, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/video/news, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/job/ads/index, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/profile, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/efconnect, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/elfinder, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
