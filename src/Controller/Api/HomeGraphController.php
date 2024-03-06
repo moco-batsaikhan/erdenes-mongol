@@ -51,7 +51,7 @@ class HomeGraphController extends AbstractController
                 $description = $data->getCnDescription();
                 break;
             default:
-                $description = $data->getMnDescription(); // Default to Mongolian if language not specified or unrecognized
+                $description = $data->getMnDescription();
                 break;
         }
 

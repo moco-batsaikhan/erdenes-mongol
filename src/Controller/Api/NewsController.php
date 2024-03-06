@@ -32,14 +32,14 @@ class NewsController extends AbstractController
             ->createQueryBuilder('p');
         $cloneQb = clone $qb;
         $count = $cloneQb->select('count(p.id)')->where('p.active = 1')->andWhere('p.processType = :stat')
-        ->setParameter('stat',"PUBLISHED")
-        ->leftJoin('p.newsType', 'nt');
+            ->setParameter('stat', "PUBLISHED")
+            ->leftJoin('p.newsType', 'nt');
 
 
         $data = $qb
             ->where('p.active = 1')
             ->andWhere('p.processType = :stat')
-            ->setParameter('stat',"PUBLISHED")
+            ->setParameter('stat', "PUBLISHED")
             ->leftJoin('p.newsType', 'nt');
 
 
@@ -49,6 +49,7 @@ class NewsController extends AbstractController
             $cloneQuery = clone $videoBuilder;
             $countVideo = $cloneQuery->select('count(p.id)')->where('p.active = 1')->getQuery()->getSingleScalarResult();
             $videoNews = $videoBuilder->where('p.active = 1')
+                ->orderBy('p.id', 'DESC')
                 ->setFirstResult(($page - 1) * $pagesize)
                 ->setMaxResults($pagesize)
                 ->getQuery()

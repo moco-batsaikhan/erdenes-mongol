@@ -37,13 +37,10 @@
 						<tr>
 							<th>№</th>
 							<th>Тайлбар(Монгол)</th>
-							<th>Тайлбар(Англи)</th>
-							<th>Тайлбар(Хятад)</th>
 							<th>Төлөв</th>
 							<th>Зураг</th>
-							<th>icon</th>
-							<th>Эхлэх хугацаа</th>
-							<th>Дуусах хугацаа</th>
+							<th>Logo</th>
+							<th>Logo(Англи)</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -52,8 +49,6 @@
 							<tr>
 								<td>{{ banner.id }}</td>
 								<td>{{ banner.mnText }}</td>
-								<td>{{ banner.enText }}</td>
-								<td>{{ banner.cnText }}</td>
 								<td>
 									{% if banner.active == true %}
 										<b style="color: darkgreen">Идэвхитэй</b>
@@ -63,8 +58,7 @@
 								</td>
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.imageUrl) }}" class="img-fluid" alt="Banner Image"></td>
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.icon) }}" class="img-fluid" alt="Banner Image"></td>
-								<td>{{ banner.startedDate|date('Y-m-d') }}</td>
-								<td>{{ banner.endDate|date('Y-m-d') }}</td>
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ banner.enIcon) }}" class="img-fluid" alt="Banner Image"></td>
 								<td style="display: flex;">
 									<a href="{{ path('app_banner_edit', {'id' : banner.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>

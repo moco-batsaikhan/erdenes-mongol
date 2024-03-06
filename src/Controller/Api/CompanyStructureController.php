@@ -14,16 +14,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class CompanyStructureController extends AbstractController
 {
 
-    #[Route('/company/structures/all/{page}', name: 'structure_index', requirements: ['page' => '\d+'], defaults: ['page' => 1],  methods: ['get'])]
-    public function getCompanyStructures(EntityManagerInterface $entityManager, SerializerInterface $serializer, $page): Response
+    #[Route('/company/structures/all', name: 'structure_index',  methods: ['get'])]
+    public function getCompanyStructures(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
-        $pageSize = 10;
 
         $qb = $entityManager->createQueryBuilder();
         $qb->select('e.id', 'e.name', 'e.phone', 'e.icon', 'e.web', 'e.address', 'e.body')
-            ->from(CompanyStructure::class, 'e')
-            ->setFirstResult(($page - 1) * $pageSize)
-            ->setMaxResults($pageSize);
+            ->from(CompanyStructure::class, 'e');
 
         $query = $qb->getQuery();
         $data = $query->getResult();
@@ -38,8 +35,6 @@ class CompanyStructureController extends AbstractController
 
         $response = [
             'data' => json_decode($structures),
-            'page' => $page,
-            'pagesize' => $pageSize
         ];
 
         return new JsonResponse($response);

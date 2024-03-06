@@ -67,29 +67,26 @@ class BannerCreateFormType extends AbstractType
             ])
             ->add('iconFile', VichFileType::class, [
                 'required' => true,
-                'label' => 'Icon оруулах',
+                'label' => 'Logo оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Icon харах',
+                'download_label' => 'Logo харах',
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ])
-            ->add('startedDate', DateType::class, array(
-                'label' => 'Эхлэх огноо',
+            ->add('enIconFile', VichFileType::class, [
                 'required' => true,
+                'label' => 'Logo(Англи) оруулах',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Logo харах',
+                'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
-            ))
-            ->add('endDate', DateType::class, array(
-                'label' => 'Дуусах огноо',
-                'required' => true,
-                'attr' => array(
-                    "class" => "form-control",
-                )
-            ))
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
