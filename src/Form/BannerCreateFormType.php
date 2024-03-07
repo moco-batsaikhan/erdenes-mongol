@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Image;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class BannerCreateFormType extends AbstractType
@@ -58,6 +59,7 @@ class BannerCreateFormType extends AbstractType
                 'required' => true,
                 'label' => 'Зураг оруулах',
                 'allow_delete' => true,
+                'error_bubbling' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
                 'delete_label' => 'Устгах',
@@ -69,6 +71,7 @@ class BannerCreateFormType extends AbstractType
                 'required' => true,
                 'label' => 'Logo оруулах',
                 'allow_delete' => true,
+                'error_bubbling' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
                 'delete_label' => 'Устгах',
@@ -80,6 +83,7 @@ class BannerCreateFormType extends AbstractType
                 'required' => true,
                 'label' => 'Logo(Англи) оруулах',
                 'allow_delete' => true,
+                'error_bubbling' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
                 'delete_label' => 'Устгах',

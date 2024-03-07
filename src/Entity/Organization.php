@@ -6,6 +6,7 @@ use App\Repository\OrganizationRepository;
 use Doctrine\DBAL\Types\Types;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 #[Vich\Uploadable]
@@ -33,6 +34,9 @@ class Organization
     private ?string $logo = null;
 
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "logo")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
     private ?File $logoFile = null;
 
     // #[ORM\Column(type: Types::TEXT, nullable: true)]

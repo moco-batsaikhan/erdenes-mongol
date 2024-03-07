@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\BannerCreateFormType;
 use App\Form\BannerEditFormType;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/banner', name: 'app_banner')]
 
@@ -60,7 +61,7 @@ class BannerController extends AbstractController
 
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
 
         $banner = new Banner;
@@ -70,7 +71,18 @@ class BannerController extends AbstractController
 
         if ($bannerForm->isSubmitted() && $bannerForm->isValid()) {
             try {
-
+                $errors = $validator->validate($banner);
+              
+              
+                if (count($errors) > 0) {
+    
+                    $errorsString =  $errors[0]->getMessage();
+            
+                    $this->addFlash('danger', $errorsString);
+                    return $this->redirectToRoute('app_banner_create');
+                }
+                dd($errors);
+                die();
                 $banner->setCreatedUser($this->getUser());
                 $em->persist($banner);
                 $em->flush();

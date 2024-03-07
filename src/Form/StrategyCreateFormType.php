@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class StrategyCreateFormType extends AbstractType
 {
@@ -66,7 +67,7 @@ class StrategyCreateFormType extends AbstractType
                 'required' => false,
             ])
             ->add('mnPurpose', TextAreaType::class, [
-                'label' => 'зорилго(Монгол)',
+                'label' => 'стратегийн зорилго(Монгол)',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'зорилго оруулна уу ...',
@@ -74,7 +75,7 @@ class StrategyCreateFormType extends AbstractType
                 'required' => false,
             ])
             ->add('enPurpose', TextAreaType::class, [
-                'label' => 'зорилго(Англи)',
+                'label' => 'стратегийн зорилго(Англи)',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'зорилго оруулна уу ...',
@@ -82,7 +83,7 @@ class StrategyCreateFormType extends AbstractType
                 'required' => false,
             ])
             ->add('cnPurpose', TextAreaType::class, [
-                'label' => 'зорилго(Хятад)',
+                'label' => 'стратегийн зорилго(Хятад)',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'зорилго оруулна уу ...',
@@ -113,51 +114,28 @@ class StrategyCreateFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('mnTarget', TextAreaType::class, [
-                'label' => 'зорилт(Монгол)',
+            
+            ->add('mnSlogan', TextAreaType::class, [
+                'label' => 'Үнэт зүйл(Монгол)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилт оруулна уу ...',
+                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
-            ->add('enTarget', TextAreaType::class, [
-                'label' => 'зорилт(Англи)',
+            ->add('enSlogan', TextAreaType::class, [
+                'label' => 'Үнэт зүйл(Англи)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилт оруулна уу ...',
+                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
-            ->add('cnTarget', TextAreaType::class, [
-                'label' => 'зорилт(Хятад)',
+            ->add('cnSlogan', TextAreaType::class, [
+                'label' => 'Үнэт зүйл(Хятад)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилт оруулна уу ...',
-                ],
-                'required' => false,
-            ])
-            ->add('mnResult', TextAreaType::class, [
-                'label' => 'үр дүн(Монгол)',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'үр дүн оруулна уу ...',
-                ],
-                'required' => false,
-            ])
-            ->add('enResult', TextAreaType::class, [
-                'label' => 'үр дүн(Англи)',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'үр дүн оруулна уу ...',
-                ],
-                'required' => false,
-            ])
-            ->add('cnResult', TextAreaType::class, [
-                'label' => 'үр дүн(Хятад)',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'үр дүн оруулна уу ...',
+                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
@@ -176,6 +154,13 @@ class StrategyCreateFormType extends AbstractType
                     'required' => false,
                 )
             )
+            
+            ->add('pdfFile', VichFileType::class, [
+                'label' => 'PDF File',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Хадгалах',
                 'attr' => [

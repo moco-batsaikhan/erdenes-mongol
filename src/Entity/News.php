@@ -9,6 +9,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: NewsRepository::class)]
@@ -79,9 +80,15 @@ class News
     private ?string $bodyImageUrl = null;
 
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "bodyImageUrl")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
     private ?File $bodyimageFile = null;
 
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
     private ?File $imageFile = null;
 
     public function __construct()

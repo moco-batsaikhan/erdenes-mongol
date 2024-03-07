@@ -5,7 +5,10 @@ namespace App\Entity;
 use App\Repository\StrategyRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: StrategyRepository::class)]
 class Strategy
 {
@@ -47,23 +50,6 @@ class Strategy
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cnPurpose = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $mnTarget = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $enTarget = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $cnTarget = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $mnResult = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $enResult = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $cnResult = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
@@ -76,6 +62,24 @@ class Strategy
 
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
+
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnSlogan = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enSlogan = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnSlogan = null;
+
+    #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pdfFileName")]
+    private $pdfFile;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pdfFileName = null;
+
+
 
     public function __construct()
     {
@@ -220,77 +224,9 @@ class Strategy
         return $this;
     }
 
-    public function getMnTarget(): ?string
-    {
-        return $this->mnTarget;
-    }
+   
 
-    public function setMnTarget(?string $mnTarget): static
-    {
-        $this->mnTarget = $mnTarget;
-
-        return $this;
-    }
-
-    public function getEnTarget(): ?string
-    {
-        return $this->enTarget;
-    }
-
-    public function setEnTarget(?string $enTarget): static
-    {
-        $this->enTarget = $enTarget;
-
-        return $this;
-    }
-
-    public function getCnTarget(): ?string
-    {
-        return $this->cnTarget;
-    }
-
-    public function setCnTarget(?string $cnTarget): static
-    {
-        $this->cnTarget = $cnTarget;
-
-        return $this;
-    }
-
-    public function getMnResult(): ?string
-    {
-        return $this->mnResult;
-    }
-
-    public function setMnResult(?string $mnResult): static
-    {
-        $this->mnResult = $mnResult;
-
-        return $this;
-    }
-
-    public function getEnResult(): ?string
-    {
-        return $this->enResult;
-    }
-
-    public function setEnResult(?string $enResult): static
-    {
-        $this->enResult = $enResult;
-
-        return $this;
-    }
-
-    public function getCnResult(): ?string
-    {
-        return $this->cnResult;
-    }
-
-    public function setCnResult(?string $cnResult): static
-    {
-        $this->cnResult = $cnResult;
-
-        return $this;
-    }
+  
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
@@ -339,4 +275,64 @@ class Strategy
 
         return $this;
     }
+
+    public function getMnSlogan(): ?string
+    {
+        return $this->mnSlogan;
+    }
+
+    public function setMnSlogan(?string $mnSlogan): static
+    {
+        $this->mnSlogan = $mnSlogan;
+
+        return $this;
+    }
+
+    public function getEnSlogan(): ?string
+    {
+        return $this->enSlogan;
+    }
+
+    public function setEnSlogan(?string $enSlogan): static
+    {
+        $this->enSlogan = $enSlogan;
+
+        return $this;
+    }
+
+    public function getCnSlogan(): ?string
+    {
+        return $this->cnSlogan;
+    }
+
+    public function setCnSlogan(?string $cnSlogan): static
+    {
+        $this->cnSlogan = $cnSlogan;
+
+        return $this;
+    }
+
+    public function getPdfFileName(): ?string
+    {
+        return $this->pdfFileName;
+    }
+
+    public function setPdfFileName(?string $pdfFileName): static
+    {
+        $this->pdfFileName = $pdfFileName;
+
+        return $this;
+    }
+
+    public function getPdfFile(): ?File
+    {
+        return $this->pdfFile;
+    }
+
+    public function setPdfFile(?File $pdfFile): void
+    {
+        $this->pdfFile = $pdfFile;
+    }
+
+
 }
