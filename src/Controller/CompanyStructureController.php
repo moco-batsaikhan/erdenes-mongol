@@ -30,7 +30,7 @@ class CompanyStructureController extends AbstractController
         $offset = ($page - 1) * $pageSize;
 
         $structure = $structureRepo->findAll();
-        $data = $structureRepo->findBy([], null, $pageSize, $offset);
+        $data = $structureRepo->findBy([],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
         return $this->render('company_structure/index.html.twig', [
             'current' => $this->current,

@@ -20,7 +20,7 @@ class SectionController extends AbstractController
     public function show(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
         $data = $entityManager->getRepository(Layout::class)->findBy(
-            [],
+            ['active'=>'1'],
             [
                 'priority' => 'ASC'
             ]

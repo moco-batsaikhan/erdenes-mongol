@@ -16,10 +16,10 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 #[Route('/api', name: 'api_')]
 class CurrencyController extends AbstractController
 {
-    #[Route('/currency', name: 'currency',  methods: ['get'])]
+    #[Route('/currency', name: 'currency', methods: ['get'])]
     public function show(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
-        $date = $request->query->get('date');
+        $date = $request->query->get('date', date('Y-m-d'));
 
         if (!$date) {
             throw new BadRequestHttpException('Parameter "date" is required.');

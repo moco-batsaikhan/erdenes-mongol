@@ -22,6 +22,9 @@ class Layout
     #[ORM\Column]
     private ?int $priority = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $active = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Layout
     public function setPriority(int $priority): static
     {
         $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function isActive(): ?bool
+    {
+        return $this->active;
+    }
+
+    public function setActive(?bool $active): static
+    {
+        $this->active = $active;
 
         return $this;
     }

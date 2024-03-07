@@ -19,7 +19,7 @@ class JobAdsController extends AbstractController
 {
 
     #[Route('/job-ads', name: 'ads_index',  methods: ['get'])]
-    public function getAds(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer,): Response
+    public function getAds(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
         $pageSize = 10;
         $page = $request->get('page') ? $request->get('page') : 1;
@@ -31,6 +31,7 @@ class JobAdsController extends AbstractController
             ->getSingleScalarResult();
         $qb->select('e.id', 'e.title', 'e.profession', 'e.applicationDeadline', 'e.body', 'e.createdAt')
             ->from(JobAds::class, 'e')
+            ->where('e.active = 1')
             ->setFirstResult(($page - 1) * $pageSize)
             ->orderBy('e.createdAt', 'DESC')
             ->setMaxResults($pageSize);

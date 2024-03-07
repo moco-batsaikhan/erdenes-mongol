@@ -48,7 +48,7 @@
 							<tr>
 								<td>{{ item.id }}</td>
 								<td>{{ item.title }}</td>
-								<td>{{ item.applicationDeadline|date('Y-m-d') }}</td>
+								<td style={{date(item.applicationDeadline) < date()? "color:red" : "color:green"}}>{{  item.applicationDeadline|date('Y-m-d')  }}</td>
 								<td>{{ item.profession }}</td>
 								<td>
 									{% if item.active == true %}

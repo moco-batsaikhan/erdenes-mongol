@@ -58,7 +58,7 @@ class CurrencyController extends AbstractController
         $offset = ($page - 1) * $pageSize;
 
         $currency = $currencyRepo->findAll();
-        $data = $currencyRepo->findBy([], null, $pageSize, $offset);
+        $data = $currencyRepo->findBy([],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
 
         return $this->render('currency/index.html.twig', [

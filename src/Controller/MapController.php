@@ -28,7 +28,7 @@ class MapController extends AbstractController
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
         $map = $mapRepo->findAll();
-        $data = $mapRepo->findBy([], null, $pageSize, $offset);
+        $data = $mapRepo->findBy([],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
 
         return $this->render('map/index.html.twig', [

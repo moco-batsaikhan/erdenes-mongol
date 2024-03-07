@@ -28,7 +28,7 @@ class JobAdsController extends AbstractController
         $offset = ($page - 1) * $pageSize;
 
         $banner = $adsRepo->findAll();
-        $data = $adsRepo->findBy([], null, $pageSize, $offset);
+        $data = $adsRepo->findBy([],  ["createdAt"=>"DESC"], $pageSize, $offset);
 
         return $this->render('job_ads/index.html.twig', [
             'current' => $this->current,

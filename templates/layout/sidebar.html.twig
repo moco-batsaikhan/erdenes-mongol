@@ -5,8 +5,8 @@
 	<a
 		class="sidebar-brand d-flex align-items-center justify-content-center" href="{{path('app_home')}}">
 		{# <div class="sidebar-brand-icon rotate-n-15">
-																																																																																																																																																																																																																																	<i class="fas fa-laugh-wink"></i>
-																																																																																																																																																																																																																																</div> #}
+																																																																																																																																																																																																																																					<i class="fas fa-laugh-wink"></i>
+																																																																																																																																																																																																																																				</div> #}
 		<div class="sidebar-brand-text mx-3">Erdenes Mongol
 		</div>
 	</a>
@@ -24,85 +24,99 @@
 	</li>
 
 	{# {% if is_granted('ROLE_ADMIN') 
-																																																																																																																																																												or is_granted('ROLE_BANNER')
-																																																																																																																																																										        %} #}
+																																																																																																																																																														or is_granted('ROLE_BANNER')
+																																																																																																																																																												        %} #}
 
 	<!-- Divider -->
-	<hr
-	class="sidebar-divider">
-
-	<!-- Heading -->
-	<div class="sidebar-heading">
-		Удирдлага
-	</div>
-
-	<!-- Nav Item - Pages Collapse Menu -->
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
-			<i class="fas fa-fw fa-cog"></i>
-			<span>Админ удирдлага</span>
-		</a>
-		<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<a class="collapse-item" href="{{path('app_admin_index')}}">Админ</a>
-				<a class="collapse-item" href="{{ path('app_admin_log_index') }}">Админ лог</a>
-			</div>
-		</div>
-	</li>
-
-	<!-- Nav Item - Utilities Collapse Menu -->
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
-			<i class="fas fa-fw fa-wrench"></i>
-			<span>Тохиргоо</span>
-		</a>
-		<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">Цэс</h6>
-				<a class="collapse-item" href=" {{ path('app_main_category_index') }} ">Үндсэн цэс</a>
-				{#				<a class="collapse-item" href=" {{ path('app_sub_category_index') }} ">Туслах цэс</a>#}
-
-				<hr class="sidebar-divider">
-				<h6 class="collapse-header">Нүүр хуудас тохиргоо</h6>
-				<a class="collapse-item" href=" {{ path('app_section_index') }} ">Хэсгүүдийн дараалал</a>
-				<a class="collapse-item" href=" {{ path('app_web_config_index') }} ">Үндсэн тохиргоонууд</a>
-				<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Баннер</a>
-				<a class="collapse-item" href=" {{ path('app_content_chart_home_index') }} ">Нүүр график</a>
-				<a class="collapse-item" href=" {{ path('app_map_index') }} ">Төсөл хөтөлбөрүүд</a>
-			</div>
-		</div>
-	</li>
-
 	<hr class="sidebar-divider">
-
-	<div class="sidebar-heading">
-		Веб доторх хуудсууд тохиргоо
-	</div>
-
-	{# <li class="nav-item">
-							<a class="nav-link" href="{{ path('app_organization_index') }} ">
-								<i class="fas fa-fw fa-handshake"></i>
-								<span>Байгууллагийн мэдээлэл</span>
-							</a>
-						</li> #}
-
-	<li class="nav-item">
-		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAboutUs" aria-expanded="true" aria-controls="collapseAboutUs">
-			<i class="fas fa-fw fa-newspaper"></i>
-			<span>Бидний тухай</span>
-		</a>
-		<div id="collapseAboutUs" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-			<div class="bg-white py-2 collapse-inner rounded">
-				<h6 class="collapse-header">Холбоотой хуудсууд</h6>
-				<a class="collapse-item" href="{{ path('app_about_us_index') }}">Компанийн танилцуулга</a>
-				<a class="collapse-item" href="{{ path('app_employee_index') }}">Хамт олон</a>
-				<a class="collapse-item" href="{{ path('app_development_history_index') }}">Хөгжлийн түүх</a>
-				<a class="collapse-item" href="{{ path('app_structure_index') }}">Компаний бүтэц</a>
-			</div>
+	{% if  is_granted('ROLE_SUPER_ADMIN') %}
+		<!-- Heading -->
+		<div class="sidebar-heading">
+			Удирдлага
 		</div>
-	</li>
+
+		<!-- Nav Item - Pages Collapse Menu -->
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+				<i class="fas fa-fw fa-cog"></i>
+				<span>Админ удирдлага</span>
+			</a>
+			<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<a class="collapse-item" href="{{path('app_admin_index')}}">Админ</a>
+					<a class="collapse-item" href="{{ path('app_admin_log_index') }}">Админ лог</a>
+				</div>
+			</div>
+		</li>
+		<!-- Nav Item - Utilities Collapse Menu -->
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+				<i class="fas fa-fw fa-wrench"></i>
+				<span>Тохиргоо</span>
+			</a>
+			<div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<h6 class="collapse-header">Цэс</h6>
+					<a class="collapse-item" href=" {{ path('app_main_category_index') }} ">Үндсэн цэс</a>
+					{#				<a class="collapse-item" href=" {{ path('app_sub_category_index') }} ">Туслах цэс</a>#}
+
+					<hr class="sidebar-divider">
+					<h6 class="collapse-header">Нүүр хуудас тохиргоо</h6>
+					<a class="collapse-item" href=" {{ path('app_section_index') }} ">Хэсгүүдийн дараалал</a>
+					<a class="collapse-item" href=" {{ path('app_web_config_index') }} ">Үндсэн тохиргоонууд</a>
+					<a class="collapse-item" href=" {{ path('app_banner_index') }} ">Баннер</a>
+					<a class="collapse-item" href=" {{ path('app_content_chart_home_index') }} ">Нүүр график</a>
+					<a class="collapse-item" href=" {{ path('app_map_index') }} ">Төсөл хөтөлбөрүүд</a>
+				</div>
+			</div>
+		</li>
+
+		<hr class="sidebar-divider">
+
+		<div class="sidebar-heading">
+			Веб доторх хуудсууд тохиргоо
+		</div>
+
+		{# <li class="nav-item">
+											<a class="nav-link" href="{{ path('app_organization_index') }} ">
+												<i class="fas fa-fw fa-handshake"></i>
+												<span>Байгууллагийн мэдээлэл</span>
+											</a>
+										</li> #}
+
+		<li class="nav-item">
+			<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseAboutUs" aria-expanded="true" aria-controls="collapseAboutUs">
+				<i class="fas fa-fw fa-newspaper"></i>
+				<span>Бидний тухай</span>
+			</a>
+			<div id="collapseAboutUs" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+				<div class="bg-white py-2 collapse-inner rounded">
+					<h6 class="collapse-header">Холбоотой хуудсууд</h6>
+					<a class="collapse-item" href="{{ path('app_about_us_index') }}">Компанийн танилцуулга</a>
+					<a class="collapse-item" href="{{ path('app_employee_index') }}">Хамт олон</a>
+					<a class="collapse-item" href="{{ path('app_development_history_index') }}">Хөгжлийн түүх</a>
+					<a class="collapse-item" href="{{ path('app_structure_index') }}">Компаний бүтэц</a>
+				</div>
+			</div>
+		</li>
 
 
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('app_feedback_index') }} ">
+				<i class="fas fa-users"></i>
+				<span>Санал хүсэлт</span>
+			</a>
+		</li>
+
+		<li class="nav-item">
+			<a class="nav-link" href="{{ path('app_strategy_index') }} ">
+				<i class="fas fa-book"></i>
+				<span>Стратеги</span>
+			</a>
+		</li>
+	{% endif %}
+
+	{% if  is_granted('ROLE_NEWS_ADMIN') %}
 	<li class="nav-item">
 		<a class="nav-link" href="{{ path('app_currency_index') }} ">
 			<i class="fas fa-fw fa-chart-area"></i>
@@ -124,19 +138,6 @@
 		</a>
 	</li>
 
-	<li class="nav-item">
-		<a class="nav-link" href="{{ path('app_feedback_index') }} ">
-			<i class="fas fa-users"></i>
-			<span>Санал хүсэлт</span>
-		</a>
-	</li>
-
-	<li class="nav-item">
-		<a class="nav-link" href="{{ path('app_strategy_index') }} ">
-			<i class="fas fa-book"></i>
-			<span>Стратеги</span>
-		</a>
-	</li>
 
 	<li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNews" aria-expanded="true" aria-controls="collapseNews">
@@ -157,6 +158,8 @@
 			</div>
 		</div>
 	</li>
+
+	{% endif %}
 
 	<hr class="sidebar-divider d-none d-md-block">
 

@@ -26,15 +26,20 @@
 
 
 			<div class="d-flex">
-				<form class="d-none d-sm-inline-block form-inline mr-auto  my-md-0  navbar-search">
+				<form method="GET" class="d-none d-sm-inline-block form-inline mr-auto  my-md-0  navbar-search">
 					<div class="input-group">
-						<input type="text" class="form-control bg-light border-0 small" placeholder="Гарчигаар хайх..." aria-label="Search" aria-describedby="basic-addon2" value="{{ searchTerm }}">
+						<input type="text" class="form-control bg-light border-0 small mr-2" name="search" id="search" placeholder="Гарчигаар хайх..." aria-label="Search" aria-describedby="basic-addon2" value="{{ searchTerm }}">
+						<input type="date" class="form-control bg-light border-0 small" name="date" id="date"  aria-label="Search" aria-describedby="basic-addon2" value="{{ searchDate }}">
+						
+						
+						
 						<div class="input-group-append">
 							<button class="btn btn-primary" type="submit">
 								<i class="fas fa-search fa-sm"></i>
 							</button>
 						</div>
 					</div>
+					
 				</form>
 
 

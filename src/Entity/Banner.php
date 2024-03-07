@@ -7,6 +7,8 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: BannerRepository::class)]
@@ -22,6 +24,9 @@ class Banner
     private ?string $icon = null;
 
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "icon")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
     private ?File $iconFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -39,7 +44,11 @@ class Banner
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
 
+   
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
     private ?File $imageFile = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
@@ -55,6 +64,9 @@ class Banner
     private ?string $enIcon = null;
 
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "enIcon")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
     private ?File $enIconFile = null;
 
     public function __construct()
