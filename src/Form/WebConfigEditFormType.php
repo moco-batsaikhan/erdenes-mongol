@@ -22,14 +22,16 @@ class WebConfigEditFormType extends AbstractType
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "өнгө оруулна уу ...",
-                )
+                ),
+                'required' => false,
             ))
             ->add('colorCode', TextType::class, array(
-                'label' => 'Цэсний өнгө',
+                'label' => 'Цэс текстийн өнгө',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "өнгө оруулна уу ...",
-                )
+                ),
+                'required' => false,
             ))
             ->add('transparentImageFile', VichFileType::class, [
                 'required' => false,
