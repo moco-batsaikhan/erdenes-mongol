@@ -29,17 +29,16 @@
 				<form method="GET" class="d-none d-sm-inline-block form-inline mr-auto  my-md-0  navbar-search">
 					<div class="input-group">
 						<input type="text" class="form-control bg-light border-0 small mr-2" name="search" id="search" placeholder="Гарчигаар хайх..." aria-label="Search" aria-describedby="basic-addon2" value="{{ searchTerm }}">
-						<input type="date" class="form-control bg-light border-0 small" name="date" id="date"  aria-label="Search" aria-describedby="basic-addon2" value="{{ searchDate }}">
-						
-						
-						
+						<input type="date" class="form-control bg-light border-0 small" name="date" id="date" aria-label="Search" aria-describedby="basic-addon2" value="{{ searchDate }}">
+
+
 						<div class="input-group-append">
 							<button class="btn btn-primary" type="submit">
 								<i class="fas fa-search fa-sm"></i>
 							</button>
 						</div>
 					</div>
-					
+
 				</form>
 
 
@@ -62,11 +61,7 @@
 						<tr>
 							<th>№</th>
 							<th>Гарчиг(Монгол)</th>
-							<th>Гарчиг(Англи)</th>
-							<th>Гарчиг(Хятад)</th>
-							<th>Агуулга(Монгол)</th>
-							{# <th>Агуулга(Англи)</th>
-																																																																																																																																																																																																																		<th>Агуулга(Хятад)</th> #}
+							<th>Үүсгэсэн огноо</th>
 							<th>Thumbnail зураг</th>
 							<th>Унших хэсгийн зураг</th>
 							<th>Онцгой</th>
@@ -81,11 +76,7 @@
 							<tr>
 								<td>{{ n.id }}</td>
 								<td>{{ n.mnTitle }}</td>
-								<td>{{ n.enTitle }}</td>
-								<td>{{ n.cnTitle }}</td>
-								<td>{{ n.mnHeadline }}</td>
-								{# <td>{{ n.enHeadline }}</td>
-																																																																																																																																																																																																																																																<td>{{ n.cnHeadline }}</td> #}
+								<td>{{ n.createdAt|date('Y-m-d') }}</td>
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.imageUrl) }}" class="img-fluid" alt="Thumbnail Image"></td>
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ n.bodyImageUrl) }}" class="img-fluid" alt="detail Image"></td>
 								<td>
@@ -135,24 +126,24 @@
 	</div>
 
 	{# <script>document.getElementById('editButton').addEventListener('click', function () {
-																																																																																																			
-																																																																																																			fetch('your_api_endpoint', {
-																																																																																																			method: 'PUT',
-																																																																																																			headers: {
-																																																																																																			'Content-Type': 'application/json'
-																																																																																																			},
-																																																																																																			body: JSON.stringify(
-																																																																																																			{key1: 'value1', key2: 'value2'}
-																																																																																																			)
-																																																																																																			}).then(response => {
-																																																																																																			if (!response.ok) {
-																																																																																																			throw new Error('Network response was not ok');
-																																																																																																			}
-																																																																																																			return response.json();
-																																																																																																			}).then(data => {
-																																																																																																			console.log(data);
-																																																																																																			}).catch(error => {
-																																																																																																			console.error('There was a problem with the fetch operation:', error);
-																																																																																																			});
-																																																																																																			});</script> #}
+																																																																																																					
+																																																																																																					fetch('your_api_endpoint', {
+																																																																																																					method: 'PUT',
+																																																																																																					headers: {
+																																																																																																					'Content-Type': 'application/json'
+																																																																																																					},
+																																																																																																					body: JSON.stringify(
+																																																																																																					{key1: 'value1', key2: 'value2'}
+																																																																																																					)
+																																																																																																					}).then(response => {
+																																																																																																					if (!response.ok) {
+																																																																																																					throw new Error('Network response was not ok');
+																																																																																																					}
+																																																																																																					return response.json();
+																																																																																																					}).then(data => {
+																																																																																																					console.log(data);
+																																																																																																					}).catch(error => {
+																																																																																																					console.error('There was a problem with the fetch operation:', error);
+																																																																																																					});
+																																																																																																					});</script> #}
 {% endblock %}

@@ -61,7 +61,7 @@ class WebConfigController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Амжилттай тохирууллаа.');
-            return $this->redirectToRoute('app_web_config_edit', array('id' => $id));
+            return $this->redirectToRoute('app_web_config_index', array('id' => $id));
         }
 
         return $this->render('web_config/edit.html.twig', [

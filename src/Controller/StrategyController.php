@@ -11,6 +11,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+
 
 
 #[Route('/strategy', name: 'app_strategy')]
@@ -43,7 +45,7 @@ class StrategyController extends AbstractController
     }
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request, ValidatorInterface $validator): Response
     {
 
         $strategy = new Strategy;
@@ -53,6 +55,16 @@ class StrategyController extends AbstractController
 
         if ($strategyForm->isSubmitted() && $strategyForm->isValid()) {
             try {
+                $errors = $validator->validate($strategy);
+
+                if (count($errors) > 0) {
+
+                    $errorsString =  $errors[0]->getMessage();
+
+                    $this->addFlash('danger', $errorsString);
+                    return $this->redirectToRoute('app_strategy_create');
+                }
+                dd($errors);
                 $em->persist($strategy);
                 $em->flush();
 

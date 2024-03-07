@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: StrategyRepository::class)]
@@ -72,6 +73,9 @@ class Strategy
     private ?bool $active = null;
 
     #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pddFileName")]
+    #[Assert\File(
+        maxSize: '5M',
+    )]
     private $pdfFile;
 
     #[ORM\Column(length: 255, nullable: true)]
