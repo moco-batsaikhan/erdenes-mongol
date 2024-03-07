@@ -26,6 +26,7 @@ class StrategyController extends AbstractController
     public function index(EntityManagerInterface $em, $page = 1): Response
     {
 
+
         $strategyRepo = $em->getRepository(Strategy::class);
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/web/config', name: 'app_web_config')]
 
@@ -35,7 +36,7 @@ class WebConfigController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request, ValidatorInterface $validator): Response
     {
         $config = $em->getRepository(WebConfig::class)->find($id);
 
@@ -46,6 +47,18 @@ class WebConfigController extends AbstractController
         $editWebConfigForm->handleRequest($request);
 
         if ($editWebConfigForm->isSubmitted() && $editWebConfigForm->isValid()) {
+            $errors = $validator->validate($config);
+
+
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_banner_create');
+            }
+            dd($errors);
+            die();
 
             $em->persist($config);
             $em->flush();
