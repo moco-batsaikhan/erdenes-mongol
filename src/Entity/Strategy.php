@@ -5,7 +5,12 @@ namespace App\Entity;
 use App\Repository\StrategyRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
+
+
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: StrategyRepository::class)]
 class Strategy
 {
@@ -56,15 +61,6 @@ class Strategy
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cnTarget = null;
 
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $mnResult = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $enResult = null;
-
-    #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $cnResult = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
@@ -76,6 +72,12 @@ class Strategy
 
     #[ORM\Column(nullable: true)]
     private ?bool $active = null;
+
+    #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pddFileName")]
+    private $pdfFile;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pddFileName = null;
 
     public function __construct()
     {
@@ -256,42 +258,6 @@ class Strategy
         return $this;
     }
 
-    public function getMnResult(): ?string
-    {
-        return $this->mnResult;
-    }
-
-    public function setMnResult(?string $mnResult): static
-    {
-        $this->mnResult = $mnResult;
-
-        return $this;
-    }
-
-    public function getEnResult(): ?string
-    {
-        return $this->enResult;
-    }
-
-    public function setEnResult(?string $enResult): static
-    {
-        $this->enResult = $enResult;
-
-        return $this;
-    }
-
-    public function getCnResult(): ?string
-    {
-        return $this->cnResult;
-    }
-
-    public function setCnResult(?string $cnResult): static
-    {
-        $this->cnResult = $cnResult;
-
-        return $this;
-    }
-
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->createdAt;
@@ -338,5 +304,27 @@ class Strategy
         $this->active = $active;
 
         return $this;
+    }
+
+    public function getPddFileName(): ?string
+    {
+        return $this->pddFileName;
+    }
+
+    public function setPddFileName(?string $pddFileName): static
+    {
+        $this->pddFileName = $pddFileName;
+
+        return $this;
+    }
+
+    public function getPdfFile(): ?File
+    {
+        return $this->pdfFile;
+    }
+
+    public function setPdfFile(?File $pdfFile): void
+    {
+        $this->pdfFile = $pdfFile;
     }
 }
