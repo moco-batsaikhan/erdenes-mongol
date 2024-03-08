@@ -36,8 +36,18 @@
 							<ol class="list-group list-group-light list-group-numbered" id="sortable" data-sortable-id="1" aria-dropeffect="move">
 								{% for key, section in sections %}
 									<li class="list-group-item" id="{{ section.id}}" data-item-sortable-id="{{ section.priority }}" draggable="true" role="option" aria-grabbed="false" style="cursor: pointer">
-										<div class="flex">
-											{{ section.sectionName}}
+										<div class="d-flex justify-content-between align-items-center">
+											<div>
+												{{ section.sectionName }}
+
+											</div>
+											<div>
+												{% if section.active %}
+													<b style="color: darkgreen">Идэвхитэй</b>
+												{% else %}
+													<b style="color: red">Идэвхигүй</b>
+												{% endif %}
+											</div>
 										</div>
 									</li>
 								{% endfor %}
