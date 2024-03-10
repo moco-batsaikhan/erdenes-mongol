@@ -18,7 +18,7 @@ class WebConfigEditFormType extends AbstractType
     {
         $builder
             ->add('backgroundColor', TextType::class, array(
-                'label' => 'Цэс арын өнгө',
+                'label' => 'Цэс арын өнгө (өнгө оруулахгүй байж болно)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "өнгө оруулна уу ...",
@@ -26,7 +26,7 @@ class WebConfigEditFormType extends AbstractType
                 'required' => false,
             ))
             ->add('colorCode', TextType::class, array(
-                'label' => 'Цэс текстийн өнгө',
+                'label' => 'Цэс текстийн өнгө (өнгө оруулахгүй байж болно)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "өнгө оруулна уу ...",
@@ -35,7 +35,7 @@ class WebConfigEditFormType extends AbstractType
             ))
             ->add('transparentImageFile', VichFileType::class, [
                 'required' => false,
-                'label' => 'Ил тод хэсгийн зураг',
+                'label' => 'Ил тод хэсгийн зураг, тохирох хэмжээ(1440*410px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
@@ -46,7 +46,7 @@ class WebConfigEditFormType extends AbstractType
             ])
             ->add('sloganImageFile', VichFileType::class, [
                 'required' => false,
-                'label' => 'Уриа үг хэсгийн зураг',
+                'label' => 'Уриа үг хэсгийн зураг, тохирох хэмжээ(1440*360px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',

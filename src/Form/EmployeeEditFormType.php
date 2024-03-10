@@ -61,7 +61,7 @@ class EmployeeEditFormType extends AbstractType
             ))
             ->add('imageFile', VichFileType::class, [
                 'required' => false,
-                'label' => 'Зураг оруулах',
+                'label' => 'Зураг оруулах, тохирох хэмжээ(350*350px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
@@ -85,7 +85,7 @@ class EmployeeEditFormType extends AbstractType
                     'required' => false,
                 )
             )
-            
+
             ->add('experience', CKEditorType::class, array(
                 'label' => 'Ажлын туршлага',
                 'attr' => array(
