@@ -25,6 +25,7 @@ class ContactController extends AbstractController
         ->getQuery()
         ->setMaxResults(1)
         ->getScalarResult();
+        $contact = $contact[0];
         $contactDto = [
             'id' => $contact['p_id'],
             'address' => $contact['p_' . $lang . 'Address'],
