@@ -33,7 +33,7 @@ class CompanyStructureController extends AbstractController
         foreach ($data as $key => $value) {
             $dto[] = [
                 'id' => $value['p_id'],
-                'title' => $value['p_' . $lang . 'Name'],
+                'name' => $value['p_' . $lang . 'Name'],
                 'phone' => $value['p_phone'],
                 'icon' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_icon'],
                 'web' => $value['p_web'],
