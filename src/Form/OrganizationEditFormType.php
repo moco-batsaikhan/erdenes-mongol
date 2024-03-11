@@ -74,7 +74,7 @@ class OrganizationEditFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             // ->add('webUrl', TextType::class, array(

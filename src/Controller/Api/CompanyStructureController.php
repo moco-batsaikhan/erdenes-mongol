@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,23 +16,35 @@ class CompanyStructureController extends AbstractController
 {
 
     #[Route('/company/structures/all', name: 'structure_index',  methods: ['get'])]
-    public function getCompanyStructures(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+    public function getCompanyStructures(Request $request,EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
 
-        $qb = $entityManager->createQueryBuilder();
-        $qb->select('e.id', 'e.name', 'e.phone', 'e.icon', 'e.web', 'e.address', 'e.body')
-            ->from(CompanyStructure::class, 'e');
 
-        $query = $qb->getQuery();
-        $data = $query->getResult();
+        $lang = $request->get('lang') ? $request->get('lang') : 'mn';
 
-        foreach ($data as &$structure) {
-            if ($structure['icon']) {
-                $structure['icon'] = $this->getParameter('base_url') . 'uploads/image/' . $structure['icon'];
-            }
+
+        $data = $entityManager
+        ->getRepository(CompanyStructure::class)
+        ->createQueryBuilder('p')
+        ->getQuery()
+        ->getScalarResult();
+
+        $dto = [];
+        foreach ($data as $key => $value) {
+            $dto[] = [
+                'id' => $value['p_id'],
+                'name' => $value['p_' . $lang . 'Name'],
+                'phone' => $value['p_phone'],
+                'icon' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_icon'],
+                'web' => $value['p_web'],
+                'address' => $value['p_' . $lang . 'Address'],
+                'body' => $value['p_' . $lang . 'Body']
+            ];
         }
 
-        $structures = $serializer->serialize($data, 'json');
+
+
+        $structures = $serializer->serialize($dto, 'json');
 
         $response = [
             'data' => json_decode($structures),
@@ -40,43 +53,4 @@ class CompanyStructureController extends AbstractController
         return new JsonResponse($response);
     }
 
-    // #[Route('/company/structure/{id}', name: 'structure_data_index',  methods: ['GET'])]
-    // public function getStructureById($id, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
-    // {
-    //     try {
-    //         if (!$id) {
-    //             throw new BadRequestHttpException('Parameter "id" is required.');
-    //         }
-
-    //         $qb = $entityManager->createQueryBuilder();
-    //         $qb->select('e.id', 'e.name', 'e.phone', 'e.icon', 'e.web', 'e.address', 'e.body')
-    //             ->from(CompanyStructure::class, 'e')
-    //             ->where('e.id = :id')
-    //             ->setParameter('id', $id);
-
-    //         $data = $qb->getQuery()->getOneOrNullResult();
-
-    //         if (!$data) {
-    //             throw new NotFoundHttpException('No employee found for id ' . $id);
-    //         }
-
-    //         foreach ($data as &$structure) {
-    //             if ($structure['icon']) {
-    //                 $structure['icon'] = $this->getParameter('base_url') . 'uploads/image/' . $structure['icon'];
-    //             }
-    //         }
-
-    //         $structure = $serializer->serialize($data, 'json');
-
-    //         $response = [
-    //             'data' => json_decode($structure)
-    //         ];
-
-    //         return new JsonResponse($response);
-    //     } catch (BadRequestHttpException | NotFoundHttpException $e) {
-    //         return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
-    //     } catch (\Exception $e) {
-    //         return new JsonResponse(['error' => $e->getMessage()], Response::HTTP_INTERNAL_SERVER_ERROR);
-    //     }
-    // }
 }

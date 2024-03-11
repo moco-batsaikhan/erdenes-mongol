@@ -40,6 +40,9 @@ class WebConfigEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
+                'download_uri' => static function (WebConfig $config)  {
+                    return  "/uploads/image/".$config->getTransparentImage();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -51,22 +54,28 @@ class WebConfigEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
+                'download_uri' => static function (WebConfig $config)  {
+                    return  "/uploads/image/".$config->getSloganImage();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ])
-            // ->add('coverImageFile', VichFileType::class, [
-            //     'required' => false,
-            //     'label' => 'Динамик хуудаснуудын header зураг',
-            //     'allow_delete' => true,
-            //     'allow_file_upload' => true,
-            //     'download_label' => 'Logo харах',
-            //     'delete_label' => 'Устгах',
-            //     'attr' => array(
-            //         "class" => "form-control",
-            //     )
-            // ])
+            ->add('coverImageFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Динамик хуудаснуудын header зураг',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Logo харах',
+                'download_uri' => static function (WebConfig $config)  {
+                    return  "/uploads/image/".$config->getCoverImage();
+                },
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

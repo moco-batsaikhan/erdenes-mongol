@@ -50,6 +50,9 @@ class BannerEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
+                'download_uri' => static function (Banner $config)  {
+                    return  "/uploads/image/".$config->getImageUrl();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -61,6 +64,9 @@ class BannerEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
+                'download_uri' => static function (Banner $config)  {
+                    return  "/uploads/image/".$config->getIcon();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -72,6 +78,9 @@ class BannerEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
+                'download_uri' => static function (Banner $config)  {
+                    return  "/uploads/image/".$config->getEnIcon();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

@@ -76,6 +76,8 @@ class AboutUsController extends AbstractController
             'firstNumber' => $data->getFirsNumber(),
             'description' => $description,
             'secondNumber' => $data->getSecondNumber(),
+            'thirdNumber' => $data->getThirdNumber(),
+            'fourthNumber' => $data->getFourthNumber(),
         ];
 
         $serializedData = $serializer->serialize($dataDto, 'json');

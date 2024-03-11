@@ -33,7 +33,7 @@
 							<th>Цэс текстийн өнгө</th>
 							<th>Ил тод хэсгийн зураг</th>
 							<th>Уриа үг</th>
-							{# <th>Динамик хуудасны зураг</th> #}
+							<th>Динамик хуудасны зураг</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -44,7 +44,7 @@
 								<td>{{ configForm.colorCode}}</td>
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ configForm.transparentImage) }}" class="img-fluid" alt="transparent Image"></td>
 								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ configForm.sloganImage) }}" class="img-fluid" alt="slogan Image"></td>
-								{# <td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ configForm.coverImage) }}" class="img-fluid" alt="cover Image"></td> #}
+								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ configForm.coverImage) }}" class="img-fluid" alt="cover Image"></td>
 								<td>
 									<a href="{{ path('app_web_config_edit', {'id' : configForm.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>

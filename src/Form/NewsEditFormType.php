@@ -76,7 +76,7 @@ class NewsEditFormType extends AbstractType
                         'Идэвхгүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
 
@@ -86,6 +86,9 @@ class NewsEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
+                'download_uri' => static function (News $config)  {
+                    return  "/uploads/image/".$config->getImageUrl();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -97,6 +100,9 @@ class NewsEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
+                'download_uri' => static function (News $config)  {
+                    return  "/uploads/image/".$config->getBodyImageUrl();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

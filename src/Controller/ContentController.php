@@ -783,6 +783,26 @@ class ContentController extends AbstractController
 
         if ($editSlideForm->isSubmitted() && $editSlideForm->isValid()) {
 
+            $uploadedFiles = $editSlideForm['file']->getData();
+            $imageFileNames = [];
+
+            foreach ($uploadedFiles as $file) {
+                $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+
+
+                $file->move(
+                    $this->getParameter('kernel.project_dir') . '/public/uploads/image/',
+                    $fileName
+                );
+
+                $fullFileName = $this->getParameter('base_url') . '/uploads/image/' . $fileName;
+
+                $imageFileNames[] = $fullFileName;
+            }
+
+            $config->setFile($imageFileNames);
+
             $em->persist($config);
             $em->flush();
 

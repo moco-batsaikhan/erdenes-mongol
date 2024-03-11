@@ -84,6 +84,12 @@ class AboutUs
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $mnStrategyPurpose = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $thirdNumber = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?int $fourthNumber = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -339,6 +345,30 @@ class AboutUs
     public function setMnStrategyPurpose(?string $mnStrategyPurpose): static
     {
         $this->mnStrategyPurpose = $mnStrategyPurpose;
+
+        return $this;
+    }
+
+    public function getThirdNumber(): ?int
+    {
+        return $this->thirdNumber;
+    }
+
+    public function setThirdNumber(?int $thirdNumber): static
+    {
+        $this->thirdNumber = $thirdNumber;
+
+        return $this;
+    }
+
+    public function getFourthNumber(): ?int
+    {
+        return $this->fourthNumber;
+    }
+
+    public function setFourthNumber(?int $fourthNumber): static
+    {
+        $this->fourthNumber = $fourthNumber;
 
         return $this;
     }

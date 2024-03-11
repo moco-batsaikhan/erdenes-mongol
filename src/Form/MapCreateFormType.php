@@ -90,7 +90,7 @@ class MapCreateFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add('enBody', CKEditorType::class, array(

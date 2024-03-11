@@ -42,7 +42,7 @@ class OrganizationCreateFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add('logoFile', VichFileType::class, [

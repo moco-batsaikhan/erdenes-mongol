@@ -85,6 +85,9 @@ class MapEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
+                'download_uri' => static function (Map $config)  {
+                    return  "/uploads/image/".$config->getImageUrl();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -102,7 +105,7 @@ class MapEditFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add(
