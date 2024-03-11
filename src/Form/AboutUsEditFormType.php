@@ -103,6 +103,9 @@ class AboutUsEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
+                'download_uri' => static function (AboutUs $config)  {
+                    return  "/uploads/image/".$config->getImageUrl();
+                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -130,14 +133,28 @@ class AboutUsEditFormType extends AbstractType
                 )
             ))
             ->add('firsNumber', TextType::class, array(
-                'label' => 'Статистик тоо эхнийх',
+                'label' => 'Ашиглалтын тусгай зөвшөөрөл',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('secondNumber', TextType::class, array(
-                'label' => 'Статистик тоо сүүлийнх',
+                'label' => 'Хайгуулын тусгай зөвшөөрөл',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "оруулна уу ...",
+                )
+            ))
+            ->add('thirdNumber', TextType::class, array(
+                'label' => 'Нэгдлийн компаниуд',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "оруулна уу ...",
+                )
+            ))
+            ->add('fourthNumber', TextType::class, array(
+                'label' => 'Нийт ажилчид',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
