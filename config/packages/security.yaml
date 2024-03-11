@@ -63,3 +63,4 @@ security:
     - { path: ^/profile, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
     - { path: ^/efconnect, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
     - { path: ^/elfinder, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/contact, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN,] }
