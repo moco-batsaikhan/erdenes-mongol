@@ -41,7 +41,7 @@ class VideoEditFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add('save', SubmitType::class, [

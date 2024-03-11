@@ -60,7 +60,7 @@ class CkeditorEditFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add('News', EntityType::class, [

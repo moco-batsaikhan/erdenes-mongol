@@ -52,7 +52,7 @@ class BannerCreateFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add('imageFile', VichFileType::class, [

@@ -51,7 +51,7 @@ class ContentPdfCreateFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add('News', EntityType::class, [

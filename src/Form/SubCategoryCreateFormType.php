@@ -52,7 +52,7 @@ class SubCategoryCreateFormType extends AbstractType
                         'Идэвхигүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
             ->add('priority', NumberType::class, array(

@@ -76,7 +76,7 @@ class NewsEditFormType extends AbstractType
                         'Идэвхгүй' => false
                     ),
                     'multiple' => false,
-                    'required' => false,
+                    'required' => true,
                 )
             )
 
