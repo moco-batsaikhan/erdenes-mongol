@@ -73,7 +73,7 @@ class CompanyStructureController extends AbstractController
                 $log = new CmsAdminLog();
                 $log->setAdminname($this->getUser()->getUserIdentifier());
                 $log->setIpaddress($request->getClientIp());
-                $log->setValue($structure->getName());
+                $log->setValue(json_encode($structure));
                 $log->setAction('Шинэ компаний бүтцийн мэдээлэл үүсгэв.');
                 $log->setCreatedAt(new \DateTime('now'));
 
@@ -125,7 +125,7 @@ class CompanyStructureController extends AbstractController
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($structure->getName());
+            $log->setValue(json_encode($structure));
             $log->setAction('компаний бүтцийн мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
