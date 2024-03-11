@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/organization', name: 'app_organization')]
 
@@ -47,7 +48,7 @@ class OrganizationController extends AbstractController
 
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
 
         $organization = new Organization;
@@ -56,6 +57,19 @@ class OrganizationController extends AbstractController
         $organizationForm->handleRequest($request);
 
         if ($organizationForm->isSubmitted() && $organizationForm->isValid()) {
+
+
+            $errors = $validator->validate($organization);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_organization_create');
+            }
+
 
             $organization->setCreatedUser($this->getUser());
             $em->persist($organization);
@@ -84,7 +98,7 @@ class OrganizationController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $organization = $em->getRepository(Organization::class)->find($id);
 
@@ -95,6 +109,19 @@ class OrganizationController extends AbstractController
         $editOrganizationForm->handleRequest($request);
 
         if ($editOrganizationForm->isSubmitted() && $editOrganizationForm->isValid()) {
+
+            
+            $errors = $validator->validate($organization);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_organization_edit',['id'=>$id]);
+            }
+
 
             $em->persist($organization);
             $em->flush();

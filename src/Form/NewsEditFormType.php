@@ -121,6 +121,9 @@ class NewsEditFormType extends AbstractType
                 'label' => 'Үсрэх мэдээний төрөл сонгох',
                 'class' => NewsType::class,
                 'choice_label' => 'name',
+                'attr' => array(
+                    "class" => "form-control",
+                )
             ])
 
             ->add('save', SubmitType::class, [

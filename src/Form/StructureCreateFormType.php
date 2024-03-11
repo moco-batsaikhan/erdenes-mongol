@@ -16,15 +16,41 @@ class StructureCreateFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, array(
-                'label' => 'Нэр',
+            ->add('mnName', TextType::class, array(
+                'label' => 'Нэр(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
             ))
-            ->add('body', CKEditorType::class, array(
-                'label' => 'Агуулга',
+            ->add('enName', TextType::class, array(
+                'label' => 'Нэр(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('cnName', TextType::class, array(
+                'label' => 'Нэр(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
+            ->add('mnBody', CKEditorType::class, array(
+                'label' => 'Агуулга(Монгол)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('cnBody', CKEditorType::class, array(
+                'label' => 'Агуулга(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('enBody', CKEditorType::class, array(
+                'label' => 'Агуулга(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                 )
@@ -33,23 +59,40 @@ class StructureCreateFormType extends AbstractType
                 'label' => 'Утас',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "Утас оруулна уу ...",
                 )
             ))
             ->add('web', TextType::class, array(
                 'label' => 'Веб хаяг',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "Веб оруулна уу ...",
                 )
             ))
-            ->add('address', TextType::class, array(
-                'label' => 'Хаяг',
+            ->add('mnAddress', TextType::class, array(
+                'label' => 'Хаяг(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
-                    "placeholder" => "тайлбар оруулна уу ...",
+                    "placeholder" => "Хаяг оруулна уу ...",
                 )
             ))
+            ->add('enAddress', TextType::class, array(
+                'label' => 'Хаяг(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "Хаяг оруулна уу ...",
+                )
+            ))
+            
+            ->add('cnAddress', TextType::class, array(
+                'label' => 'Хаяг(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "Хаяг оруулна уу ...",
+                )
+            ))
+            
+            
             ->add('iconFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Зураг оруулах, тохирох хэмжээ(230*100px)',

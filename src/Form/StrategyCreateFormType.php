@@ -159,13 +159,6 @@ class StrategyCreateFormType extends AbstractType
                     'required' => false,
                 )
             )
-
-            ->add('pdfFile', VichFileType::class, [
-                'label' => 'PDF File',
-                'required' => false,
-                'allow_delete' => true,
-                'download_uri' => true,
-            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Хадгалах',
                 'attr' => [

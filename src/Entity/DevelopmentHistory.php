@@ -21,9 +21,6 @@ class DevelopmentHistory
     #[ORM\JoinColumn(nullable: false)]
     private ?CmsUser $createdUser = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?array $file = null;
-
     #[ORM\Column(length: 4)]
     private ?string $year = null;
 
@@ -32,6 +29,9 @@ class DevelopmentHistory
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private $data = null;
 
     public function __construct()
     {
@@ -68,17 +68,6 @@ class DevelopmentHistory
         return $this;
     }
 
-    public function getFile(): ?array
-    {
-        return $this->file;
-    }
-
-    public function setFile(?array $file): static
-    {
-        $this->file = $file;
-
-        return $this;
-    }
 
     public function getYear(): ?string
     {
@@ -112,6 +101,18 @@ class DevelopmentHistory
     public function setUpdatedAt(\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    public function setData(?array $data): static
+    {
+        $this->data = $data;
 
         return $this;
     }

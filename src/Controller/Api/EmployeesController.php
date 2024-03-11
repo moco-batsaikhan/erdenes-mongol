@@ -20,7 +20,7 @@ class EmployeesController extends AbstractController
     #[Route('/employees/list/{type}', name: 'employee_index',  methods: ['get'])]
     public function getEmployees($type,Request $request,EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
-        $pageSize = 10;
+        $pageSize = 30;
         $page = $request->get('page') ? $request->get('page') : 1;
 
 

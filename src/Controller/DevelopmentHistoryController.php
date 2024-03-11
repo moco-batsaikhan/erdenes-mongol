@@ -41,18 +41,6 @@ class DevelopmentHistoryController extends AbstractController
         ]);
     }
 
-    #[Route('/download-example-file', name: '_download_example_file')]
-    public function downloadGraphExampleAction(Request $request): BinaryFileResponse
-    {
-
-        $exampleFilePath = $this->getParameter('kernel.project_dir') . '/public/uploads/excel/developmentHistory.xlsx';
-
-        if (!file_exists($exampleFilePath)) {
-            throw $this->createNotFoundException('Example file not found.');
-        }
-
-        return $this->file($exampleFilePath);
-    }
 
 
     #[Route('/create', name: '_create')]
@@ -65,13 +53,6 @@ class DevelopmentHistoryController extends AbstractController
 
         if ($myForm->isSubmitted() && $myForm->isValid()) {
 
-            $excelFile = $myForm->get('file')->getData();
-
-            $jsonData = $this->processFile($excelFile);
-
-            $jsonDataArray = json_decode($jsonData, true);
-
-            $developmentHistory->setFile($jsonDataArray);
 
             $developmentHistory->setCreatedUser($this->getUser());
 
@@ -113,7 +94,7 @@ class DevelopmentHistoryController extends AbstractController
         $developmentHistoryForm->handleRequest($request);
 
         if ($developmentHistoryForm->isSubmitted() && $developmentHistoryForm->isValid()) {
-
+            
             $em->persist($item);
             $em->flush();
 
@@ -138,39 +119,4 @@ class DevelopmentHistoryController extends AbstractController
         ]);
     }
 
-    private function processFile($file)
-    {
-        if ($file === null || !$file->isValid()) {
-            throw new \Exception('Invalid file');
-        }
-
-        $fileExtension = $file->getClientOriginalExtension();
-
-        if (!in_array($fileExtension, ['xls', 'xlsx'])) {
-            throw new \Exception('Invalid file format. Please upload an Excel file.');
-        }
-
-        $spreadsheet = IOFactory::load($file->getPathname());
-
-        $worksheet = $spreadsheet->getActiveSheet();
-        $data = $worksheet->toArray();
-
-        $headers = array_shift($data);
-
-        $jsonData = [];
-
-        foreach ($data as $row) {
-            $rowData = [];
-            foreach ($headers as $index => $header) {
-                if (isset($row[$index])) {
-                    $rowData[$header] = $row[$index];
-                } else {
-                    $rowData[$header] = '';
-                }
-            }
-            $jsonData[] = $rowData;
-        }
-
-        return json_encode($jsonData);
-    }
 }

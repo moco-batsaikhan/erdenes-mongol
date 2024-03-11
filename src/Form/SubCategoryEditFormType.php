@@ -83,6 +83,9 @@ class SubCategoryEditFormType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => '',
                 'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                )
             ])
             ->add('newsId', EntityType::class, [
                 'label' => 'Үсрэх мэдээ сонгох',
@@ -90,6 +93,9 @@ class SubCategoryEditFormType extends AbstractType
                 'choice_label' => 'mnTitle',
                 'placeholder' => '',
                 'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                )
             ])
 
             ->add('redirectLink', TextType::class, array(

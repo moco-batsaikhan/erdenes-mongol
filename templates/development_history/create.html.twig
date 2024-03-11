@@ -26,11 +26,6 @@
 
 	<br>
 
-	<div>
-		<span>Та энэхүү файл дээр графикт оруулах өгөгдлүүдээ оруулна уу!</span>
-		<a href="{{ path('app_development_history_download_example_file') }}" class="btn btn-info">
-			жишээ татах</a>
-	</div>
 
 	<br>
 
@@ -42,13 +37,83 @@
 		{{ form_row(myForm.year) }}
 	</div>
 
-	<div class="form-group">
-		{{ form_row(myForm.file) }}
-	</div>
 
 	<div class="form-group">
 		{{ form_row(myForm.priority) }}
 	</div>
 
+
+	<div class="form-group">
+		<ul class="tags unstyled" data-prototype="{{ form_widget(myForm.data.vars.prototype)|e }}">
+			Жагсаалт
+		</ul>
+	</div>
+
 	{{ form_end(myForm) }}
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		function addTagForm($collectionHolder, $newLinkLi) { // Get the data-prototype explained earlier
+var prototype = $collectionHolder.data('prototype');
+
+
+// get the new index
+var index = $collectionHolder.data('index');
+
+// Replace '__name__' in the prototype's HTML to
+// instead be a number based on how many items we have
+var newForm = prototype.replace(/__name__/g, index);
+
+// increase the index with one for the next item
+$collectionHolder.data('index', index + 1);
+
+// Display the form in the page in an li, before the "Add a tag" link li
+var $newFormLi = $('<li ></li>').append(newForm);
+addTagFormDeleteLink($newFormLi);
+$newLinkLi.before($newFormLi);
+}
+function addTagFormDeleteLink($tagFormLi) {
+var $removeFormA = $('<a href="#">устгах</a>');
+$tagFormLi.append($removeFormA);
+
+$removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
+e.preventDefault();
+
+// remove the li for the tag form
+$tagFormLi.remove();
+});
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+var $collectionHolder;
+
+// setup an "add a tag" link
+var $addTagLink = $('<a href="#" class="add_tag_link ">Нэмэх</a>');
+var $newLinkLi = $('<li ></li>').append($addTagLink);
+
+
+jQuery(document).ready(function () { // Get the ul that holds the collection of tags
+$collectionHolder = $('ul.tags');
+
+$collectionHolder.find('li').each(function() {
+        addTagFormDeleteLink($(this));
+    });
+
+// add the "add a tag" anchor and li to the tags ul
+$collectionHolder.append($newLinkLi);
+
+// count the current form inputs we have (e.g. 2), use that as the new
+// index when inserting a new item (e.g. 2)
+$collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+$addTagLink.on('click', function (e) { // prevent the link from creating a "#" on the URL
+e.preventDefault();
+
+// add a new tag form (see next code block)
+addTagForm($collectionHolder, $newLinkLi);
+});
+});
+});
+	</script>
 {% endblock %}

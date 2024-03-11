@@ -1,49 +1,3 @@
-{# {% extends 'base.html.twig' %}
-
-{% block title %}
-	{{ page_title }}
-{% endblock %}
-{% block body %}
-
-
-	<div class="card">
-		<div class="card-body">
-			<div class="display-grid">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item">
-							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
-						</li>
-
-						<li class="breadcrumb-item">
-							<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
-						</li>
-
-						<li class="breadcrumb-item">
-							<a href="{{ path('app_content_ckeditor_index') }}">Эдитор</a>
-						</li>
-
-						<li class="breadcrumb-item active" aria-current="page">
-							Засах
-						</li>
-					</ol>
-				</nav>
-			</div>
-			<br>
-
-			{% include 'layout/flash.html.twig' %}
-
-			<hr>
-			{{ form_start(form) }}
-			{{ form_row(form.name) }}
-			{{ form_row(form.body) }}
-			{{ form_row(form.priority) }}
-			{{ form_end(form) }}
-
-		</div>
-	</div>
-
-{% endblock %} #}
 {% extends 'base.html.twig' %}
 
 {% block title %}
@@ -65,9 +19,16 @@
 							<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
 						</li>
 
-						<li class="breadcrumb-item">
-							<a href="{{ path('app_content_ckeditor_index') }}">Мэдээ HTML</a>
-						</li>
+						{% if newsId %}
+							<li class="breadcrumb-item">
+								<a href="{{ path('app_news_contents',{'id':newsId}) }}">Агуулгууд</a>
+							</li>
+						{% else %}
+							<li class="breadcrumb-item">
+								<a href="{{ path('app_content_ckeditor_index') }}">Мэдээ HTML</a>
+							</li>
+						{% endif %}
+
 
 						<li class="breadcrumb-item active" aria-current="page">
 							Засах
@@ -84,9 +45,24 @@
 			{{ form_row(form.enDescription) }}
 			{{ form_row(form.cnDescription) }}
 			{{ form_row(form.priority) }}
+			<div class="form-group" id="relatedNews">
+				{{ form_row(form.News) }}
+			</div>
+
 			{{ form_end(form) }}
 
 		</div>
 	</div>
 
+{% endblock %}
+
+{% block scripts %}
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+	var newsId = {{ newsId }}+"";
+if (newsId ) {
+document.getElementById('relatedNews').style.display = 'none';
+}
+});
+	</script>
 {% endblock %}

@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 #[Route('/structure', name: 'app_structure')]
@@ -44,7 +45,7 @@ class CompanyStructureController extends AbstractController
     }
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
 
         $structure = new CompanyStructure;
@@ -54,6 +55,18 @@ class CompanyStructureController extends AbstractController
 
         if ($structureForm->isSubmitted() && $structureForm->isValid()) {
             try {
+
+                $errors = $validator->validate($structure);
+              
+              
+                if (count($errors) > 0) {
+    
+                    $errorsString =  $errors[0]->getMessage();
+            
+                    $this->addFlash('danger', $errorsString);
+                    return $this->redirectToRoute('app_structure_create');
+                }
+
                 $em->persist($structure);
                 $em->flush();
 
@@ -84,7 +97,7 @@ class CompanyStructureController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $structure = $em->getRepository(CompanyStructure::class)->find($id);
 
@@ -95,6 +108,16 @@ class CompanyStructureController extends AbstractController
         $editStructureForm->handleRequest($request);
 
         if ($editStructureForm->isSubmitted() && $editStructureForm->isValid()) {
+            $errors = $validator->validate($structure);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_structure_edit',['id'=>$id]);
+            }
 
             $em->persist($structure);
             $em->flush();

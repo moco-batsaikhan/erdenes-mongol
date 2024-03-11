@@ -116,25 +116,13 @@ class NewsCreateFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
-            ->add(
-                'redirectType',
-                ChoiceType::class,
-                array(
-                    'attr' => array('class' => 'form-control'),
-                    'label' => 'Үсрэх төрөл',
-                    'choices' =>
-                    array(
-                        'Шууд мэдээрүү үсрэх' => true,
-                        'Жагсаалт байдлаар харагдах' => false
-                    ),
-                    'multiple' => false,
-                    'required' => false,
-                )
-            )
             ->add('newsType', EntityType::class, [
                 'label' => 'Үсрэх мэдээний төрөл сонгох',
                 'class' => NewsType::class,
                 'choice_label' => 'name',
+                'attr' => array(
+                    "class" => "form-control",
+                )
             ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

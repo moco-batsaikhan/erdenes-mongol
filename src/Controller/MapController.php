@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 #[Route('/map', name: 'app_map')]
@@ -43,7 +44,7 @@ class MapController extends AbstractController
     }
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
 
         $map = new Map;
@@ -53,7 +54,17 @@ class MapController extends AbstractController
 
         if ($mapForm->isSubmitted() && $mapForm->isValid()) {
             try {
-
+                $errors = $validator->validate($map);
+              
+              
+                if (count($errors) > 0) {
+    
+                    $errorsString =  $errors[0]->getMessage();
+            
+                    $this->addFlash('danger', $errorsString);
+                    return $this->redirectToRoute('app_map_create');
+                }
+    
                 $map->setCreatedUser($this->getUser());
                 $em->persist($map);
                 $em->flush();
@@ -85,7 +96,7 @@ class MapController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $map = $em->getRepository(Map::class)->find($id);
 
@@ -97,6 +108,16 @@ class MapController extends AbstractController
 
         if ($editMapForm->isSubmitted() && $editMapForm->isValid()) {
 
+            $errors = $validator->validate($map);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_map_edit');
+            }
             $em->persist($map);
             $em->flush();
 

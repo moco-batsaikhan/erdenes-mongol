@@ -16,7 +16,7 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							<a href="{{ path('app_video_news_index') }}" >Видео мэдээлэл</a>
+							<a href="{{ path('app_contact_index') }}">Холбоо барих</a>
 						</li>
 
 						<li class="breadcrumb-item active" aria-current="page">
@@ -28,21 +28,33 @@
 
 			{% include 'layout/flash.html.twig' %}
 
-			{{ form_start(editVideoForm) }}
+			{{ form_start(contactForm) }}
 
 			<div class="form-group">
-				{{ form_row(editVideoForm.name) }}
+				{{ form_row(contactForm.mnAddress) }}
 			</div>
 
 			<div class="form-group">
-				{{ form_row(editVideoForm.url) }}
+				{{ form_row(contactForm.enAddress) }}
 			</div>
 
 			<div class="form-group">
-				{{ form_row(editVideoForm.active) }}
+				{{ form_row(contactForm.cnAddress) }}
 			</div>
 
-			{{ form_end(editVideoForm) }}
+			<div class="form-group">
+				{{ form_row(contactForm.email) }}
+			</div>
+
+
+			<div class="form-group">
+				{{ form_row(contactForm.phone) }}
+			</div>
+
+			<div class="form-group">
+				{{ form_row(contactForm.save) }}
+			</div>
+			{{ form_end(contactForm) }}
 
 		</div>
 	</div>

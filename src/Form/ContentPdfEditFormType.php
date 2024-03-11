@@ -33,6 +33,13 @@ class ContentPdfEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
+            
+            ->add('pdfFile', VichFileType::class, [
+                'label' => 'PDF File',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
             ->add(
                 'active',
                 ChoiceType::class,
@@ -48,6 +55,15 @@ class ContentPdfEditFormType extends AbstractType
                     'required' => false,
                 )
             )
+            ->add('News', EntityType::class, [
+                'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
+                'class' => 'App\Entity\News',
+                'choice_label' => 'mnTitle',
+                'attr' => array(
+                    "class" => "form-control",
+                    'data-live-search'=>"true"
+                )
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

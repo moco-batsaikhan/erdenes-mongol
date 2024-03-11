@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/about/us', name: 'app_about_us')]
 class AboutUsController extends AbstractController
@@ -34,7 +35,7 @@ class AboutUsController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $config = $em->getRepository(AboutUs::class)->find($id);
 
@@ -45,6 +46,17 @@ class AboutUsController extends AbstractController
         $editAboutUsForm->handleRequest($request);
 
         if ($editAboutUsForm->isSubmitted() && $editAboutUsForm->isValid()) {
+
+            $errors = $validator->validate($config);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_about_us_edit',['id'=>$id]);
+            }
 
             $em->persist($config);
             $em->flush();

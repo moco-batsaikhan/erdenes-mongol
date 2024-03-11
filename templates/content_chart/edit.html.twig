@@ -19,10 +19,15 @@
 							<a href="{{ path('app_news_index') }}">Мэдээ
 							</a>
 						</li>
-
-						<li class="breadcrumb-item">
-							<a href="{{ path('app_content_pdf_index') }}">Мэдээний график</a>
-						</li>
+						{% if newsId %}
+							<li class="breadcrumb-item">
+								<a href="{{ path('app_news_contents',{'id':newsId}) }}">Агуулгууд</a>
+							</li>
+						{% else %}
+							<li class="breadcrumb-item">
+								<a href="{{ path('app_content_chart_index') }}">Мэдээний график</a>
+							</li>
+						{% endif %}
 
 						<li class="breadcrumb-item active" aria-current="page">
 							Засах
@@ -68,8 +73,20 @@
 var e = document.getElementById("chart_data_edit_form_graphType");
 
 var value = e.value;
-document.getElementById('downloadExampleLink').setAttribute("href", "http://localhost:8000/content/download-example-file?chartName=" + value);
+document.getElementById('downloadExampleLink').setAttribute("href", "/content/download-example-file?chartName=" + value);
 }
 	</script>
 
+{% endblock %}
+
+
+{% block scripts %}
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+	var newsId = {{ newsId }}+"";
+if (newsId ) {
+document.getElementById('relatedNews').style.display = 'none';
+}
+});
+	</script>
 {% endblock %}

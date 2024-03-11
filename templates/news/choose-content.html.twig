@@ -13,8 +13,12 @@
 						<li class="breadcrumb-item">
 							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
 						</li>
+
 						<li class="breadcrumb-item">
-							<a>Мэдээ мэдээлэл</a>
+							<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_news_contents',{'id':newsId}) }}">Агуулгууд</a>
 						</li>
 						<li class="breadcrumb-item">
 							Агуулга жагсаалт
@@ -24,12 +28,13 @@
 			</div>
 			<br>
 			<div class="list-group">
-				<a href="{{ path('app_content_chart_list_index')}}" class="list-group-item list-group-item-action">
+				<a href="{{ path('app_content_chart_list_index',{newsId: newsId})}}" class="list-group-item list-group-item-action">
 					График үүсгэх
 				</a>
-				<a href="{{ path('app_content_create_ckeditor')}}" class="list-group-item list-group-item-action">ckEditor үүсгэх
+				<a href="{{ path('app_content_create_ckeditor',{newsId: newsId})}}" class="list-group-item list-group-item-action">ckEditor үүсгэх
 				</a>
-				<a href="{{ path('app_content_create_pdf')}}" class="list-group-item list-group-item-action">PDF үүсгэх</a>
+				<a href="{{ path('app_content_create_pdf',{newsId: newsId})}}" class="list-group-item list-group-item-action">PDF үүсгэх</a>
+				<a href="{{ path('app_content_create_slide', {'newsId':newsId}) }}" class="list-group-item list-group-item-action">Slide үүсгэх</a>
 			</div>
 		</div>
 	</div>

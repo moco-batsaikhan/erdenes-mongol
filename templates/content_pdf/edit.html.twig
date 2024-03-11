@@ -19,10 +19,15 @@
 							<a href="{{ path('app_news_index') }}">Мэдээ
 							</a>
 						</li>
-
-						<li class="breadcrumb-item">
-							<a href="{{ path('app_content_pdf_index') }}">Мэдээ PDF</a>
-						</li>
+						{% if newsId %}
+							<li class="breadcrumb-item">
+								<a href="{{ path('app_news_contents',{'id':newsId}) }}">Агуулгууд</a>
+							</li>
+						{% else %}
+							<li class="breadcrumb-item">
+								<a href="{{ path('app_content_pdf_index') }}">Мэдээ PDF</a>
+							</li>
+						{% endif %}
 
 						<li class="breadcrumb-item active" aria-current="page">
 							Засах
@@ -46,10 +51,25 @@
 			<div class="form-group">
 				{{ form_row(contentPdfForm.priority) }}
 			</div>
+			<div class="form-group" id="relatedNews">
+				{{ form_row(contentPdfForm.News) }}
+			</div>
 
 			{{ form_end(contentPdfForm) }}
 
 		</div>
 	</div>
 
+{% endblock %}
+
+
+{% block scripts %}
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+	var newsId = {{ newsId }}+"";
+if (newsId ) {
+document.getElementById('relatedNews').style.display = 'none';
+}
+});
+	</script>
 {% endblock %}

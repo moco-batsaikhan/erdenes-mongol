@@ -51,6 +51,16 @@ class SlideEditFormType extends AbstractType
                 'required' => false,
                 'mapped' => false,
             ])
+            
+            ->add('News', EntityType::class, [
+                'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
+                'class' => 'App\Entity\News',
+                'choice_label' => 'mnTitle',
+                'attr' => [
+                    'class' => 'form-control',
+                    'data-live-search'=>"true"
+                ],
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Хадгалах',
                 'attr' => [

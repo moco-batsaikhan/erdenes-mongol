@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/employee', name: 'app_employee')]
 class EmployeeController extends AbstractController
@@ -39,7 +40,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
 
         $employee = new Employee;
@@ -49,6 +50,18 @@ class EmployeeController extends AbstractController
 
         if ($employeeForm->isSubmitted() && $employeeForm->isValid()) {
             try {
+
+                $errors = $validator->validate($employee);
+              
+              
+                if (count($errors) > 0) {
+    
+                    $errorsString =  $errors[0]->getMessage();
+            
+                    $this->addFlash('danger', $errorsString);
+                    return $this->redirectToRoute('app_employee_create');
+                }
+    
 
                 $employee->setCreatedUser($this->getUser());
                 $em->persist($employee);
@@ -82,7 +95,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $employee = $em->getRepository(Employee::class)->find($id);
 
@@ -93,6 +106,18 @@ class EmployeeController extends AbstractController
         $editEmployeeForm->handleRequest($request);
 
         if ($editEmployeeForm->isSubmitted() && $editEmployeeForm->isValid()) {
+
+
+            $errors = $validator->validate($employee);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_employee_edit',['id'=>$id]);
+            }
 
             $em->persist($employee);
             $em->flush();

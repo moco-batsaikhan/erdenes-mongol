@@ -17,20 +17,21 @@ class WebConfigEditFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('backgroundColor', TextType::class, array(
-                'label' => 'Цэс арын өнгө (өнгө оруулахгүй байж болно)',
+            ->add('backgroundColor',  TextType::class, array(
+                'label' => 'Цэс арын өнгө',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "өнгө оруулна уу ...",
                 ),
                 'required' => false,
             ))
-            ->add('colorCode', TextType::class, array(
-                'label' => 'Цэс текстийн өнгө (өнгө оруулахгүй байж болно)',
+            ->add('colorCode',  TextType::class, array(
+                'label' => 'Цэс текстийн өнгө',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "өнгө оруулна уу ...",
                 ),
+                'empty_data' => '',
                 'required' => false,
             ))
             ->add('transparentImageFile', VichFileType::class, [

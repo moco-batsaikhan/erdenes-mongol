@@ -42,6 +42,10 @@ class ChartDataCreateFormType extends AbstractType
                 'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
                 'class' => 'App\Entity\News',
                 'choice_label' => 'mnTitle',
+                'attr' => array(
+                    "class" => "form-control ",
+                    'data-live-search'=>"true"
+                )
             ])
             ->add(
                 'active',

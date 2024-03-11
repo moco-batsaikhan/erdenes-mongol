@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\CmsAdminLog;
 use App\Entity\Content;
+use App\Entity\News;
 use App\Form\ChartDataCreateFormType;
 use App\Form\ChartDataEditFormType;
 use App\Form\CkeditorCreateFormType;
@@ -22,6 +23,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 #[Route('/content', name: 'app_content')]
@@ -59,7 +61,11 @@ class ContentController extends AbstractController
     public function editCkEditor($id, EntityManagerInterface $em, Request $request): Response
     {
         $content = $em->getRepository(Content::class)->find($id);
-
+        $newsId = $request->query->get('newsId');
+        if($newsId !=null){
+            $news = $em->getRepository(News::class)->find($newsId); 
+            $content->setNews($news);
+        }
         $contentForm = $this->createForm(CkeditorEditFormType::class, $content, [
             'method' => 'POST',
         ]);
@@ -87,6 +93,7 @@ class ContentController extends AbstractController
 
 
         return $this->render('content_ckeditor/edit.html.twig', [
+            'newsId'=>$newsId,
             'form' => $contentForm->createView(),
             'page_title' => 'Мэдээ HTML засах',
         ]);
@@ -97,6 +104,11 @@ class ContentController extends AbstractController
     public function createCkeditor(EntityManagerInterface $em, Request $request): Response
     {
         $content = new Content();
+        $newsId = $request->query->get('newsId');
+        if($newsId !=null){
+            $news = $em->getRepository(News::class)->find($newsId); 
+            $content->setNews($news);
+        }
         $content->setType('CK_EDITOR');
         $contentForm = $this->createForm(CkeditorCreateFormType::class, $content, [
             'method' => 'POST',
@@ -125,6 +137,7 @@ class ContentController extends AbstractController
         }
 
         return $this->render('content_ckeditor/create.html.twig', [
+            'newsId'=>$newsId,
             'form' => $contentForm->createView(),
             'current' => $this->current,
             'page_title' => $this->pageTitle,
@@ -160,16 +173,32 @@ class ContentController extends AbstractController
     }
 
     #[Route('/create/pdf', name: '_create_pdf')]
-    public function createPdf(EntityManagerInterface $em, Request $request): Response
+    public function createPdf(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
 
         $contentPdf = new Content;
         $contentPdf->setType('PDF');
+        $newsId = $request->query->get('newsId');
+        if($newsId !=null){
+            $news = $em->getRepository(News::class)->find($newsId); 
+            $contentPdf->setNews($news);
+        }
         $contentPdfForm = $this->createForm(ContentPdfCreateFormType::class, $contentPdf);
 
         $contentPdfForm->handleRequest($request);
 
         if ($contentPdfForm->isSubmitted() && $contentPdfForm->isValid()) {
+            $errors = $validator->validate($contentPdf);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_content_create_pdf');
+            }
+
             $em->persist($contentPdf);
             $em->flush();
 
@@ -189,13 +218,14 @@ class ContentController extends AbstractController
         }
 
         return $this->render('content_pdf/create.html.twig', [
+            'newsId'=>$newsId,
             'contentPdfForm' => $contentPdfForm->createView(),
             'page_title' => 'Мэдээ PDF',
         ]);
     }
 
     #[Route('/edit/{id}', name: '_pdf_edit', requirements: ['id' => "\d+"])]
-    public function editPdf($id, EntityManagerInterface $em, Request $request): Response
+    public function editPdf($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $pdf = $em->getRepository(Content::class)->find($id);
 
@@ -206,6 +236,17 @@ class ContentController extends AbstractController
         $editPdfForm->handleRequest($request);
 
         if ($editPdfForm->isSubmitted() && $editPdfForm->isValid()) {
+            $errors = $validator->validate($pdf);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_content_pdf_edit',['id'=>$id]);
+            }
+
 
             $em->persist($pdf);
             $em->flush();
@@ -257,10 +298,11 @@ class ContentController extends AbstractController
     }
 
     #[Route('/chart-list', name: '_chart_list_index')]
-    public function listIndex(): Response
+    public function listIndex(Request $request): Response
     {
-
+        $newsId = $request->query->get('newsId');
         return $this->render('content_chart/chart-list.html.twig', [
+            'newsId'=>$newsId,
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Контент ',
@@ -317,6 +359,11 @@ class ContentController extends AbstractController
         $contentChart = new Content;
         $contentChart->setType('JSON');
         $contentChart->setGraphType($chartName);
+        $newsId = $request->query->get('newsId');
+        if($newsId !=null){
+            $news = $em->getRepository(News::class)->find($newsId); 
+            $contentChart->setNews($news);
+        }
         $contentChartForm = $this->createForm(ChartDataCreateFormType::class, $contentChart);
 
         $contentChartForm->handleRequest($request);
@@ -350,6 +397,7 @@ class ContentController extends AbstractController
         }
 
         return $this->render('content_chart/create.html.twig', [
+            'newsId'=>$newsId,
             'contentChartForm' => $contentChartForm->createView(),
             'pathName' => $chartName,
             'page_title' => 'Мэдээний график',
@@ -360,7 +408,11 @@ class ContentController extends AbstractController
     public function editChart($id, EntityManagerInterface $em, Request $request): Response
     {
         $config = $em->getRepository(Content::class)->find($id);
-
+        $newsId = $request->query->get('newsId');
+        if($newsId !=null){
+            $news = $em->getRepository(News::class)->find($newsId); 
+            $config->setNews($news);
+        }
 
         $editChartForm = $this->createForm(ChartDataEditFormType::class, $config, [
             'method' => 'POST',
@@ -388,6 +440,7 @@ class ContentController extends AbstractController
         }
 
         return $this->render('content_chart/edit.html.twig', [
+            'newsId'=>$newsId,
             'editForm' => $editChartForm->createView(),
             'page_title' => 'Мэдээний график засах',
         ]);
@@ -654,6 +707,12 @@ class ContentController extends AbstractController
         $content = new Content();
         $content->setType('SLIDE');
 
+        $newsId = $request->query->get('newsId');
+        if($newsId !=null){
+            $news = $em->getRepository(News::class)->find($newsId); 
+            $content->setNews($news);
+        }
+
         $contentForm = $this->createForm(SlideCreateFormType::class, $content, [
             'method' => 'POST',
         ]);
@@ -699,6 +758,7 @@ class ContentController extends AbstractController
         }
 
         return $this->render('content_slide/create.html.twig', [
+            'newsId'=>$newsId,
             'form' => $contentForm->createView(),
             'current' => $this->current,
             'page_title' => $this->pageTitle,
@@ -710,7 +770,11 @@ class ContentController extends AbstractController
     public function editSlide($id, EntityManagerInterface $em, Request $request): Response
     {
         $config = $em->getRepository(Content::class)->find($id);
-
+        $newsId = $request->query->get('newsId');
+        if($newsId !=null){
+            $news = $em->getRepository(News::class)->find($newsId); 
+            $config->setNews($news);
+        }
         $editSlideForm = $this->createForm(SlideEditFormType::class, $config, [
             'method' => 'POST',
         ]);
@@ -737,6 +801,7 @@ class ContentController extends AbstractController
         }
 
         return $this->render('content_slide/edit.html.twig', [
+            'newsId'=>$newsId,
             'form' => $editSlideForm->createView(),
             'page_title' => 'Мэдээ SLIDE',
         ]);
