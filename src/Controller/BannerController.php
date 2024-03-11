@@ -81,8 +81,6 @@ class BannerController extends AbstractController
                     $this->addFlash('danger', $errorsString);
                     return $this->redirectToRoute('app_banner_create');
                 }
-                dd($errors);
-                die();
                 $banner->setCreatedUser($this->getUser());
                 $em->persist($banner);
                 $em->flush();
