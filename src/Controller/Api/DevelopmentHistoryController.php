@@ -19,7 +19,7 @@ class DevelopmentHistoryController extends AbstractController
     {
 
         $qb = $entityManager->createQueryBuilder();
-        $qb->select('e.id', 'e.year', 'e.priority', 'e.file')
+        $qb->select('e.id', 'e.year', 'e.priority', 'e.data')
             ->from(DevelopmentHistory::class, 'e')
             ->orderBy('e.priority', 'ASC');
 
