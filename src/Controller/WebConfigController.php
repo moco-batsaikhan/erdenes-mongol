@@ -47,18 +47,16 @@ class WebConfigController extends AbstractController
         $editWebConfigForm->handleRequest($request);
 
         if ($editWebConfigForm->isSubmitted() && $editWebConfigForm->isValid()) {
-            // $errors = $validator->validate($config);
+            $errors = $validator->validate($config);
 
 
-            // if (count($errors) > 0) {
+            if (count($errors) > 0) {
 
-            //     $errorsString =  $errors[0]->getMessage();
+                $errorsString =  $errors[0]->getMessage();
 
-            //     $this->addFlash('danger', $errorsString);
-            //     return $this->redirectToRoute('app_banner_create');
-            // }
-            // dd($errors);
-            // die();
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_web_config_edit',['id'=>$id]);
+            }
 
             $em->persist($config);
             $em->flush();

@@ -23,13 +23,8 @@
 		</a>
 	</li>
 
-	{# {% if is_granted('ROLE_ADMIN') 
-																																																																																																																																																														or is_granted('ROLE_BANNER')
-																																																																																																																																																												        %} #}
-
-	<!-- Divider -->
 	<hr class="sidebar-divider">
-	{% if  is_granted('ROLE_SUPER_ADMIN') %}
+	{% if  is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_ADMIN')  %}
 		<!-- Heading -->
 		<div class="sidebar-heading">
 			Удирдлага
@@ -96,6 +91,7 @@
 					<a class="collapse-item" href="{{ path('app_employee_index') }}">Хамт олон</a>
 					<a class="collapse-item" href="{{ path('app_development_history_index') }}">Хөгжлийн түүх</a>
 					<a class="collapse-item" href="{{ path('app_structure_index') }}">Компаний бүтэц</a>
+					<a class="collapse-item" href="{{ path('app_contact_index') }}">Холбоо барих</a>
 				</div>
 			</div>
 		</li>

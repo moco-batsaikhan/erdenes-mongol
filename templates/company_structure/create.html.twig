@@ -29,13 +29,25 @@
 	{{ form_start(structureForm) }}
 
 	<div class="form-group">
-		{{ form_row(structureForm.name) }}
+		{{ form_row(structureForm.mnName) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(structureForm.enName) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(structureForm.cnName) }}
 	</div>
 
 	<div class="form-group">
-		{{ form_row(structureForm.body) }}
+		{{ form_row(structureForm.mnBody) }}
 	</div>
 
+	<div class="form-group">
+		{{ form_row(structureForm.enBody) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(structureForm.cnBody) }}
+	</div>
 	<div class="form-group">
 		{{ form_row(structureForm.web) }}
 	</div>
@@ -50,7 +62,13 @@
 	</div>
 
 	<div class="form-group">
-		{{ form_row(structureForm.address) }}
+		{{ form_row(structureForm.mnAddress) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(structureForm.enAddress) }}
+	</div>
+	<div class="form-group">
+		{{ form_row(structureForm.cnAddress) }}
 	</div>
 
 	{{ form_end(structureForm) }}

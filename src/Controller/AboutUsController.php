@@ -55,7 +55,7 @@ class AboutUsController extends AbstractController
                 $errorsString =  $errors[0]->getMessage();
         
                 $this->addFlash('danger', $errorsString);
-                return $this->redirectToRoute('app_about_us');
+                return $this->redirectToRoute('app_about_us_edit',['id'=>$id]);
             }
 
             $em->persist($config);

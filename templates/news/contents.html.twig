@@ -21,7 +21,7 @@
 							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
 						</li>
 						<li class="breadcrumb-item">
-							<a>Мэдээ мэдээлэл</a>
+							<a href="{{ path('app_news_index') }}">Мэдээ мэдээлэл</a>
 						</li>
 						<li class="breadcrumb-item">
 							<a>Агуулгууд</a>
@@ -31,7 +31,7 @@
 			</div>
 
 			<div>
-				<a href="{{ path('app_news_choose_content') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_news_choose_content',{newsId: newsId}) }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -59,19 +59,19 @@
 								<td class="content-list">{{ content.type}}</td>
 								<td>
 									{% if content.type == 'JSON' %}
-										<a href="{{ path('app_content_edit_chart', {'id': content.id}) }}" class="btn btn-primary btn-sm">
+										<a href="{{ path('app_content_edit_chart', {'id': content.id , 'newsId':newsId}) }}" class="btn btn-primary btn-sm">
 											<i class="fas fa-edit"></i>
 										</a>
 									{% elseif content.type == 'SLIDE' %}
-										<a href="{{ path('app_content_edit_slide', {'id': content.id}) }}" class="btn btn-primary btn-sm">
+										<a href="{{ path('app_content_edit_slide', {'id': content.id, 'newsId':newsId}) }}" class="btn btn-primary btn-sm">
 											<i class="fas fa-edit"></i>
 										</a>
 									{% elseif content.type == 'CK_EDITOR' %}
-										<a href="{{ path('app_content_edit_ckeditor', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+										<a href="{{ path('app_content_edit_ckeditor', {'id' : content.id, 'newsId':newsId}) }}" class="btn btn-primary btn-sm">
 											<i class="fas fa-edit"></i>
 										</a>
 									{% elseif content.type == 'PDF' %}
-										<a href="{{ path('app_content_pdf_edit', {'id' : content.id}) }}" class="btn btn-primary btn-sm">
+										<a href="{{ path('app_content_pdf_edit', {'id' : content.id, 'newsId':newsId}) }}" class="btn btn-primary btn-sm">
 											<i class="fas fa-edit"></i>
 										</a>
 									{% endif %}

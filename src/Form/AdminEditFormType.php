@@ -31,10 +31,6 @@ class AdminEditFormType extends AbstractType
                             (
                                 'Сонгох' => 'ROLE_SUPER_ADMIN'
                             ),
-                            'Админ' => array
-                            (
-                                'Сонгох' => 'ROLE_ADMIN',
-                            ),
 
                             'Мэдээний админ' => array
                             (

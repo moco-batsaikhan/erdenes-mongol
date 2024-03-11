@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/news', name: 'app_news')]
 class NewsController extends AbstractController
@@ -73,7 +74,7 @@ class NewsController extends AbstractController
 
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request): Response
+    public function create(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
 
         $news = new News;
@@ -83,6 +84,17 @@ class NewsController extends AbstractController
 
         if ($newsForm->isSubmitted() && $newsForm->isValid()) {
             $news->setCreatedUser($this->getUser());
+
+            $errors = $validator->validate($news);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_news_create');
+            }
 
             $em->persist($news);
             $em->flush();
@@ -111,7 +123,7 @@ class NewsController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $news = $em->getRepository(News::class)->find($id);
 
@@ -123,6 +135,18 @@ class NewsController extends AbstractController
 
         if ($editNewsForm->isSubmitted() && $editNewsForm->isValid()) {
 
+
+
+            $errors = $validator->validate($news);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_news_edit',['id'=>$id]);
+            }
             $em->persist($news);
             $em->flush();
 
@@ -148,10 +172,11 @@ class NewsController extends AbstractController
     }
 
     #[Route('/choose-content', name: '_choose_content')]
-    public function listIndex(): Response
+    public function listIndex(Request $request): Response
     {
-
+        $newsId = $request->query->get('newsId');
         return $this->render('news/choose-content.html.twig', [
+            'newsId'=>$newsId,
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Контент ',
@@ -181,6 +206,29 @@ class NewsController extends AbstractController
         $this->addFlash('success', 'Амжилттай нийтлэгдлээ.');
         return $this->redirectToRoute('app_news_index');
     }
+    #[Route('/unpunlish/{id}', name: '_unpunlish', requirements: ['id' => "\d+"])]
+    public function unpunlish($id, EntityManagerInterface $em, Request $request): Response
+    {
+        $news = $em->getRepository(News::class)->find($id);
+
+        $news->setProcessType('CREATED');
+
+        $em->persist($news);
+        $em->flush();
+
+        $log = new CmsAdminLog();
+        $log->setAdminname($this->getUser()->getUserIdentifier());
+        $log->setIpaddress($request->getClientIp());
+        $log->setValue($news->getId());
+        $log->setAction('Мэдээ нийтлэхээ болив.');
+        $log->setCreatedAt(new \DateTime('now'));
+
+        $em->persist($log);
+        $em->flush();
+
+        $this->addFlash('success', 'Амжилттай.');
+        return $this->redirectToRoute('app_news_index');
+    }
 
 
     #[Route('/{id}/contents', name: '_contents', requirements: ['id' => "\d+"])]
@@ -192,6 +240,7 @@ class NewsController extends AbstractController
 
 
         return $this->render('news/contents.html.twig', [
+            'newsId' => $news->getId(),
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Мэдээ',

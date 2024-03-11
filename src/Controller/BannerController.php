@@ -112,7 +112,7 @@ class BannerController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $banner = $em->getRepository(Banner::class)->find($id);
 
@@ -123,6 +123,17 @@ class BannerController extends AbstractController
         $editBannerForm->handleRequest($request);
 
         if ($editBannerForm->isSubmitted() && $editBannerForm->isValid()) {
+
+            $errors = $validator->validate($banner);
+              
+              
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+        
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_banner_edit',['id'=>$id]);
+            }
 
             $em->persist($banner);
             $em->flush();

@@ -19,7 +19,7 @@ class CompanyStructure
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $name = null;
+    private ?string $mnName = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $phone = null;
@@ -28,7 +28,7 @@ class CompanyStructure
     private ?string $web = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $address = null;
+    private ?string $mnAddress = null;
 
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "icon")]
     #[Assert\File(
@@ -46,7 +46,25 @@ class CompanyStructure
     private ?\DateTimeInterface $updateAt = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    private ?string $body = null;
+    private ?string $mnBody = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enName = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cnName = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enBody = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnBody = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enAddress = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cnAddress = null;
 
     public function __construct()
     {
@@ -59,14 +77,14 @@ class CompanyStructure
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getMnName(): ?string
     {
-        return $this->name;
+        return $this->mnName;
     }
 
-    public function setName(string $name): static
+    public function setMnName(string $mnName): static
     {
-        $this->name = $name;
+        $this->name = $mnName;
 
         return $this;
     }
@@ -95,14 +113,14 @@ class CompanyStructure
         return $this;
     }
 
-    public function getAddress(): ?string
+    public function getMnAddress(): ?string
     {
-        return $this->address;
+        return $this->mnAddress;
     }
 
-    public function setAddress(?string $address): static
+    public function setMnAddress(?string $mnAddress): static
     {
-        $this->address = $address;
+        $this->address = $mnAddress;
 
         return $this;
     }
@@ -157,14 +175,86 @@ class CompanyStructure
         return $this;
     }
 
-    public function getBody(): ?string
+    public function getMnBody(): ?string
     {
-        return $this->body;
+        return $this->mnBody;
     }
 
-    public function setBody(string $body): static
+    public function setMnBody(string $mnBody): static
     {
-        $this->body = $body;
+        $this->body = $mnBody;
+
+        return $this;
+    }
+
+    public function getEnName(): ?string
+    {
+        return $this->enName;
+    }
+
+    public function setEnName(?string $enName): static
+    {
+        $this->enName = $enName;
+
+        return $this;
+    }
+
+    public function getCnName(): ?string
+    {
+        return $this->cnName;
+    }
+
+    public function setCnName(?string $cnName): static
+    {
+        $this->cnName = $cnName;
+
+        return $this;
+    }
+
+    public function getEnBody(): ?string
+    {
+        return $this->enBody;
+    }
+
+    public function setEnBody(?string $enBody): static
+    {
+        $this->enBody = $enBody;
+
+        return $this;
+    }
+
+    public function getCnBody(): ?string
+    {
+        return $this->cnBody;
+    }
+
+    public function setCnBody(?string $cnBody): static
+    {
+        $this->cnBody = $cnBody;
+
+        return $this;
+    }
+
+    public function getEnAddress(): ?string
+    {
+        return $this->enAddress;
+    }
+
+    public function setEnAddress(?string $enAddress): static
+    {
+        $this->enAddress = $enAddress;
+
+        return $this;
+    }
+
+    public function getCnAddress(): ?string
+    {
+        return $this->cnAddress;
+    }
+
+    public function setCnAddress(?string $cnAddress): static
+    {
+        $this->cnAddress = $cnAddress;
 
         return $this;
     }

@@ -188,4 +188,86 @@ class NewsController extends AbstractController
 
         return new JsonResponse($response);
     }
+
+    #[Route('/newsSpecial', name: 'news_special', methods: ['get'])]
+    public function special(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer)
+    {
+
+        $lang = $request->get('lang') ? $request->get('lang') : 'mn';
+
+        $news = $doctrine
+            ->getRepository(News::class)
+            ->createQueryBuilder('p')
+            ->andWhere('p.isSpecial = 1')
+            ->andWhere('p.processType = :stat')
+            ->setParameter('stat', "PUBLISHED")
+            ->orderBy("p.createdAt", "DESC")
+            ->getQuery()
+            ->setMaxResults(1)->getScalarResult();
+
+        if (!isset($news[0])) {
+            $news = $doctrine
+            ->getRepository(News::class)
+            ->createQueryBuilder('p')
+            ->andWhere('p.isSpecial = 1')
+            ->orderBy("p.createdAt", "DESC")
+            ->getQuery()
+            ->setMaxResults(1)->getScalarResult();
+        }
+        $news = $news[0];
+
+
+        $newsDto = [
+            'id' => $news['p_id'],
+            'title' => $news['p_' . $lang . 'Title'],
+            'headLine' => $news['p_' . $lang . 'Headline'],
+            'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_imageUrl'],
+            'bodyImageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_bodyImageUrl'],
+            'redirectType' => $news['p_redirectType'],
+            'active' => $news['p_active'],
+            'special' => $news['p_isSpecial'],
+            'createdDate' => $news['p_createdAt']
+        ];
+        $contents = $doctrine
+            ->getRepository(Content::class)
+            ->createQueryBuilder('p')
+            ->where('p.active = 1')
+            ->andWhere('p.News = :id')
+            ->setParameter('id', $newsDto['id'])
+            ->orderBy('p.priority', 'ASC')
+            ->getQuery()
+            ->getScalarResult();
+        $newContentsDto = [];
+
+        foreach ($contents as $key => $value) {
+            $newContentsDto[] = [
+                'id' => $value['p_id'],
+                'name' => $value['p_name'],
+                'type' => $value['p_type'],
+                'body' => $value['p_' . $lang . 'Description'],
+                'active' => $value['p_active'],
+                'file' =>  $value['p_file'],
+                'graphType' => $value['p_graphType'],
+                'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName']
+
+            ];
+        }
+
+
+
+        $newsDto['content'] = $newContentsDto;
+
+
+
+        $news = $serializer->serialize($newsDto, 'json');
+
+
+
+        $response = [
+            'news' => json_decode($news)
+        ];
+
+        return new JsonResponse($response);
+    }
+
 }

@@ -60,6 +60,6 @@ security:
     - { path: ^/currency, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
     - { path: ^/video/news, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
     - { path: ^/job/ads/index, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
-    - { path: ^/profile, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
-    - { path: ^/efconnect, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
-    - { path: ^/elfinder, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN] }
+    - { path: ^/profile, roles: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/efconnect, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }
+    - { path: ^/elfinder, role: [ROLE_ADMIN, ROLE_SUPER_ADMIN,ROLE_NEWS_ADMIN] }

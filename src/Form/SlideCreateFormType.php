@@ -35,6 +35,10 @@ class SlideCreateFormType extends AbstractType
                 'label' => 'Аль мэдээнд хамаарахыг сонгоно уу!',
                 'class' => 'App\Entity\News',
                 'choice_label' => 'mnTitle',
+                'attr' => [
+                    'class' => 'form-control',
+                    'data-live-search'=>"true"
+                ],
             ])
             ->add('active', ChoiceType::class, [
                 'label' => 'Төлөв',

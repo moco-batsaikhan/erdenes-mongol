@@ -90,6 +90,9 @@ class SubCategoryCreateFormType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => '',
                 'required' => false,
+                'attr' => array(
+                    "class" => "form-control",
+                )
             ])
             ->add('newsId', EntityType::class, [
                 'label' => 'Үсрэх мэдээ сонгох',

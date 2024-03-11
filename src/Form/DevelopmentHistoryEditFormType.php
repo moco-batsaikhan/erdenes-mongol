@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\DevelopmentHistory;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -22,11 +23,12 @@ class DevelopmentHistoryEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
-            ->add('file', FileType::class, [
-                'label' => 'Excel File (XLSX)',
-                'required' => true,
-                'mapped' => false,
-            ])
+            ->add('data', CollectionType::class, array(
+                'label'=>'Жагсаалт',
+                'entry_type' => Data::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
 
             ->add('priority', NumberType::class, array(
                 'label' => 'Дарааалал',

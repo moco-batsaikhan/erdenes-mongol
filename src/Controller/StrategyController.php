@@ -65,7 +65,6 @@ class StrategyController extends AbstractController
                     $this->addFlash('danger', $errorsString);
                     return $this->redirectToRoute('app_strategy_create');
                 }
-                dd($errors);
                 $em->persist($strategy);
                 $em->flush();
 
@@ -96,7 +95,7 @@ class StrategyController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request): Response
+    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
     {
         $strategy = $em->getRepository(Strategy::class)->find($id);
 
@@ -107,6 +106,16 @@ class StrategyController extends AbstractController
         $editStrategyForm->handleRequest($request);
 
         if ($editStrategyForm->isSubmitted() && $editStrategyForm->isValid()) {
+
+            $errors = $validator->validate($strategy);
+
+            if (count($errors) > 0) {
+
+                $errorsString =  $errors[0]->getMessage();
+
+                $this->addFlash('danger', $errorsString);
+                return $this->redirectToRoute('app_strategy_edit',['id'=>$id]);
+            }
 
             $em->persist($strategy);
             $em->flush();
