@@ -99,7 +99,7 @@ class AboutUsEditFormType extends AbstractType
             ))
             ->add('imageFile', VichFileType::class, [
                 'required' => false,
-                'label' => 'Зураг оруулах',
+                'label' => 'Зураг оруулах, тохирох хэмжээ(420*500px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',

@@ -61,7 +61,7 @@ class EmployeeCreateFormType extends AbstractType
             ))
             ->add('imageFile', VichFileType::class, [
                 'required' => true,
-                'label' => 'Зураг оруулах',
+                'label' => 'Зураг оруулах, тохирох хэмжээ(350*350px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',

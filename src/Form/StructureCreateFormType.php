@@ -95,7 +95,7 @@ class StructureCreateFormType extends AbstractType
             
             ->add('iconFile', VichFileType::class, [
                 'required' => false,
-                'label' => 'Зураг оруулах',
+                'label' => 'Зураг оруулах, тохирох хэмжээ(230*100px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Зураг харах',
