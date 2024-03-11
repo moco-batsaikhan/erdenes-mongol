@@ -16,12 +16,30 @@ use Symfony\Component\HttpFoundation\Request;
 class WebConfigController extends AbstractController
 {
     #[Route('/web-config', name: 'web_config_index',  methods: ['get'])]
-    public function getWebConfig(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+    public function getWebConfig(Request $request, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
+        $lang = $request->query->get('lang') ?: 'mn';
+
         $webConfig = $entityManager->getRepository(WebConfig::class)->findOneBy([]);
 
         if (!$webConfig) {
             return new JsonResponse(['message' => 'No web config found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $slogan = '';
+        switch ($lang) {
+            case 'mn':
+                $slogan = $webConfig->getMnSloganText();
+                break;
+            case 'en':
+                $slogan = $webConfig->getEnSloganText();
+                break;
+            case 'cn':
+                $slogan = $webConfig->getCnSloganText();
+                break;
+            default:
+                $slogan = $webConfig->getMnSloganText();
+                break;
         }
 
         $webConfigDto = [
@@ -30,7 +48,8 @@ class WebConfigController extends AbstractController
             'sloganImage' => $this->getParameter('base_url') . 'uploads/image/' . $webConfig->getSloganImage(),
             'coverImage' => $this->getParameter('base_url') . 'uploads/image/' . $webConfig->getCoverImage(),
             'textColor' => $webConfig->getColorCode(),
-            'backgroundColor' => $webConfig->getBackgroundColor()
+            'backgroundColor' => $webConfig->getBackgroundColor(),
+            'sloganText' => $slogan
         ];
 
         $webConfig = $serializer->serialize($webConfigDto, 'json');

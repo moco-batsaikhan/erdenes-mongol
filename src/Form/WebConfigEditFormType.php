@@ -34,14 +34,41 @@ class WebConfigEditFormType extends AbstractType
                 'empty_data' => '',
                 'required' => false,
             ))
+            ->add('mnSloganText',  TextType::class, array(
+                'label' => 'Уриа үг(Монгол)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "өнгө оруулна уу ...",
+                ),
+                'empty_data' => '',
+                'required' => false,
+            ))
+            ->add('enSloganText',  TextType::class, array(
+                'label' => 'Уриа үг(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "өнгө оруулна уу ...",
+                ),
+                'empty_data' => '',
+                'required' => false,
+            ))
+            ->add('cnSloganText',  TextType::class, array(
+                'label' => 'Уриа үг(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "өнгө оруулна уу ...",
+                ),
+                'empty_data' => '',
+                'required' => false,
+            ))
             ->add('transparentImageFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Ил тод хэсгийн зураг, тохирох хэмжээ(1440*410px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
-                'download_uri' => static function (WebConfig $config)  {
-                    return  "/uploads/image/".$config->getTransparentImage();
+                'download_uri' => static function (WebConfig $config) {
+                    return  "/uploads/image/" . $config->getTransparentImage();
                 },
                 'delete_label' => 'Устгах',
                 'attr' => array(
@@ -54,8 +81,8 @@ class WebConfigEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
-                'download_uri' => static function (WebConfig $config)  {
-                    return  "/uploads/image/".$config->getSloganImage();
+                'download_uri' => static function (WebConfig $config) {
+                    return  "/uploads/image/" . $config->getSloganImage();
                 },
                 'delete_label' => 'Устгах',
                 'attr' => array(
@@ -68,8 +95,8 @@ class WebConfigEditFormType extends AbstractType
                 'allow_delete' => true,
                 'allow_file_upload' => true,
                 'download_label' => 'Logo харах',
-                'download_uri' => static function (WebConfig $config)  {
-                    return  "/uploads/image/".$config->getCoverImage();
+                'download_uri' => static function (WebConfig $config) {
+                    return  "/uploads/image/" . $config->getCoverImage();
                 },
                 'delete_label' => 'Устгах',
                 'attr' => array(

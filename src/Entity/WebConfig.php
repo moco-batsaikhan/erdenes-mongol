@@ -54,6 +54,15 @@ class WebConfig
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enSloganText = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnSloganText = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnSloganText = null;
+
     public function setTransparentImageFile(File $image = null)
     {
         $this->transparentImageFile = $image;
@@ -169,6 +178,42 @@ class WebConfig
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getEnSloganText(): ?string
+    {
+        return $this->enSloganText;
+    }
+
+    public function setEnSloganText(?string $enSloganText): static
+    {
+        $this->enSloganText = $enSloganText;
+
+        return $this;
+    }
+
+    public function getMnSloganText(): ?string
+    {
+        return $this->mnSloganText;
+    }
+
+    public function setMnSloganText(?string $mnSloganText): static
+    {
+        $this->mnSloganText = $mnSloganText;
+
+        return $this;
+    }
+
+    public function getCnSloganText(): ?string
+    {
+        return $this->cnSloganText;
+    }
+
+    public function setCnSloganText(?string $cnSloganText): static
+    {
+        $this->cnSloganText = $cnSloganText;
 
         return $this;
     }
