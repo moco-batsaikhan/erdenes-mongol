@@ -35,12 +35,20 @@
 			</div>
 
 			<div class="form-group">
-				{{ form_row(configForm.fontSize) }}
+				{{ form_row(configForm.backgroundColor) }}
 			</div>
 
 			<div class="form-group">
-				{{ form_row(configForm.priority) }}
+				{{ form_row(configForm.transparentImageFile) }}
 			</div>
+
+			<div class="form-group">
+				{{ form_row(configForm.sloganImageFile) }}
+			</div>
+
+			{# <div class="form-group">
+							{{ form_row(configForm.coverImageFile) }}
+						</div> #}
 
 			{{ form_end(configForm) }}
 

@@ -13,6 +13,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class StrategyEditFormType extends AbstractType
+
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,6 +33,12 @@ class StrategyEditFormType extends AbstractType
                     'placeholder' => 'гарчиг оруулна уу ...',
                 ],
                 'required' => false,
+            ])
+            ->add('pdfFile', VichFileType::class, [
+                'label' => 'PDF File',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
             ])
             ->add('cnTitle', TextType::class, [
                 'label' => 'гарчиг(Хятад)',
@@ -66,26 +73,26 @@ class StrategyEditFormType extends AbstractType
                 'required' => false,
             ])
             ->add('mnPurpose', TextAreaType::class, [
-                'label' => 'зорилго(Монгол)',
+                'label' => 'Стратегийн зорилго(Монгол)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилго оруулна уу ...',
+                    'placeholder' => 'Стратегийн зорилго оруулна уу ...',
                 ],
                 'required' => false,
             ])
             ->add('enPurpose', TextAreaType::class, [
-                'label' => 'зорилго(Англи)',
+                'label' => 'Стратегийн зорилго(Англи)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилго оруулна уу ...',
+                    'placeholder' => 'Стратегийн зорилго оруулна уу ...',
                 ],
                 'required' => false,
             ])
             ->add('cnPurpose', TextAreaType::class, [
-                'label' => 'зорилго(Хятад)',
+                'label' => 'Стратегийн зорилго(Хятад)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилго оруулна уу ...',
+                    'placeholder' => 'Стратегийн зорилго оруулна уу ...',
                 ],
                 'required' => false,
             ])
@@ -113,30 +120,37 @@ class StrategyEditFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            ->add('mnSlogan', TextAreaType::class, [
-                'label' => 'Үнэт зүйл(Монгол)',
+            ->add('mnTarget', TextAreaType::class, [
+                'label' => 'үнэт зүйл(Монгол)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
+                    'placeholder' => 'үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
-            ->add('enSlogan', TextAreaType::class, [
-                'label' => 'Үнэт зүйл(Англи)',
+            ->add('enTarget', TextAreaType::class, [
+                'label' => 'үнэт зүйл(Англи)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
+                    'placeholder' => 'үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
-            ->add('cnSlogan', TextAreaType::class, [
-                'label' => 'Үнэт зүйл(Хятад)',
+            ->add('cnTarget', TextAreaType::class, [
+                'label' => 'үнэт зүйл(Хятад)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
+                    'placeholder' => 'үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
+            ->add('pdfFile', VichFileType::class, [
+                'label' => 'PDF File',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
+
             ->add(
                 'active',
                 ChoiceType::class,

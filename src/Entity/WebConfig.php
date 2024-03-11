@@ -3,8 +3,13 @@
 namespace App\Entity;
 
 use App\Repository\WebConfigRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
+#[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: WebConfigRepository::class)]
 class WebConfig
 {
@@ -16,11 +21,80 @@ class WebConfig
     #[ORM\Column(length: 32, nullable: true)]
     private ?string $colorCode = null;
 
-    #[ORM\Column(length: 32, nullable: true)]
-    private ?string $fontSize = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $transparentImage = null;
 
-    #[ORM\Column(length: 1, nullable: true)]
-    private ?string $priority = null;
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "transparentImage")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
+    private ?File $transparentImageFile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $sloganImage = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "sloganImage")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
+    private ?File $sloganImageFile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $coverImage = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "coverImage")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
+    private ?File $coverImageFile = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $backgroundColor = null;
+
+    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    public function setTransparentImageFile(File $image = null)
+    {
+        $this->transparentImageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getTransparentImageFile()
+    {
+        return $this->transparentImageFile;
+    }
+
+    public function setSloganImageFile(File $image = null)
+    {
+        $this->sloganImageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getSloganImageFile()
+    {
+        return $this->sloganImageFile;
+    }
+
+    public function setCoverImageFile(File $image = null)
+    {
+        $this->coverImageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getCoverImageFile()
+    {
+        return $this->coverImageFile;
+    }
 
     public function getId(): ?int
     {
@@ -39,26 +113,62 @@ class WebConfig
         return $this;
     }
 
-    public function getFontSize(): ?string
+    public function getTransparentImage(): ?string
     {
-        return $this->fontSize;
+        return $this->transparentImage;
     }
 
-    public function setFontSize(?string $fontSize): static
+    public function setTransparentImage(?string $transparentImage): static
     {
-        $this->fontSize = $fontSize;
+        $this->transparentImage = $transparentImage;
 
         return $this;
     }
 
-    public function getPriority(): ?string
+    public function getSloganImage(): ?string
     {
-        return $this->priority;
+        return $this->sloganImage;
     }
 
-    public function setPriority(?string $priority): static
+    public function setSloganImage(?string $sloganImage): static
     {
-        $this->priority = $priority;
+        $this->sloganImage = $sloganImage;
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?string
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(?string $coverImage): static
+    {
+        $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    public function getBackgroundColor(): ?string
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor(?string $backgroundColor): static
+    {
+        $this->backgroundColor = $backgroundColor;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }

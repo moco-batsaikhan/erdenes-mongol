@@ -28,39 +28,39 @@ class AboutUsController extends AbstractController
         }
 
         $principles = '';
-        $purpose = '';
+        $value = '';
         $vision = '';
-        $slogan = '';
+        $strategyPurpose = '';
         $description = '';
         switch ($lang) {
             case 'mn':
                 $principles = $data->getMnPrinciples();
-                $purpose = $data->getMnPurpose();
+                $value = $data->getMnValue();
                 $vision = $data->getMnVision();
-                $slogan = $data->getMnSlogan();
+                $strategyPurpose = $data->getMnStrategyPurpose();
                 $description = $data->getMnDescription();
                 break;
             case 'en':
                 $principles = $data->getEnPrinciples();
-                $purpose = $data->getEnPurpose();
+                $value = $data->getEnValue();
                 $vision = $data->getEnVision();
-                $slogan = $data->getEnSlogan();
+                $strategyPurpose = $data->getEnStrategyPurpose();
                 $description = $data->getEnDescription();
 
                 break;
             case 'cn':
                 $principles = $data->getCnPrinciples();
-                $purpose = $data->getCnPurpose();
+                $value = $data->getCnValue();
                 $vision = $data->getCnVision();
-                $slogan = $data->getCnSlogan();
+                $strategyPurpose = $data->getCnStrategyPurpose();
                 $description = $data->getCnDescription();
 
                 break;
             default:
                 $principles = $data->getMnPrinciples();
-                $purpose = $data->getMnPurpose();
+                $value = $data->getMnValue();
                 $vision = $data->getMnVision();
-                $slogan = $data->getMnSlogan();
+                $strategyPurpose = $data->getMnStrategyPurpose();
                 $description = $data->getMnDescription();
 
                 break;
@@ -68,10 +68,10 @@ class AboutUsController extends AbstractController
 
         $dataDto = [
             'id' => $data->getId(),
-            'purpose' => $purpose,
+            'value' => $value,
             'vision' => $vision,
             'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $data->getImageUrl(),
-            'slogan' => $slogan,
+            'strategyPurpose' => $strategyPurpose,
             'principles' => $principles,
             'firstNumber' => $data->getFirsNumber(),
             'description' => $description,

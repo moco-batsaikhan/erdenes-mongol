@@ -9,9 +9,9 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Vich\UploaderBundle\Form\Type\VichFileType;
 
 class StrategyCreateFormType extends AbstractType
 {
@@ -67,26 +67,26 @@ class StrategyCreateFormType extends AbstractType
                 'required' => false,
             ])
             ->add('mnPurpose', TextAreaType::class, [
-                'label' => 'стратегийн зорилго(Монгол)',
+                'label' => 'Стратегийн зорилго(Монгол)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилго оруулна уу ...',
+                    'placeholder' => 'Стратегийн зорилго оруулна уу ...',
                 ],
                 'required' => false,
             ])
             ->add('enPurpose', TextAreaType::class, [
-                'label' => 'стратегийн зорилго(Англи)',
+                'label' => 'Стратегийн зорилго(Англи)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилго оруулна уу ...',
+                    'placeholder' => 'Стратегийн зорилго оруулна уу ...',
                 ],
                 'required' => false,
             ])
             ->add('cnPurpose', TextAreaType::class, [
-                'label' => 'стратегийн зорилго(Хятад)',
+                'label' => 'Стратегийн зорилго(Хятад)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'зорилго оруулна уу ...',
+                    'placeholder' => 'Стратегийн зорилго оруулна уу ...',
                 ],
                 'required' => false,
             ])
@@ -114,28 +114,33 @@ class StrategyCreateFormType extends AbstractType
                 ],
                 'required' => false,
             ])
-            
-            ->add('mnSlogan', TextAreaType::class, [
-                'label' => 'Үнэт зүйл(Монгол)',
+            ->add('mnTarget', TextAreaType::class, [
+                'label' => 'үнэт зүйл(Монгол)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
+                    'placeholder' => 'үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
-            ->add('enSlogan', TextAreaType::class, [
-                'label' => 'Үнэт зүйл(Англи)',
+            ->add('pdfFile', VichFileType::class, [
+                'label' => 'PDF File',
+                'required' => false,
+                'allow_delete' => true,
+                'download_uri' => true,
+            ])
+            ->add('enTarget', TextAreaType::class, [
+                'label' => 'үнэт зүйл(Англи)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
+                    'placeholder' => 'үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
-            ->add('cnSlogan', TextAreaType::class, [
-                'label' => 'Үнэт зүйл(Хятад)',
+            ->add('cnTarget', TextAreaType::class, [
+                'label' => 'үнэт зүйл(Хятад)',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Үнэт зүйл оруулна уу ...',
+                    'placeholder' => 'үнэт зүйл оруулна уу ...',
                 ],
                 'required' => false,
             ])
@@ -154,7 +159,7 @@ class StrategyCreateFormType extends AbstractType
                     'required' => false,
                 )
             )
-            
+
             ->add('pdfFile', VichFileType::class, [
                 'label' => 'PDF File',
                 'required' => false,

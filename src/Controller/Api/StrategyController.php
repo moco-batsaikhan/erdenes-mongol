@@ -27,7 +27,7 @@ class StrategyController extends AbstractController
             $pageSize = 20;
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', "e.{$lang}Title as title", "e.{$lang}Vision as vision", "e.{$lang}Purpose as purpose", "e.{$lang}Mission as mission", "e.{$lang}Slogan as slogan")
+            $qb->select('e.id', "e.{$lang}Title as title", "e.{$lang}Vision as vision", "e.{$lang}Purpose as purpose", "e.{$lang}Mission as mission", "e.{$lang}Target as target",)
                 ->where('e.active = 1')
                 ->from(Strategy::class, 'e')
                 ->setFirstResult(($page - 1) * $pageSize)
@@ -69,7 +69,7 @@ class StrategyController extends AbstractController
             }
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', "e.{$lang}Title as title", "e.{$lang}Vision as vision", "e.{$lang}Purpose as purpose", "e.{$lang}Mission as mission", "e.{$lang}Slogan as slogan")
+            $qb->select('e.id', "e.{$lang}Title as title", "e.{$lang}Vision as vision", "e.{$lang}Purpose as purpose", "e.{$lang}Mission as mission", "e.{$lang}Target as target", 'e.pddFileName')
                 ->from(Strategy::class, 'e')
                 ->where('e.id = :id')
                 ->setParameter('id', $id);
@@ -87,6 +87,9 @@ class StrategyController extends AbstractController
             }
 
             $data = $data[0];
+
+
+            $data['pddFileName'] = $this->getParameter('base_url') . 'uploads/pdf/' . $data['pddFileName'];
 
             $strategyData = $serializer->serialize($data, 'json');
 

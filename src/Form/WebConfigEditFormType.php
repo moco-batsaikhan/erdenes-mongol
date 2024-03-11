@@ -9,34 +9,63 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
+
 
 class WebConfigEditFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add(
-                'colorCode',
-                ChoiceType::class,
-                array(
-                    'attr' => array('class' => 'form-control'),
-                    'label' => 'Өнгө тохируулах',
-                    'choices' =>
-                        array(
-                            'Улаан' => '#CD5C5C',
-                            'ногоон' => '#48C9B0 ',
-                            'хөх' => '#3498DB'
-                        ),
-                    'multiple' => false,
-                    'required' => true,
+            ->add('backgroundColor', TextType::class, array(
+                'label' => 'Цэс арын өнгө',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "өнгө оруулна уу ...",
+                ),
+                'required' => false,
+            ))
+            ->add('colorCode', TextType::class, array(
+                'label' => 'Цэс текстийн өнгө',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "өнгө оруулна уу ...",
+                ),
+                'required' => false,
+            ))
+            ->add('transparentImageFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Ил тод хэсгийн зураг',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Logo харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
                 )
-            )
-            ->add('fontSize', TextType::class, array('attr' => array(
-                "class" => "form-control",
-            )))
-            ->add('priority', TextType::class, array('attr' => array(
-                "class" => "form-control",
-            )))
+            ])
+            ->add('sloganImageFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Уриа үг хэсгийн зураг',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label' => 'Logo харах',
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
+            // ->add('coverImageFile', VichFileType::class, [
+            //     'required' => false,
+            //     'label' => 'Динамик хуудаснуудын header зураг',
+            //     'allow_delete' => true,
+            //     'allow_file_upload' => true,
+            //     'download_label' => 'Logo харах',
+            //     'delete_label' => 'Устгах',
+            //     'attr' => array(
+            //         "class" => "form-control",
+            //     )
+            // ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

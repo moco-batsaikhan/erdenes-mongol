@@ -19,33 +19,6 @@ class AboutUs
     private ?int $id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mnPurpose = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $enPurpose = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cnPurpose = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mnVision = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $enVision = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cnVision = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $enSlogan = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $mnSlogan = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $cnSlogan = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageUrl = null;
 
     #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "imageUrl")]
@@ -84,117 +57,36 @@ class AboutUs
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cnDescription = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnVision = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enVision = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnVision = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $enValue = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnValue = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnValue = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enStrategyPurpose = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnStrategyPurpose = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnStrategyPurpose = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getMnPurpose(): ?string
-    {
-        return $this->mnPurpose;
-    }
-
-    public function setMnPurpose(?string $mnPurpose): static
-    {
-        $this->mnPurpose = $mnPurpose;
-
-        return $this;
-    }
-
-    public function getEnPurpose(): ?string
-    {
-        return $this->enPurpose;
-    }
-
-    public function setEnPurpose(?string $enPurpose): static
-    {
-        $this->enPurpose = $enPurpose;
-
-        return $this;
-    }
-
-    public function getCnPurpose(): ?string
-    {
-        return $this->cnPurpose;
-    }
-
-    public function setCnPurpose(?string $cnPurpose): static
-    {
-        $this->cnPurpose = $cnPurpose;
-
-        return $this;
-    }
-
-    public function getMnVision(): ?string
-    {
-        return $this->mnVision;
-    }
-
-    public function setMnVision(?string $mnVision): static
-    {
-        $this->mnVision = $mnVision;
-
-        return $this;
-    }
-
-    public function getEnVision(): ?string
-    {
-        return $this->enVision;
-    }
-
-    public function setEnVision(?string $enVision): static
-    {
-        $this->enVision = $enVision;
-
-        return $this;
-    }
-
-    public function getCnVision(): ?string
-    {
-        return $this->cnVision;
-    }
-
-    public function setCnVision(?string $cnVision): static
-    {
-        $this->cnVision = $cnVision;
-
-        return $this;
-    }
-
-    public function getEnSlogan(): ?string
-    {
-        return $this->enSlogan;
-    }
-
-    public function setEnSlogan(?string $enSlogan): static
-    {
-        $this->enSlogan = $enSlogan;
-
-        return $this;
-    }
-
-    public function getMnSlogan(): ?string
-    {
-        return $this->mnSlogan;
-    }
-
-    public function setMnSlogan(?string $mnSlogan): static
-    {
-        $this->mnSlogan = $mnSlogan;
-
-        return $this;
-    }
-
-    public function getCnSlogan(): ?string
-    {
-        return $this->cnSlogan;
-    }
-
-    public function setCnSlogan(?string $cnSlogan): static
-    {
-        $this->cnSlogan = $cnSlogan;
-
-        return $this;
     }
 
     public function getImageUrl(): ?string
@@ -339,6 +231,114 @@ class AboutUs
     public function setCnDescription(?string $cnDescription): static
     {
         $this->cnDescription = $cnDescription;
+
+        return $this;
+    }
+
+    public function getMnVision(): ?string
+    {
+        return $this->mnVision;
+    }
+
+    public function setMnVision(?string $mnVision): static
+    {
+        $this->mnVision = $mnVision;
+
+        return $this;
+    }
+
+    public function getEnVision(): ?string
+    {
+        return $this->enVision;
+    }
+
+    public function setEnVision(?string $enVision): static
+    {
+        $this->enVision = $enVision;
+
+        return $this;
+    }
+
+    public function getCnVision(): ?string
+    {
+        return $this->cnVision;
+    }
+
+    public function setCnVision(?string $cnVision): static
+    {
+        $this->cnVision = $cnVision;
+
+        return $this;
+    }
+
+    public function getEnValue(): ?string
+    {
+        return $this->enValue;
+    }
+
+    public function setEnValue(string $enValue): static
+    {
+        $this->enValue = $enValue;
+
+        return $this;
+    }
+
+    public function getMnValue(): ?string
+    {
+        return $this->mnValue;
+    }
+
+    public function setMnValue(?string $mnValue): static
+    {
+        $this->mnValue = $mnValue;
+
+        return $this;
+    }
+
+    public function getCnValue(): ?string
+    {
+        return $this->cnValue;
+    }
+
+    public function setCnValue(?string $cnValue): static
+    {
+        $this->cnValue = $cnValue;
+
+        return $this;
+    }
+
+    public function getEnStrategyPurpose(): ?string
+    {
+        return $this->enStrategyPurpose;
+    }
+
+    public function setEnStrategyPurpose(?string $enStrategyPurpose): static
+    {
+        $this->enStrategyPurpose = $enStrategyPurpose;
+
+        return $this;
+    }
+
+    public function getCnStrategyPurpose(): ?string
+    {
+        return $this->cnStrategyPurpose;
+    }
+
+    public function setCnStrategyPurpose(?string $cnStrategyPurpose): static
+    {
+        $this->cnStrategyPurpose = $cnStrategyPurpose;
+
+        return $this;
+    }
+
+    public function getMnStrategyPurpose(): ?string
+    {
+        return $this->mnStrategyPurpose;
+    }
+
+    public function setMnStrategyPurpose(?string $mnStrategyPurpose): static
+    {
+        $this->mnStrategyPurpose = $mnStrategyPurpose;
 
         return $this;
     }

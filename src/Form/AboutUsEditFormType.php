@@ -34,22 +34,22 @@ class AboutUsEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
-            ->add('mnPurpose', TextType::class, array(
-                'label' => 'Эрхэм зорилго(Монгол)',
+            ->add('mnValue', TextType::class, array(
+                'label' => 'Үнэт зүйл(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('enPurpose', TextType::class, array(
-                'label' => 'Эрхэм зорилго(Англи)',
+            ->add('enValue', TextType::class, array(
+                'label' => 'Үнэт зүйл(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('cnPurpose', TextType::class, array(
-                'label' => 'Эрхэм зорилго(Хятад)',
+            ->add('cnValue', TextType::class, array(
+                'label' => 'Үнэт зүйл(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
@@ -76,22 +76,22 @@ class AboutUsEditFormType extends AbstractType
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('mnSlogan', TextType::class, array(
-                'label' => 'Уриа үг(Монгол)',
+            ->add('mnStrategyPurpose', TextType::class, array(
+                'label' => 'Стратегийн зорилго(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('enSlogan', TextType::class, array(
-                'label' => 'Уриа үг(Англи)',
+            ->add('enStrategyPurpose', TextType::class, array(
+                'label' => 'Стратегийн зорилго(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('cnSlogan', TextType::class, array(
-                'label' => 'Уриа үг(Хятад)',
+            ->add('cnStrategyPurpose', TextType::class, array(
+                'label' => 'Стратегийн зорилго(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
@@ -109,21 +109,21 @@ class AboutUsEditFormType extends AbstractType
                 )
             ])
             ->add('mnPrinciples', TextType::class, array(
-                'label' => 'Баримтлах зарчим(Монгол)',
+                'label' => 'Эрхэм зорилго(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('enPrinciples', TextType::class, array(
-                'label' => 'Баримтлах зарчим(Англи)',
+                'label' => 'Эрхэм зорилго(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
             ->add('cnPrinciples', TextType::class, array(
-                'label' => 'Баримтлах зарчим(Хятад)',
+                'label' => 'Эрхэм зорилго(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
