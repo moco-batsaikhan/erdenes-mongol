@@ -105,6 +105,7 @@
 
 			<div class="form-group">
 				{{ form_row(abouUsForm.imageFile) }}
+				<a href="{{ asset("uploads/image/" ~ abouUsForm.vars.value.getImageUrl() ) }}" target="_blank" rel="noopener noreferrer">Зураг харах</a>
 			</div>
 
 			{{ form_end(abouUsForm) }}

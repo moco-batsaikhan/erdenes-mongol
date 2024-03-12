@@ -66,10 +66,7 @@ class WebConfigEditFormType extends AbstractType
                 'label' => 'Ил тод хэсгийн зураг, тохирох хэмжээ(1440*410px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Logo харах',
-                'download_uri' => static function (WebConfig $config) {
-                    return  "/uploads/image/" . $config->getTransparentImage();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -80,10 +77,7 @@ class WebConfigEditFormType extends AbstractType
                 'label' => 'Уриа үг хэсгийн зураг, тохирох хэмжээ(1440*360px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Logo харах',
-                'download_uri' => static function (WebConfig $config) {
-                    return  "/uploads/image/" . $config->getSloganImage();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -94,10 +88,7 @@ class WebConfigEditFormType extends AbstractType
                 'label' => 'Динамик хуудаснуудын header зураг',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Logo харах',
-                'download_uri' => static function (WebConfig $config) {
-                    return  "/uploads/image/" . $config->getCoverImage();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

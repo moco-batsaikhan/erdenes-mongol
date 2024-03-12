@@ -13,3 +13,9 @@ It's a document of Erdenes mongol web system
 6. $ php bin/console make:registration-form
 7. $ composer require symfony/google-mailer
 8. $ php bin/console make:entity
+
+php bin/console ckeditor:install
+php bin/console assets:install public
+php bin/console elfinder:install
+
+CKeditor Asset ajiluulsnii daraa public/assets/ckeditor.js file-g public/bundles/fosckeditor/ckeditor.js-d darj huulna uu. 

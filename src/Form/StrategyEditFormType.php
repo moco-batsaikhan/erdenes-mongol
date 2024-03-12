@@ -36,6 +36,7 @@ class StrategyEditFormType extends AbstractType
             ])
             ->add('pdfFile', VichFileType::class, [
                 'label' => 'PDF File',
+                'download_label'=>false,
                 'required' => false,
                 'allow_delete' => true,
                 'download_uri' => true,

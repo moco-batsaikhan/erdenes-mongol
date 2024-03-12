@@ -56,7 +56,6 @@ class OrganizationEditFormType extends AbstractType
             //     'label' => 'Зураг оруулах',
             //     'allow_delete' => true,
             //     'allow_file_upload' => true,
-            //     'download_label' => 'Зураг харах',
             //     'delete_label' => 'Устгах',
             //     'attr' => array(
             //         "class" => "form-control",

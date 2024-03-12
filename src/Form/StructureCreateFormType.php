@@ -97,8 +97,8 @@ class StructureCreateFormType extends AbstractType
                 'required' => false,
                 'label' => 'Зураг оруулах, тохирох хэмжээ(230*100px)',
                 'allow_delete' => true,
+                'download_label'=>false,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

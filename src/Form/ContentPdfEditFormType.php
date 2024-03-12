@@ -37,8 +37,8 @@ class ContentPdfEditFormType extends AbstractType
             ->add('pdfFile', VichFileType::class, [
                 'label' => 'PDF File',
                 'required' => false,
+                'download_label'=>false,
                 'allow_delete' => true,
-                'download_uri' => true,
             ])
             ->add(
                 'active',

@@ -63,11 +63,8 @@ class EmployeeEditFormType extends AbstractType
                 'required' => false,
                 'label' => 'Зураг оруулах, тохирох хэмжээ(350*350px)',
                 'allow_delete' => true,
+                'download_label'=>false,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'download_uri' => static function (Employee $config)  {
-                    return  "/uploads/image/".$config->getImage();
-                },
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

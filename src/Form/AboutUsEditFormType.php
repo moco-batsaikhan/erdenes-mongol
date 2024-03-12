@@ -102,10 +102,7 @@ class AboutUsEditFormType extends AbstractType
                 'label' => 'Зураг оруулах, тохирох хэмжээ(420*500px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'download_uri' => static function (AboutUs $config)  {
-                    return  "/uploads/image/".$config->getImageUrl();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

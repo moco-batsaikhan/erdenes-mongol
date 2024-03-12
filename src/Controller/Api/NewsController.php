@@ -23,7 +23,6 @@ class NewsController extends AbstractController
         $pagesize = 10;
         $page = $request->get('page') ? $request->get('page') : 1;
 
-
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
 
 
@@ -81,6 +80,7 @@ class NewsController extends AbstractController
         $data = $data
             ->setFirstResult(($page - 1) * $pagesize)
             ->setMaxResults($pagesize)
+            ->orderBy('p.createdAt', 'DESC')
             ->getQuery()
             ->getScalarResult();
 

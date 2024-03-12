@@ -28,10 +28,15 @@
 			<div class="d-flex">
 				<form method="GET" class="d-none d-sm-inline-block form-inline mr-auto  my-md-0  navbar-search">
 					<div class="input-group">
-						<input type="text" class="form-control bg-light border-0 small mr-2" name="search" id="search" placeholder="Гарчигаар хайх..." aria-label="Search" aria-describedby="basic-addon2" value="{{ searchTerm }}">
-						<input type="date" class="form-control bg-light border-0 small" name="date" id="date" aria-label="Search" aria-describedby="basic-addon2" value="{{ searchDate }}">
+						<input type="text" class="form-control bg-light border-0 small mx-2" name="search" id="search" placeholder="Гарчигаар хайх..." aria-label="Search" aria-describedby="basic-addon2" value="{{ searchTerm }}">
+						<input type="date" class="form-control bg-light border-0 small mx-2" name="date" id="date" aria-label="Search" aria-describedby="basic-addon2" value="{{ searchDate }}">
 
-
+						<select class="form-control" name="type" id="type" aria-label="Default select example">
+							<option value="" selected>...</option>
+							{% for item in newsTypes %}
+								<option value="{{item.id}}" {{ searchType == item.id ? "selected" : ""}}>{{item.name}}</option>
+							{% endfor %}
+						</select>
 						<div class="input-group-append">
 							<button class="btn btn-primary" type="submit">
 								<i class="fas fa-search fa-sm"></i>
@@ -130,24 +135,24 @@
 	</div>
 
 	{# <script>document.getElementById('editButton').addEventListener('click', function () {
-																																																																																																							
-																																																																																																							fetch('your_api_endpoint', {
-																																																																																																							method: 'PUT',
-																																																																																																							headers: {
-																																																																																																							'Content-Type': 'application/json'
-																																																																																																							},
-																																																																																																							body: JSON.stringify(
-																																																																																																							{key1: 'value1', key2: 'value2'}
-																																																																																																							)
-																																																																																																							}).then(response => {
-																																																																																																							if (!response.ok) {
-																																																																																																							throw new Error('Network response was not ok');
-																																																																																																							}
-																																																																																																							return response.json();
-																																																																																																							}).then(data => {
-																																																																																																							console.log(data);
-																																																																																																							}).catch(error => {
-																																																																																																							console.error('There was a problem with the fetch operation:', error);
-																																																																																																							});
-																																																																																																							});</script> #}
+																																																																																																										
+																																																																																																										fetch('your_api_endpoint', {
+																																																																																																										method: 'PUT',
+																																																																																																										headers: {
+																																																																																																										'Content-Type': 'application/json'
+																																																																																																										},
+																																																																																																										body: JSON.stringify(
+																																																																																																										{key1: 'value1', key2: 'value2'}
+																																																																																																										)
+																																																																																																										}).then(response => {
+																																																																																																										if (!response.ok) {
+																																																																																																										throw new Error('Network response was not ok');
+																																																																																																										}
+																																																																																																										return response.json();
+																																																																																																										}).then(data => {
+																																																																																																										console.log(data);
+																																																																																																										}).catch(error => {
+																																																																																																										console.error('There was a problem with the fetch operation:', error);
+																																																																																																										});
+																																																																																																										});</script> #}
 {% endblock %}

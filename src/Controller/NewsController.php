@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\CmsAdminLog;
 use App\Entity\Content;
 use App\Entity\News;
+use App\Entity\NewsType;
 use App\Form\NewsCreateFormType;
 use App\Form\NewsEditFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,9 +30,11 @@ class NewsController extends AbstractController
         $newsRepo = $em->getRepository(News::class);
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
+        $newsTypes = $em->getRepository(NewsType::class)->findAll();
 
         $searchTerm = $request->query->get('search');
         $searchDate = $request->query->get('date');
+        $searchType = $request->query->get('type');
 
         // $news = $newsRepo->findAll();
         // $data = $newsRepo->findBy([], null, $pageSize, $offset);
@@ -49,6 +52,11 @@ class NewsController extends AbstractController
                 ->setParameter('searchDate', $searchDate);
         }
 
+        if ($searchType) {
+            $queryBuilder
+            ->leftJoin('n.newsType', 'nt')->andWhere('nt.id = ' . $searchType);
+        }
+
         $data = $queryBuilder->orderBy("n.createdAt", "DESC")->setMaxResults($pageSize)
             ->setFirstResult($offset)
             ->getQuery()
@@ -64,6 +72,8 @@ class NewsController extends AbstractController
             'page_title' => $this->pageTitle,
             'section_title' => 'Мэдээ',
             'news' => $data,
+            'newsTypes'=>$newsTypes,
+            'searchType'=>$searchType,
             'pageCount' => $pageCount,
             'currentPage' => $page,
             'pageRoute' => 'app_news_index',

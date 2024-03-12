@@ -49,10 +49,7 @@ class BannerEditFormType extends AbstractType
                 'label' => 'Зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'download_uri' => static function (Banner $config)  {
-                    return  "/uploads/image/".$config->getImageUrl();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -63,10 +60,7 @@ class BannerEditFormType extends AbstractType
                 'label' => 'Logo оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Logo харах',
-                'download_uri' => static function (Banner $config)  {
-                    return  "/uploads/image/".$config->getIcon();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -77,10 +71,7 @@ class BannerEditFormType extends AbstractType
                 'label' => 'Logo(Англи) оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Logo харах',
-                'download_uri' => static function (Banner $config)  {
-                    return  "/uploads/image/".$config->getEnIcon();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

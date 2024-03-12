@@ -26,6 +26,7 @@ class CompanyStructureController extends AbstractController
         $data = $entityManager
         ->getRepository(CompanyStructure::class)
         ->createQueryBuilder('p')
+        ->orderBy('p.mnName', 'ASC')
         ->getQuery()
         ->getScalarResult();
 

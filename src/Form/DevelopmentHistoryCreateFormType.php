@@ -27,7 +27,7 @@ class DevelopmentHistoryCreateFormType extends AbstractType
                 'entry_type' => Data::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'entry_options' => ['label' => false],
+                'entry_options' => ['label' => false, 'attr'=>["class"=>"customInput"]],
                 'by_reference' => false,
                 'label' => false,
                 

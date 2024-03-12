@@ -48,14 +48,17 @@
 
 			<div class="form-group">
 				{{ form_row(bannerForm.iconFile) }}
+				<a href="{{ asset("uploads/image/" ~ bannerForm.vars.value.getEnIcon() ) }}" target="_blank" rel="noopener noreferrer">Зураг харах</a>
 			</div>
 
 			<div class="form-group">
 				{{ form_row(bannerForm.enIconFile) }}
+				<a href="{{ asset("uploads/image/" ~ bannerForm.vars.value.getIcon() ) }}" target="_blank" rel="noopener noreferrer">Зураг харах</a>
 			</div>
 
 			<div class="form-group">
 				{{ form_row(bannerForm.imageFile) }}
+				<a href="{{ asset("uploads/image/" ~ bannerForm.vars.value.getImageUrl() ) }}" target="_blank" rel="noopener noreferrer">Зураг харах</a>
 			</div>
 
 			<div class="form-group">

@@ -30,8 +30,8 @@ class ContentPdfCreateFormType extends AbstractType
             ->add('pdfFile', VichFileType::class, [
                 'label' => 'PDF File',
                 'required' => false,
+                'download_label'=>false,
                 'allow_delete' => true,
-                'download_uri' => true,
             ])
             ->add('priority', NumberType::class, array(
                 'label' => 'Дарааалал',

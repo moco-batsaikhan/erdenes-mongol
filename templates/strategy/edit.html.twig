@@ -88,6 +88,7 @@
 
 			<div class="form-group">
 				{{ form_row(strategyForm.pdfFile) }}
+				<a href="{{ asset("uploads/pdf/" ~ strategyForm.vars.value.getPddFileName() ) }}" target="_blank" rel="noopener noreferrer">PDF харах</a>
 			</div>
 
 			<div class="form-group">

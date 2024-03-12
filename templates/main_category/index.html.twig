@@ -46,6 +46,7 @@
 							<th>Action хийх үед /цэс дээр дарахад/</th>
 							<th>Байршил</th>
 							<th>Дараалал</th>
+							<th>Төлөв</th>
 							<th>#</th>
 						</tr>
 					</thead>
@@ -83,6 +84,13 @@
 								</td>
 								<td>{{ category.priority }}</td>
 								<td>
+									{% if category.active == true %}
+										<b style="color: darkgreen">Идэвхитэй</b>
+									{% else %}
+										<b style="color: red">Идэвхигүй</b>
+									{% endif %}
+								</td>
+								<td>
 									<a href="{{ path('app_main_category_edit', {'id' : category.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
@@ -118,6 +126,13 @@
 										<td>-
 										</td>
 										<td>{{ subcategory.priority }}</td>
+										<td>
+											{% if subcategory.active == true %}
+												<b style="color: darkgreen">Идэвхитэй</b>
+											{% else %}
+												<b style="color: red">Идэвхигүй</b>
+											{% endif %}
+										</td>
 										<td>
 											<a href="{{ path('app_sub_category_edit', {'id' : subcategory.id}) }}" class="btn btn-primary btn-sm">
 												<i class="fas fa-edit"></i>

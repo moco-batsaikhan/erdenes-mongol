@@ -99,7 +99,7 @@ class NewsCreateFormType extends AbstractType
                 'label' => 'Thumbnail зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -110,7 +110,7 @@ class NewsCreateFormType extends AbstractType
                 'label' => 'Мэдээ унших хэсгийн зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

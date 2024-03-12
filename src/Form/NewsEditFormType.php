@@ -85,10 +85,7 @@ class NewsEditFormType extends AbstractType
                 'label' => 'Thumbnail зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'download_uri' => static function (News $config)  {
-                    return  "/uploads/image/".$config->getImageUrl();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -99,10 +96,7 @@ class NewsEditFormType extends AbstractType
                 'label' => 'Мэдээ унших хэсгийн зураг оруулах',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
-                'download_uri' => static function (News $config)  {
-                    return  "/uploads/image/".$config->getBodyImageUrl();
-                },
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

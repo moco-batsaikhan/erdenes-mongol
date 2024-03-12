@@ -267,6 +267,7 @@ class ContentController extends AbstractController
 
 
         return $this->render('content_pdf/edit.html.twig', [
+            'newsId' =>$pdf->getNews()->getId(),
             'contentPdfForm' => $editPdfForm->createView(),
             'page_title' => 'Мэдээ PDF засах',
         ]);

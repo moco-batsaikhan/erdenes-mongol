@@ -61,7 +61,7 @@ class BannerCreateFormType extends AbstractType
                 'allow_delete' => true,
                 'error_bubbling' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -73,7 +73,7 @@ class BannerCreateFormType extends AbstractType
                 'allow_delete' => true,
                 'error_bubbling' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Logo харах',
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -85,7 +85,7 @@ class BannerCreateFormType extends AbstractType
                 'allow_delete' => true,
                 'error_bubbling' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Logo харах',
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",

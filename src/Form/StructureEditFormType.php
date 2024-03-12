@@ -96,7 +96,7 @@ class StructureEditFormType extends AbstractType
                 'label' => 'Зураг оруулах, тохирох хэмжээ(230*100px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label' => 'Зураг харах',
+                'download_label'=>false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
