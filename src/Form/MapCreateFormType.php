@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Map;
+use App\Repository\MapTypeRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -106,17 +108,16 @@ class MapCreateFormType extends AbstractType
                 )
             ))
             ->add(
-                'dataType',
-                ChoiceType::class,
+                'mapType',
+                EntityType::class,
                 array(
+                    'class' => 'App\Entity\MapType',
+                    'choice_label' => 'mnName',
+                    'query_builder' => function(MapTypeRepository $er) {
+                        return $er->findAllActives();
+                    },
                     'attr' => array('class' => 'form-control'),
                     'label' => 'Төслийн төрөл',
-                    'choices' =>
-                    array(
-                        'Төмөр' => 'IRON',
-                        'Хүдэр' => 'ORE',
-                        'Ган' => 'STEEL'
-                    ),
                     'multiple' => false,
                     'required' => false,
                 )

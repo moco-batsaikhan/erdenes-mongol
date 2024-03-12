@@ -15,7 +15,6 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 
 
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class NewsCreateFormType extends AbstractType
 {

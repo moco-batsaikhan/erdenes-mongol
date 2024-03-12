@@ -16,14 +16,14 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							Төсөл хөтөлбөр
+							Төслийн төрөл
 						</li>
 					</ol>
 				</nav>
 			</div>
 
 			<div>
-				<a href="{{ path('app_map_create') }}" class="btn btn-primary btn-sm">
+				<a href="{{ path('app_map_type_create') }}" class="btn btn-primary btn-sm">
 					+ Шинээр нэмэх</a>
 			</div>
 
@@ -40,34 +40,25 @@
 							<th>Төслийн нэр(Англи)</th>
 							<th>Төслийн нэр(Хятад)</th>
 							<th>Төлөв</th>
-							<th>Өргөрөг</th>
-							<th>Уртраг</th>
-							<th>Зураг</th>
-							<th>Төслийн төрөл</th>
 							<th>#</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for mapData in mapDatas %}
+						{% for item in mapTypes %}
 							<tr>
-								<td>{{ mapData.id }}</td>
-								<td>{{ mapData.mnName }}</td>
-								<td>{{ mapData.enName }}</td>
-								<td>{{ mapData.cnName }}</td>
+								<td>{{ item.id }}</td>
+								<td>{{ item.mnName }}</td>
+								<td>{{ item.enName }}</td>
+								<td>{{ item.cnName }}</td>
 								<td>
-									{% if mapData.active == true %}
+									{% if item.active == true %}
 										<b style="color: darkgreen">Идэвхитэй</b>
 									{% else %}
 										<b style="color: red">Идэвхигүй</b>
 									{% endif %}
 								</td>
-								<td>{{ mapData.latitude }}</td>
-								<td>{{ mapData.longitude }}</td>
-								<td style="width: 100px; height: auto;"><img src="{{ asset("uploads/image/" ~ mapData.imageUrl) }}" class="img-fluid" alt="mapData Image"></td>
-								<td>{{mapData.mapType ? mapData.mapType.mnName : ""}}
-								</td>
 								<td>
-									<a href="{{ path('app_map_edit', {'id' : mapData.id}) }}" class="btn btn-primary btn-sm">
+									<a href="{{ path('app_map_type_edit', {'id' : item.id}) }}" class="btn btn-primary btn-sm">
 										<i class="fas fa-edit"></i>
 									</a>
 								</td>
@@ -78,7 +69,7 @@
 				</table>
 			</div>
 
-			{% if mapDatas|length > 0 %}
+			{% if mapTypes|length > 0 %}
 				{% include 'layout/pagination.html.twig' %}
 			{% endif %}
 		</div>

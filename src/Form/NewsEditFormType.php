@@ -6,6 +6,7 @@ use App\Entity\News;
 use App\Entity\NewsType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -125,6 +126,15 @@ class NewsEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
+            
+            ->add('createdAt', DateType::class, array(
+                'required' => true,
+                'label' => 'Бүртгэгдсэн огноо',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            ))
 
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],

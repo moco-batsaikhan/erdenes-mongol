@@ -4,8 +4,11 @@ namespace App\Controller;
 
 use App\Entity\CmsAdminLog;
 use App\Entity\Map;
+use App\Entity\MapType;
 use App\Form\MapCreateFormType;
 use App\Form\MapEditFormType;
+use App\Form\MapTypeCreateType;
+use App\Form\MapTypeEditType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -138,6 +141,100 @@ class MapController extends AbstractController
 
         return $this->render('map/edit.html.twig', [
             'mapForm' => $editMapForm->createView(),
+            'page_title' => 'Төсөл хөтөлбөр засах',
+        ]);
+    }
+
+    #[Route('/type/{page}', name: '_type_index', requirements: ['page' => "\d+"])]
+    public function typeIndex(EntityManagerInterface $em, $page = 1): Response
+    {
+
+        $mapRepo = $em->getRepository(MapType::class);
+        $pageSize = 30;
+        $offset = ($page - 1) * $pageSize;
+        $map = $mapRepo->findAll();
+        $data = $mapRepo->findBy([],  ["createdAt"=>"DESC"], $pageSize, $offset);
+
+
+        return $this->render('map_type/index.html.twig', [
+            'current' => $this->current,
+            'page_title' => $this->pageTitle,
+            'section_title' => 'Төсөл хөтөлбөр',
+            'mapTypes' => $data,
+            'pageCount' => ceil(count($map) / $pageSize),
+            'currentPage' => $page,
+            'pageRoute' => 'app_map_index'
+        ]);
+    }
+
+    #[Route('/type/create', name: '_type_create')]
+    public function typeCreate(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
+    {
+
+        $mapType = new MapType;
+        $mapTypeForm = $this->createForm(MapTypeCreateType::class, $mapType);
+
+        $mapTypeForm->handleRequest($request);
+
+        if ($mapTypeForm->isSubmitted() && $mapTypeForm->isValid()) {
+    
+                $em->persist($mapType);
+                $em->flush();
+
+                $log = new CmsAdminLog();
+                $log->setAdminname($this->getUser()->getUserIdentifier());
+                $log->setIpaddress($request->getClientIp());
+                $log->setValue($mapType->getMnName());
+                $log->setAction('Шинэ төсөл хөтөлбөр үүсгэв.');
+                $log->setCreatedAt(new \DateTime('now'));
+
+                $em->persist($log);
+                $em->flush();
+            $this->addFlash('success', 'Амжилттай нэмэгдлээ.');
+
+            return $this->redirectToRoute('app_map_type_index');
+        }
+
+        return $this->render('map_type/create.html.twig', [
+            'mapTypeForm' => $mapTypeForm->createView(),
+            'page_title' => 'Төсөл хөтөлбөр',
+        ]);
+    }
+
+    #[Route('/type/edit/{id}', name: '_type_edit', requirements: ['id' => "\d+"])]
+    public function typeEdit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
+    {
+        $mapType = $em->getRepository(MapType::class)->find($id);
+
+        $editMapTypeForm = $this->createForm(MapTypeEditType::class, $mapType, [
+            'method' => 'POST',
+        ]);
+
+        $editMapTypeForm->handleRequest($request);
+
+        if ($editMapTypeForm->isSubmitted() && $editMapTypeForm->isValid()) {
+
+
+            $em->persist($mapType);
+            $em->flush();
+
+            $log = new CmsAdminLog();
+            $log->setAdminname($this->getUser()->getUserIdentifier());
+            $log->setIpaddress($request->getClientIp());
+            $log->setValue($mapType->getMnName());
+            $log->setAction('Төсөл хөтөлбөр мэдээлэл засав.');
+            $log->setCreatedAt(new \DateTime('now'));
+
+            $em->persist($log);
+            $em->flush();
+
+            $this->addFlash('success', 'Амжилттай засагдлаа.');
+            return $this->redirectToRoute('app_map_type_index', array('id' => $id));
+        }
+
+
+        return $this->render('map_type/edit.html.twig', [
+            'mapTypeForm' => $editMapTypeForm->createView(),
             'page_title' => 'Төсөл хөтөлбөр засах',
         ]);
     }

@@ -18,9 +18,6 @@ class Map
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 16)]
-    private ?string $dataType = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $createdAt = null;
 
@@ -76,6 +73,9 @@ class Map
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $cnName = null;
 
+    #[ORM\ManyToOne(inversedBy: 'maps')]
+    private ?MapType $mapType = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -85,18 +85,6 @@ class Map
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getDataType(): ?string
-    {
-        return $this->dataType;
-    }
-
-    public function setDataType(string $dataType): static
-    {
-        $this->dataType = $dataType;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeInterface
@@ -303,5 +291,17 @@ class Map
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    public function getMapType(): ?MapType
+    {
+        return $this->mapType;
+    }
+
+    public function setMapType(?MapType $mapType): static
+    {
+        $this->mapType = $mapType;
+
+        return $this;
     }
 }
