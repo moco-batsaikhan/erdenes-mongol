@@ -60,8 +60,6 @@ class News
     #[ORM\OneToMany(mappedBy: 'News', targetEntity: Content::class)]
     private Collection $contents;
 
-    #[ORM\Column(length: 255)]
-    private ?string $redirectType = null;
 
     #[ORM\Column(length: 16)]
     private ?string $processType = "CREATED";
@@ -295,17 +293,7 @@ class News
         return $this;
     }
 
-    public function getRedirectType(): ?string
-    {
-        return $this->redirectType;
-    }
 
-    public function setRedirectType(string $redirectType): static
-    {
-        $this->redirectType = $redirectType;
-
-        return $this;
-    }
 
     public function getProcessType(): ?string
     {

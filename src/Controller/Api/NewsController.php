@@ -91,7 +91,6 @@ class NewsController extends AbstractController
                 'title' => $value['p_' . $lang . 'Title'],
                 'headLine' => $value['p_' . $lang . 'Headline'],
                 'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $value['p_imageUrl'],
-                'redirectType' => $value['p_redirectType'],
                 'active' => $value['p_active'],
                 'special' => $value['p_isSpecial'],
                 'createdDate' => $value['p_createdAt']
@@ -142,7 +141,6 @@ class NewsController extends AbstractController
             'headLine' => $news['p_' . $lang . 'Headline'],
             'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_imageUrl'],
             'bodyImageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_bodyImageUrl'],
-            'redirectType' => $news['p_redirectType'],
             'active' => $news['p_active'],
             'special' => $news['p_isSpecial'],
             'createdDate' => $news['p_createdAt']
@@ -223,7 +221,6 @@ class NewsController extends AbstractController
             'headLine' => $news['p_' . $lang . 'Headline'],
             'imageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_imageUrl'],
             'bodyImageUrl' => $this->getParameter('base_url') . 'uploads/image/' . $news['p_bodyImageUrl'],
-            'redirectType' => $news['p_redirectType'],
             'active' => $news['p_active'],
             'special' => $news['p_isSpecial'],
             'createdDate' => $news['p_createdAt']
