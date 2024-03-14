@@ -29,13 +29,13 @@ class MapDataController extends AbstractController
 
             $qb = $entityManager->getRepository(Map::class)->createQueryBuilder('e');
             $qb->leftjoin('App\Entity\MapType', 'mt', \Doctrine\ORM\Query\Expr\Join::WITH, 'mt.id = e.mapType')
-                ->select("e.id, e.{$lang}Name as name, e.{$lang}Description, mt.{$lang}Name as dataType, e.latitude, e.longitude")
+                ->select("e.id, e.{$lang}Name as name, e.{$lang}Description as description, mt.{$lang}Name as dataType, e.latitude, e.longitude")
                 ->where('e.active = 1')
                 ->setFirstResult(($page - 1) * $pageSize)
                 ->setMaxResults($pageSize);
 
             if ($type !== 'ALL') {
-                 $qb->andWhere('mt.id = :type')
+                $qb->andWhere('mt.id = :type')
                     ->setParameter('type', $type);
             }
 
@@ -75,18 +75,18 @@ class MapDataController extends AbstractController
 
             $qb = $entityManager->getRepository(MapType::class)->createQueryBuilder('e');
             $qb->select('e.id',  "e.${lang}Name as name", 'e.active')
-            ->where('e.active = 1')
-            ->setFirstResult(($page - 1) * $pageSize)
-            ->setMaxResults($pageSize);
+                ->where('e.active = 1')
+                ->setFirstResult(($page - 1) * $pageSize)
+                ->setMaxResults($pageSize);
 
             $query = $qb->getQuery();
             $data = $query->getResult();
             $totalCount = $entityManager->createQueryBuilder()
-            ->select('COUNT(e.id)')
-            ->from(MapType::class, 'e')
-            ->andWhere('e.active = 1')
-            ->getQuery()
-            ->getSingleScalarResult();
+                ->select('COUNT(e.id)')
+                ->from(MapType::class, 'e')
+                ->andWhere('e.active = 1')
+                ->getQuery()
+                ->getSingleScalarResult();
 
             $typeData = $serializer->serialize($data, 'json');
 
