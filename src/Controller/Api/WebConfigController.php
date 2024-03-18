@@ -42,19 +42,19 @@ class WebConfigController extends AbstractController
                 break;
         }
 
-        $footerText = '';
+        $footer = '';
         switch ($lang) {
             case 'mn':
-                $footerText = $webConfig->getMnFooterText();
+                $footer = $webConfig->getMnFooterText();
                 break;
             case 'en':
-                $footerText = $webConfig->getEnFooterText();
+                $footer = $webConfig->getEnFooterText();
                 break;
             case 'cn':
-                $footerText = $webConfig->getCnFooterText();
+                $footer = $webConfig->getCnFooterText();
                 break;
             default:
-                $footerText = $webConfig->getMnFooterText();
+                $footer = $webConfig->getMnFooterText();
                 break;
         }
 
@@ -67,7 +67,7 @@ class WebConfigController extends AbstractController
             'textColor' => $webConfig->getColorCode(),
             'backgroundColor' => $webConfig->getBackgroundColor(),
             'sloganText' => $slogan,
-            'footerText' => $footerText
+            'footerText' => $footer
         ];
 
         $webConfig = $serializer->serialize($webConfigDto, 'json');
