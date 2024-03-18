@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FeedbackController extends AbstractController
 {
 
-    #[Route('/feedback/create', name: 'feedback_create',  methods: ['post'])]
+    #[Route('/feedback', name: 'feedback_create',  methods: ['post'])]
     public function create(EntityManagerInterface $em, Request $request): JsonResponse
     {
         $data = json_decode($request->getContent(), true);
