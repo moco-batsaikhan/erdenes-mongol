@@ -63,6 +63,15 @@ class WebConfig
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $cnSloganText = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $contactImage = null;
+
+    #[Vich\UploadableField(mapping: "app_image", fileNameProperty: "contactImage")]
+    #[Assert\File(
+        maxSize: '3M',
+    )]
+    private ?File $contactImageFile = null;
+
     public function setTransparentImageFile(File $image = null)
     {
         $this->transparentImageFile = $image;
@@ -214,6 +223,18 @@ class WebConfig
     public function setCnSloganText(?string $cnSloganText): static
     {
         $this->cnSloganText = $cnSloganText;
+
+        return $this;
+    }
+
+    public function getContactImage(): ?string
+    {
+        return $this->contactImage;
+    }
+
+    public function setContactImage(?string $contactImage): static
+    {
+        $this->contactImage = $contactImage;
 
         return $this;
     }

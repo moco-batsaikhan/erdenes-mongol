@@ -20,7 +20,7 @@ class NewsController extends AbstractController
     #[Route('/news/{typeId}', name: 'news_index', methods: ['get'])]
     public function index(Request $request, ManagerRegistry $doctrine, SerializerInterface $serializer, $typeId)
     {
-        $pagesize = 10;
+        $pagesize = 9;
         $page = $request->get('page') ? $request->get('page') : 1;
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
@@ -79,8 +79,15 @@ class NewsController extends AbstractController
             ->getSingleScalarResult();
         $data = $data
             ->setFirstResult(($page - 1) * $pagesize)
-            ->setMaxResults($pagesize)
-            ->orderBy('p.createdAt', 'DESC')
+            ->setMaxResults($pagesize);
+        if ($typeId == 5) {
+            $data = $data
+                ->orderBy('p.createdAt', 'ASC');
+        } else {
+            $data = $data
+                ->orderBy('p.createdAt', 'DESC');
+        }
+        $data = $data
             ->getQuery()
             ->getScalarResult();
 
@@ -129,7 +136,7 @@ class NewsController extends AbstractController
             ->getQuery()
             ->getScalarResult();
 
-        if (!isset($news[0])) {
+        if (!isset ($news[0])) {
             return new JsonResponse(['code' => '404', 'message' => 'Not found news by id ' . $id]);
         }
         $news = $news[0];
@@ -163,7 +170,7 @@ class NewsController extends AbstractController
                 'type' => $value['p_type'],
                 'body' => $value['p_' . $lang . 'Description'],
                 'active' => $value['p_active'],
-                'file' =>  $value['p_file'],
+                'file' => $value['p_file'],
                 'graphType' => $value['p_graphType'],
                 'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName']
 
@@ -203,14 +210,14 @@ class NewsController extends AbstractController
             ->getQuery()
             ->setMaxResults(1)->getScalarResult();
 
-        if (!isset($news[0])) {
+        if (!isset ($news[0])) {
             $news = $doctrine
-            ->getRepository(News::class)
-            ->createQueryBuilder('p')
-            ->andWhere('p.isSpecial = 1')
-            ->orderBy("p.createdAt", "DESC")
-            ->getQuery()
-            ->setMaxResults(1)->getScalarResult();
+                ->getRepository(News::class)
+                ->createQueryBuilder('p')
+                ->andWhere('p.isSpecial = 1')
+                ->orderBy("p.createdAt", "DESC")
+                ->getQuery()
+                ->setMaxResults(1)->getScalarResult();
         }
         $news = $news[0];
 
@@ -243,7 +250,7 @@ class NewsController extends AbstractController
                 'type' => $value['p_type'],
                 'body' => $value['p_' . $lang . 'Description'],
                 'active' => $value['p_active'],
-                'file' =>  $value['p_file'],
+                'file' => $value['p_file'],
                 'graphType' => $value['p_graphType'],
                 'pdfFileUrl' => $this->getParameter('base_url') . 'uploads/pdf/' . $value['p_pdfFileName']
 

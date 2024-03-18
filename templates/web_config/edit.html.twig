@@ -51,6 +51,11 @@
 				{{ form_row(configForm.sloganImageFile) }}
 				<a href="{{ asset("uploads/image/" ~ configForm.vars.value.getSloganImage() ) }}" target="_blank" rel="noopener noreferrer">Зураг харах</a>
 			</div>
+			
+			<div class="form-group">
+				{{ form_row(configForm.contactImageFile) }}
+				<a href="{{ asset("uploads/image/" ~ configForm.vars.value.getContactImage() ) }}" target="_blank" rel="noopener noreferrer">Зураг харах</a>
+			</div>
 
 			<div class="form-group">
 				{{ form_row(configForm.mnSloganText) }}

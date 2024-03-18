@@ -94,6 +94,18 @@ class WebConfigEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
+            
+            ->add('contactImageFile', VichFileType::class, [
+                'required' => false,
+                'label' => 'Холбоо барих хэсгийн зураг',
+                'allow_delete' => true,
+                'allow_file_upload' => true,
+                'download_label'=>false,
+                'delete_label' => 'Устгах',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ])
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
