@@ -114,6 +114,20 @@ class WebConfig
         return $this->coverImageFile;
     }
 
+    public function setContactImageFile(File $image = null)
+    {
+        $this->contactImageFile = $image;
+
+        if ($image) {
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getContactImageFile()
+    {
+        return $this->contactImageFile;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
