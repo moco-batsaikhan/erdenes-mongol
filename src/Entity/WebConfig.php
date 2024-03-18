@@ -72,6 +72,15 @@ class WebConfig
     )]
     private ?File $contactImageFile = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $mnFooterText = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enFooterText = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnFooterText = null;
+
     public function setTransparentImageFile(File $image = null)
     {
         $this->transparentImageFile = $image;
@@ -249,6 +258,42 @@ class WebConfig
     public function setContactImage(?string $contactImage): static
     {
         $this->contactImage = $contactImage;
+
+        return $this;
+    }
+
+    public function getMnFooterText(): ?string
+    {
+        return $this->mnFooterText;
+    }
+
+    public function setMnFooterText(?string $mnFooterText): static
+    {
+        $this->mnFooterText = $mnFooterText;
+
+        return $this;
+    }
+
+    public function getEnFooterText(): ?string
+    {
+        return $this->enFooterText;
+    }
+
+    public function setEnFooterText(?string $enFooterText): static
+    {
+        $this->enFooterText = $enFooterText;
+
+        return $this;
+    }
+
+    public function getCnFooterText(): ?string
+    {
+        return $this->cnFooterText;
+    }
+
+    public function setCnFooterText(?string $cnFooterText): static
+    {
+        $this->cnFooterText = $cnFooterText;
 
         return $this;
     }

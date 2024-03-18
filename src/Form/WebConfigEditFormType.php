@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\WebConfig;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -106,6 +107,25 @@ class WebConfigEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ])
+            
+            ->add('mnFooterText', CKEditorType::class, array(
+                'label' => 'footer танилцуулга(Монгол)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('enFooterText', CKEditorType::class, array(
+                'label' => 'footer танилцуулга(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
+            ->add('cnFooterText', CKEditorType::class, array(
+                'label' => 'footer танилцуулга(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            ))
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'
