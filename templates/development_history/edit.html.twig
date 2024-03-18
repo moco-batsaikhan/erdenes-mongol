@@ -3,6 +3,32 @@
 {% block title %}
 	{{ page_title }}
 {% endblock %}
+{% block stylesheets %}
+	<style>
+		.customInput {
+			margin-bottom: 1rem;
+		}
+		.customInput input {
+			display: inline;
+			width: 50%;
+			margin-left: 1rem;
+			height: calc(1.5em + 0.75rem + 2px);
+			padding: 0.375rem 0.75rem;
+			font-size: 1rem;
+			font-weight: 400;
+			line-height: 1.5;
+			color: #6e707e;
+			background-color: #fff;
+			background-clip: padding-box;
+			border: 1px solid #d1d3e2;
+			border-radius: 0.35rem;
+			transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+		}
+		.noDot {
+			list-style-type: none;
+		}
+	</style>
+{% endblock %}
 {% block body %}
 
 
@@ -40,7 +66,12 @@
 
 			<div class="form-group">
 				<ul class="tags" data-prototype="{{ form_widget(myForm.data.vars.prototype)|e }}">
-					{{ form_widget(myForm.data) }}
+					{% for item in myForm.data %}
+						<li>
+							{{ form_errors(item) }}
+							{{ form_widget(item) }}
+						</li>
+					{% endfor %}
 				</ul>
 			</div>
 			{{ form_end(myForm) }}
@@ -82,17 +113,17 @@ e.preventDefault();
 $tagFormLi.remove();
 });
 }
-document.addEventListener("DOMContentLoaded", function () {
+$(document).ready(function () {
 var $collectionHolder;
 
 // setup an "add a tag" link
 var $addTagLink = $('<a href="#" class="add_tag_link">Нэмэх</a>');
 var $newLinkLi = $('<li></li>').append($addTagLink);
 
-$collectionHolder = $('ul.tags'); 
-$collectionHolder.find('li').each(function() {
-        addTagFormDeleteLink($('<li></li>').append('<a href="#">устгах</a>'));
-    });
+$collectionHolder = $('ul.tags');
+$collectionHolder.find('li').each(function () {
+addTagFormDeleteLink($(this));
+});
 
 // add the "add a tag" anchor and li to the tags ul
 $collectionHolder.append($newLinkLi);
