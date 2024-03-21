@@ -30,7 +30,7 @@ class EmployeesController extends AbstractController
         $count = $cloneQb->select('count(e.id)')->from(Employee::class, 'e')
         ->where('e.type = :type')->setParameter("type",$type)->getQuery()
         ->getSingleScalarResult();
-        $qb->select('e.id', 'e.mnName', 'e.priority', 'e.email', 'e.mnDivision', 'e.image','e.phone','e.mnExperience','e.department','e.facebook','e.twitter')
+        $qb->select('e.id', "e.{$lang}Name as name", 'e.priority', 'e.email', "e.{$lang}Division as division", 'e.image','e.phone',"e.{$lang}Experience as experience",'e.department','e.facebook','e.twitter')
             ->from(Employee::class, 'e')
             ->where('e.type = :type')
             ->setParameter("type",$type)
