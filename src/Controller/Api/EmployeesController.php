@@ -22,6 +22,7 @@ class EmployeesController extends AbstractController
     {
         $pageSize = 30;
         $page = $request->get('page') ? $request->get('page') : 1;
+        $lang = $request->query->get('lang','mn');
 
 
         $qb = $entityManager->createQueryBuilder();

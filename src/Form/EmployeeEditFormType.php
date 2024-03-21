@@ -18,52 +18,92 @@ class EmployeeEditFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, array(
-                'label' => 'Нэр',
+            ->add('mnName', TextType::class, array(
+                'label' => 'Нэр(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
-            ))
-            ->add('division', TextType::class, array(
-                'label' => 'Албан тушаал',
+            )
+            )
+            ->add('enName', TextType::class, array(
+                'label' => 'Нэр(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
-            ))
+            )
+            )
+            ->add('cnName', TextType::class, array(
+                'label' => 'Нэр(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            )
+            )
+            ->add('mnDivision', TextType::class, array(
+                'label' => 'Албан тушаал(Монгол)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            )
+            )
+
+            ->add('enDivision', TextType::class, array(
+                'label' => 'Албан тушаал(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            )
+            )
+
+            ->add('cnDivision', TextType::class, array(
+                'label' => 'Албан тушаал(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "тайлбар оруулна уу ...",
+                )
+            )
+            )
             ->add('email', TextType::class, array(
                 'label' => 'И-мэйл',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
-            ))
+            )
+            )
             ->add('phone', NumberType::class, array(
                 'label' => 'Дугаар',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
-            ))
+            )
+            )
             ->add('department', TextType::class, array(
                 'label' => 'Алба, хэлтэс',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "тайлбар оруулна уу ...",
                 )
-            ))
+            )
+            )
             ->add('priority', NumberType::class, array(
                 'label' => 'Дарааалал',
                 'attr' => array(
                     "class" => "form-control",
                 )
-            ))
+            )
+            )
             ->add('imageFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Зураг оруулах, тохирох хэмжээ(350*350px)',
                 'allow_delete' => true,
-                'download_label'=>false,
+                'download_label' => false,
                 'allow_file_upload' => true,
                 'delete_label' => 'Устгах',
                 'attr' => array(
@@ -77,33 +117,52 @@ class EmployeeEditFormType extends AbstractType
                     'attr' => array('class' => 'form-control'),
                     'label' => 'Төрөл',
                     'choices' =>
-                    array(
-                        'Удирдлагын баг' => true,
-                        'Ажилтан' => false
-                    ),
+                        array(
+                            'Удирдлагын баг' => true,
+                            'Ажилтан' => false
+                        ),
                     'multiple' => false,
                     'required' => false,
                 )
             )
 
-            ->add('experience', CKEditorType::class, array(
-                'label' => 'Ажлын туршлага',
+            ->add('mnExperience', CKEditorType::class, array(
+                'label' => 'Ажлын туршлага(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                 )
-            ))
+            )
+            )
+
+            ->add('enExperience', CKEditorType::class, array(
+                'label' => 'Ажлын туршлага(Англи)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            )
+            )
+
+            ->add('cnExperience', CKEditorType::class, array(
+                'label' => 'Ажлын туршлага(Хятад)',
+                'attr' => array(
+                    "class" => "form-control",
+                )
+            )
+            )
             ->add('facebook', TextType::class, array(
                 'label' => 'facebook хаяг',
                 'attr' => array(
                     "class" => "form-control",
                 )
-            ))
+            )
+            )
             ->add('twitter', TextType::class, array(
                 'label' => 'Twitter хаяг',
                 'attr' => array(
                     "class" => "form-control",
                 )
-            ))
+            )
+            )
             ->add('save', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary', 'style' => 'margin-top:15px'],
                 'label' => 'Хадгалах'

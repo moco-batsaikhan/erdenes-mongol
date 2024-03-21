@@ -19,10 +19,22 @@ class Employee
     private ?int $id = null;
 
     #[ORM\Column(length: 32)]
-    private ?string $name = null;
+    private ?string $mnName = null;
+
+    #[ORM\Column(length: 32)]
+    private ?string $enName = null;
+
+    #[ORM\Column(length: 32)]
+    private ?string $cnName = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $division = null;
+    private ?string $mnDivision = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $enDivision = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cnDivision = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
@@ -59,7 +71,13 @@ class Employee
     private ?bool $type = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
-    private ?string $experience = null;
+    private ?string $mnExperience = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enExperience = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnExperience = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $facebook = null;
@@ -78,26 +96,72 @@ class Employee
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getMnName(): ?string
     {
-        return $this->name;
+        return $this->mnName;
     }
 
-    public function setName(string $name): static
+    public function setMnName(string $mnName): static
     {
-        $this->name = $name;
+        $this->mnName = $mnName;
 
         return $this;
     }
 
-    public function getDivision(): ?string
+    public function getEnName(): ?string
     {
-        return $this->division;
+        return $this->enName;
     }
 
-    public function setDivision(string $division): static
+    public function setEnName(string $enName): static
     {
-        $this->division = $division;
+        $this->enName = $enName;
+
+        return $this;
+    }
+
+    public function getCnName(): ?string
+    {
+        return $this->cnName;
+    }
+
+    public function setCnName(string $cnName): static
+    {
+        $this->cnName = $cnName;
+
+        return $this;
+    }
+
+    public function getMnDivision(): ?string
+    {
+        return $this->mnDivision;
+    }
+
+    public function setMnDivision(string $mnDivision): static
+    {
+        $this->mnDivision = $mnDivision;
+
+        return $this;
+    }
+    public function getEnDivision(): ?string
+    {
+        return $this->enDivision;
+    }
+
+    public function setEnDivision(string $enDivision): static
+    {
+        $this->enDivision = $enDivision;
+
+        return $this;
+    }
+    public function getCnDivision(): ?string
+    {
+        return $this->cnDivision;
+    }
+
+    public function setCnDivision(string $cnDivision): static
+    {
+        $this->cnDivision = $cnDivision;
 
         return $this;
     }
@@ -226,18 +290,40 @@ class Employee
         return $this;
     }
 
-    public function getExperience(): ?string
+    public function getMnExperience(): ?string
     {
-        return $this->experience;
+        return $this->mnExperience;
     }
 
-    public function setExperience(?string $experience): static
+    public function setMnExperience(?string $mnExperience): static
     {
-        $this->experience = $experience;
+        $this->mnExperience = $mnExperience;
 
         return $this;
     }
 
+    public function getEnExperience(): ?string
+    {
+        return $this->enExperience;
+    }
+
+    public function setEnExperience(?string $enExperience): static
+    {
+        $this->enExperience = $enExperience;
+
+        return $this;
+    }
+    public function getCnExperience(): ?string
+    {
+        return $this->cnExperience;
+    }
+
+    public function setCnExperience(?string $cnExperience): static
+    {
+        $this->cnExperience = $cnExperience;
+
+        return $this;
+    }
     public function getFacebook(): ?string
     {
         return $this->facebook;

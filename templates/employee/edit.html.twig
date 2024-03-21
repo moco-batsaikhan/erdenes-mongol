@@ -31,11 +31,23 @@
 			{{ form_start(employeeForm) }}
 
 			<div class="form-group">
-				{{ form_row(employeeForm.name) }}
+				{{ form_row(employeeForm.mnName) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(employeeForm.enName) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(employeeForm.cnName) }}
 			</div>
 
 			<div class="form-group">
-				{{ form_row(employeeForm.division) }}
+				{{ form_row(employeeForm.mnDivision) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(employeeForm.enDivision) }}
+			</div>
+			<div class="form-group">
+				{{ form_row(employeeForm.cnDivision) }}
 			</div>
 
 			<div class="form-group">
