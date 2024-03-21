@@ -34,63 +34,63 @@ class AboutUsEditFormType extends AbstractType
                     "class" => "form-control",
                 )
             ))
-            ->add('mnValue', TextType::class, array(
+            ->add('mnValue', TextareaType::class, array(
                 'label' => 'Үнэт зүйл(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('enValue', TextType::class, array(
+            ->add('enValue', TextareaType::class, array(
                 'label' => 'Үнэт зүйл(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('cnValue', TextType::class, array(
+            ->add('cnValue', TextareaType::class, array(
                 'label' => 'Үнэт зүйл(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('mnVision', TextType::class, array(
+            ->add('mnVision', TextareaType::class, array(
                 'label' => 'Алсын хараа(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('enVision', TextType::class, array(
+            ->add('enVision', TextareaType::class, array(
                 'label' => 'Алсын хараа(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('cnVision', TextType::class, array(
+            ->add('cnVision', TextareaType::class, array(
                 'label' => 'Алсын хараа(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('mnStrategyPurpose', TextType::class, array(
+            ->add('mnStrategyPurpose', TextareaType::class, array(
                 'label' => 'Стратегийн зорилго(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('enStrategyPurpose', TextType::class, array(
+            ->add('enStrategyPurpose', TextareaType::class, array(
                 'label' => 'Стратегийн зорилго(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('cnStrategyPurpose', TextType::class, array(
+            ->add('cnStrategyPurpose', TextareaType::class, array(
                 'label' => 'Стратегийн зорилго(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
@@ -102,27 +102,27 @@ class AboutUsEditFormType extends AbstractType
                 'label' => 'Зураг оруулах, тохирох хэмжээ(420*500px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label'=>false,
+                'download_label' => false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ])
-            ->add('mnPrinciples', TextType::class, array(
+            ->add('mnPrinciples', TextareaType::class, array(
                 'label' => 'Эрхэм зорилго(Монгол)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('enPrinciples', TextType::class, array(
+            ->add('enPrinciples', TextareaType::class, array(
                 'label' => 'Эрхэм зорилго(Англи)',
                 'attr' => array(
                     "class" => "form-control",
                     "placeholder" => "оруулна уу ...",
                 )
             ))
-            ->add('cnPrinciples', TextType::class, array(
+            ->add('cnPrinciples', TextareaType::class, array(
                 'label' => 'Эрхэм зорилго(Хятад)',
                 'attr' => array(
                     "class" => "form-control",
