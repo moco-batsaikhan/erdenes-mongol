@@ -40,7 +40,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/create', name: '_create')]
-    public function create(EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
+    public function create(EntityManagerInterface $em, Request $request, ValidatorInterface $validator): Response
     {
 
         $employee = new Employee;
@@ -52,16 +52,16 @@ class EmployeeController extends AbstractController
             try {
 
                 $errors = $validator->validate($employee);
-              
-              
+
+
                 if (count($errors) > 0) {
-    
+
                     $errorsString =  $errors[0]->getMessage();
-            
+
                     $this->addFlash('danger', $errorsString);
                     return $this->redirectToRoute('app_employee_create');
                 }
-    
+
 
                 $employee->setCreatedUser($this->getUser());
                 $em->persist($employee);
@@ -71,7 +71,7 @@ class EmployeeController extends AbstractController
                 $log = new CmsAdminLog();
                 $log->setAdminname($this->getUser()->getUserIdentifier());
                 $log->setIpaddress($request->getClientIp());
-                $log->setValue($employee->getName());
+                $log->setValue($employee->getId());
                 $log->setAction('Шинэ ажилтаны мэдээлэл үүсгэв.');
                 $log->setCreatedAt(new \DateTime('now'));
 
@@ -95,7 +95,7 @@ class EmployeeController extends AbstractController
     }
 
     #[Route('/edit/{id}', name: '_edit', requirements: ['id' => "\d+"])]
-    public function edit($id, EntityManagerInterface $em, Request $request,ValidatorInterface $validator): Response
+    public function edit($id, EntityManagerInterface $em, Request $request, ValidatorInterface $validator): Response
     {
         $employee = $em->getRepository(Employee::class)->find($id);
 
@@ -109,14 +109,14 @@ class EmployeeController extends AbstractController
 
 
             $errors = $validator->validate($employee);
-              
-              
+
+
             if (count($errors) > 0) {
 
                 $errorsString =  $errors[0]->getMessage();
-        
+
                 $this->addFlash('danger', $errorsString);
-                return $this->redirectToRoute('app_employee_edit',['id'=>$id]);
+                return $this->redirectToRoute('app_employee_edit', ['id' => $id]);
             }
 
             $em->persist($employee);
@@ -125,7 +125,7 @@ class EmployeeController extends AbstractController
             $log = new CmsAdminLog();
             $log->setAdminname($this->getUser()->getUserIdentifier());
             $log->setIpaddress($request->getClientIp());
-            $log->setValue($employee->getName());
+            $log->setValue($employee->getId());
             $log->setAction('Ажилтаны мэдээлэл засав.');
             $log->setCreatedAt(new \DateTime('now'));
 
