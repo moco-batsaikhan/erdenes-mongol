@@ -5,7 +5,7 @@ fm_elfinder:
       locale: en
       theme: smoothness
       path_prefix: "/"
-      relative_path: true
+      relative_path: false
       connector:
         roots:
           uploads:
