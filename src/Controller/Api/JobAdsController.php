@@ -23,27 +23,64 @@ class JobAdsController extends AbstractController
     {
         $pageSize = 10;
         $page = $request->get('page') ? $request->get('page') : 1;
+        $lang = $request->query->get('lang', 'mn');
 
         $qb = $entityManager->createQueryBuilder();
 
-        $cloneQb = clone $qb;
-        $count = $cloneQb->select('count(e.id)')->from(JobAds::class, 'e')->where('e.active = 1')->getQuery()
-            ->getSingleScalarResult();
-        $qb->select('e.id', 'e.title', 'e.profession', 'e.applicationDeadline', 'e.body', 'e.createdAt')
+        $qb->select('e')
             ->from(JobAds::class, 'e')
             ->where('e.active = 1')
-            ->setFirstResult(($page - 1) * $pageSize)
             ->orderBy('e.createdAt', 'DESC')
+            ->setFirstResult(($page - 1) * $pageSize)
             ->setMaxResults($pageSize);
 
         $query = $qb->getQuery();
         $data = $query->getResult();
 
-        $ads = $serializer->serialize($data, 'json');
+        // if (!$data) {
+        //     return new JsonResponse(['error' => 'No data found'], Response::HTTP_NOT_FOUND);
+        // }
+
+        $serializedAds = [];
+        foreach ($data as $ad) {
+            switch ($lang) {
+                case 'mn':
+                    $title = $ad->getTitle();
+                    $body = $ad->getBody();
+                    $profession = $ad->getProfession();
+                    break;
+                case 'en':
+                    $title = $ad->getEnTitle();
+                    $body = $ad->getEnBody();
+                    $profession = $ad->getEnProfession();
+                    break;
+                case 'cn':
+                    $title = $ad->getCnTitle();
+                    $body = $ad->getCnBody();
+                    $profession = $ad->getCnProfession();
+                    break;
+                default:
+                    $title = $ad->getTitle();
+                    $body = $ad->getBody();
+                    $profession = $ad->getProfession();
+                    break;
+            }
+
+            $dataDto = [
+                'id' => $ad->getId(),
+                'body' => $body,
+                'title' => $title,
+                'profession' => $profession,
+                'applicationDeadline' => $ad->getApplicationDeadline()->format('Y-m-d\TH:i:sP'),
+                'createdAt' => $ad->getCreatedAt()->format('Y-m-d\TH:i:sP')
+            ];
+
+            $serializedAds[] = $dataDto;
+        }
 
         $response = [
-            'data' => json_decode($ads),
-            'count' => $count,
+            'data' => $serializedAds,
+            'count' => count($serializedAds),
             'page' => $page,
             'pagesize' => $pageSize
         ];
@@ -52,37 +89,70 @@ class JobAdsController extends AbstractController
     }
 
     #[Route('/ads/{id}', name: 'job_ad_index',  methods: ['GET'])]
-    public function getEmployeeById($id, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+    public function getEmployeeById(Request $request, $id, EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
     {
+
         try {
             if (!$id) {
                 throw new BadRequestHttpException('Parameter "id" is required.');
             }
+            $lang = $request->query->get('lang', 'mn');
+
 
             $qb = $entityManager->createQueryBuilder();
-            $qb->select('e.id', 'e.title', 'e.profession', 'e.applicationDeadline', 'e.body', 'e.createdAt')
+            $qb->select('e')
                 ->from(JobAds::class, 'e')
                 ->where('e.id = :id')
                 ->setParameter('id', $id);
 
-            $data = $qb->setParameter('id', $id)
-                ->getQuery()
-                ->getScalarResult();
+            $data = $qb->getQuery()->getOneOrNullResult();
 
             if (!$data) {
                 throw new NotFoundHttpException('No ads found for id ' . $id);
             }
 
-            if (!isset($data[0])) {
-                return new JsonResponse(['code' => '404', 'message' => 'Not found news by id ' . $id]);
+            switch ($lang) {
+                case 'mn':
+                    $title = $data->getTitle();
+                    $body = $data->getBody();
+                    $profession = $data->getProfession();
+                    break;
+                case 'en':
+                    $title = $data->getEnTitle();
+                    $body = $data->getEnBody();
+                    $profession = $data->getEnProfession();
+                    break;
+                case 'cn':
+                    $title = $data->getCnTitle();
+                    $body = $data->getCnBody();
+                    $profession = $data->getCnProfession();
+                    break;
+                default:
+                    $title = $data->getTitle();
+                    $body = $data->getBody();
+                    $profession = $data->getProfession();
+                    break;
             }
 
-            $data = $data[0];
+            $adData = [
+                'id' => $data->getId(),
+                'body' => $body,
+                'title' => $title,
+                'profession' => $profession,
+                'applicationDeadline' => $data->getApplicationDeadline()->format('Y-m-d'),
+                'createdAt' => $data->getCreatedAt()->format('Y-m-d')
+            ];
 
-            $adData = $serializer->serialize($data, 'json');
+            // if (!isset($data[0])) {
+            //     return new JsonResponse(['code' => '404', 'message' => 'Not found news by id ' . $id]);
+            // }
+
+            // $data = $data[0];
+
+            // $adData = $serializer->serialize($data, 'json');
 
             $response = [
-                'data' => json_decode($adData)
+                'data' => $adData,
             ];
 
             return new JsonResponse($response);

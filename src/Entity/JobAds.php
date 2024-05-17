@@ -35,6 +35,24 @@ class JobAds
     #[ORM\Column]
     private ?bool $active = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enTitle = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cnTitle = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $enProfession = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $cnProfession = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $enBody = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $cnBody = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -126,6 +144,78 @@ class JobAds
     public function setActive(bool $active): static
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getEnTitle(): ?string
+    {
+        return $this->enTitle;
+    }
+
+    public function setEnTitle(?string $enTitle): static
+    {
+        $this->enTitle = $enTitle;
+
+        return $this;
+    }
+
+    public function getCnTitle(): ?string
+    {
+        return $this->cnTitle;
+    }
+
+    public function setCnTitle(?string $cnTitle): static
+    {
+        $this->cnTitle = $cnTitle;
+
+        return $this;
+    }
+
+    public function getEnProfession(): ?string
+    {
+        return $this->enProfession;
+    }
+
+    public function setEnProfession(?string $enProfession): static
+    {
+        $this->enProfession = $enProfession;
+
+        return $this;
+    }
+
+    public function getCnProfession(): ?string
+    {
+        return $this->cnProfession;
+    }
+
+    public function setCnProfession(?string $cnProfession): static
+    {
+        $this->cnProfession = $cnProfession;
+
+        return $this;
+    }
+
+    public function getEnBody(): ?string
+    {
+        return $this->enBody;
+    }
+
+    public function setEnBody(?string $enBody): static
+    {
+        $this->enBody = $enBody;
+
+        return $this;
+    }
+
+    public function getCnBody(): ?string
+    {
+        return $this->cnBody;
+    }
+
+    public function setCnBody(?string $cnBody): static
+    {
+        $this->cnBody = $cnBody;
 
         return $this;
     }

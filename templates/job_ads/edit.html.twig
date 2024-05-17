@@ -16,7 +16,7 @@
 						</li>
 
 						<li class="breadcrumb-item">
-							<a  href="{{path('app_job_ads_index')}}">Ажлын байрны зар</a>
+							<a href="{{path('app_job_ads_index')}}">Ажлын байрны зар</a>
 						</li>
 
 						<li class="breadcrumb-item active" aria-current="page">
@@ -30,8 +30,14 @@
 
 			{{ form_start(form) }}
 			{{ form_row(form.title) }}
+			{{ form_row(form.enTitle) }}
+			{{ form_row(form.cnTitle) }}
 			{{ form_row(form.body) }}
+			{{ form_row(form.enBody) }}
+			{{ form_row(form.cnBody) }}
 			{{ form_row(form.profession) }}
+			{{ form_row(form.enProfession) }}
+			{{ form_row(form.cnProfession) }}
 			{{ form_row(form.active) }}
 			{{ form_row(form.applicationDeadline) }}
 
