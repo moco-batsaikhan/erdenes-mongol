@@ -5,7 +5,7 @@ fm_elfinder:
       locale: en
       theme: smoothness
       path_prefix: "/"
-      relative_path: true
+      relative_path: false
       connector:
         roots:
           uploads:
@@ -14,6 +14,6 @@ fm_elfinder:
 #             url: "%app.path.image%"
             alias: "Home"
             show_hidden: false
-            upload_allow: ["image/png", "image/jpg", "image/jpeg"]
+            upload_allow: ["image/png", "image/jpg", "image/jpeg", 'application/pdf']
             upload_deny: ["all"]
             upload_max_size: 8M
