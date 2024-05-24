@@ -45,7 +45,7 @@ class CompanyStructure
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $updateAt = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $mnBody = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -182,7 +182,7 @@ class CompanyStructure
 
     public function setMnBody(string $mnBody): static
     {
-        $this->body = $mnBody;
+        $this->mnBody = $mnBody;
 
         return $this;
     }

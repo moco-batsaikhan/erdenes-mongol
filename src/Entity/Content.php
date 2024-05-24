@@ -27,7 +27,7 @@ class Content
 
     #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pdfFileName")]
     #[Assert\File(
-        maxSize: '5M',
+        maxSize: '15M',
     )]
     private $pdfFile;
 

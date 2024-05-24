@@ -74,7 +74,7 @@ class Strategy
 
     #[Vich\UploadableField(mapping: "pdf_files", fileNameProperty: "pddFileName")]
     #[Assert\File(
-        maxSize: '5M',
+        maxSize: '15M',
     )]
     private $pdfFile;
 
