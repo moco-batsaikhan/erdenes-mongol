@@ -84,7 +84,7 @@ class CompanyStructure
 
     public function setMnName(string $mnName): static
     {
-        $this->name = $mnName;
+        $this->mnName = $mnName;
 
         return $this;
     }
@@ -120,7 +120,7 @@ class CompanyStructure
 
     public function setMnAddress(?string $mnAddress): static
     {
-        $this->address = $mnAddress;
+        $this->mnAddress = $mnAddress;
 
         return $this;
     }
