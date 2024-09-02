@@ -82,7 +82,7 @@ class NewsController extends AbstractController
             ->setMaxResults($pagesize);
         if ($typeId == 5) {
             $data = $data
-                ->orderBy('p.createdAt', 'ASC');
+                ->orderBy('p.createdAt', 'DESC');
         } else {
             $data = $data
                 ->orderBy('p.createdAt', 'DESC');
@@ -136,7 +136,7 @@ class NewsController extends AbstractController
             ->getQuery()
             ->getScalarResult();
 
-        if (!isset ($news[0])) {
+        if (!isset($news[0])) {
             return new JsonResponse(['code' => '404', 'message' => 'Not found news by id ' . $id]);
         }
         $news = $news[0];
@@ -210,7 +210,7 @@ class NewsController extends AbstractController
             ->getQuery()
             ->setMaxResults(1)->getScalarResult();
 
-        if (!isset ($news[0])) {
+        if (!isset($news[0])) {
             $news = $doctrine
                 ->getRepository(News::class)
                 ->createQueryBuilder('p')
@@ -273,5 +273,4 @@ class NewsController extends AbstractController
 
         return new JsonResponse($response);
     }
-
 }
