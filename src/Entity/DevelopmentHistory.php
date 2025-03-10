@@ -33,6 +33,9 @@ class DevelopmentHistory
     #[ORM\Column(type: Types::JSON, nullable: true)]
     private $data = null;
 
+    #[ORM\Column(type: Types::JSON, nullable: true)]
+    private $enData = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -113,6 +116,18 @@ class DevelopmentHistory
     public function setData(?array $data): static
     {
         $this->data = $data;
+
+        return $this;
+    }
+
+    public function getEnData(): ?array
+    {
+        return $this->enData;
+    }
+
+    public function setEnData(?array $enData): static
+    {
+        $this->enData = $enData;
 
         return $this;
     }

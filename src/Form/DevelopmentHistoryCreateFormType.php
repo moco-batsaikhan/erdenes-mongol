@@ -27,10 +27,17 @@ class DevelopmentHistoryCreateFormType extends AbstractType
                 'entry_type' => Data::class,
                 'allow_add' => true,
                 'allow_delete' => true,
-                'entry_options' => ['label' => false, 'attr'=>["class"=>"customInput"]],
+                'entry_options' => ['label' => false, 'attr' => ["class" => "customInput"]],
                 'by_reference' => false,
                 'label' => false,
-                
+            ))
+            ->add('enData', CollectionType::class, array(
+                'entry_type' => DevelopmentEnData::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'entry_options' => ['label' => false, 'attr' => ["class" => "customInput"]],
+                'by_reference' => false,
+                'label' => false,
             ))
 
             ->add('priority', NumberType::class, array(

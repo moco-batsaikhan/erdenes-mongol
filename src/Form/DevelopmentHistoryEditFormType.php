@@ -24,9 +24,16 @@ class DevelopmentHistoryEditFormType extends AbstractType
                 )
             ))
             ->add('data', CollectionType::class, array(
-                'label'=>'Жагсаалт',
+                'label' => 'Жагсаалт',
                 'entry_type' => Data::class,
-                'entry_options' => ['label' => false, 'attr'=>["class"=>"customInput"]],
+                'entry_options' => ['label' => false, 'attr' => ["class" => "customInput"]],
+                'allow_add' => true,
+                'allow_delete' => true,
+            ))
+            ->add('enData', CollectionType::class, array(
+                'label' => 'Жагсаалт',
+                'entry_type' => DevelopmentEnData::class,
+                'entry_options' => ['label' => false, 'attr' => ["class" => "customInput"]],
                 'allow_add' => true,
                 'allow_delete' => true,
             ))

@@ -31,7 +31,6 @@
 {% endblock %}
 {% block body %}
 
-
 	<div class="card">
 		<div class="card-body">
 			<div class="display-grid">
@@ -65,14 +64,31 @@
 			</div>
 
 			<div class="form-group">
-				<ul class="tags" data-prototype="{{ form_widget(myForm.data.vars.prototype)|e }}">
+				<h5>Монгол мэдээлэл</h5>
+				<ul class="tags mongolian" data-prototype="{{ form_widget(myForm.data.vars.prototype)|e }}">
 					{% for item in myForm.data %}
 						<li>
 							{{ form_errors(item) }}
 							{{ form_widget(item) }}
+							<a href="#" class="remove-tag">Устгах</a>
 						</li>
 					{% endfor %}
 				</ul>
+				<a href="#" class="add-tag" data-target=".tags.mongolian">Нэмэх(Монгол)</a>
+			</div>
+
+			<div class="form-group">
+				<h5>Англи мэдээлэл</h5>
+				<ul class="tags english" data-prototype="{{ form_widget(myForm.enData.vars.prototype)|e }}">
+					{% for item in myForm.enData %}
+						<li>
+							{{ form_errors(item) }}
+							{{ form_widget(item) }}
+							<a href="#" class="remove-tag">Устгах</a>
+						</li>
+					{% endfor %}
+				</ul>
+				<a href="#" class="add-tag" data-target=".tags.english">Нэмэх(Англи)</a>
 			</div>
 			{{ form_end(myForm) }}
 
@@ -84,59 +100,33 @@
 
 {% block scripts %}
 	<script>
-		function addTagForm($collectionHolder, $newLinkLi) { // Get the data-prototype explained earlier
+		function addTagForm($collectionHolder) {
 var prototype = $collectionHolder.data('prototype');
-
-// get the new index
-var index = $collectionHolder.data('index');
-
-// Replace '__name__' in the prototype's HTML to
-// instead be a number based on how many items we have
+var index = $collectionHolder.children('li').length;
 var newForm = prototype.replace(/__name__/g, index);
-
-// increase the index with one for the next item
-$collectionHolder.data('index', index + 1);
-
-// Display the form in the page in an li, before the "Add a tag" link li
 var $newFormLi = $('<li></li>').append(newForm);
-addTagFormDeleteLink($newFormLi);
-$newLinkLi.before($newFormLi);
+$newFormLi.append('<a href="#" class="remove-tag">Устгах</a>');
+$collectionHolder.append($newFormLi);
 }
-function addTagFormDeleteLink($tagFormLi) {
-var $removeFormA = $('<a href="#">устгах</a>');
-$tagFormLi.append($removeFormA);
 
-$removeFormA.on('click', function (e) { // prevent the link from creating a "#" on the URL
-e.preventDefault();
-
-// remove the li for the tag form
-$tagFormLi.remove();
-});
-}
 $(document).ready(function () {
-var $collectionHolder;
+$('.add-tag').on('click', function (e) {
+e.preventDefault();
+var target = $(this).data('target');
+var $collectionHolder = $(target);
 
-// setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_tag_link">Нэмэх</a>');
-var $newLinkLi = $('<li></li>').append($addTagLink);
+// `data-prototype`-г зөв оноосон эсэхийг шалгах
+if (! $collectionHolder.data('prototype')) {
+console.error("Error: data-prototype attribute is missing for", target);
+return;
+}
 
-$collectionHolder = $('ul.tags');
-$collectionHolder.find('li').each(function () {
-addTagFormDeleteLink($(this));
+addTagForm($collectionHolder);
 });
 
-// add the "add a tag" anchor and li to the tags ul
-$collectionHolder.append($newLinkLi);
-
-// count the current form inputs we have (e.g. 2), use that as the new
-// index when inserting a new item (e.g. 2)
-$collectionHolder.data('index', $collectionHolder.find(':input').length);
-
-$addTagLink.on('click', function (e) { // prevent the link from creating a "#" on the URL
+$(document).on('click', '.remove-tag', function (e) {
 e.preventDefault();
-
-// add a new tag form (see next code block)
-addTagForm($collectionHolder, $newLinkLi);
+$(this).closest('li').remove();
 });
 });
 	</script>

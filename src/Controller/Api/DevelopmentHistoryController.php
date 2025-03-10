@@ -7,6 +7,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use JMS\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,12 +16,20 @@ class DevelopmentHistoryController extends AbstractController
 {
 
     #[Route('/development-history', name: '_development_history', methods: ['get'])]
-    public function getDevelopmentHistory(EntityManagerInterface $entityManager, SerializerInterface $serializer): Response
+    public function getDevelopmentHistory(EntityManagerInterface $entityManager, Request $request, SerializerInterface $serializer): Response
     {
+        $lang = $request->query->get('lang', 'mn');
 
         $qb = $entityManager->createQueryBuilder();
-        $qb->select('e.id', 'e.year', 'e.priority', 'e.data')
-            ->from(DevelopmentHistory::class, 'e')
+        $qb->select('e.id', 'e.year', 'e.priority');
+
+        if ($lang === 'en') {
+            $qb->addSelect('e.enData AS data');
+        } else {
+            $qb->addSelect('e.data AS data');
+        }
+
+        $qb->from(DevelopmentHistory::class, 'e')
             ->orderBy('e.priority', 'ASC');
 
         $query = $qb->getQuery();
