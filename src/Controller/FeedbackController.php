@@ -23,15 +23,15 @@ class FeedbackController extends AbstractController
         $feedbackRepo = $em->getRepository(Feedback::class);
         $pageSize = 30;
         $offset = ($page - 1) * $pageSize;
-        $map = $feedbackRepo->findAll();
-        $data = $feedbackRepo->findBy([], null, $pageSize, $offset);
+        $data = $feedbackRepo->findBy([], ['createdAt' => 'DESC'], $pageSize, $offset);
+        $totalFeedbacks = $feedbackRepo->count([]);
 
         return $this->render('feedback/index.html.twig', [
             'current' => $this->current,
             'page_title' => $this->pageTitle,
             'section_title' => 'Санал хүсэлт',
             'feedbackDatas' => $data,
-            'pageCount' => ceil(count($map) / $pageSize),
+            'pageCount' => ceil($totalFeedbacks / $pageSize),
             'currentPage' => $page,
             'pageRoute' => 'app_feedback_index'
         ]);

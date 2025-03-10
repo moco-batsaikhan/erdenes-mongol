@@ -24,7 +24,7 @@ class NewsController extends AbstractController
         $page = $request->get('page') ? $request->get('page') : 1;
 
         $lang = $request->get('lang') ? $request->get('lang') : 'mn';
-
+        $search = $request->get('search');
 
         $qb = $doctrine
             ->getRepository(News::class)
@@ -34,13 +34,11 @@ class NewsController extends AbstractController
             ->setParameter('stat', "PUBLISHED")
             ->leftJoin('p.newsType', 'nt');
 
-
         $data = $qb
             ->where('p.active = 1')
             ->andWhere('p.processType = :stat')
             ->setParameter('stat', "PUBLISHED")
             ->leftJoin('p.newsType', 'nt');
-
 
 
         if ($typeId == "7") {
@@ -54,10 +52,7 @@ class NewsController extends AbstractController
                 ->getQuery()
                 ->getArrayResult();
 
-
             $news = $serializer->serialize($videoNews, 'json');
-
-
             $response = [
                 'count' => $countVideo,
                 'pagesize' => $pagesize,
@@ -67,12 +62,13 @@ class NewsController extends AbstractController
             return new JsonResponse($response);
         }
 
-
-
+        if ($search) {
+            $data->andWhere('p.mnTitle LIKE :search OR p.enTitle LIKE :search OR p.mnHeadline LIKE :search OR p.enHeadline LIKE :search')
+                ->setParameter('search', '%' . $search . '%');
+        }
 
         $count->andWhere('nt.id = ' . $typeId);
         $data->andWhere('nt.id = ' . $typeId);
-
 
         $count = $count
             ->getQuery()

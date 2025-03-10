@@ -35,6 +35,23 @@ class WebConfigEditFormType extends AbstractType
                 'empty_data' => '',
                 'required' => false,
             ))
+            ->add('topbarBackgroundColor',  TextType::class, array(
+                'label' => 'Хэл сонгох цэс арын өнгө',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "өнгө оруулна уу ...",
+                ),
+                'required' => false,
+            ))
+            ->add('langTextColor',  TextType::class, array(
+                'label' => 'Хэл сонгох цэс текстийн өнгө',
+                'attr' => array(
+                    "class" => "form-control",
+                    "placeholder" => "өнгө оруулна уу ...",
+                ),
+                'empty_data' => '',
+                'required' => false,
+            ))
             ->add('mnSloganText',  TextType::class, array(
                 'label' => 'Уриа үг(Монгол)',
                 'attr' => array(
@@ -67,7 +84,7 @@ class WebConfigEditFormType extends AbstractType
                 'label' => 'Ил тод хэсгийн зураг, тохирох хэмжээ(1440*410px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label'=>false,
+                'download_label' => false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -78,7 +95,7 @@ class WebConfigEditFormType extends AbstractType
                 'label' => 'Уриа үг хэсгийн зураг, тохирох хэмжээ(1440*360px)',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label'=>false,
+                'download_label' => false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
@@ -89,25 +106,25 @@ class WebConfigEditFormType extends AbstractType
                 'label' => 'Динамик хуудаснуудын header зураг',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label'=>false,
+                'download_label' => false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ])
-            
+
             ->add('contactImageFile', VichFileType::class, [
                 'required' => false,
                 'label' => 'Холбоо барих хэсгийн зураг',
                 'allow_delete' => true,
                 'allow_file_upload' => true,
-                'download_label'=>false,
+                'download_label' => false,
                 'delete_label' => 'Устгах',
                 'attr' => array(
                     "class" => "form-control",
                 )
             ])
-            
+
             ->add('mnFooterText', CKEditorType::class, array(
                 'label' => 'footer танилцуулга(Монгол)',
                 'attr' => array(

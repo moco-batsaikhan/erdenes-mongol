@@ -51,6 +51,12 @@ class WebConfig
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $backgroundColor = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $topbarBackgroundColor = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $langTextColor = null;
+
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
@@ -199,6 +205,28 @@ class WebConfig
     {
         $this->backgroundColor = $backgroundColor;
 
+        return $this;
+    }
+
+    public function getTopbarBackgroundColor(): ?string
+    {
+        return $this->topbarBackgroundColor;
+    }
+
+    public function setTopbarBackgroundColor(?string $topbarBackgroundColor): static
+    {
+        $this->topbarBackgroundColor = $topbarBackgroundColor;
+        return $this;
+    }
+
+    public function getLangTextColor(): ?string
+    {
+        return $this->langTextColor;
+    }
+
+    public function setLangTextColor(?string $langTextColor): static
+    {
+        $this->langTextColor = $langTextColor;
         return $this;
     }
 

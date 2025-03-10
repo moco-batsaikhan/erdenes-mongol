@@ -65,7 +65,9 @@ class WebConfigController extends AbstractController
             'coverImage' => $this->getParameter('base_url') . 'uploads/image/' . $webConfig->getCoverImage(),
             'contactImage' => $this->getParameter('base_url') . 'uploads/image/' . $webConfig->getContactImage(),
             'textColor' => $webConfig->getColorCode(),
+            'langTextColor' => $webConfig->getLangTextColor(),
             'backgroundColor' => $webConfig->getBackgroundColor(),
+            'topbarBackgroundColor' => $webConfig->getTopbarBackgroundColor(),
             'sloganText' => $slogan,
             'footerText' => $footer
         ];
