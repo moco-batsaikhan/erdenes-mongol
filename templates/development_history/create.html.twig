@@ -4,86 +4,164 @@
 	{{ page_title }}
 {% endblock %}
 {% block stylesheets %}
+	{{ parent() }}
 	<style>
-		.customInput {
-			margin-bottom: 1rem;
+		.history-form {
+			max-width: 1400px;
+			margin: 0 auto;
+			padding: 20px;
 		}
-		.customInput input {
-			display: inline;
-			width: 50%;
-			margin-left: 1rem;
-			height: calc(1.5em + 0.75rem + 2px);
-			padding: 0.375rem 0.75rem;
-			font-size: 1rem;
-			font-weight: 400;
-			line-height: 1.5;
-			color: #6e707e;
-			background-color: #fff;
-			background-clip: padding-box;
+
+		.form-section {
+			background: #fff;
+			padding: 25px;
+			border-radius: 8px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+			margin-bottom: 25px;
+		}
+
+		.language-section {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 30px;
+			margin-top: 25px;
+		}
+
+		.section-mongolian,
+		.section-english {
+			padding: 25px;
+			background: #f8f9fc;
+			border-radius: 8px;
+			border: 1px solid #e3e6f0;
+		}
+
+		.section-title {
+			color: #4e73df;
+			border-bottom: 2px solid #4e73df;
+			padding-bottom: 10px;
+			margin-bottom: 20px;
+		}
+
+		.tags {
+			padding: 0;
+			list-style: none;
+		}
+
+		.tags li {
+			display: flex;
+			align-items: center;
+			margin-bottom: 15px;
+			background: white;
+			padding: 10px;
+			border-radius: 6px;
+			border: 1px solid #e3e6f0;
+		}
+
+		.tags input {
+			flex: 1;
+			width: 100%;
+			padding: 10px;
 			border: 1px solid #d1d3e2;
-			border-radius: 0.35rem;
-			transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+			border-radius: 4px;
+			resize: vertical;
 		}
-		.noDot {
-			list-style-type: none;
+
+		.remove-tag {
+			margin-left: 15px;
+			padding: 6px 12px;
+			color: #e74a3b;
+			background: #fff;
+			border: 1px solid #e74a3b;
+			border-radius: 4px;
+			text-decoration: none;
+			font-size: 0.9rem;
+			transition: all 0.3s;
+		}
+
+		.remove-tag:hover {
+			background: #e74a3b;
+			color: white;
+			text-decoration: none;
+		}
+
+		.add-tag {
+			display: inline-block;
+			padding: 8px 20px;
+			background: #4e73df;
+			color: white;
+			border-radius: 4px;
+			text-decoration: none;
+			margin-top: 15px;
+			transition: background 0.3s;
+		}
+
+		.add-tag:hover {
+			background: #2e59d9;
+			color: white;
+			text-decoration: none;
+		}
+
+		.year-priority-section {
+			gap: 30px;
+			margin-bottom: 25px;
+		}
+
+		@media(max-width: 768px) {
+			.language-section,
+			.year-priority-section {
+				grid-template-columns: 1fr;
+			}
 		}
 	</style>
 {% endblock %}
 
 {% block body %}
+	<div class="card">
+		<div class="card-body history-form">
+			<div class="display-grid">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_home') }}">Нүүр хуудас</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a href="{{ path('app_development_history_index') }}">Хөгжлийн түүх</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">Нэмэх</li>
+					</ol>
+				</nav>
+			</div>
 
-	<div class="display-grid">
-		<nav aria-label="breadcrumb">
-			<ol class="breadcrumb">
-				<li class="breadcrumb-item">
-					<a href="{{ path('app_home') }}">Нүүр хуудас</a>
-				</li>
+			{% include 'layout/flash.html.twig' %}
 
-				<li class="breadcrumb-item">
-					<a href="{{ path('app_development_history_index') }}">Хөгжлийн түүх</a>
-				</li>
+			{{ form_start(myForm) }}
 
-				<li class="breadcrumb-item active" aria-current="page">
-					Нэмэх
-				</li>
-			</ol>
-		</nav>
+			<div class="year-priority-section">
+				<div class="form-group">
+					{{ form_row(myForm.year) }}
+				</div>
+				<div class="form-group">
+					{{ form_row(myForm.priority) }}
+				</div>
+			</div>
+
+			<div class="language-section">
+				<div class="section-mongolian">
+					<h5 class="section-title">Монгол мэдээлэл</h5>
+					<ul class="tags mongolian" data-prototype="{{ form_widget(myForm.data.vars.prototype)|e }}"></ul>
+					<a href="#" class="add-tag" data-target=".tags.mongolian">Нэмэх(Монгол)</a>
+				</div>
+
+				<div class="section-english">
+					<h5 class="section-title">Англи мэдээлэл</h5>
+					<ul class="tags english" data-prototype="{{ form_widget(myForm.enData.vars.prototype)|e }}"></ul>
+					<a href="#" class="add-tag" data-target=".tags.english">Нэмэх(Англи)</a>
+				</div>
+			</div>
+
+			{{ form_end(myForm) }}
+		</div>
 	</div>
-
-	<br>
-
-
-	<br>
-
-	{% include 'layout/flash.html.twig' %}
-
-	{{ form_start(myForm) }}
-
-	<div class="form-group">
-		{{ form_row(myForm.year) }}
-	</div>
-
-
-	<div class="form-group">
-		{{ form_row(myForm.priority) }}
-	</div>
-
-
-	<div class="form-group">
-		<h5>Монгол мэдээлэл</h5>
-		<ul class="tags unstyled noDot" data-prototype="{{ form_widget(myForm.data.vars.prototype)|e }}">
-			Жагсаалт
-		</ul>
-	</div>
-
-	<div class="form-group">
-		<h5>Англи мэдээлэл</h5>
-		<ul class="tags unstyled noDot" data-prototype="{{ form_widget(myForm.enData.vars.prototype)|e }}">
-			Англи жагсаалт
-		</ul>
-	</div>
-
-	{{ form_end(myForm) }}
 {% endblock %}
 
 {% block scripts %}
